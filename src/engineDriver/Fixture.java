@@ -14,7 +14,7 @@ public class Fixture {
   @JsonProperty("states")
   private String states;
   @JsonProperty("picture")
-  private Picture picture;
+  private String picture;
 
   public String getName() {
     return name;

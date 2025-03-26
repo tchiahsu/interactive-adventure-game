@@ -18,7 +18,7 @@ public class Item {
   @JsonProperty("when_used")
   private String whenUsed;
   @JsonProperty("picture")
-  private Picture picture;
+  private String picture;
 
   public String getName() {
     return name;
