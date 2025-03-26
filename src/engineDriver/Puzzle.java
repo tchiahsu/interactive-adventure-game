@@ -1,96 +1,66 @@
 package engineDriver;
 
-public class Puzzle {
-  private String name;
-  private boolean active;
-  private boolean affectsTarget;
-  private boolean affectsPlayer;
-  private String solution;
-  private int value;
-  private String description;
-  private String effects;
-  private Room target;
-  private Picture picture;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-  public Puzzle() {}
+public class Puzzle {
+  @JsonProperty("name")
+  private String name;
+  @JsonProperty("description")
+  private String description;
+  @JsonProperty("active")
+  private boolean active;
+  @JsonProperty("affects_target")
+  private boolean affectsTarget;
+  @JsonProperty("affects_player")
+  private boolean affectsPlayer;
+  @JsonProperty("solution")
+  private String solution;
+  @JsonProperty("value")
+  private int value;
+  @JsonProperty("effects")
+  private String effects;
+  @JsonProperty("target")
+  private String target;
+  @JsonProperty("picture")
+  private String picture;
 
   public String getName() {
     return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  public boolean isActive() {
-    return active;
-  }
-
-  public void setActive(boolean active) {
-    this.active = active;
-  }
-
-  public boolean isAffectsTarget() {
-    return affectsTarget;
-  }
-
-  public void setAffectsTarget(boolean affectsTarget) {
-    this.affectsTarget = affectsTarget;
-  }
-
-  public boolean isAffectsPlayer() {
-    return affectsPlayer;
-  }
-
-  public void setAffectsPlayer(boolean affectsPlayer) {
-    this.affectsPlayer = affectsPlayer;
-  }
-
-  public String getSolution() {
-    return solution;
-  }
-
-  public void setSolution(String solution) {
-    this.solution = solution;
-  }
-
-  public int getValue() {
-    return value;
-  }
-
-  public void setValue(int value) {
-    this.value = value;
   }
 
   public String getDescription() {
     return description;
   }
 
-  public void setDescription(String description) {
-    this.description = description;
+  public boolean isActive() {
+    return active;
+  }
+
+  public boolean AffectsTarget() {
+    return affectsTarget;
+  }
+
+  public boolean AffectsPlayer() {
+    return affectsPlayer;
+  }
+
+  public String getSolution() {
+    return solution;
+  }
+
+  public int getValue() {
+    return value;
   }
 
   public String getEffects() {
     return effects;
   }
 
-  public void setEffects(String effects) {
-    this.effects = effects;
-  }
-
-  public Room getTarget() {
+  public String getTarget() {
     return this.target;
   }
 
-  public void setTarget(Room target) {
-    this.target = target;
-  }
-
-  public Picture getPicture() {
+  public String getPicture() {
     return picture;
-  }
-
-  public void setPicture(Picture picture) {
-    this.picture = picture;
   }
 }

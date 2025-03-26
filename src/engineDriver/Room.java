@@ -1,114 +1,78 @@
 package engineDriver;
 
-public class Room {
-  private String roomName;
-  private String description;
-  private int roomNumber;
-  private int N;
-  private int S;
-  private int E;
-  private int W;
-  private Puzzle puzzle;
-  private Monster monster;
-  private Item item;
-  private Fixture fixture;
-  private Picture picture;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-  public Room(String roomName, String roomNumber) {}
+public class Room {
+  @JsonProperty("room_name")
+  private String roomName;
+  @JsonProperty("room_number")
+  private int roomNumber;
+  @JsonProperty("description")
+  private String description;
+  @JsonProperty("N")
+  private int N;
+  @JsonProperty("S")
+  private int S;
+  @JsonProperty("E")
+  private int E;
+  @JsonProperty("W")
+  private int W;
+  @JsonProperty("puzzle")
+  private String puzzle;
+  @JsonProperty("monster")
+  private String monster;
+  @JsonProperty("items")
+  private String items;
+  @JsonProperty("fixtures")
+  private String fixtures;
+  @JsonProperty("picture")
+  private String picture;
 
   public String getRoomName() {
     return roomName;
-  }
-
-  public void setRoomName(String roomName) {
-    this.roomName = roomName;
-  }
-
-  public String getDescription() {
-    return description;
-  }
-
-  public void setDescription(String description) {
-    this.description = description;
   }
 
   public int getRoomNumber() {
     return roomNumber;
   }
 
-  public void setRoomNumber(int roomNumber) {
-    this.roomNumber = roomNumber;
+  public String getDescription() {
+    return description;
   }
 
   public int getN() {
     return N;
   }
 
-  public void setN(int n) {
-    N = n;
-  }
-
   public int getS() {
     return S;
-  }
-
-  public void setS(int s) {
-    S = s;
   }
 
   public int getE() {
     return E;
   }
 
-  public void setE(int e) {
-    E = e;
-  }
-
   public int getW() {
     return W;
   }
 
-  public void setW(int w) {
-    W = w;
-  }
-
-  public Puzzle getPuzzle() {
+  public String getPuzzle() {
     return puzzle;
   }
 
-  public void setPuzzle(Puzzle puzzle) {
-    this.puzzle = puzzle;
-  }
-
-  public Monster getMonster() {
+  public String getMonster() {
     return monster;
   }
 
-  public void setMonster(Monster monster) {
-    this.monster = monster;
+  public String getItems() {
+    return items;
   }
 
-  public Picture getPicture() {
+  public String getFixture() {
+    return fixtures;
+  }
+
+  public String getPicture() {
     return picture;
-  }
-
-  public void setPicture(Picture picture) {
-    this.picture = picture;
-  }
-
-  public Fixture getFixture() {
-    return fixture;
-  }
-
-  public void setFixture(Fixture fixture) {
-    this.fixture = fixture;
-  }
-
-  public Item getItem() {
-    return item;
-  }
-
-  public void setItem(Item item) {
-    this.item = item;
   }
 }

@@ -1,51 +1,42 @@
 package engineDriver;
 
-public class Fixture {
-  private String name;
-  private String description;
-  private int weight;
-  private Puzzle puzzle;
-  private boolean state;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-  public Fixture(){}
+public class Fixture {
+  @JsonProperty("name")
+  private String name;
+  @JsonProperty("description")
+  private String description;
+  @JsonProperty("weight")
+  private int weight;
+  @JsonProperty("puzzle")
+  private String puzzle;
+  @JsonProperty("states")
+  private String states;
+  @JsonProperty("picture")
+  private Picture picture;
 
   public String getName() {
     return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
   }
 
   public String getDescription() {
     return description;
   }
 
-  public void setDescription(String description) {
-    this.description = description;
-  }
-
   public int getWeight() {
     return weight;
   }
 
-  public void setWeight(int weight) {
-    this.weight = weight;
+  public String getStates() {
+    return states;
   }
 
-  public boolean isState() {
-    return state;
-  }
-
-  public void setState(boolean state) {
-    this.state = state;
-  }
-
-  public Puzzle getPuzzle() {
+  public String getPuzzle() {
     return puzzle;
   }
 
-  public void setPuzzle(Puzzle puzzle) {
-    this.puzzle = puzzle;
+  public Picture getPicture() {
+    return picture;
   }
 }
