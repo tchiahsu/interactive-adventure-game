@@ -1,4 +1,4 @@
-package engineDriver;
+package model;
 
 public class Puzzle extends AbstractObstacle {
 

@@ -3,7 +3,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
 
-import engineDriver.GameInfo;
+import model.GameInfo;
 
 public class DataReader {
 
