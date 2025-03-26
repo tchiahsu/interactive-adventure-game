@@ -4,19 +4,19 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Room {
   @JsonProperty("room_name")
-  private String roomName;
-  @JsonProperty("room_number")
-  private int roomNumber;
+  private String name;
   @JsonProperty("description")
   private String description;
+  @JsonProperty("room_number")
+  private int roomNumber;
   @JsonProperty("N")
-  private int N;
+  private int north;
   @JsonProperty("S")
-  private int S;
+  private int south;
   @JsonProperty("E")
-  private int E;
+  private int east;
   @JsonProperty("W")
-  private int W;
+  private int west;
   @JsonProperty("puzzle")
   private String puzzle;
   @JsonProperty("monster")
@@ -28,32 +28,32 @@ public class Room {
   @JsonProperty("picture")
   private String picture;
 
-  public String getRoomName() {
-    return roomName;
-  }
-
-  public int getRoomNumber() {
-    return roomNumber;
+  public String getName() {
+    return name;
   }
 
   public String getDescription() {
     return description;
   }
 
-  public int getN() {
-    return N;
+  public int getRoomNumber() {
+    return roomNumber;
   }
 
-  public int getS() {
-    return S;
+  public int getNorth() {
+    return north;
   }
 
-  public int getE() {
-    return E;
+  public int getSouth() {
+    return south;
   }
 
-  public int getW() {
-    return W;
+  public int getEast() {
+    return east;
+  }
+
+  public int getWest() {
+    return west;
   }
 
   public String getPuzzle() {
