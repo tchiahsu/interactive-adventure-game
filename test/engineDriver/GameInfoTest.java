@@ -17,8 +17,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class GameInfoTest {
 
   GameInfo gameInfo;
-  List<Room> rooms;
-  Room r1;
 
   @BeforeEach
   void setUp() throws IOException {
@@ -62,7 +60,7 @@ class GameInfoTest {
     Puzzle password = puzzles.get(1);
     assertEquals("PASSWORD", password.getName());
     assertTrue(password.isActive());
-    assertTrue(password.AffectsTarget());
-    assertFalse(password.AffectsPlayer());
+    assertTrue(password.affectsTarget());
+    assertFalse(password.affectsPlayer());
   }
 }

@@ -2,13 +2,8 @@ package engineDriver;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class Item {
-  @JsonProperty("name")
-  private String name;
-  @JsonProperty("description")
-  private String description;
-  @JsonProperty("weight")
-  private int weight;
+public class Item extends AbstractItem {
+
   @JsonProperty("max_uses")
   private int maxUses;
   @JsonProperty("uses_remaining")
@@ -17,20 +12,6 @@ public class Item {
   private int value;
   @JsonProperty("when_used")
   private String whenUsed;
-  @JsonProperty("picture")
-  private String picture;
-
-  public String getName() {
-    return name;
-  }
-
-  public String getDescription() {
-    return description;
-  }
-
-  public int getWeight() {
-    return weight;
-  }
 
   public int getMaxUses() {
     return maxUses;
@@ -46,9 +27,5 @@ public class Item {
 
   public String getWhenUsed() {
     return whenUsed;
-  }
-
-  public Picture getPicture() {
-    return picture;
   }
 }
