@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -25,7 +26,7 @@ public class GameModel implements IGameModel {
    */
   public GameModel(String jsonFile) throws IOException {
     if (jsonFile == null) {
-      throw new IOException("jsonFile cannot be null");
+      throw new IOException("jsonFile cannot be found.");
     }
 
     this.objectMapper = new ObjectMapper();
@@ -95,39 +96,48 @@ public class GameModel implements IGameModel {
   @Override
   public void takeItem(String itemName) {
     // Items in a room are stored as: "item1, item2, item3"
-    // This will create a list of ["item1", "item2"]
-    List<String> itemsNameList = Arrays.asList(currentRoom.getItemNames().split(", "));
-
-    if(itemsNameList.contains(itemName)) {
-      String removedItemName = itemsNameList.remove(itemsNameList.indexOf(itemName));
-      String newItemNamesList = String.join(", ", itemsNameList);
-      currentRoom.setItems(newItemNamesList);
-
-
-      int newCapacity = player.getInventory().getCurrentCapacity() + gameData.getItem(removedItemName).getWeight();
-      boolean checkAdd = player.getInventory().getMaxCapacity() >= newCapacity;
-      if (checkAdd) {
-        player.getInventory().addItem(gameData.getItem(removedItemName));
-        player.increaseScore(gameData.getItem(removedItemName).getValue());
-      }
-
+    // This will create a list of ["item1", "item2", "item3"]
+    List<String> roomsItemNames = new ArrayList<>(Arrays.asList(currentRoom.getItemNames().split(", ")));
+    if (!roomsItemNames.contains(itemName)) {
+      throw new IllegalArgumentException(itemName + " not found in " + currentRoom.getName());
     }
-    //remove item from room - done
-      //add to players inventory
-        //check maxCapacity
-      //increase Player score
 
+    Item item = gameData.getItem(itemName);
+    Inventory playerInventory = player.getInventory();
+    int newWeight = playerInventory.getCurrentCapacity() + item.getWeight();
+    if (newWeight > playerInventory.getMaxCapacity()) {
+      throw new IllegalArgumentException("Your bag is too full!");
+    } else {
+      playerInventory.addItem(item);
+      playerInventory.setCurrentCapacity(newWeight);
+      player.increaseScore(item.getValue());
+      roomsItemNames.remove(roomsItemNames.indexOf(itemName));
+    }
+
+    String updatedRoomItemNames = String.join(", ", roomsItemNames);
+    currentRoom.setItemNames(updatedRoomItemNames);
+    return;
   }
 
   @Override
   public void dropItem(String itemName) {
+    if (!playerHasItem(itemName)) {
+      throw new IllegalArgumentException("You don't have " + itemName);
+    }
 
+    String roomItemNames = currentRoom.getItemNames();
+    String updatedRoomItemNames = roomItemNames.concat(", " + itemName);
+    currentRoom.setItemNames(updatedRoomItemNames);
+    Item item = gameData.getItem(itemName);
 
+    Inventory playerInventory = player.getInventory();
+    playerInventory.removeItem(item);
+    playerInventory.setCurrentCapacity(playerInventory.getCurrentCapacity() - item.getWeight());
   }
 
   @Override
   public void examine(String itemName) {
-
+    // item could be item, fixture, puzzle, or monster
   }
 
   private boolean playerHasItem(String itemName) {
@@ -141,8 +151,24 @@ public class GameModel implements IGameModel {
   }
 
   private void monsterAttacks() {
-    String monsterName = currentRoom.getMonsterName();
-    Monster monster = gameData.getMonster(monsterName);
-    player.decreaseHealth(monster.getDamage());
+    boolean roomHasMonster = currentRoom.getMonsterName() != null;
+
+    if (roomHasMonster) {
+      String monsterName = currentRoom.getMonsterName();
+      Monster monster = gameData.getMonster(monsterName);
+      player.decreaseHealth(monster.getDamage());
+      // check player health
+      monster.getAttackMessage();
+    }
   }
+
+  public static void main(String[] args) {
+    String test = "item1, item2, item3";
+    List<String> itemsNameList = new ArrayList<>(Arrays.asList(test.split(", ")));
+    itemsNameList.remove(1);
+
+    String newString = String.join(", ", itemsNameList);
+    System.out.println(newString);
+  }
+
 }

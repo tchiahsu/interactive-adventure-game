@@ -36,6 +36,10 @@ public class Inventory {
     return currentCapacity;
   }
 
+  public void setCurrentCapacity(int currentCapacity) {
+    this.currentCapacity = currentCapacity;
+  }
+
   public int getMaxCapacity() {
     return maxCapacity;
   }
