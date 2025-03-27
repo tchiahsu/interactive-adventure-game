@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
+import static java.lang.Math.abs;
+
 public class GameModel implements IGameModel {
 
   private ObjectMapper objectMapper;
@@ -48,7 +50,25 @@ public class GameModel implements IGameModel {
       //if monster
       //display
 
+      String puzzle = this.currentRoom.getPuzzleName();
+      int directionInt = Integer.parseInt(nextRoom);
+
+
+      if (puzzle != null && directionInt < 0) {}
+
       // last step: this.currentRoom = gameData.getRoom(nextRoom);
+
+
+      //if (direction < 0)
+        //if puzzle != null
+          //display room name, puzzle effects,
+        //if (monster != null)
+      //else if(direction = 0)
+      //else
+      //last step: this.currentRoom = gameData.getRoom(nextRoom);
+
+
+
     }
     else{
       //throw error or print
