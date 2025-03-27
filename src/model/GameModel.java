@@ -64,37 +64,41 @@ public class GameModel implements IGameModel {
 
   @Override
   public String useItem(String itemName) {
-    Item item = gameData.getItem(itemName);
-    Inventory playerInventory = player.getInventory();
-    if (!playerInventory.hasItem(item)) {
-      throw new IllegalArgumentException("You do not have this item.");
+    if (!playerHasItem(itemName)) {
+      throw new IllegalArgumentException("You do not have item");
     }
 
-    if (currentRoom.getMonsterName() != null) {
-      Monster monster = gameData.getMonster(currentRoom.getMonsterName());
-      if (monster.isActive() && monster.getSolution().equals(item.getName())) {
-        monster.deactivate();
-        item.reduceUse(); // check uses remaining is above 0
-        //increase player's score by the monster's value
-      }
-    }
 
-    if (currentRoom.getPuzzleName() != null) {
-      Puzzle puzzle = gameData.getPuzzle(currentRoom.getPuzzleName());
-      if (puzzle.isActive() && puzzle.getSolution().equals(item.getName())) {
-        puzzle.deactivate();
-        item.reduceUse(); // check uses remaining is above 0
-      }
-    }
+    if(currentRoom.getMonsterName() != null) {
 
-    return currentRoom.getDescription();
+    }
+    return null;
   }
 
   @Override
   public void takeItem(String itemName) {
     // Items in a room are stored as: "item1, item2, item3"
-    // This will create a list of ["item1", "item2", "item3]
-    List<String> itemsNameList = Arrays.asList(currentRoom.getItems().split(", "));
+    // This will create a list of ["item1", "item2"]
+    List<String> itemsNameList = Arrays.asList(currentRoom.getItemNames().split(", "));
+
+    if(itemsNameList.contains(itemName)) {
+      String removedItemName = itemsNameList.remove(itemsNameList.indexOf(itemName));
+      String newItemNamesList = String.join(", ", itemsNameList);
+      currentRoom.setItems(newItemNamesList);
+
+
+      int newCapacity = player.getInventory().getCurrentCapacity() + gameData.getItem(removedItemName).getWeight();
+      boolean checkAdd = player.getInventory().getMaxCapacity() >= newCapacity;
+      if (checkAdd) {
+        player.getInventory().addItem(gameData.getItem(removedItemName));
+        player.increaseScore(gameData.getItem(removedItemName).getValue());
+      }
+
+    }
+    //remove item from room - done
+      //add to players inventory
+        //check maxCapacity
+      //increase Player score
 
   }
 
@@ -107,5 +111,15 @@ public class GameModel implements IGameModel {
   @Override
   public void examine(String itemName) {
 
+  }
+
+  private boolean playerHasItem(String itemName) {
+    Item item = gameData.getItem(itemName);
+    Inventory playerInventory = player.getInventory();
+    if (playerInventory.hasItem(item)) {
+      return true;
+    }
+
+    return false;
   }
 }

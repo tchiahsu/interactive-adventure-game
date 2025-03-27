@@ -52,11 +52,11 @@ public class Room implements ILocation {
     return monster;
   }
 
-  public String getItems() {
+  public String getItemNames() {
     return items;
   }
 
-  public String getFixtures() {
+  public String getFixtureNames() {
     return fixtures;
   }
 
@@ -78,6 +78,10 @@ public class Room implements ILocation {
    */
   public String getPath(String direction) {
     return getPaths().get(direction.toLowerCase());
+  }
+
+  public void setItems(String items) {
+    this.items = items;
   }
 
 }

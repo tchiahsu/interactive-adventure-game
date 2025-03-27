@@ -9,7 +9,7 @@ public class Monster extends AbstractObstacle {
   @JsonProperty("can_attack")
   private boolean canAttack;
   @JsonProperty("attack")
-  private String attack;
+  private String attackMessage;
 
   public int getDamage() {
     return damage;
@@ -20,6 +20,6 @@ public class Monster extends AbstractObstacle {
   }
 
   public String attack() {
-    return attack;
+    return attackMessage;
   }
 }

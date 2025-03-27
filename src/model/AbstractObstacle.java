@@ -19,7 +19,7 @@ public abstract class AbstractObstacle implements IObstacle {
   @JsonProperty("value")
   protected int value;
   @JsonProperty("effects")
-  protected String effects;
+  protected String activeDescription;
   @JsonProperty("target")
   protected String target;
   @JsonProperty("picture")
@@ -53,8 +53,8 @@ public abstract class AbstractObstacle implements IObstacle {
     return value;
   }
 
-  public String getEffects() {
-    return effects;
+  public String getActiveDescription() {
+    return activeDescription;
   }
 
   public String getTarget() {

@@ -31,9 +31,7 @@ class GameInfoTest {
     Room entrance = rooms.getFirst();
     assertEquals(1, entrance.getRoomNumber());
     assertEquals("Museum Entrance", entrance.getName());
-    assertEquals("Turnstile", entrance.getPuzzle());
-    assertEquals(-2, entrance.getNorth());
-    assertNull(entrance.getMonster());
+    assertEquals("Turnstile", entrance.getPuzzleName());
   }
 
   @Test

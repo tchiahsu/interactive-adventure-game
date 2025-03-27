@@ -7,7 +7,7 @@ public interface ILocation extends IGameObject {
   Map getPaths();
   String getPuzzleName();
   String getMonsterName();
-  String getItems();
-  String getFixtures();
+  String getItemNames();
+  String getFixtureNames();
   String getPictureName();
 }
