@@ -4,7 +4,7 @@ import java.util.Map;
 
 public interface ILocation extends IGameObject {
   String getRoomNumber();
-  Map getExits();
+  Map getPaths();
   String getPuzzleName();
   String getMonsterName();
   String getItems();
