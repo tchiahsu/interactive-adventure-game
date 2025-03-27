@@ -8,7 +8,8 @@ import model.IGameModel;
 
 public class GameController implements IController{
   private final IGameModel model;
-  private GameCommandReader dataReader;
+  private GameInputReader dataReader;
+  private GameCommandFinder commandFinder;
 
   public GameController(IGameModel model) {
     this.model = model;
@@ -16,10 +17,14 @@ public class GameController implements IController{
 
   @Override
   public void go() throws IOException {
-    this.dataReader = new GameCommandReader();
-    while(this.dataReader.getUserInput()) {
-      ICommand command = this.dataReader.getCommand();
-      command.execute(this.model);
+    this.dataReader = new GameInputReader();
+    this.commandFinder = new GameCommandFinder();
+
+    String userInput = this.dataReader.readInput();
+    while(!userInput.equalsIgnoreCase("Q")) {
+      ICommand associatedCommand = this.commandFinder.getCommand(userInput);
+      associatedCommand.execute(this.model);
+      userInput = this.dataReader.readInput();
     }
   }
 
