@@ -80,8 +80,8 @@ public class Room implements ILocation {
     return getPaths().get(direction.toLowerCase());
   }
 
-  public void setItems(String items) {
-    this.items = items;
+  public void setItemNames(String itemNames) {
+    this.items = itemNames;
   }
 
 }

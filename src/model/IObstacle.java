@@ -7,7 +7,7 @@ public interface IObstacle extends IGameObject {
   boolean affectsPlayer();
   String getSolution();
   int getValue();
-  String getEffects();
+  String getActiveDescription();
   String getTarget();
   String getPicture();
 }

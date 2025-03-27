@@ -19,7 +19,7 @@ public class Monster extends AbstractObstacle {
     return canAttack;
   }
 
-  public String attack() {
+  public String getAttackMessage() {
     return attackMessage;
   }
 }
