@@ -28,4 +28,8 @@ public class Item extends AbstractItem {
   public String getWhenUsed() {
     return whenUsed;
   }
+
+  public void reduceUse() {
+    usesRemaining--;
+  }
 }

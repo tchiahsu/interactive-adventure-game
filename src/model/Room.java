@@ -2,21 +2,22 @@ package model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class Room {
+public class Room implements ILocation {
+
   @JsonProperty("room_name")
   private String name;
   @JsonProperty("description")
   private String description;
   @JsonProperty("room_number")
-  private int roomNumber;
+  private String roomNumber;
   @JsonProperty("N")
-  private int north;
+  private String north;
   @JsonProperty("S")
-  private int south;
+  private String south;
   @JsonProperty("E")
-  private int east;
+  private String east;
   @JsonProperty("W")
-  private int west;
+  private String west;
   @JsonProperty("puzzle")
   private String puzzle;
   @JsonProperty("monster")
@@ -36,31 +37,31 @@ public class Room {
     return description;
   }
 
-  public int getRoomNumber() {
+  public String getRoomNumber() {
     return roomNumber;
   }
 
-  public int getNorth() {
+  public String getNorth() {
     return north;
   }
 
-  public int getSouth() {
+  public String getSouth() {
     return south;
   }
 
-  public int getEast() {
+  public String getEast() {
     return east;
   }
 
-  public int getWest() {
+  public String getWest() {
     return west;
   }
 
-  public String getPuzzle() {
+  public String getPuzzleName() {
     return puzzle;
   }
 
-  public String getMonster() {
+  public String getMonsterName() {
     return monster;
   }
 
@@ -68,11 +69,12 @@ public class Room {
     return items;
   }
 
-  public String getFixture() {
+  public String getFixtures() {
     return fixtures;
   }
 
-  public String getPicture() {
+  public String getPictureName() {
     return picture;
   }
+
 }

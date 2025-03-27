@@ -64,4 +64,8 @@ public abstract class AbstractObstacle implements IObstacle {
   public String getPicture() {
     return picture;
   }
+
+  public void deactivate() {
+    active = false;
+  };
 }

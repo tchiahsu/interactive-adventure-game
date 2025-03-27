@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 
 public class GameInfo {
+
   @JsonProperty("name")
   private String name;
   @JsonProperty("version")
