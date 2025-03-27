@@ -64,15 +64,7 @@ public class GameModel implements IGameModel {
 
   @Override
   public String useItem(String itemName) {
-    if (!playerHasItem(itemName)) {
-      throw new IllegalArgumentException("You do not have item");
-    }
 
-
-    if(currentRoom.getMonsterName() != null) {
-
-    }
-    return null;
   }
 
   @Override
@@ -121,5 +113,11 @@ public class GameModel implements IGameModel {
     }
 
     return false;
+  }
+
+  private void monsterAttacks() {
+    String monsterName = currentRoom.getMonsterName();
+    Monster monster = gameData.getMonster(monsterName);
+    player.decreaseHealth(monster.getDamage());
   }
 }
