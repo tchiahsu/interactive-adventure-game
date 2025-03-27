@@ -52,25 +52,6 @@ public class GameModel implements IGameModel {
     System.out.println("You Enter " + currentRoom.getName());
   }
 
-//  @Override
-//  public void goNorth() {
-//  }
-//
-//  @Override
-//  public void goSouth() {
-//
-//  }
-//
-//  @Override
-//  public void goEast() {
-//
-//  }
-//
-//  @Override
-//  public void goWest() {
-//
-//  }
-
   @Override
   public String checkInventory() {
     return player.getInventory().toString();
@@ -110,7 +91,7 @@ public class GameModel implements IGameModel {
   }
 
   @Override
-  public void takeItem() {
+  public void takeItem(String itemName) {
     // Items in a room are stored as: "item1, item2, item3"
     // This will create a list of ["item1", "item2", "item3]
     List<String> itemsNameList = Arrays.asList(currentRoom.getItems().split(", "));
@@ -118,13 +99,13 @@ public class GameModel implements IGameModel {
   }
 
   @Override
-  public void dropItem() {
+  public void dropItem(String itemName) {
 
 
   }
 
   @Override
-  public void examine() {
+  public void examine(String itemName) {
 
   }
 }
