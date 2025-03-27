@@ -6,7 +6,7 @@ import commands.ICommand;
 import model.GameModel;
 import model.IGameModel;
 
-public class GameController implements IController{
+public class GameController implements IController {
   private final IGameModel model;
   private GameInputReader dataReader;
   private GameCommandFinder commandFinder;

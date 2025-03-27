@@ -9,7 +9,7 @@ import commands.*;
 public class GameCommandFinder {
 
   public ICommand getCommand(String command) throws IllegalArgumentException {
-    if (command == null || command.trim().isEmpty()) {
+    if (command == null || command.isEmpty()) {
       throw new IllegalArgumentException("Input cannot be null or empty!");
     }
 
