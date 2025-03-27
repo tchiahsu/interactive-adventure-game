@@ -94,6 +94,7 @@ public class GameModel implements IGameModel {
       if (monster.isActive() && monster.getSolution().equals(item.getName())) {
         monster.deactivate();
         item.reduceUse(); // check uses remaining is above 0
+        //increase player's score by the monster's value
       }
     }
 
@@ -118,6 +119,7 @@ public class GameModel implements IGameModel {
 
   @Override
   public void dropItem() {
+
 
   }
 
