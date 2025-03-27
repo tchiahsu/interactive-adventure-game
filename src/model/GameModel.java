@@ -40,16 +40,21 @@ public class GameModel implements IGameModel {
 
   /**
    * Moves the player in a given valid direction.
+   * @param direction the direction player wants to move to.
    */
   public void move(String direction) {
-    String nextRoomId = currentRoom.getPath(direction);
-    if (nextRoomId == null) {
-      System.out.println("<<You can't go " + direction + ">>");
-      return;
+    String nextRoom = currentRoom.getPath(direction);
+    if (nextRoom != null) {
+      //if monster
+      //display
+
+      // last step: this.currentRoom = gameData.getRoom(nextRoom);
+    }
+    else{
+      //throw error or print
+      System.out.println("<<You cannot go in that direction>>");
     }
 
-    currentRoom = gameData.getRoom(nextRoomId);
-    System.out.println("You Enter " + currentRoom.getName());
   }
 
   @Override
