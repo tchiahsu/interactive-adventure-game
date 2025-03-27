@@ -77,7 +77,7 @@ public class Room implements ILocation {
    * Method that returns the next room ID for a given direction
    */
   public String getPath(String direction) {
-    return getExits().get(direction.toLowerCase());
+    return getPaths().get(direction.toLowerCase());
   }
 
 }
