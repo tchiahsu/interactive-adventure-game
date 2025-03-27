@@ -65,19 +65,19 @@ public class Room implements ILocation {
   }
 
   public Map<String, String> getPaths() {
-    Map<String, String> exits = new HashMap<>();
-    if (north != null) exits.put("north", north);
-    if (south != null) exits.put("south", south);
-    if (east != null) exits.put("east", east);
-    if (west != null) exits.put("west", west);
-    return exits;
+    Map<String, String> path = new HashMap<>();
+    if (north != null) path.put("north", north);
+    if (south != null) path.put("south", south);
+    if (east != null) path.put("east", east);
+    if (west != null) path.put("west", west);
+    return path;
   }
 
   /**
-   * Method that returns the next room ID for a given direction
+   * Method that returns the path for a given direction
    */
   public String getPath(String direction) {
-    return getPaths().get(direction.toLowerCase());
+    return getPaths().get(direction.toUpperCase());
   }
 
   public void setItems(String items) {
