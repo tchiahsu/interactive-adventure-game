@@ -3,9 +3,10 @@ package controller;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+
+import commands.*;
 
 public class GameCommandReader {
   private final Readable input;
@@ -15,12 +16,6 @@ public class GameCommandReader {
   public GameCommandReader() {
     this.input = new InputStreamReader(System.in);
     this.output = System.out;
-    this.data = new String[2];
-  }
-
-  public GameCommandReader(Readable input, Appendable output) {
-    this.input = input;
-    this.output = output;
     this.data = new String[2];
   }
 
@@ -48,6 +43,31 @@ public class GameCommandReader {
     }
   }
 
+  public ICommand getCommand() {
+    String verb = this.getVerb();
+    if (verb.equalsIgnoreCase("N")
+        || verb.equalsIgnoreCase("S")
+        || verb.equalsIgnoreCase("E")
+        || verb.equalsIgnoreCase("W")) {
+      return new MoveCommand(this.getVerb());
+    } else if (verb.equalsIgnoreCase("I")) {
+      return new InventoryCommand();
+    } else if (verb.equalsIgnoreCase("L")) {
+      return new LookCommand();
+    } else if (verb.equalsIgnoreCase("U")) {
+      return new UseCommand(this.getNoun());
+    } else if (verb.equalsIgnoreCase("T")) {
+      return new TakeCommand(this.getNoun());
+    } else if (verb.equalsIgnoreCase("D")) {
+      return new DropCommand(this.getNoun());
+    } else if (verb.equalsIgnoreCase("X")) {
+      return new ExamineCommand(this.getNoun());
+    } else if (verb.equalsIgnoreCase("A")) {
+      return new AnswerCommand(this.getNoun());
+    }
+    return null;
+  }
+
   public List<String> convertStringToList(String command) {
     String[] splitCommands = command.split(" ", 2);
     List<String> wordList = new ArrayList<>();
@@ -64,12 +84,6 @@ public class GameCommandReader {
 
   public String getNoun() {
     return this.data[1];
-  }
-
-  // Run to make sure we are returning what we want
-  public static void main(String [] args) throws IOException {
-    GameCommandReader reader = new GameCommandReader();
-    System.out.println(reader.getUserInput());
   }
 }
 
