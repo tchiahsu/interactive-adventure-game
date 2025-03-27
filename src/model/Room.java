@@ -2,6 +2,9 @@ package model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Room implements ILocation {
 
   @JsonProperty("room_name")
@@ -41,22 +44,6 @@ public class Room implements ILocation {
     return roomNumber;
   }
 
-  public String getNorth() {
-    return north;
-  }
-
-  public String getSouth() {
-    return south;
-  }
-
-  public String getEast() {
-    return east;
-  }
-
-  public String getWest() {
-    return west;
-  }
-
   public String getPuzzleName() {
     return puzzle;
   }
@@ -75,6 +62,22 @@ public class Room implements ILocation {
 
   public String getPictureName() {
     return picture;
+  }
+
+  public Map<String, String> getPaths() {
+    Map<String, String> exits = new HashMap<>();
+    if (north != null) exits.put("north", north);
+    if (south != null) exits.put("south", south);
+    if (east != null) exits.put("east", east);
+    if (west != null) exits.put("west", west);
+    return exits;
+  }
+
+  /**
+   * Method that returns the next room ID for a given direction
+   */
+  public String getPath(String direction) {
+    return getExits().get(direction.toLowerCase());
   }
 
 }

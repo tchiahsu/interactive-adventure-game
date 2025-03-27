@@ -1,10 +1,11 @@
 package model;
 
 public interface IGameModel {
-  void goNorth();
-  void goSouth();
-  void goEast();
-  void goWest();
+  void move(String direction);
+//  void goNorth();
+//  void goSouth();
+//  void goEast();
+//  void goWest();
   String checkInventory();
   void look();
   String useItem(String itemName);

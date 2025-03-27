@@ -1,11 +1,10 @@
 package model;
 
+import java.util.Map;
+
 public interface ILocation extends IGameObject {
   String getRoomNumber();
-  String getNorth();
-  String getSouth();
-  String getEast();
-  String getWest();
+  Map getExits();
   String getPuzzleName();
   String getMonsterName();
   String getItems();

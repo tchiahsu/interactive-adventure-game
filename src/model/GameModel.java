@@ -16,8 +16,16 @@ public class GameModel implements IGameModel {
   private Room currentRoom;
   private Player player;
 
-
+  /**
+   * Constructor for initialising the GameModel class.
+   * @param jsonFile the JSON file with data.
+   * @throws IOException handles file not found error.
+   */
   public GameModel(String jsonFile) throws IOException {
+    if (jsonFile == null) {
+      throw new IOException("jsonFile cannot be null");
+    }
+
     this.objectMapper = new ObjectMapper();
     this.gameInfo = this.objectMapper.readValue(new File(jsonFile), GameInfo.class);
     GameData gameData = createGameData(this.gameInfo);
@@ -30,24 +38,38 @@ public class GameModel implements IGameModel {
     return new GameData(gameInfo);
   }
 
-  @Override
-  public void goNorth() {
+  /**
+   * Moves the player in a given valid direction.
+   */
+  public void move(String direction) {
+    String nextRoomId = currentRoom.getPath(direction);
+    if (nextRoomId == null) {
+      System.out.println("<<You can't go " + direction + ">>");
+      return;
+    }
+
+    currentRoom = gameData.getRoom(nextRoomId);
+    System.out.println("You Enter " + currentRoom.getName());
   }
 
-  @Override
-  public void goSouth() {
-
-  }
-
-  @Override
-  public void goEast() {
-
-  }
-
-  @Override
-  public void goWest() {
-
-  }
+//  @Override
+//  public void goNorth() {
+//  }
+//
+//  @Override
+//  public void goSouth() {
+//
+//  }
+//
+//  @Override
+//  public void goEast() {
+//
+//  }
+//
+//  @Override
+//  public void goWest() {
+//
+//  }
 
   @Override
   public String checkInventory() {
