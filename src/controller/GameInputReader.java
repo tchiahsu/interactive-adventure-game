@@ -9,7 +9,9 @@ public class GameInputReader {
   private final Readable input;
   private final Appendable output;
   private final List<String> validCommands
-      = List.of("n", "s", "w", "e", "i", "l", "u", "t", "d", "x", "a", "q");
+      = List.of("N", "S", "W", "E", "I", "L", "U", "T", "D", "X", "A", "Q", "NORTH",
+                  "SOUTH", "WEST", "EAST", "INVENTORY", "LOOK", "USE", "TAKE", "DROP", "EXAMINE",
+                  "ANSWER", "QUIT");
 
   public GameInputReader() {
     this.input = new InputStreamReader(System.in);
@@ -30,7 +32,7 @@ public class GameInputReader {
           + "Your choice: ");
         String input = scanner.nextLine();
         userCommand = input;
-        String trimInput = input.trim();
+        String trimInput = input.trim().toUpperCase();
         if (!this.validateInput(trimInput)) {
           this.output.append("Invalid Command. Please try again.\n\n");
         } else {

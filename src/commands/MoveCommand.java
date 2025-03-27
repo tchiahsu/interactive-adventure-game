@@ -11,18 +11,18 @@ public class MoveCommand implements ICommand {
 
   @Override
   public void execute(IGameModel model) {
-    switch(this.direction.toLowerCase()) {
-      case "n":
-        System.out.println("You are going " + this.direction.toUpperCase() + "ORTH!\n");
+    switch(this.direction.toUpperCase()) {
+      case "N", "NORTH":
+        System.out.println("You are going NORTH!\n");
         break;
-      case "s":
-        System.out.println("You are going " + this.direction.toUpperCase() + "OUTH!\n");
+      case "S", "SOUTH":
+        System.out.println("You are going SOUTH!\n");
         break;
-      case "e":
-        System.out.println("You are going " + this.direction.toUpperCase() + "AST!\n");
+      case "E", "EAST":
+        System.out.println("You are going EAST!\n");
         break;
-      case "w":
-        System.out.println("You are going " + this.direction.toUpperCase() + "EST!\n");
+      case "W", "WEST":
+        System.out.println("You are going WEST!\n");
         break;
     }
     // model.goNorth();
