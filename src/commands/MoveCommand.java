@@ -1,16 +1,19 @@
 package commands;
 
+import java.io.IOException;
+
 import model.IGameModel;
 
 public class MoveCommand implements ICommand {
   private String direction;
+  private final Appendable output;
 
-  public MoveCommand(String direction) {
+  public MoveCommand(String direction, Appendable output) {
     this.direction = direction;
+    this.output = output;
   }
 
-  @Override
-  public void execute(IGameModel model) {
+  private void convertInputToValid(String direction) {
     switch(this.direction.toUpperCase()) {
       case "N", "NORTH":
         this.direction = "NORTH";
@@ -25,7 +28,11 @@ public class MoveCommand implements ICommand {
         this.direction = "WEST";
         break;
     }
-    String output = model.move(this.direction);
-    System.out.println(output);
+  }
+
+  @Override
+  public void execute(IGameModel model) throws IOException {
+    convertInputToValid(this.direction);
+    this.output.append(model.move(this.direction));
   }
 }

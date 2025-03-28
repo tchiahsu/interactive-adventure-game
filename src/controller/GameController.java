@@ -21,7 +21,7 @@ public class GameController implements IController {
   public void go() throws IOException {
     System.out.println(this.model.look());
     GameInputReader inputReader = new GameInputReader(this.input, this.output);
-    GameCommandFinder commandFinder = new GameCommandFinder();
+    GameCommandFinder commandFinder = new GameCommandFinder(this.output);
     ICommand associatedCommand;
 
     String userInput = inputReader.readInput();
