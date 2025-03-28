@@ -69,20 +69,53 @@ public class GameModel implements IGameModel {
 //    output = output.concat("You enter the " + this.currentRoom.getName().toUpperCase());
 //    return output;
 
+//    String output = "";
+//    String nextRoom = currentRoom.getPath(direction);
+//    int nextRoomNumber = Integer.parseInt(nextRoom);
+//
+//    if (nextRoomNumber > 0) {
+//      currentRoom = gameData.getRoom(nextRoom);
+//      output = output.concat("You enter the " + this.currentRoom.getName() + "\n");
+//      if (roomHasActivePuzzle()) {
+//        String puzzleName = currentRoom.getPuzzleName();
+//        Puzzle puzzle = gameData.getPuzzle(puzzleName);
+//        output = output.concat(puzzle.getActiveDescription());
+//      }
+//    } else if (nextRoomNumber == 0) {
+//      output = output.concat("<<You cannot go in that direction>> \n");
+//    } else {
+//
+//    }
+
+//    output = roomHasActiveMonster() ? monsterAttacks(output) : output;
+
     String output = "";
     String nextRoom = currentRoom.getPath(direction);
     int nextRoomNumber = Integer.parseInt(nextRoom);
 
-    if (nextRoomNumber > 0) {
-      currentRoom = gameData.getRoom(nextRoom);
-      output = roomHasActiveMonster() ? monsterAttacks(output) : output;
-      output = roomHasActivePuzzle() ? output.concat(currentRoom.getPuzzleName().getActiveDescription()) : output;
-    } else if (nextRoomNumber == 0) {
+    if (nextRoomNumber == 0) {
       output = output.concat("<<You cannot go in that direction>> \n");
-      output = roomHasActiveMonster() ? monsterAttacks(output) : output;
+    } else if (nextRoomNumber < 0) {
+      // could have active monster or puzzle
+      if (roomHasActivePuzzle()) {
+        return output = output.concat(puzzleActiveDescription());
+      } else if (roomHasActiveMonster()) {
+        return output = monsterAttacks(output);
+      } else {
+        currentRoom = gameData.getRoom(Math.abs(nextRoomNumber) + "");
+      }
     } else {
-
+      currentRoom = gameData.getRoom(nextRoom);
     }
+
+    output.concat("You enter the " + currentRoom.getName() + "\n");
+    return roomHasActiveMonster() ? monsterAttacks(output) : output;
+  }
+
+  private String puzzleActiveDescription() {
+    String puzzleName = currentRoom.getPuzzleName();
+    Puzzle puzzle = gameData.getPuzzle(puzzleName);
+    return puzzle.getActiveDescription();
   }
 
   @Override
