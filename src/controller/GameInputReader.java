@@ -18,6 +18,11 @@ public class GameInputReader {
     this.output = System.out;
   }
 
+  public GameInputReader(Readable input, Appendable output) {
+    this.input = input;
+    this.output = output;
+  }
+
   public String readInput() {
     String userCommand = "";
     try {
