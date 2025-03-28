@@ -11,7 +11,7 @@ public class Item extends AbstractItem {
   @JsonProperty("value")
   private int value;
   @JsonProperty("when_used")
-  private String whenUsed;
+  private String whenUsedDescription;
 
   public int getMaxUses() {
     return maxUses;
@@ -25,8 +25,8 @@ public class Item extends AbstractItem {
     return value;
   }
 
-  public String getWhenUsed() {
-    return whenUsed;
+  public String getWhenUsedDescription() {
+    return whenUsedDescription;
   }
 
   public void reduceUse() {
