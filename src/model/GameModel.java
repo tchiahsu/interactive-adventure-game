@@ -209,7 +209,7 @@ public class GameModel implements IGameModel {
       playerInventory.addItem(item);
       playerInventory.setCurrentCapacity(newWeight);
       player.increaseScore(item.getValue());
-      roomsItemNames.remove(roomsItemNames.indexOf(itemName));
+      roomsItemNames.remove(roomsItemNames.indexOf(item.getName()));
       output = output.concat(item.getName() + " added to inventory.\n");
     }
 
