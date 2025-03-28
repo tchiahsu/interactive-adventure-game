@@ -105,9 +105,7 @@ public class GameModel implements IGameModel {
         if (this.player.getHealth() > 0) { //if condition for player's health
           output = output.concat("You are healthy and wide awake.");
         }
-
     }
-
   }
 
 
@@ -219,7 +217,25 @@ public class GameModel implements IGameModel {
 
   @Override
   public void examine(String itemName) {
+    String output = "";
     // item could be item, fixture, puzzle, or monster
+    if (itemName == currentRoom.getFixtureNames()) {
+      if (playerHasItem(itemName)) {
+        output = output.concat("From your inventory, you examine: "
+                + itemName.toUpperCase() + " " + gameData.getItem(itemName).getDescription() + "\n");
+      }
+      else {
+        output = output.concat(itemName.toUpperCase()
+                + " " + gameData.getItem(itemName).getDescription() + "\n");
+      }
+
+    }
+    else if (itemName == this.currentRoom.getItemNames()) {}
+    else if (itemName == this.currentRoom.getPuzzleName()) {}
+    else { //examining a monster
+
+    }
+
   }
 
   private boolean playerHasItem(String itemName) {
