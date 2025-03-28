@@ -11,7 +11,7 @@ public class ExamineCommand implements ICommand {
 
   @Override
   public void execute(IGameModel model) {
-    System.out.println("You are EXAMINING an " + this.object + "\n");
-    //model.examine();
+    // System.out.println("You are EXAMINING an " + this.object + "\n");
+    String output = model.examine(this.object);
   }
 }

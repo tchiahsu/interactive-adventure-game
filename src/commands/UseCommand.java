@@ -11,7 +11,8 @@ public class UseCommand implements ICommand {
 
   @Override
   public void execute(IGameModel model) {
-    System.out.println("You are USING an " + this.item + "\n");
-    //model.useItem(this.item);
+    //System.out.println("You are USING an " + this.item + "\n");
+    String output = model.useItem(this.item);
+    System.out.println(output);
   }
 }

@@ -11,7 +11,8 @@ public class DropCommand implements ICommand {
 
   @Override
   public void execute(IGameModel model) {
-    System.out.println("You are DROPPING " + this.item + "!\n");
-    //model.dropItem();
+    // System.out.println("You are DROPPING " + this.item + "!\n");
+    String output = model.dropItem(this.item);
+    System.out.println(output);
   }
 }

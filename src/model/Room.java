@@ -69,7 +69,7 @@ public class Room implements ILocation {
     return fixtureNames;
   }
 
-  public String getPictureName() {
+  public String getPicture() {
     return picture;
   }
 

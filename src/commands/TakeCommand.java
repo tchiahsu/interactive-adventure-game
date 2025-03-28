@@ -11,7 +11,8 @@ public class TakeCommand implements ICommand {
 
   @Override
   public void execute(IGameModel model) {
-    System.out.println("You are TAKING an " + this.item + "!\n");
-    //model.takeItem();
+//    System.out.println("You are TAKING an " + this.item + "!\n");
+    String output = model.takeItem(this.item);
+    System.out.println(output);
   }
 }
