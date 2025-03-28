@@ -86,21 +86,28 @@ public class GameModel implements IGameModel {
   public String look() {
     String output = "";
     output = displayPlayerHealth(output);
-    String CurrentMonster = this.currentRoom.getMonsterName();
-    String CurrentPuzzle = this.currentRoom.getPuzzleName();
-    if (gameData.getMonster(CurrentMonster).isActive() || gameData.getPuzzle(CurrentPuzzle).isActive()) {
-      if (gameData.getMonster(CurrentMonster).isActive()) {
-        output = output.concat(gameData.getPuzzle(CurrentPuzzle).getActiveDescription());
-      } else {
-        output = output.concat(gameData.getMonster(CurrentMonster).getActiveDescription());
+    if (currentRoom.getMonsterName() != null) {
+      String monsterName = this.currentRoom.getMonsterName();
+      Monster monster = gameData.getMonster(monsterName);
+      if (monster.isActive()) {
+        output = output.concat(monster.getActiveDescription());
+      }
+      else {
+        output = output.concat(currentRoom.getDescription());
       }
     }
-    else { //if no active monster or Puzzle in Room
-        output = output.concat(this.currentRoom.getDescription());
+    else if (currentRoom.getPuzzleName() != null) {
+      String puzzleName = this.currentRoom.getPuzzleName();
+      Puzzle puzzle = gameData.getPuzzle(puzzleName);
+      if (puzzle.isActive()) {
+        output = output.concat(puzzle.getActiveDescription());
+      } else {
+        output = output.concat(currentRoom.getDescription());
+      }
     }
 
     output = output.concat("Items you see here: " + this.currentRoom.getItemNames());
-    return output;
+    return roomHasActiveMonster() ? monsterAttacks(output) : output;
   }
 
 
