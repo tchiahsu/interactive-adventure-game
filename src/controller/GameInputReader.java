@@ -29,7 +29,7 @@ public class GameInputReader {
       boolean invalidInput = true;
       while (invalidInput) {
         Scanner scanner = new Scanner(this.input);
-        this.output.append("To move, enter: (N)orth, (S)outh, (E)ast or (W)est.\n"
+        this.output.append("\nTo move, enter: (N)orth, (S)outh, (E)ast or (W)est.\n"
           + "Other actions: (I)nventory, (L)ook around the location, (U)se an item\n"
           + "(T)ake an item, (D)rop an item, or e(X)amine something. \n"
           + "(A)nswer a question or provide a text solution. \n"
