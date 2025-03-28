@@ -46,36 +46,34 @@ public class GameModel implements IGameModel {
    * @param direction the direction player wants to move to.
    */
   public void move(String direction) {
+    String output = "";
     String nextRoom = currentRoom.getPath(direction);
+
     if (nextRoom != null) {
-      //if monster
-      //display
-
-      String puzzle = this.currentRoom.getPuzzleName();
       int directionInt = Integer.parseInt(nextRoom);
+      if (directionInt < 0) { //negative direction
 
+        String CurrentPuzzle = this.currentRoom.getPuzzleName();
+        if (CurrentPuzzle != null && gameData.getPuzzle(CurrentPuzzle).isActive()) {
+          output = output.concat(gameData.getMonster(CurrentPuzzle).getActiveDescription());
+          output = output.concat(CurrentPuzzle);
+        }
 
-      if (puzzle != null && directionInt < 0) {}
-
-      // last step: this.currentRoom = gameData.getRoom(nextRoom);
-
-
-      //if (direction < 0)
-        //if puzzle != null
-          //display room name, puzzle effects,
-        //if (monster != null)
-      //else if(direction = 0)
-      //else
-      //last step: this.currentRoom = gameData.getRoom(nextRoom);
-
-
-
+        String CurrentMonster = this.currentRoom.getMonsterName();
+        if (CurrentMonster != null && gameData.getMonster(CurrentMonster).isActive()) {
+          output = output.concat(gameData.getMonster(CurrentMonster).getActiveDescription());
+          monsterAttacks(output);
+        }
+      }
+      else if (directionInt == 0) {
+        output = output.concat("<<You cannot go in that direction>>");
+      }
+      else { //direction > 0
+        this.currentRoom = gameData.getRoom(nextRoom);
+        output = output.concat("You enter the " + this.currentRoom.getName().toUpperCase());
+        output = output.concat(this.currentRoom.getMonsterName());
+      }
     }
-    else{
-      //throw error or print
-      System.out.println("<<You cannot go in that direction>>");
-    }
-
   }
 
   @Override
@@ -99,7 +97,7 @@ public class GameModel implements IGameModel {
 
     Item item = gameData.getItem(itemName);
     if (item.getUsesRemaining() == 0) {
-      output = output.concat("Oh no! " + item.getName() + " is either empty or cannot be used again!");
+      output = output.concat("You can't use " + item.getName() + " anymore.");
       return monsterAttacks(output);
     }
 
@@ -110,8 +108,6 @@ public class GameModel implements IGameModel {
         monster.deactivate();
         player.increaseScore(monster.getValue());
         output = output.concat("SUCCESS! " + item.getWhenUsedDescription() + "\n");
-      } else {
-        output = output.concat("Using " + item.getName() + " did nothing.");
       }
     }
     else if (currentRoom.getPuzzleName() != null) {
@@ -121,8 +117,6 @@ public class GameModel implements IGameModel {
         puzzle.deactivate();
         player.increaseScore(puzzle.getValue());
         output = output.concat("SUCCESS! " + item.getWhenUsedDescription() + "\n");
-      } else {
-        output = output.concat("Using " + item.getName() + " did nothing.");
       }
     }
 
