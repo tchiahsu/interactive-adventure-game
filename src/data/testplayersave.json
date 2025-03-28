@@ -1,0 +1,18 @@
+{
+  "health" : 85,
+  "score" : 0,
+  "inventory" : {
+    "maxCapacity" : 13,
+    "currentCapacity" : 1,
+    "items" : [ {
+      "name" : "TICKET",
+      "description" : "A complimentary museum ticket. It says ADMIT ONE, pwd = Align.",
+      "weight" : 1,
+      "picture" : null,
+      "max_uses" : 1,
+      "uses_remaining" : 1,
+      "value" : 5,
+      "when_used" : "You insert the ticket. 'Swish! Beep!'"
+    } ]
+  }
+}

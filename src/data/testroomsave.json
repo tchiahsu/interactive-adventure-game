@@ -1,0 +1,15 @@
+{
+  "pictureName" : null,
+  "room_name" : null,
+  "description" : null,
+  "room_number" : null,
+  "N" : null,
+  "S" : null,
+  "E" : null,
+  "W" : null,
+  "puzzle" : null,
+  "monster" : null,
+  "items" : "TICKET, HAIR CLIPPERS",
+  "fixtures" : null,
+  "picture" : null
+}

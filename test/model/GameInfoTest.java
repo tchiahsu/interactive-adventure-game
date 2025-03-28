@@ -29,8 +29,8 @@ class GameInfoTest {
   void testGetRooms() {
     List<Room> rooms = gameInfo.getRooms();
     Room entrance = rooms.getFirst();
-    assertEquals(1, entrance.getRoomNumber());
-    assertEquals("Museum Entrance", entrance.getName());
+    assertEquals("1", entrance.getRoomNumber());
+    assertEquals("MUSEUM ENTRANCE", entrance.getName());
     assertEquals("Turnstile", entrance.getPuzzleName());
   }
 
@@ -38,7 +38,7 @@ class GameInfoTest {
   void testGetItems() {
     List<Item> items = gameInfo.getItems();
     Item ticket = items.getFirst();
-    assertEquals("Ticket", ticket.getName());
+    assertEquals("TICKET", ticket.getName());
     assertEquals(1, ticket.getWeight());
     assertEquals("A complimentary museum ticket. It says ADMIT ONE, pwd = Align.",
                  ticket.getDescription());
@@ -48,7 +48,7 @@ class GameInfoTest {
   void testGetFixtures() {
     List<Fixture> fixtures = gameInfo.getFixtures();
     Fixture computer = fixtures.getFirst();
-    assertEquals("Computer", computer.getName());
+    assertEquals("COMPUTER", computer.getName());
     assertEquals(1000, computer.getWeight());
   }
 
@@ -61,4 +61,5 @@ class GameInfoTest {
     assertTrue(password.affectsTarget());
     assertFalse(password.affectsPlayer());
   }
+
 }

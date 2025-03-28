@@ -28,6 +28,10 @@ public class Inventory {
     currentCapacity -= item.getWeight();
   }
 
+  public List<Item> getItems() {
+    return items;
+  }
+
   public Item getItem(Item item) {
     return items.get(items.indexOf(item));
   }

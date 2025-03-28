@@ -1,5 +1,6 @@
 package model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.HashMap;
@@ -72,6 +73,7 @@ public class Room implements ILocation {
     return picture;
   }
 
+  @JsonIgnore
   public Map<String, String> getPaths() {
     Map<String, String> path = new HashMap<>();
     if (north != null) path.put("north", north);
