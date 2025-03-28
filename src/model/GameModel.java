@@ -31,14 +31,10 @@ public class GameModel implements IGameModel {
 
     this.objectMapper = new ObjectMapper();
     this.gameInfo = this.objectMapper.readValue(new File(jsonFile), GameInfo.class);
-    GameData gameData = createGameData(this.gameInfo);
+    this.gameData = new GameData(this.gameInfo);
 
     currentRoom = gameData.getRoom("1");
     player = new Player();
-  }
-
-  private GameData createGameData(GameInfo gameInfo) {
-    return new GameData(gameInfo);
   }
 
   /**
@@ -304,7 +300,7 @@ public class GameModel implements IGameModel {
               + itemName.toUpperCase() + ": " + gameData.getItem(itemName).getDescription() + "\n");
       return output;
     }
-    else if (itemName == this.currentRoom.getMonsterName()) {
+    else if (itemName.equalsIgnoreCase(this.currentRoom.getMonsterName())) {
       //if monster is active
       if (gameData.getMonster(itemName).isActive()) {
         output = output.concat("From the " + this.currentRoom + " you examine the "
@@ -317,7 +313,7 @@ public class GameModel implements IGameModel {
         return output;
       }
     }
-    else  { //puzzle
+    else if (itemName.equalsIgnoreCase(this.currentRoom.getPuzzleName())) { //puzzle
       if (gameData.getPuzzle(itemName).isActive()) {
         output = output.concat("From the " + this.currentRoom + " you examine the "
                 + itemName.toUpperCase() + ": " + gameData.getPuzzle(itemName).getActiveDescription() + "\n");
