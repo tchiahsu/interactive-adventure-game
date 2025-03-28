@@ -54,10 +54,15 @@ public class Inventory {
 
   @Override
   public String toString() {
-    String itemsInInventory = "";
+    String itemsInInventory = "Items in inventory: ";
+
+    if (items.isEmpty()) {
+      itemsInInventory = itemsInInventory.concat("No items found.");
+      return itemsInInventory;
+    }
 
     for (Item item : items) {
-      itemsInInventory.concat(item.getName() + " ");
+      itemsInInventory = itemsInInventory.concat(item.getName() + " ");
     }
 
     return itemsInInventory;
