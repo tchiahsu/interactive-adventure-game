@@ -83,30 +83,24 @@ public class GameModel implements IGameModel {
   }
 
   @Override
-  public void look() {
+  public String look() {
     String output = "";
+    output = displayPlayerHealth(output);
     String CurrentMonster = this.currentRoom.getMonsterName();
     String CurrentPuzzle = this.currentRoom.getPuzzleName();
     if (gameData.getMonster(CurrentMonster).isActive() || gameData.getPuzzle(CurrentPuzzle).isActive()) {
       if (gameData.getMonster(CurrentMonster).isActive()) {
         output = output.concat(gameData.getPuzzle(CurrentPuzzle).getActiveDescription());
-        output = output.concat("Items you see here: " + this.currentRoom.getItemNames());
-        output = output.concat("You are healthy and wide awake.");
-      }else {
+      } else {
         output = output.concat(gameData.getMonster(CurrentMonster).getActiveDescription());
-        output = output.concat("Items you see here: " + this.currentRoom.getItemNames());
-        output = output.concat("You are healthy and wide awake.");
       }
-
     }
     else { //if no active monster or Puzzle in Room
         output = output.concat(this.currentRoom.getDescription());
-        output = output.concat("Items you see here: " + this.currentRoom.getItemNames());
-
-        if (this.player.getHealth() > 0) { //if condition for player's health
-          output = output.concat("You are healthy and wide awake.");
-        }
     }
+
+    output = output.concat("Items you see here: " + this.currentRoom.getItemNames());
+    return output;
   }
 
 
@@ -292,14 +286,14 @@ public class GameModel implements IGameModel {
     String output = "";
     // item could be item, fixture, puzzle, or monster
     if (itemName == currentRoom.getFixtureNames()) {
-      if (playerHasItem(itemName)) {
-        output = output.concat("From your inventory, you examine: "
-                + itemName.toUpperCase() + " " + gameData.getItem(itemName).getDescription() + "\n");
-      }
-      else {
-        output = output.concat(itemName.toUpperCase()
-                + " " + gameData.getItem(itemName).getDescription() + "\n");
-      }
+    else if (playerHasItem(itemName)) {
+      output = output.concat("From your inventory, you examine: "
+              + itemName.toUpperCase() + " " + gameData.getItem(itemName).getDescription() + "\n");
+    }
+    else if (room has item ){
+      output = output.concat(itemName.toUpperCase()
+              + " " + gameData.getItem(itemName).getDescription() + "\n");
+    }
 
     }
     else if (itemName == this.currentRoom.getItemNames()) {}
@@ -307,6 +301,14 @@ public class GameModel implements IGameModel {
     else { //examining a monster
 
     }
+
+//    if playerHasItem(itemName)
+//    // from inventory READ DESCRIPTION
+//    if roomhasitem(itemname)
+//            // read from room
+//    if
+
+
 
   }
 
@@ -382,6 +384,19 @@ public class GameModel implements IGameModel {
     output = output.concat("You took " + monster.getDamage() + " damage!\n");
 
     return output;
+  }
+
+  private String displayPlayerHealth(String output) {
+    int playerHealth = player.getHealth();
+
+    if (playerHealth <= 0) {
+      return output.concat("Your health has dropped to the sleep zone.\nNighty-night\n");
+    } if (playerHealth < 40) {
+      return output.concat("Your health is very low! And you're woozy!\n");
+    } if (playerHealth < 70) {
+      return output.concat("Adventuring has made you very tired! Your health is low!\n");
+    }
+    return output.concat("You are healthy and wide awake.");
   }
 
   public static void main(String[] args) {

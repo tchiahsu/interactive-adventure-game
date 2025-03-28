@@ -3,7 +3,7 @@ package model;
 public interface IGameModel {
   void move(String direction);
   String checkInventory();
-  void look();
+  String look();
   String useItem(String itemName);
   String takeItem(String itemName);
   String dropItem(String itemName);
