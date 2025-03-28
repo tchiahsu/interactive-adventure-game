@@ -8,31 +8,26 @@ import model.IGameModel;
 
 public class GameController implements IController {
   private final IGameModel model;
-  private GameInputReader dataReader;
-  private GameCommandFinder commandFinder;
+  private final Readable input;
+  private final Appendable output;
 
-  public GameController(IGameModel model) {
+
+  public GameController(IGameModel model, Readable input, Appendable output) {
     this.model = model;
+    this.input = input;
+    this.output = output;
   }
 
   @Override
   public void go() throws IOException {
-    this.dataReader = new GameInputReader();
-    this.commandFinder = new GameCommandFinder();
+    GameInputReader dataReader = new GameInputReader(this.input, this.output);
+    GameCommandFinder commandFinder = new GameCommandFinder();
 
-    String userInput = this.dataReader.readInput();
+    String userInput = dataReader.readInput();
     while(!userInput.equalsIgnoreCase("Q")) {
-      ICommand associatedCommand = this.commandFinder.getCommand(userInput);
+      ICommand associatedCommand = commandFinder.getCommand(userInput);
       associatedCommand.execute(this.model);
-      userInput = this.dataReader.readInput();
+      userInput = dataReader.readInput();
     }
-  }
-
-  // DELETE: THIS IS ONLY TO CHECK THAT IT WORKS
-  public static void main(String [] args) throws IOException {
-    String hallwayjson = "src/data/simple_hallway.json";
-    IGameModel model = new GameModel(hallwayjson);
-    IController controller = new GameController(model);
-    controller.go();
   }
 }
