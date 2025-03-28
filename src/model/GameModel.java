@@ -45,36 +45,29 @@ public class GameModel implements IGameModel {
     String output = "";
     String nextRoom = currentRoom.getPath(direction);
 
-    if (nextRoom != null) {
-      int directionInt = Integer.parseInt(nextRoom);
-      if (directionInt < 0) { //negative direction
+    int directionInt = Integer.parseInt(nextRoom);
+    if (directionInt < 0) { //negative direction
 
-        String CurrentPuzzle = this.currentRoom.getPuzzleName();
-        if (CurrentPuzzle != null && gameData.getPuzzle(CurrentPuzzle).isActive()) {
-          output = output.concat(gameData.getMonster(CurrentPuzzle).getActiveDescription());
-          output = output.concat(CurrentPuzzle + "\n");
-          return output;
-        }
-
-        String CurrentMonster = this.currentRoom.getMonsterName();
-        if (CurrentMonster != null && gameData.getMonster(CurrentMonster).isActive()) {
-          output = output.concat(gameData.getMonster(CurrentMonster).getActiveDescription());
-          monsterAttacks(output);
-          return output;
-        }
-      }
-      else if (directionInt == 0) {
-        output = output.concat("<<You cannot go in that direction>> \n");
+      String CurrentPuzzle = this.currentRoom.getPuzzleName();
+      if (CurrentPuzzle != null && gameData.getPuzzle(CurrentPuzzle).isActive()) {
+        output = output.concat(gameData.getMonster(CurrentPuzzle).getActiveDescription());
+        output = output.concat(CurrentPuzzle + "\n");
         return output;
       }
-      else { //direction > 0
-        this.currentRoom = gameData.getRoom(nextRoom);
-        output = output.concat("You enter the " + this.currentRoom.getName().toUpperCase());
-        output = output.concat(this.currentRoom.getMonsterName() + "\n");
+
+      String CurrentMonster = this.currentRoom.getMonsterName();
+      if (CurrentMonster != null && gameData.getMonster(CurrentMonster).isActive()) {
+        output = output.concat(gameData.getMonster(CurrentMonster).getActiveDescription());
+        monsterAttacks(output);
         return output;
       }
-    }
-    output  = output.concat("You cannot go in that direction \n");
+    } else if (directionInt == 0) {
+      output = output.concat("<<You cannot go in that direction>> \n");
+      return output;
+    } //direction > 0
+    this.currentRoom = gameData.getRoom(nextRoom);
+    output = output.concat("You enter the " + this.currentRoom.getName().toUpperCase());
+    output = output.concat(this.currentRoom.getMonsterName() + "\n");
     return output;
   }
 
