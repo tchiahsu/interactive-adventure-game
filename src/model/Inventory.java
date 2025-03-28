@@ -61,10 +61,13 @@ public class Inventory {
       return itemsInInventory;
     }
 
-    for (Item item : items) {
-      itemsInInventory = itemsInInventory.concat(item.getName() + " ");
-    }
+    for (int i = 0; i < items.size(); i++) {
+      itemsInInventory = itemsInInventory.concat(items.get(i).getName());
 
+      if (i != items.size() - 1) {
+        itemsInInventory = itemsInInventory.concat(", ");
+      }
+    }
     return itemsInInventory;
   }
 }

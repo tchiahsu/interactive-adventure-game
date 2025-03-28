@@ -42,32 +42,47 @@ public class GameModel implements IGameModel {
    * @param direction the direction player wants to move to.
    */
   public String move(String direction) {
+//    String output = "";
+//    String nextRoom = currentRoom.getPath(direction);
+//
+//    int directionInt = Integer.parseInt(nextRoom);
+//    if (directionInt < 0) { //negative direction
+//
+//      String CurrentPuzzle = this.currentRoom.getPuzzleName();
+//      if (CurrentPuzzle != null && gameData.getPuzzle(CurrentPuzzle).isActive()) {
+//        output = output.concat(CurrentPuzzle.toUpperCase() + ": ");
+//        output = output.concat(gameData.getPuzzle(CurrentPuzzle).getActiveDescription() + "\n");
+//        return output;
+//      }
+//
+//      String CurrentMonster = this.currentRoom.getMonsterName();
+//      if (CurrentMonster != null && gameData.getMonster(CurrentMonster).isActive()) {
+//        output = output.concat(gameData.getMonster(CurrentMonster).getActiveDescription());
+//        monsterAttacks(output);
+//        return output;
+//      }
+//    } else if (directionInt == 0) {
+//      output = output.concat("<<You cannot go in that direction>> \n");
+//      return output;
+//    } //direction > 0
+//    this.currentRoom = gameData.getRoom(nextRoom);
+//    output = output.concat("You enter the " + this.currentRoom.getName().toUpperCase());
+//    return output;
+
     String output = "";
     String nextRoom = currentRoom.getPath(direction);
+    int nextRoomNumber = Integer.parseInt(nextRoom);
 
-    int directionInt = Integer.parseInt(nextRoom);
-    if (directionInt < 0) { //negative direction
-
-      String CurrentPuzzle = this.currentRoom.getPuzzleName();
-      if (CurrentPuzzle != null && gameData.getPuzzle(CurrentPuzzle).isActive()) {
-        output = output.concat(CurrentPuzzle.toUpperCase() + ": ");
-        output = output.concat(gameData.getPuzzle(CurrentPuzzle).getActiveDescription() + "\n");
-        return output;
-      }
-
-      String CurrentMonster = this.currentRoom.getMonsterName();
-      if (CurrentMonster != null && gameData.getMonster(CurrentMonster).isActive()) {
-        output = output.concat(gameData.getMonster(CurrentMonster).getActiveDescription());
-        monsterAttacks(output);
-        return output;
-      }
-    } else if (directionInt == 0) {
+    if (nextRoomNumber > 0) {
+      currentRoom = gameData.getRoom(nextRoom);
+      output = roomHasActiveMonster() ? monsterAttacks(output) : output;
+      output = roomHasActivePuzzle() ? output.concat(currentRoom.getPuzzleName().getActiveDescription()) : output;
+    } else if (nextRoomNumber == 0) {
       output = output.concat("<<You cannot go in that direction>> \n");
-      return output;
-    } //direction > 0
-    this.currentRoom = gameData.getRoom(nextRoom);
-    output = output.concat("You enter the " + this.currentRoom.getName().toUpperCase());
-    return output;
+      output = roomHasActiveMonster() ? monsterAttacks(output) : output;
+    } else {
+
+    }
   }
 
   @Override
@@ -241,7 +256,7 @@ public class GameModel implements IGameModel {
     String roomItemNames = currentRoom.getItemNames();
     String updatedRoomItemNames = roomItemNames.concat(", " + item.getName());
     currentRoom.setItemNames(updatedRoomItemNames);
-    output.concat(itemName + " removed from inventory.\n");
+    output = output.concat(item.getName() + " removed from inventory.\n");
 
     // Handle action with an active monster in the room
     output = roomHasActiveMonster() ? monsterAttacks(output) : output;
@@ -327,6 +342,8 @@ public class GameModel implements IGameModel {
     }
     output = output.concat("There is no such item");
     return output;
+
+
   }
 
   public String saveGame() throws IOException {
@@ -405,9 +422,7 @@ public class GameModel implements IGameModel {
     if (roomHasMonster) {
       String monsterName = currentRoom.getMonsterName();
       Monster monster = gameData.getMonster(monsterName);
-      if (monster.isActive()) {
-        return true;
-      }
+      return monster.isActive();
     }
 
     return false;
@@ -428,6 +443,18 @@ public class GameModel implements IGameModel {
     output = output.concat("You took " + monster.getDamage() + " damage!\n");
 
     return output;
+  }
+
+  private boolean roomHasActivePuzzle() {
+    boolean roomHasPuzzle = currentRoom.getPuzzleName() != null;
+
+    if (roomHasPuzzle) {
+      String puzzleName = currentRoom.getPuzzleName();
+      Puzzle puzzle = gameData.getPuzzle(puzzleName);
+      return puzzle.isActive();
+    }
+
+    return false;
   }
 
   private String displayPlayerHealth(String output) {
