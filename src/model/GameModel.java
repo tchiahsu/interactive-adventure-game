@@ -74,6 +74,7 @@ public class GameModel implements IGameModel {
         return output;
       }
     }
+    output  = output.concat("You cannot go in that direction \n");
     return output;
   }
 
