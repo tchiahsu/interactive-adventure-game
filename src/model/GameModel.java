@@ -291,23 +291,40 @@ public class GameModel implements IGameModel {
   public void examine(String itemName) {
     String output = "";
     // item could be item, fixture, puzzle, or monster
-    if (itemName == currentRoom.getFixtureNames()) {
-      if (playerHasItem(itemName)) {
-        output = output.concat("From your inventory, you examine: "
-                + itemName.toUpperCase() + " " + gameData.getItem(itemName).getDescription() + "\n");
+    if (roomHasFixture(itemName)) {
+      output = output.concat("From the " + this.currentRoom + " you examine the "
+              + itemName.toUpperCase() + ": " + gameData.getFixture(itemName).getDescription() + "\n");
+    }
+    else if (playerHasItem(itemName)) {
+      output = output.concat("From your inventory, you examine the "
+              + itemName.toUpperCase() + ": " + gameData.getItem(itemName).getDescription() + "\n");
+    }
+    else if (roomHasItem(itemName)) {
+      output = output.concat("From the " + this.currentRoom + " you examine the "
+              + itemName.toUpperCase() + ": " + gameData.getItem(itemName).getDescription() + "\n");
+    }
+    else if (itemName == this.currentRoom.getMonsterName()) {
+      //if monster is active
+      if (gameData.getMonster(itemName).isActive()) {
+        output = output.concat("From the " + this.currentRoom + " you examine the "
+                + itemName.toUpperCase() + ": " + gameData.getMonster(itemName).getActiveDescription() + "\n");
       }
       else {
-        output = output.concat(itemName.toUpperCase()
-                + " " + gameData.getItem(itemName).getDescription() + "\n");
+        output = output.concat("From the " + this.currentRoom + " you examine the "
+                + itemName.toUpperCase() + ": " + gameData.getMonster(itemName).getDescription() + "\n");
       }
 
     }
-    else if (itemName == this.currentRoom.getItemNames()) {}
-    else if (itemName == this.currentRoom.getPuzzleName()) {}
-    else { //examining a monster
-
+    else  { //puzzle
+      if (gameData.getPuzzle(itemName).isActive()) {
+        output = output.concat("From the " + this.currentRoom + " you examine the "
+                + itemName.toUpperCase() + ": " + gameData.getPuzzle(itemName).getActiveDescription() + "\n");
+      }
+      else {
+        output = output.concat("From the " + this.currentRoom + " you examine the "
+                + itemName.toUpperCase() + ": " + gameData.getPuzzle(itemName).getDescription() + "\n");
+      }
     }
-
   }
 
   public String saveGame() throws IOException {
@@ -347,6 +364,34 @@ public class GameModel implements IGameModel {
 
     return false;
   }
+
+  /**
+   * Checks if room has an item.
+   * @param itemName item to check in the Room
+   * @return true if the room the item, false otherwise.
+   */
+  private boolean roomHasItem(String itemName) {
+    //Item item = gameData.getItem(itemName);
+    List<String> roomsItemNames = new ArrayList<>(Arrays.asList(currentRoom.getItemNames().split(", ")));
+    if (roomsItemNames.contains(itemName)) {
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * Checks if room has an item.
+   * @param fixtureName item to check in the Room
+   * @return true if the room the item, false otherwise.
+   */
+  private boolean roomHasFixture(String fixtureName) {
+    List<String> roomsFixtureNames = new ArrayList<>(Arrays.asList(currentRoom.getFixtureNames().split(", ")));
+    if (roomsFixtureNames.contains(fixtureName)) {
+      return true;
+    }
+    return false;
+  }
+
 
   /**
    * Checks if the current room has an active monster.
