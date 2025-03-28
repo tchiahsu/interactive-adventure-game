@@ -76,10 +76,10 @@ public class Room implements ILocation {
   @JsonIgnore
   public Map<String, String> getPaths() {
     Map<String, String> path = new HashMap<>();
-    if (north != null) path.put("north", north);
-    if (south != null) path.put("south", south);
-    if (east != null) path.put("east", east);
-    if (west != null) path.put("west", west);
+    if (north != null) path.put("NORTH", north);
+    if (south != null) path.put("SOUTH", south);
+    if (east != null) path.put("EAST", east);
+    if (west != null) path.put("WEST", west);
     return path;
   }
 

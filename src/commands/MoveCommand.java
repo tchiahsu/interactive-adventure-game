@@ -3,7 +3,7 @@ package commands;
 import model.IGameModel;
 
 public class MoveCommand implements ICommand {
-  private final String direction;
+  private String direction;
 
   public MoveCommand(String direction) {
     this.direction = direction;
@@ -11,20 +11,20 @@ public class MoveCommand implements ICommand {
 
   @Override
   public void execute(IGameModel model) {
-//    switch(this.direction.toUpperCase()) {
-//      case "N", "NORTH":
-//        System.out.println("You are going NORTH!\n");
-//        break;
-//      case "S", "SOUTH":
-//        System.out.println("You are going SOUTH!\n");
-//        break;
-//      case "E", "EAST":
-//        System.out.println("You are going EAST!\n");
-//        break;
-//      case "W", "WEST":
-//        System.out.println("You are going WEST!\n");
-//        break;
-//    }
+    switch(this.direction.toUpperCase()) {
+      case "N", "NORTH":
+        this.direction = "NORTH";
+        break;
+      case "S", "SOUTH":
+        this.direction = "SOUTH";
+        break;
+      case "E", "EAST":
+        this.direction = "EAST";
+        break;
+      case "W", "WEST":
+        this.direction = "WEST";
+        break;
+    }
     String output = model.move(this.direction);
     System.out.println(output);
   }

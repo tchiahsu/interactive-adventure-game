@@ -50,8 +50,8 @@ public class GameModel implements IGameModel {
 
       String CurrentPuzzle = this.currentRoom.getPuzzleName();
       if (CurrentPuzzle != null && gameData.getPuzzle(CurrentPuzzle).isActive()) {
-        output = output.concat(gameData.getMonster(CurrentPuzzle).getActiveDescription());
-        output = output.concat(CurrentPuzzle + "\n");
+        output = output.concat(CurrentPuzzle.toUpperCase() + ": ");
+        output = output.concat(gameData.getPuzzle(CurrentPuzzle).getActiveDescription() + "\n");
         return output;
       }
 
@@ -67,7 +67,6 @@ public class GameModel implements IGameModel {
     } //direction > 0
     this.currentRoom = gameData.getRoom(nextRoom);
     output = output.concat("You enter the " + this.currentRoom.getName().toUpperCase());
-    output = output.concat(this.currentRoom.getMonsterName() + "\n");
     return output;
   }
 
