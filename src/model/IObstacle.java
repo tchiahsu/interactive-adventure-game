@@ -9,5 +9,4 @@ public interface IObstacle extends IGameObject {
   int getValue();
   String getActiveDescription();
   String getTarget();
-  String getPicture();
 }

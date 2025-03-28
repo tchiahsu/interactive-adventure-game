@@ -9,5 +9,4 @@ public interface ILocation extends IGameObject {
   String getMonsterName();
   String getItemNames();
   String getFixtureNames();
-  String getPictureName();
 }
