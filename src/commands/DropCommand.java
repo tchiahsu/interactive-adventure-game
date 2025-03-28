@@ -1,18 +1,20 @@
 package commands;
 
+import java.io.IOException;
+
 import model.IGameModel;
 
 public class DropCommand implements ICommand {
-  private String item;
+  private final String item;
+  private final Appendable output;
 
-  public DropCommand(String item) {
-      this.item = item;
+  public DropCommand(String item, Appendable output) {
+    this.item = item;
+    this.output = output;
   }
 
   @Override
-  public void execute(IGameModel model) {
-    // System.out.println("You are DROPPING " + this.item + "!\n");
-    String output = model.dropItem(this.item);
-    System.out.println(output);
+  public void execute(IGameModel model) throws IOException {
+    this.output.append(model.dropItem(this.item));
   }
 }

@@ -7,6 +7,11 @@ import commands.ICommand;
 import commands.*;
 
 public class GameCommandFinder {
+  private final Appendable output;
+
+  public GameCommandFinder(Appendable output) {
+    this.output = output;
+  }
 
   public ICommand getCommand(String command) throws IllegalArgumentException {
     if (command == null || command.isEmpty()) {
@@ -18,14 +23,15 @@ public class GameCommandFinder {
     String noun = commandTokens.size() > 1 ? commandTokens.get(1) : null;
 
     return switch (action) {
-      case "N", "S", "E", "W", "NORTH", "SOUTH", "EAST", "WEST" -> new MoveCommand(action);
-      case "I", "INVENTORY" -> new InventoryCommand();
-      case "L", "LOOK" -> new LookCommand();
-      case "U", "USE" -> new UseCommand(noun);
-      case "T", "TAKE" -> new TakeCommand(noun);
-      case "D", "DROP" -> new DropCommand(noun);
-      case "X", "EXAMINE" -> new ExamineCommand(noun);
-      case "A", "ANSWER" -> new AnswerCommand(noun);
+      case "N", "S", "E", "W", "NORTH", "SOUTH", "EAST", "WEST"
+          -> new MoveCommand(action, this.output);
+      case "I", "INVENTORY" -> new InventoryCommand(this.output);
+      case "L", "LOOK" -> new LookCommand(this.output);
+      case "U", "USE" -> new UseCommand(noun, this.output);
+      case "T", "TAKE" -> new TakeCommand(noun, this.output);
+      case "D", "DROP" -> new DropCommand(noun, this.output);
+      case "X", "EXAMINE" -> new ExamineCommand(noun, this.output);
+      case "A", "ANSWER" -> new AnswerCommand(noun, this.output);
       default -> null; // Should never reach this point
     };
   }
