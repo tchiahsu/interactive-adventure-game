@@ -1,6 +1,6 @@
 package controller;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import commands.ICommand;
@@ -14,11 +14,11 @@ public class GameCommandFinder {
     }
 
     List<String> commandTokens = splitCommand(command);
-    String verb = commandTokens.getFirst().toUpperCase();
+    String action = commandTokens.getFirst().toUpperCase();
     String noun = commandTokens.size() > 1 ? commandTokens.get(1) : null;
 
-    return switch (verb) {
-      case "N", "S", "E", "W", "NORTH", "SOUTH", "EAST", "WEST" -> new MoveCommand(verb);
+    return switch (action) {
+      case "N", "S", "E", "W", "NORTH", "SOUTH", "EAST", "WEST" -> new MoveCommand(action);
       case "I", "INVENTORY" -> new InventoryCommand();
       case "L", "LOOK" -> new LookCommand();
       case "U", "USE" -> new UseCommand(noun);
@@ -32,11 +32,6 @@ public class GameCommandFinder {
 
   private List<String> splitCommand(String command) {
     String[] splitCommand = command.split(" ", 2);
-    List<String> tokenList = new ArrayList<>();
-
-    for (String token: splitCommand) {
-      tokenList.add(token.trim());
-    }
-    return tokenList;
+    return Arrays.asList(splitCommand);
   }
 }
