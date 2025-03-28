@@ -83,8 +83,33 @@ public class GameModel implements IGameModel {
 
   @Override
   public void look() {
+    String output = "";
+    String CurrentMonster = this.currentRoom.getMonsterName();
+    String CurrentPuzzle = this.currentRoom.getPuzzleName();
+    if (gameData.getMonster(CurrentMonster).isActive() || gameData.getPuzzle(CurrentPuzzle).isActive()) {
+      if (gameData.getMonster(CurrentMonster).isActive()) {
+        output = output.concat(gameData.getPuzzle(CurrentPuzzle).getActiveDescription());
+        output = output.concat("Items you see here: " + this.currentRoom.getItemNames());
+        output = output.concat("You are healthy and wide awake.");
+      }else {
+        output = output.concat(gameData.getMonster(CurrentMonster).getActiveDescription());
+        output = output.concat("Items you see here: " + this.currentRoom.getItemNames());
+        output = output.concat("You are healthy and wide awake.");
+      }
+
+    }
+    else { //if no active monster or Puzzle in Room
+        output = output.concat(this.currentRoom.getDescription());
+        output = output.concat("Items you see here: " + this.currentRoom.getItemNames());
+
+        if (this.player.getHealth() > 0) { //if condition for player's health
+          output = output.concat("You are healthy and wide awake.");
+        }
+
+    }
 
   }
+
 
   @Override
   public String useItem(String itemName) {
