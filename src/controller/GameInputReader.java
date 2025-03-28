@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- * THe  {@code GameInputReader} class is responsible for reading and validating user input.
+ * The {@code GameInputReader} class is responsible for reading and validating user input.
  * It ensures that only valid commands can be processed.
  */
 public class GameInputReader {
