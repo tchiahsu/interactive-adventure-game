@@ -79,7 +79,7 @@ public class GameModel implements IGameModel {
 
     Item item = gameData.getItem(itemName);
     if (item.getUsesRemaining() == 0) {
-      output = output.concat("You can't use " + item.getName() + " anymore.");
+      output = output.concat("Oh no! " + item.getName() + " is either empty or cannot be used again!");
       return monsterAttacks(output);
     }
 
@@ -90,6 +90,8 @@ public class GameModel implements IGameModel {
         monster.deactivate();
         player.increaseScore(monster.getValue());
         output = output.concat("SUCCESS! " + item.getWhenUsedDescription() + "\n");
+      } else {
+        output = output.concat("Using " + item.getName() + " did nothing.");
       }
     }
     else if (currentRoom.getPuzzleName() != null) {
@@ -99,6 +101,8 @@ public class GameModel implements IGameModel {
         puzzle.deactivate();
         player.increaseScore(puzzle.getValue());
         output = output.concat("SUCCESS! " + item.getWhenUsedDescription() + "\n");
+      } else {
+        output = output.concat("Using " + item.getName() + " did nothing.");
       }
     }
 
@@ -153,6 +157,25 @@ public class GameModel implements IGameModel {
     output.concat(itemName + " removed from inventory.\n");
 
     return monsterAttacks(output);
+  }
+
+  public String answer(String answer) {
+    String output = "";
+    if (currentRoom.getPuzzleName() == null) {
+      output = output.concat("You answered, but no one heard you.\n");
+      return output;
+    }
+
+    String puzzleName = currentRoom.getPuzzleName();
+    Puzzle puzzle = gameData.getPuzzle(puzzleName);
+
+    if (puzzle.isActive() && puzzle.getSolution().equals(answer)) {
+      output = output.concat("SUCCESS! You solved the puzzle with " + answer);
+    } else {
+      output = output.concat("Your answer " + answer + " did nothing.");
+    }
+
+    return output;
   }
 
   @Override
