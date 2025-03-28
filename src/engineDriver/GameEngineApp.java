@@ -33,5 +33,6 @@ public class GameEngineApp {
     String hallwayjson = "src/data/simple_hallway.json";
     BufferedReader stringReader = new BufferedReader(new InputStreamReader(System.in));
     GameEngineApp engine = new GameEngineApp(hallwayjson, stringReader, System.out);
+    engine.start();
   }
 }
