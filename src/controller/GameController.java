@@ -3,7 +3,6 @@ package controller;
 import java.io.IOException;
 
 import commands.ICommand;
-import model.GameModel;
 import model.IGameModel;
 
 public class GameController implements IController {
@@ -20,14 +19,15 @@ public class GameController implements IController {
 
   @Override
   public void go() throws IOException {
-    GameInputReader dataReader = new GameInputReader(this.input, this.output);
+    GameInputReader inputReader = new GameInputReader(this.input, this.output);
     GameCommandFinder commandFinder = new GameCommandFinder();
+    ICommand associatedCommand;
 
-    String userInput = dataReader.readInput();
+    String userInput = inputReader.readInput();
     while(!userInput.equalsIgnoreCase("Q")) {
-      ICommand associatedCommand = commandFinder.getCommand(userInput);
+      associatedCommand = commandFinder.getCommand(userInput);
       associatedCommand.execute(this.model);
-      userInput = dataReader.readInput();
+      userInput = inputReader.readInput();
     }
   }
 }
