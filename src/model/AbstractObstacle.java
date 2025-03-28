@@ -9,7 +9,7 @@ public abstract class AbstractObstacle implements IObstacle {
   @JsonProperty("description")
   protected String description;
   @JsonProperty("active")
-  protected boolean active;
+  protected boolean activeStatus;
   @JsonProperty("affects_target")
   protected boolean affectsTarget;
   @JsonProperty("affects_player")
@@ -29,12 +29,16 @@ public abstract class AbstractObstacle implements IObstacle {
     return name;
   }
 
+  protected void setName(String name) {
+    this.name = (name != null) ? name.toUpperCase() : null;
+  }
+
   public String getDescription() {
     return description;
   }
 
   public boolean isActive() {
-    return active;
+    return activeStatus;
   }
 
   public boolean affectsTarget() {
@@ -66,6 +70,6 @@ public abstract class AbstractObstacle implements IObstacle {
   }
 
   public void deactivate() {
-    active = false;
+    activeStatus = false;
   };
 }

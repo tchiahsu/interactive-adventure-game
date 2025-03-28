@@ -17,6 +17,10 @@ public abstract class AbstractItem implements IItem {
     return name;
   }
 
+  protected void setName(String name) {
+    this.name = (name != null) ? name.toUpperCase() : null;
+  }
+
   public String getDescription() {
     return description;
   }

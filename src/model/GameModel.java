@@ -90,49 +90,89 @@ public class GameModel implements IGameModel {
 
   @Override
   public String useItem(String itemName) {
+    String output = "";
 
+    if (!playerHasItem(itemName)) {
+      output = output.concat(itemName + " not found in inventory.\n");
+      return monsterAttacks(output);
+    }
+
+    Item item = gameData.getItem(itemName);
+    if (item.getUsesRemaining() == 0) {
+      output = output.concat("You can't use " + item.getName() + " anymore.");
+      return monsterAttacks(output);
+    }
+
+    if (currentRoom.getMonsterName() != null) {
+      Monster monster = gameData.getMonster(currentRoom.getMonsterName());
+      if (monster.isActive() && monster.getSolution().equalsIgnoreCase(item.getName())) {
+        item.reduceUse();
+        monster.deactivate();
+        player.increaseScore(monster.getValue());
+        output = output.concat("SUCCESS! " + item.getWhenUsedDescription() + "\n");
+      }
+    }
+    else if (currentRoom.getPuzzleName() != null) {
+      Puzzle puzzle = gameData.getPuzzle(currentRoom.getPuzzleName());
+      if (puzzle.isActive() && puzzle.getSolution().equalsIgnoreCase(item.getName())) {
+        item.reduceUse();
+        puzzle.deactivate();
+        player.increaseScore(puzzle.getValue());
+        output = output.concat("SUCCESS! " + item.getWhenUsedDescription() + "\n");
+      }
+    }
+
+    return output;
   }
 
   @Override
-  public void takeItem(String itemName) {
-    // Items in a room are stored as: "item1, item2, item3"
-    // This will create a list of ["item1", "item2", "item3"]
+  public String takeItem(String itemName) {
+    String output = "";
+    // Items in a room are stored as: "ITEM1, ITEM2, ITEM3"
+    // This will create a list of ["ITEM1", "ITEM2", "ITEM3"]
     List<String> roomsItemNames = new ArrayList<>(Arrays.asList(currentRoom.getItemNames().split(", ")));
-    if (!roomsItemNames.contains(itemName)) {
-      throw new IllegalArgumentException(itemName + " not found in " + currentRoom.getName());
+    if (!roomsItemNames.contains(itemName.toUpperCase())) {
+      output = output.concat(itemName + " not found in " + currentRoom.getName() + "\n");
     }
 
     Item item = gameData.getItem(itemName);
     Inventory playerInventory = player.getInventory();
     int newWeight = playerInventory.getCurrentCapacity() + item.getWeight();
     if (newWeight > playerInventory.getMaxCapacity()) {
-      throw new IllegalArgumentException("Your bag is too full!");
-    } else {
+      output = output.concat("Your inventory is too full!\n");
+    }
+    else {
       playerInventory.addItem(item);
       playerInventory.setCurrentCapacity(newWeight);
       player.increaseScore(item.getValue());
       roomsItemNames.remove(roomsItemNames.indexOf(itemName));
+      output = output.concat(item.getName() + " added to inventory.\n");
     }
 
     String updatedRoomItemNames = String.join(", ", roomsItemNames);
     currentRoom.setItemNames(updatedRoomItemNames);
-    return;
+    return monsterAttacks(output);
   }
 
   @Override
-  public void dropItem(String itemName) {
+  public String dropItem(String itemName) {
+    String output = "";
     if (!playerHasItem(itemName)) {
-      throw new IllegalArgumentException("You don't have " + itemName);
+      output = output.concat("You don't have " + itemName + ".\n");
+      return monsterAttacks(output);
     }
 
-    String roomItemNames = currentRoom.getItemNames();
-    String updatedRoomItemNames = roomItemNames.concat(", " + itemName);
-    currentRoom.setItemNames(updatedRoomItemNames);
     Item item = gameData.getItem(itemName);
-
     Inventory playerInventory = player.getInventory();
     playerInventory.removeItem(item);
     playerInventory.setCurrentCapacity(playerInventory.getCurrentCapacity() - item.getWeight());
+
+    String roomItemNames = currentRoom.getItemNames();
+    String updatedRoomItemNames = roomItemNames.concat(", " + item.getName());
+    currentRoom.setItemNames(updatedRoomItemNames);
+    output.concat(itemName + " removed from inventory.\n");
+
+    return monsterAttacks(output);
   }
 
   @Override
@@ -150,16 +190,21 @@ public class GameModel implements IGameModel {
     return false;
   }
 
-  private void monsterAttacks() {
+  private String monsterAttacks(String output) {
     boolean roomHasMonster = currentRoom.getMonsterName() != null;
 
     if (roomHasMonster) {
       String monsterName = currentRoom.getMonsterName();
       Monster monster = gameData.getMonster(monsterName);
-      player.decreaseHealth(monster.getDamage());
-      // check player health
-      monster.getAttackMessage();
+      if (monster.isActive()) {
+        player.decreaseHealth(monster.getDamage());
+        // check player health
+        output = output.concat(monster.getAttackMessage() + "\n");
+        output = output.concat("You took " + monster.getDamage() + " damage!\n");
+      }
     }
+
+    return output;
   }
 
   public static void main(String[] args) {

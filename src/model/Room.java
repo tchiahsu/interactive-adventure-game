@@ -22,18 +22,22 @@ public class Room implements ILocation {
   @JsonProperty("W")
   private String west;
   @JsonProperty("puzzle")
-  private String puzzle;
+  private String puzzleName;
   @JsonProperty("monster")
-  private String monster;
+  private String monsterName;
   @JsonProperty("items")
-  private String items;
+  private String itemNames;
   @JsonProperty("fixtures")
-  private String fixtures;
+  private String fixtureNames;
   @JsonProperty("picture")
   private String picture;
 
   public String getName() {
     return name;
+  }
+
+  protected void setName(String name) {
+    this.name = (name != null) ? name.toUpperCase() : null;
   }
 
   public String getDescription() {
@@ -45,19 +49,23 @@ public class Room implements ILocation {
   }
 
   public String getPuzzleName() {
-    return puzzle;
+    return puzzleName;
   }
 
   public String getMonsterName() {
-    return monster;
+    return monsterName;
   }
 
   public String getItemNames() {
-    return items;
+    return itemNames;
+  }
+
+  public void setItemNames(String itemNames) {
+    this.itemNames = (itemNames != null) ? itemNames.toUpperCase() : null;
   }
 
   public String getFixtureNames() {
-    return fixtures;
+    return fixtureNames;
   }
 
   public String getPictureName() {
@@ -80,8 +88,5 @@ public class Room implements ILocation {
     return getPaths().get(direction.toUpperCase());
   }
 
-  public void setItemNames(String itemNames) {
-    this.items = itemNames;
-  }
 
 }

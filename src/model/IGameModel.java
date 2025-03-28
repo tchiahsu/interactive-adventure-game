@@ -9,7 +9,7 @@ public interface IGameModel {
   String checkInventory();
   void look();
   String useItem(String itemName);
-  void takeItem(String itemName);
-  void dropItem(String itemName);
+  String takeItem(String itemName);
+  String dropItem(String itemName);
   void examine(String itemName);
 }
