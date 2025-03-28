@@ -45,7 +45,7 @@ public class GameModel implements IGameModel {
    * Moves the player in a given valid direction.
    * @param direction the direction player wants to move to.
    */
-  public void move(String direction) {
+  public String move(String direction) {
     String output = "";
     String nextRoom = currentRoom.getPath(direction);
 
@@ -56,25 +56,29 @@ public class GameModel implements IGameModel {
         String CurrentPuzzle = this.currentRoom.getPuzzleName();
         if (CurrentPuzzle != null && gameData.getPuzzle(CurrentPuzzle).isActive()) {
           output = output.concat(gameData.getMonster(CurrentPuzzle).getActiveDescription());
-          output = output.concat(CurrentPuzzle);
+          output = output.concat(CurrentPuzzle + "\n");
+          return output;
         }
 
         String CurrentMonster = this.currentRoom.getMonsterName();
         if (CurrentMonster != null && gameData.getMonster(CurrentMonster).isActive()) {
           output = output.concat(gameData.getMonster(CurrentMonster).getActiveDescription());
           monsterAttacks(output);
+          return output;
         }
       }
       else if (directionInt == 0) {
-        output = output.concat("<<You cannot go in that direction>>");
+        output = output.concat("<<You cannot go in that direction>> \n");
+        return output;
       }
       else { //direction > 0
         this.currentRoom = gameData.getRoom(nextRoom);
         output = output.concat("You enter the " + this.currentRoom.getName().toUpperCase());
-        output = output.concat(this.currentRoom.getMonsterName());
+        output = output.concat(this.currentRoom.getMonsterName() + "\n");
+        return output;
       }
     }
-
+    return output;
   }
 
   @Override
@@ -282,43 +286,51 @@ public class GameModel implements IGameModel {
   }
 
   @Override
-  public void examine(String itemName) {
+  public String examine(String itemName) {
     String output = "";
     // item could be item, fixture, puzzle, or monster
     if (roomHasFixture(itemName)) {
       output = output.concat("From the " + this.currentRoom + " you examine the "
               + itemName.toUpperCase() + ": " + gameData.getFixture(itemName).getDescription() + "\n");
+      return output;
     }
     else if (playerHasItem(itemName)) {
       output = output.concat("From your inventory, you examine the "
               + itemName.toUpperCase() + ": " + gameData.getItem(itemName).getDescription() + "\n");
+      return output;
     }
     else if (roomHasItem(itemName)) {
       output = output.concat("From the " + this.currentRoom + " you examine the "
               + itemName.toUpperCase() + ": " + gameData.getItem(itemName).getDescription() + "\n");
+      return output;
     }
     else if (itemName == this.currentRoom.getMonsterName()) {
       //if monster is active
       if (gameData.getMonster(itemName).isActive()) {
         output = output.concat("From the " + this.currentRoom + " you examine the "
                 + itemName.toUpperCase() + ": " + gameData.getMonster(itemName).getActiveDescription() + "\n");
+        return output;
       }
       else {
         output = output.concat("From the " + this.currentRoom + " you examine the "
                 + itemName.toUpperCase() + ": " + gameData.getMonster(itemName).getDescription() + "\n");
+        return output;
       }
-
     }
     else  { //puzzle
       if (gameData.getPuzzle(itemName).isActive()) {
         output = output.concat("From the " + this.currentRoom + " you examine the "
                 + itemName.toUpperCase() + ": " + gameData.getPuzzle(itemName).getActiveDescription() + "\n");
+        return output;
       }
       else {
         output = output.concat("From the " + this.currentRoom + " you examine the "
                 + itemName.toUpperCase() + ": " + gameData.getPuzzle(itemName).getDescription() + "\n");
+        return output;
       }
     }
+    output = output.concat("There is no such item");
+    return output;
   }
 
   public String saveGame() throws IOException {
