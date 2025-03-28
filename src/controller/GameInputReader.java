@@ -14,7 +14,7 @@ public class GameInputReader {
   private final List<String> validCommands = List.of(
       "N", "S", "W", "E", "I", "L", "U", "T", "D", "X", "A", "Q",
                 "NORTH", "SOUTH", "WEST", "EAST", "INVENTORY", "LOOK", "USE",
-                "TAKE", "DROP", "EXAMINE", "ANSWER", "QUIT");
+                "TAKE", "DROP", "EXAMINE", "ANSWER", "QUIT", "SAVE", "RESTORE");
 
   /**
    * Construct a  {@code GameInputReader} with the specified input source and output destination.

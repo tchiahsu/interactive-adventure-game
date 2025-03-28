@@ -10,6 +10,8 @@ import commands.ICommand;
 import commands.InventoryCommand;
 import commands.LookCommand;
 import commands.MoveCommand;
+import commands.RestoreCommand;
+import commands.SaveCommand;
 import commands.TakeCommand;
 import commands.UseCommand;
 
@@ -54,6 +56,8 @@ public class GameCommandFinder {
       case "D", "DROP" -> new DropCommand(noun, this.output);
       case "X", "EXAMINE" -> new ExamineCommand(noun, this.output);
       case "A", "ANSWER" -> new AnswerCommand(noun, this.output);
+      case "SAVE" -> new SaveCommand(this.output);
+      case "RESTORE" -> new RestoreCommand(this.output);
       default -> null; // Should never reach this point
     };
   }

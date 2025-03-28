@@ -8,8 +8,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static java.lang.Math.abs;
-
 public class GameModel implements IGameModel {
 
   private ObjectMapper objectMapper;
@@ -505,9 +503,4 @@ public class GameModel implements IGameModel {
     }
     return output.concat("You are healthy and wide awake.");
   }
-
-  public static void main(String[] args) {
-
-  }
-
 }
