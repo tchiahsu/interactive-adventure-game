@@ -100,6 +100,7 @@ public class GameModel implements IGameModel {
       if (roomHasActivePuzzle()) {
         return output = output.concat(puzzleActiveDescription());
       } else if (roomHasActiveMonster()) {
+
         return output = monsterAttacks(output);
       } else {
         currentRoom = gameData.getRoom(Math.abs(nextRoomNumber) + "");
@@ -108,7 +109,8 @@ public class GameModel implements IGameModel {
       currentRoom = gameData.getRoom(nextRoom);
     }
 
-    output.concat("You enter the " + currentRoom.getName() + "\n");
+    output = output.concat("You enter the " + currentRoom.getName() + "\n");
+    output = output.concat(currentRoom.getDescription());
     return roomHasActiveMonster() ? monsterAttacks(output) : output;
   }
 
@@ -126,7 +128,8 @@ public class GameModel implements IGameModel {
   @Override
   public String look() {
     String output = "";
-    output = displayPlayerHealth(output);
+    output = output.concat("You are standing in the " + currentRoom.getName() + "\n");
+
     if (currentRoom.getMonsterName() != null) {
       String monsterName = this.currentRoom.getMonsterName();
       Monster monster = gameData.getMonster(monsterName);
@@ -147,7 +150,7 @@ public class GameModel implements IGameModel {
       }
     }
 
-    output = output.concat("Items you see here: " + this.currentRoom.getItemNames());
+    output = output.concat("\nItems you see here: " + this.currentRoom.getItemNames() + "\n");
     return roomHasActiveMonster() ? monsterAttacks(output) : output;
   }
 

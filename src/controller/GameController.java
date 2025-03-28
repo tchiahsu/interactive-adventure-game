@@ -19,7 +19,7 @@ public class GameController implements IController {
 
   @Override
   public void go() throws IOException {
-    System.out.println(this.model.look());
+    this.output.append(model.look());
     GameInputReader inputReader = new GameInputReader(this.input, this.output);
     GameCommandFinder commandFinder = new GameCommandFinder(this.output);
     ICommand associatedCommand;
