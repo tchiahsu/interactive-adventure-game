@@ -457,13 +457,11 @@ public class GameModel implements IGameModel {
 
   private boolean roomHasActivePuzzle() {
     boolean roomHasPuzzle = currentRoom.getPuzzleName() != null;
-
     if (roomHasPuzzle) {
       String puzzleName = currentRoom.getPuzzleName();
       Puzzle puzzle = gameData.getPuzzle(puzzleName);
       return puzzle.isActive();
     }
-
     return false;
   }
 }
