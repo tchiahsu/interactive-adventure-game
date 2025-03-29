@@ -29,6 +29,14 @@ public enum HealthStatus {
     return this.healthStatus;
   }
 
+  /**
+   * Parses a string representation of the health status and returns
+   * the HealthStatus enum.
+   *
+   * @param healthStatus The string representation of the health status.
+   * @return The rank enum corresponding the string representation.
+   * @throws IllegalArgumentException if the provided rank string does not match any valid rank.
+   */
   @JsonCreator
   public static HealthStatus parseHealthStatus(String healthStatus) {
     for (HealthStatus h : HealthStatus.values()) {

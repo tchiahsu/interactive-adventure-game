@@ -33,7 +33,7 @@ public class GameCommandFinder {
 
   /**
    * Splits the user command into an action and a noun, and matches the action to the corresponding
-   * {@code ICommand} instance.
+   * {@code Command} enum and uses the enum to trigger the corresponding {@link ICommand} instance.
    *
    * @param command : the user input string
    * @return an instance of {@code ICommand} corresponding to the user input
@@ -48,19 +48,23 @@ public class GameCommandFinder {
     String action = commandTokens.getFirst().toUpperCase();
     String noun = commandTokens.size() > 1 ? commandTokens.get(1) : null;
 
-    return switch (action) {
-      case "N", "S", "E", "W", "NORTH", "SOUTH", "EAST", "WEST"
-          -> new MoveCommand(action, this.output);
-      case "I", "INVENTORY" -> new InventoryCommand(this.output);
-      case "L", "LOOK" -> new LookCommand(this.output);
-      case "U", "USE" -> new UseCommand(noun, this.output);
-      case "T", "TAKE" -> new TakeCommand(noun, this.output);
-      case "D", "DROP" -> new DropCommand(noun, this.output);
-      case "X", "EXAMINE" -> new ExamineCommand(noun, this.output);
-      case "A", "ANSWER" -> new AnswerCommand(noun, this.output);
-      case "SAVE" -> new SaveCommand(this.output);
-      case "RESTORE" -> new RestoreCommand(this.output);
-      default -> null; // Should never reach this point
+    Commands commandType = Commands.getEnum(action);
+    if (commandType == null) {
+      return null;
+    }
+
+    return switch (commandType) {
+      case MOVE -> new MoveCommand(action, this.output);
+      case INVENTORY -> new InventoryCommand(this.output);
+      case LOOK -> new LookCommand(this.output);
+      case USE -> new UseCommand(noun, this.output);
+      case TAKE -> new TakeCommand(noun, this.output);
+      case DROP -> new DropCommand(noun, this.output);
+      case EXAMINE -> new ExamineCommand(noun, this.output);
+      case ANSWER -> new AnswerCommand(noun, this.output);
+      case SAVE -> new SaveCommand(this.output);
+      case RESTORE -> new RestoreCommand(this.output);
+      case QUIT -> null;
     };
   }
 
