@@ -33,6 +33,11 @@ public class Player implements IPlayer {
   }
 
   @Override
+  public void decreaseScore(int amount) {
+    score -= amount;
+  }
+
+  @Override
   public void decreaseHealth(int amount) {
     health += amount;
   }

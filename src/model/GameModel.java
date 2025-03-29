@@ -4,14 +4,17 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class GameModel implements IGameModel {
 
+  private final String jsonFile;
   private final ObjectMapper objectMapper;
-  private final GameInfo gameInfo;
+  private GameInfo gameInfo;
   private final GameData gameData;
 
   private Room currentRoom;
@@ -27,6 +30,7 @@ public class GameModel implements IGameModel {
       throw new IOException("jsonFile cannot be found.");
     }
 
+    this.jsonFile = jsonFile;
     this.objectMapper = new ObjectMapper();
     this.gameInfo = this.objectMapper.readValue(new File(jsonFile), GameInfo.class);
     this.gameData = new GameData(this.gameInfo);
@@ -62,7 +66,9 @@ public class GameModel implements IGameModel {
 
     output = output.concat("You enter the " + currentRoom.getName() + "\n");
     output = output.concat(getCurrentRoomDescription());
-    return roomHasActiveMonster() ? monsterAttacks(output) : output;
+    output = roomHasActiveMonster() ? monsterAttacks(output) : output;
+    output = output.concat("Items you see here: " + currentRoom.getItemNames() + "\n");
+    return output;
   }
 
   private String getCurrentRoomDescription() {
@@ -75,7 +81,7 @@ public class GameModel implements IGameModel {
       output = output.concat(currentRoom.getDescription());
     }
 
-    return output;
+    return output.concat("\n");
   }
 
   private Monster getMonsterInRoom() {
@@ -92,7 +98,7 @@ public class GameModel implements IGameModel {
 
   @Override
   public String checkInventory() {
-    return player.getInventory().toString();
+    return player.getInventory().toString() + "\n";
   }
 
   @Override
@@ -100,8 +106,9 @@ public class GameModel implements IGameModel {
     String output = "";
     output = output.concat("You are standing in the " + currentRoom.getName() + "\n");
     output = output.concat(getCurrentRoomDescription());
+    output = roomHasActiveMonster() ? monsterAttacks(output) : output;
     output = output.concat("\nItems you see here: " + this.currentRoom.getItemNames() + "\n");
-    return roomHasActiveMonster() ? monsterAttacks(output) : output;
+    return displayPlayerHealth(output);
   }
 
 
@@ -237,10 +244,11 @@ public class GameModel implements IGameModel {
     Inventory playerInventory = player.getInventory();
     playerInventory.removeItem(item);
     playerInventory.setCurrentCapacity(playerInventory.getCurrentCapacity() - item.getWeight());
+    player.decreaseScore(item.getValue());
 
     // Add the item to the room's list of items
     String roomItemNames = currentRoom.getItemNames();
-    String updatedRoomItemNames = roomItemNames.concat(", " + item.getName());
+    String updatedRoomItemNames = roomItemNames.isEmpty() ? item.getName() : roomItemNames.concat(", " + item.getName());
     currentRoom.setItemNames(updatedRoomItemNames);
     output = output.concat(item.getName() + " removed from inventory.\n");
 
@@ -333,9 +341,10 @@ public class GameModel implements IGameModel {
 
   public String saveGame() throws IOException {
     try {
-      objectMapper.writerWithDefaultPrettyPrinter().writeValue(new File("src/data/savegamedata.json"), gameInfo);
-      objectMapper.writerWithDefaultPrettyPrinter().writeValue(new File("src/data/saveroomdata.json"), currentRoom);
-      objectMapper.writerWithDefaultPrettyPrinter().writeValue(new File("src/data/saveplayerdata.json"), player);
+      String gameFile = Paths.get(jsonFile).getFileName().toString();
+      objectMapper.writerWithDefaultPrettyPrinter().writeValue(new File("src/data/savegamedata" + gameFile), gameInfo);
+      objectMapper.writerWithDefaultPrettyPrinter().writeValue(new File("src/data/saveroomdata" + gameFile), currentRoom);
+      objectMapper.writerWithDefaultPrettyPrinter().writeValue(new File("src/data/saveplayerdata" + gameFile), player);
       return "Game saved successfully!\n";
     } catch (IOException e) {
       return "Game failed to save\n";
@@ -344,9 +353,10 @@ public class GameModel implements IGameModel {
 
   public String restoreGame() throws IOException {
     try {
-      gameInfo = objectMapper.readValue(new File("src/data/savegamedata.json"), GameInfo.class);
-      currentRoom = objectMapper.readValue(new File("src/data/saveroomdata.json"), Room.class);
-      player = objectMapper.readValue(new File("src/data/saveplayerdata.json"), Player.class);
+      String gameFile = Paths.get(jsonFile).getFileName().toString();
+      gameInfo = objectMapper.readValue(new File("src/data/savegamedata" + gameFile), GameInfo.class);
+      currentRoom = objectMapper.readValue(new File("src/data/saveroomdata" + gameFile), Room.class);
+      player = objectMapper.readValue(new File("src/data/saveplayerdata" + gameFile), Player.class);
       return "Loaded your previous save\n";
     } catch (IOException e) {
       return "No game file to load\n";
@@ -423,7 +433,7 @@ public class GameModel implements IGameModel {
     Monster monster = getMonsterInRoom();
     player.decreaseHealth(monster.getDamage());
     // check player health
-    output = output.concat(monster.getAttackMessage() + "\n");
+    output = output.concat(monster.getName() + " " + monster.getAttackMessage() + "\n");
     output = output.concat("You took " + monster.getDamage() + " damage!\n");
 
     return output;
