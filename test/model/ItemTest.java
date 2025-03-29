@@ -19,13 +19,13 @@ class ItemTest {
   @BeforeEach
   void setUp() throws IOException {
     ObjectMapper objectMapper = new ObjectMapper();
-    gameInfo = objectMapper.readValue(new File("src/data/align_quest_game_elements.json"), GameInfo.class);
+    gameInfo = objectMapper.readValue(new File("src/data/json_for_tests.json"), GameInfo.class);
     gameData = new GameData(gameInfo);
-    i1 = gameInfo.getItems().get(0);
+    i1 = gameData.getItem("House Key");
   }
 
   @Test
   void testGetName() {
-    assertEquals("LAMP", i1.getName());
+    assertEquals("House Key", i1.getName());
   }
 }
