@@ -5,7 +5,8 @@ import java.io.IOException;
 import model.IGameModel;
 
 /**
- * The {@code AnswerCommand} class represents a command for answering a puzzle in the adventure game.
+ * The {@code AnswerCommand} class represents a command for answering a puzzle in the adventure
+ * game.
  * It implements the {@link ICommand} class.
  */
 public class AnswerCommand implements ICommand {

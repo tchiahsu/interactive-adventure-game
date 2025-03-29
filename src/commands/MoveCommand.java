@@ -28,7 +28,7 @@ public class MoveCommand implements ICommand {
    * @param direction : direction the player moves to
    */
   private void convertInputToValid(String direction) {
-    switch(this.direction.toUpperCase()) {
+    switch (this.direction.toUpperCase()) {
       case "N", "NORTH":
         this.direction = "NORTH";
         break;
