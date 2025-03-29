@@ -130,7 +130,6 @@ public class Room implements ILocation {
    * @param direction the direction in which to check for a room
    * @return the name of the room in the specified direction
    */
-  @Override
   public String getPath(String direction) {
     return getPaths().get(direction.toUpperCase());
   }
