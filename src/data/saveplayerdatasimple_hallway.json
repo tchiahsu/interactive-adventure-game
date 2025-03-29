@@ -1,5 +1,5 @@
 {
-  "name" : "HARIROSN",
+  "name" : "TONY",
   "health" : 100,
   "score" : 105,
   "inventory" : {
@@ -24,5 +24,6 @@
       "value" : 5,
       "when_used" : "You activate the clippers. It makes a loud buzzing sound as you use them!"
     } ]
-  }
+  },
+  "rank" : "Seasoned Pathfinder"
 }

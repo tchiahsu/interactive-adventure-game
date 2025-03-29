@@ -1,15 +1,25 @@
 package model;
 
 public class Player implements IPlayer {
+  private static final int LEGENDARY_LOWER_BOUND = 200;
+  private static final int MASTER_LOWER_BOUND = 100;
+  private static final int SEASONED_LOWER_BOUND = 50;
+  private static final int SLEEP_UPPER_BOUND = 0;
+  private static final int WOOZY_UPPER_BOUND = 40;
+  private static final int FATIGUED_UPPER_BOUND = 70;
   private String name;
   private int health;
   private int score;
-  private Inventory inventory;
+  private final Inventory inventory;
+  private HealthStatus healthStatus;
+  private Rank rank;
 
   public Player() {
-    health = 100;
-    score = 0;
-    inventory = new Inventory();
+    this.health = 100;
+    this.score = 0;
+    this.inventory = new Inventory();
+    this.healthStatus = HealthStatus.AWAKE;
+    this.rank = Rank.NOVICE;
   }
 
   @Override
@@ -54,15 +64,26 @@ public class Player implements IPlayer {
 
   @Override
   public String getRank() {
-    if (this.score <= 50) {
-      return "Novice Explorer";
-    } else if (this.score <= 150) {
-      return "Seasoned Pathfinder";
-    } else if (this.score <= 200) {
-      return "Master Voyager";
-    } else {
-      return "Legendary Trailblazer";
+    if (this.score > LEGENDARY_LOWER_BOUND) {
+      this.rank = Rank.LEGENDARY;
+    } else if (this.score > MASTER_LOWER_BOUND) {
+      this.rank = Rank.MASTER;
+    } else if (this.score > SEASONED_LOWER_BOUND) {
+      this.rank = Rank.SEASONED;
     }
+    return this.rank.getRankTitle();
+  }
+
+  @Override
+  public String getHealthStatus() {
+    if (this.health <= SLEEP_UPPER_BOUND) {
+      this.healthStatus = HealthStatus.SLEEP;
+    } else if (this.health < WOOZY_UPPER_BOUND) {
+      this.healthStatus = HealthStatus.WOOZY;
+    } else if (this.health < FATIGUED_UPPER_BOUND) {
+      this.healthStatus = HealthStatus.FATIGUED;
+    }
+    return this.healthStatus.getStatusMessage();
   }
 }
 

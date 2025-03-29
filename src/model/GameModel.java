@@ -11,11 +11,10 @@ import java.util.Arrays;
 import java.util.List;
 
 public class GameModel implements IGameModel {
-
   private final String jsonFile;
   private final ObjectMapper objectMapper;
   private GameInfo gameInfo;
-  private final GameData gameData;
+  private GameData gameData;
 
   private Room currentRoom;
   private Player player;
@@ -107,14 +106,14 @@ public class GameModel implements IGameModel {
     output = output.concat("You are standing in the " + currentRoom.getName() + "\n");
     output = output.concat(getCurrentRoomDescription());
     output = roomHasActiveMonster() ? monsterAttacks(output) : output;
-    output = output.concat("Items you see here: " + this.currentRoom.getItemNames() + "\n");
-    return displayPlayerHealth(output);
+    if (this.player.getHealth() > 0) {
+      output = output.concat("Items you see here: " + this.currentRoom.getItemNames() + "\n");
+    }
+    return output.concat(output + this.player.getHealthStatus());
   }
-
 
   /**
    * Uses an item on an obstacle in the room.
-   *
    * @param itemName The name of the item.
    * @return The sequence of events from using an item.
    */
@@ -443,18 +442,5 @@ public class GameModel implements IGameModel {
     }
 
     return false;
-  }
-
-  private String displayPlayerHealth(String output) {
-    int playerHealth = player.getHealth();
-
-    if (playerHealth <= 0) {
-      return output.concat("Your health has dropped to the sleep zone.\nNighty-night\n");
-    } if (playerHealth < 40) {
-      return output.concat("Your health is very low! And you're woozy!\n");
-    } if (playerHealth < 70) {
-      return output.concat("Adventuring has made you very tired! Your health is low!\n");
-    }
-    return output.concat("You are healthy and wide awake.\n");
   }
 }
