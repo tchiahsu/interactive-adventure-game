@@ -6,6 +6,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.HashMap;
 import java.util.Map;
 
+
+/**
+ * Represents a Room in a game or system.
+ * This class contains information about the room, such as its name, description,
+ * puzzle, monster, items, fixtures, and possible paths to other rooms.
+ */
 public class Room implements ILocation {
 
   @JsonProperty("room_name")
@@ -33,46 +39,82 @@ public class Room implements ILocation {
   @JsonProperty("picture")
   private String picture;
 
+  /**
+   * Method that returns the name of the Room.
+   */
   public String getName() {
     return name;
   }
 
-  protected void setName(String name) {
-    this.name = (name != null) ? name.toUpperCase() : null;
-  }
-
+  /**
+   * Returns the description of the room.
+   * @return the description of the room.
+   */
   public String getDescription() {
     return description;
   }
 
+  /**
+   * Returns the room's number.
+   * @return the room number.
+   */
   public String getRoomNumber() {
     return roomNumber;
   }
 
+  /**
+   * Returns the name of the puzzle located in the room.
+   * @return the name of the puzzle.
+   */
   public String getPuzzleName() {
     return puzzleName;
   }
 
+  /**
+   * Returns the name of the monster located in the room.
+   * @return the name of the monster.
+   */
   public String getMonsterName() {
     return monsterName;
   }
 
+  /**
+   * Returns a comma-separated list of item names in the room.
+   * @return a list of item names.
+   */
   public String getItemNames() {
     return itemNames;
   }
 
+  /**
+   * Sets the item names in the room.
+   * The item names are converted to uppercase before being set.
+   * @param itemNames a comma-separated list of item names to set.
+   */
   public void setItemNames(String itemNames) {
     this.itemNames = (itemNames != null) ? itemNames.toUpperCase() : null;
   }
 
+  /**
+   * Returns a comma-separated list of fixture names in the room.
+   * @return a list of fixture names in Room.
+   */
   public String getFixtureNames() {
     return fixtureNames;
   }
 
+  /**
+   * Returns the picture associated with the room.
+   * @return the picture of the room.
+   */
   public String getPicture() {
     return picture;
   }
 
+  /**
+   * Method that creates a map  of the paths.
+   * @return a map of direction (as keys) to room number (as values).
+   */
   @JsonIgnore
   public Map<String, String> getPaths() {
     Map<String, String> path = new HashMap<>();
@@ -84,11 +126,12 @@ public class Room implements ILocation {
   }
 
   /**
-   * Method that returns the path for a given direction
+   * Method that returns the room number for a given direction.
+   * @param direction the direction in which to check for a room
+   * @return the name of the room in the specified direction
    */
+  @Override
   public String getPath(String direction) {
     return getPaths().get(direction.toUpperCase());
   }
-
-
 }
