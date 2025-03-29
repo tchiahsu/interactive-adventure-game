@@ -1,5 +1,7 @@
 package model;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -10,14 +12,15 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 class RoomTest {
   Room r1;
   Room r2;
   GameInfo gameInfo;
   GameData gameData;
 
+  /**
+   * Method that sets up objects to run before each test.
+   */
   @BeforeEach
   void setUp() throws IOException {
     ObjectMapper objectMapper = new ObjectMapper();
@@ -99,7 +102,7 @@ class RoomTest {
    */
   @Test
   void testGetFixtureNames() {
-    assertEquals("Fireplace", r2.getFixtureNames());
+    assertEquals("FIREPLACE", r2.getFixtureNames());
   }
 
   /**

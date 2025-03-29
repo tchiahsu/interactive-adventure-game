@@ -103,6 +103,10 @@ public class Room implements ILocation {
     return fixtureNames;
   }
 
+  public void setFixtureNames(String fixtureNames) {
+    this.fixtureNames = (fixtureNames != null) ? fixtureNames.toUpperCase() : "";
+  }
+
   /**
    * Returns the picture associated with the room.
    * @return the picture of the room.

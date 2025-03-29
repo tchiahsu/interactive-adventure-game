@@ -8,20 +8,24 @@
       "N": "-2", "S": "0", "E": "0", "W": "0", "puzzle": "Lock Mechanism", "monster": null, "items": "House Key", "fixtures": null, "picture": null },
     { "room_name":"Living Room", "room_number": "2",
       "description":"The living room is cozy with antique furniture and a fireplace. A large bookshelf covers one wall.",
-      "N": "-3", "S": "1", "E": "0", "W": "0", "puzzle": "Bookshelf Code", "monster": null, "items": null, "fixtures": "Fireplace", "picture": null },
+      "N": "-3", "S": "1", "E": "0", "W": "0", "puzzle": null, "monster": "Rabbit", "items": "Carrot", "fixtures": "Fireplace", "picture": null },
     { "room_name":"Kitchen", "room_number": "3",
       "description":"The kitchen is old-fashioned with a large stove and a refrigerator filled with strange items.",
       "N": "4", "S": "2", "E": "0", "W": "0", "puzzle": null, "monster": null, "items": null, "fixtures": null, "picture": null },
     { "room_name":"Basement", "room_number": "4",
       "description":"The basement is dark and musty. The air feels heavy with mystery, and there's a distant, eerie sound.",
-      "N": "2", "S": "3", "E": "0", "W": "0", "puzzle": null, "monster": null, "items": null, "fixtures": null, "picture": null }
+      "N": "2", "S": "3", "E": "0", "W": "0", "puzzle": null, "monster": "Teddy Bear", "items": null, "fixtures": null, "picture": null }
   ],
   "items":[
-    { "name":"House Key", "weight": "1", "max_uses": "1", "uses_remaining": "1", "value" : "10", "when_used" : "You unlock the front door with the house key. It creaks as it opens.",
-      "description":"A simple old key that opens the front door of the house. It's engraved with the number '1'.", "picture": null }
+    { "name":"House Key", "weight": "10", "max_uses": "1", "uses_remaining": "1", "value" : "10", "when_used" : "You unlock the front door with the house key. It creaks as it opens.",
+      "description":"A simple old key that opens the front door of the house. It's engraved with the number '1'.", "picture": null },
+    {"name":"Carrot", "weight": "5", "max_uses": "1", "uses_remaining": "1", "value" : "20", "when_used" : "To kill the rabbit monster",
+      "description":"A carrot that has poison inside it", "picture": null },
+    {"name":"Bottle", "weight": "4", "max_uses": "1", "uses_remaining": "1", "value" : "10", "when_used" : "To cause flood",
+      "description":"Can generate infinite water to kill", "picture": null }
   ],
   "fixtures":[
-    { "name":"Fireplace", "weight": "50", "puzzle":null, "states" : null,
+    { "name":"Fireplace", "weight": "50", "puzzle":"Bookshelf Code", "states" : "active",
       "description":"A grand stone fireplace that looks like it hasn't been used in years. There’s an odd symbol carved into the stone.", "picture": null }
   ],
 
@@ -34,5 +38,15 @@
       "description" : "A bookshelf with a hidden code. Solving it opens a secret compartment.",
       "effects" : "There’s a bookshelf in the living room that needs a code to unlock a hidden compartment. The right word will open it.",
       "target" : "2:Living Room", "picture": null }
+  ],
+  "monsters":[
+    { "name":"Rabbit", "active": "true", "affects_target": "true", "affects_player": "true", "solution" : "Carrot", "value" : "100",
+      "description" : "Awww. A furry rabbit twitching its nose and eating a carrot. Makes you want to pet him.",
+      "effects" : "A monster Rabbit moves towards you! He's blocking the way north. \nI think you might be dinner!",
+      "damage" : "-15", "target" : "1:Front Door", "can_attack": "true", "attack":"licks you with a giant tongue!", "picture": null },
+    { "name":"Teddy Bear", "active": "true", "affects_target": "true", "affects_player": "true", "solution" : "Hair Clippers", "value" : "200",
+      "description" : "A peaceful, cute-looking teddy bear with its hair clipped sits on the floor.",
+      "effects" : "A monster Teddy Bear growls at you! You cannot get past!",
+      "damage" : "-5", "target" : "2:Living Room", "can_attack": "true", "attack":"hits you with soft, fluffy paws! You might sneeze!", "picture": null }
   ]
 }
