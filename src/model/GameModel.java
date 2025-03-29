@@ -21,7 +21,7 @@ public class GameModel implements IGameModel {
 
   /**
    * Constructor for initialising the GameModel class.
-   * @param jsonFile the JSON file with data.
+   * @param jsonFile : the JSON file with data.
    * @throws IOException handles file not found error.
    */
   public GameModel(String jsonFile) throws IOException {
@@ -34,141 +34,147 @@ public class GameModel implements IGameModel {
     this.gameInfo = this.objectMapper.readValue(new File(jsonFile), GameInfo.class);
     this.gameData = new GameData(this.gameInfo);
 
-    currentRoom = gameData.getRoom("1");
-    player = new Player();
+    this.currentRoom = gameData.getRoom("1");
+    this.player = new Player();
   }
 
   /**
    * Moves the player in a given valid direction.
-   * @param direction the direction player wants to move to.
+   * @param direction : the direction the player wants to move
+   * @return String describing the result of the move
    */
   public String move(String direction) {
-    String output = "";
-    String nextRoom = currentRoom.getPath(direction);
+    StringBuilder output = new StringBuilder();
+    String nextRoom = this.currentRoom.getPath(direction);
     int nextRoomNumber = Integer.parseInt(nextRoom);
 
     if (nextRoomNumber == 0) {
-      output = output.concat("<<You cannot go in that direction>>\n\n");
+      output.append("<<You cannot go in that direction>>\n\n");
     } else if (nextRoomNumber < 0) {
       // Check if monster or puzzle is blocking the path
       if (roomHasActiveMonster()) {
-        output = output.concat(getMonsterInRoom().getActiveDescription() + "\n");
-        return monsterAttacks(output);
+        output.append(getMonsterInRoom().getActiveDescription()).append("\n");
+        return monsterAttacks(output.toString());
       } else if (roomHasActivePuzzle()) {
-        return output.concat(getPuzzleInRoom().getActiveDescription() + "\n");
+        return output.append(getPuzzleInRoom().getActiveDescription()).append("\n").toString();
       } else {
-        currentRoom = gameData.getRoom(Math.abs(nextRoomNumber) + "");
+        this.currentRoom = gameData.getRoom(String.valueOf(Math.abs(nextRoomNumber)));
       }
     } else {
-      currentRoom = gameData.getRoom(nextRoom);
+      this.currentRoom = gameData.getRoom(nextRoom);
     }
 
-    output = output.concat("You are in the " + currentRoom.getName() + "\n");
-    output = output.concat(getCurrentRoomDescription());
-    output = roomHasActiveMonster() ? monsterAttacks(output) : output;
-    output = output.concat("Items you see here: " + currentRoom.getItemNames() + "\n");
-    return output;
+    output.append("You are in the ").append(this.currentRoom.getName()).append("\n");
+    output.append(getCurrentRoomDescription());
+    String result = output.toString();
+
+    if (roomHasActiveMonster()) {
+      result = monsterAttacks(result);
+    }
+
+    return result + "Items you see here: " + this.currentRoom.getItemNames() + "\n";
   }
 
   private String getCurrentRoomDescription() {
-    String output = "";
+    StringBuilder output = new StringBuilder();
     if (roomHasActiveMonster()) {
-      output = output.concat(getMonsterInRoom().getActiveDescription());
+      output.append(getMonsterInRoom().getActiveDescription());
     } else if (roomHasActivePuzzle()) {
-      output = output.concat(getPuzzleInRoom().getActiveDescription());
+      output.append(getPuzzleInRoom().getActiveDescription());
     } else {
-      output = output.concat(currentRoom.getDescription());
+      output.append(this.currentRoom.getDescription());
     }
-
-    return output.concat("\n");
+    return output.append("\n").toString();
   }
 
   private Monster getMonsterInRoom() {
-    String monsterName = currentRoom.getMonsterName();
-    return gameData.getMonster(monsterName);
+    String monsterName = this.currentRoom.getMonsterName();
+    return this.gameData.getMonster(monsterName);
   }
 
   private Puzzle getPuzzleInRoom() {
-    String puzzleName = currentRoom.getPuzzleName();
-    return gameData.getPuzzle(puzzleName);
+    String puzzleName = this.currentRoom.getPuzzleName();
+    return this.gameData.getPuzzle(puzzleName);
   }
 
   @Override
   public String checkInventory() {
-    return player.getInventory().toString() + "\n";
+    return this.player.getInventory().toString() + "\n";
   }
 
   @Override
   public String look() {
-    String output = "";
-    output = output.concat("You are standing in the " + currentRoom.getName() + "\n");
-    output = output.concat(getCurrentRoomDescription());
-    output = roomHasActiveMonster() ? monsterAttacks(output) : output;
-    if (this.player.getHealth() > 0) {
-      output = output.concat("Items you see here: " + this.currentRoom.getItemNames() + "\n");
+    String result = "You are standing in the " + this.currentRoom.getName() + "\n" +
+      getCurrentRoomDescription();
+
+    if (roomHasActiveMonster()) {
+      return monsterAttacks(result);
     }
-    return output.concat(this.player.getHealthStatus());
+    if (this.player.getHealth() > 0) {
+      result += "Items you see here: " + this.currentRoom.getItemNames() + "\n";
+    }
+
+    return result + this.player.getHealthStatus();
   }
 
   /**
    * Uses an item on an obstacle in the room.
-   *
    * @param itemName The name of the item.
    * @return The sequence of events from using an item.
    */
   @Override
   public String useItem(String itemName) {
-    String output = "";
+    StringBuilder output = new StringBuilder();
 
     // Handle player not having item in their inventory
     if (!playerHasItem(itemName)) {
-      output = output.concat(itemName + " not found in inventory.\n");
+      output.append(itemName).append(" not found in inventory.\n");
       // Handle action with an active monster in the room
-      output = roomHasActiveMonster() ? monsterAttacks(output) : output;
-      return output;
+      return roomHasActiveMonster() ? monsterAttacks(output.toString()) : output.toString();
     }
 
-    Item item = gameData.getItem(itemName);
+    Item item = this.gameData.getItem(itemName);
 
     // Handle using an item with no uses remaining
     if (item.getUsesRemaining() == 0) {
-      output = output.concat("Oh no! " + item.getName() + " is either empty or cannot be used again!");
+      output.append("Oh no! ").append(item.getName())
+        .append(" is either empty or cannot be used again!");
       // Handle action with an active monster in the room
-      output = roomHasActiveMonster() ? monsterAttacks(output) : output;
-      return output;
+      return roomHasActiveMonster() ? monsterAttacks(output.toString()) : output.toString();
     }
 
     // Item is being used on a monster
-    if (currentRoom.getMonsterName() != null) {
+    if (this.currentRoom.getMonsterName() != null) {
       Monster monster = getMonsterInRoom();
       // Item is monster's solution
       if (monster.isActive() && monster.getSolution().equalsIgnoreCase(item.getName())) {
         item.reduceUse();
         monster.deactivate();
-        player.increaseScore(monster.getValue());
-        output = output.concat("SUCCESS! " + item.getWhenUsedDescription() + "\n");
+        this.player.increaseScore(monster.getValue());
+        output.append("SUCCESS! ").append(item.getWhenUsedDescription()).append("\n");
         // Item is not monster's solution or the monster is inactive
       } else {
-        output = output.concat("Using " + item.getName() + " did nothing.\n");
-        output = monster.isActive() ? monsterAttacks(output) : output;
+        output.append("Using ").append(item.getName()).append(" did nothing.\n");
+        if (monster.isActive()) {
+          return monsterAttacks(output.toString());
+        }
       }
     }
     // Item is being used on a puzzle
-    else if (currentRoom.getPuzzleName() != null) {
+    else if (this.currentRoom.getPuzzleName() != null) {
       Puzzle puzzle = getPuzzleInRoom();
       // Item is puzzle's solution
       if (puzzle.isActive() && puzzle.getSolution().equalsIgnoreCase(item.getName())) {
         item.reduceUse();
         puzzle.deactivate();
-        player.increaseScore(puzzle.getValue());
-        output = output.concat("SUCCESS! " + item.getWhenUsedDescription() + "\n");
+        this.player.increaseScore(puzzle.getValue());
+        output.append("SUCCESS! ").append(item.getWhenUsedDescription()).append("\n");
         // Item is not puzzle's solution or the puzzle is inactive
       } else {
-        output = output.concat("Using " + item.getName() + " did nothing.\n");
+        output.append("Using ").append(item.getName()).append(" did nothing.\n");
       }
     }
-
-    return output;
+    return output.toString();
   }
 
   /**
@@ -179,44 +185,43 @@ public class GameModel implements IGameModel {
    */
   @Override
   public String takeItem(String itemName) {
-    String output = "";
+    StringBuilder output = new StringBuilder();
     // Items in a room are stored as: "ITEM1, ITEM2, ITEM3"
     // This will create a list of ["ITEM1", "ITEM2", "ITEM3"]
-    List<String> roomsItemNames = new ArrayList<>(Arrays.asList(currentRoom.getItemNames().split(", ")));
+    List<String> roomsItemNames = new ArrayList<>(Arrays.asList(this.currentRoom.getItemNames()
+                                                                  .split(", ")));
 
     // Handle item not being in the room's list of items
     if (!roomsItemNames.contains(itemName.toUpperCase())) {
-      output = output.concat(itemName + " not found in " + currentRoom.getName() + "\n");
+      output.append(itemName).append(" not found in ").append(this.currentRoom.getName())
+          .append("\n");
       // Handle action with an active monster in the room
-      output = roomHasActiveMonster() ? monsterAttacks(output) : output;
-      return output;
+      return roomHasActiveMonster() ? monsterAttacks(output.toString()) : output.toString();
     }
 
     // Item is in the room's list of items
     // Check if player can hold the item
-    Item item = gameData.getItem(itemName);
-    Inventory playerInventory = player.getInventory();
+    Item item = this.gameData.getItem(itemName);
+    Inventory playerInventory = this.player.getInventory();
     int newWeight = playerInventory.getCurrentCapacity() + item.getWeight();
     // Player cannot hold the item
     if (newWeight > playerInventory.getMaxCapacity()) {
-      output = output.concat("Your inventory is too full!\n");
+      output.append("Your inventory is too full!\n");
     }
-    // Player can hold the item
-    // Add to their inventory
     else {
+      // Player cannot hold the item
       playerInventory.addItem(item);
       playerInventory.setCurrentCapacity(newWeight);
-      player.increaseScore(item.getValue());
+      this.player.increaseScore(item.getValue());
       roomsItemNames.remove(roomsItemNames.indexOf(item.getName()));
-      output = output.concat(item.getName() + " added to inventory.\n");
+      output.append(item.getName()).append(" added to inventory.\n");
     }
 
     // Update the items in the room
     String updatedRoomItemNames = String.join(", ", roomsItemNames);
-    currentRoom.setItemNames(updatedRoomItemNames);
+    this.currentRoom.setItemNames(updatedRoomItemNames);
     // Handle action with an active monster in the room
-    output = roomHasActiveMonster() ? monsterAttacks(output) : output;
-    return output;
+    return roomHasActiveMonster() ? monsterAttacks(output.toString()) : output.toString();
   }
 
   /**
@@ -227,32 +232,30 @@ public class GameModel implements IGameModel {
    */
   @Override
   public String dropItem(String itemName) {
-    String output = "";
+    StringBuilder output = new StringBuilder();
     // Handle player not having item in their inventory
     if (!playerHasItem(itemName)) {
-      output = output.concat("You don't have " + itemName + ".\n");
+      output.append("You don't have ").append(itemName).append(".\n");
       // Handle action with an active monster in the room
-      output = roomHasActiveMonster() ? monsterAttacks(output) : output;
-      return output;
+      return roomHasActiveMonster() ? monsterAttacks(output.toString()) : output.toString();
     }
 
     // Player has the item in their inventory
     // Remove the item from their inventory
-    Item item = gameData.getItem(itemName);
-    Inventory playerInventory = player.getInventory();
+    Item item = this.gameData.getItem(itemName);
+    Inventory playerInventory = this.player.getInventory();
     playerInventory.removeItem(item);
     playerInventory.setCurrentCapacity(playerInventory.getCurrentCapacity() - item.getWeight());
-    player.decreaseScore(item.getValue());
+    this.player.decreaseScore(item.getValue());
 
     // Add the item to the room's list of items
-    String roomItemNames = currentRoom.getItemNames();
+    String roomItemNames = this.currentRoom.getItemNames();
     String updatedRoomItemNames = roomItemNames.isEmpty() ? item.getName() : roomItemNames.concat(", " + item.getName());
-    currentRoom.setItemNames(updatedRoomItemNames);
-    output = output.concat(item.getName() + " removed from inventory.\n");
+    this.currentRoom.setItemNames(updatedRoomItemNames);
+    output.append(item.getName()).append(" removed from inventory.\n");
 
     // Handle action with an active monster in the room
-    output = roomHasActiveMonster() ? monsterAttacks(output) : output;
-    return output;
+    return roomHasActiveMonster() ? monsterAttacks(output.toString()) : output.toString();
   }
 
   /**
@@ -262,53 +265,50 @@ public class GameModel implements IGameModel {
    * @return The sequence of events from solving a puzzle.
    */
   public String answer(String answer) {
-    String output = "";
+    StringBuilder output = new StringBuilder();
 
     // Handle answering with no puzzle in the room
-    if (currentRoom.getPuzzleName() == null) {
-      output = output.concat("You answered, but no one heard you.\n");
+    if (this.currentRoom.getPuzzleName() == null) {
+      output.append("You answered, but no one heard you.\n");
       // Handle action with an active monster in the room
-      output = roomHasActiveMonster() ? monsterAttacks(output) : output;
-      return output;
+      return roomHasActiveMonster() ? monsterAttacks(output.toString()) : output.toString();
     }
 
     Puzzle puzzle = getPuzzleInRoom();
 
     // Answer matches the puzzle's solution
     if (puzzle.isActive() && puzzle.getSolution().equals(answer)) {
-      output = output.concat("SUCCESS! You solved the puzzle with " + answer + "\n");
+      output.append("SUCCESS! You solved the puzzle with ").append(answer).append("\n");
       // Answer does not match the puzzle's solution or the puzzle is inactive
     } else {
-      output = output.concat("Your answer " + answer + " did nothing.\n");
+      output.append("Your answer ").append(answer).append(" did nothing.\n");
     }
 
     // Handle action with an active monster in the room
-    output = roomHasActiveMonster() ? monsterAttacks(output) : output;
-    return output;
+    return roomHasActiveMonster() ? monsterAttacks(output.toString()) : output.toString();
   }
 
   @Override
   public String examine(String objectName) {
-    String output = "";
+    String output;
 
     if (roomHasItem(objectName) || playerHasItem(objectName)) {
       output = examineItem(objectName);
     } else if (roomHasFixture(objectName)) {
       output = examineFixture(objectName);
-    } else if (objectName.equalsIgnoreCase(currentRoom.getMonsterName())) {
+    } else if (objectName.equalsIgnoreCase(this.currentRoom.getMonsterName())) {
       output = examineMonster();
-    } else if (objectName.equalsIgnoreCase(currentRoom.getPuzzleName())) {
+    } else if (objectName.equalsIgnoreCase(this.currentRoom.getPuzzleName())) {
       output = examinePuzzle();
     } else {
       output = "There is no " + objectName + " to examine\n";
     }
 
-    output = roomHasActiveMonster() ? monsterAttacks(output) : output;
-    return output;
+    return roomHasActiveMonster() ? monsterAttacks(output) : output;
   }
 
   private String examineItem(String itemName) {
-    Item item = gameData.getItem(itemName);
+    Item item = this.gameData.getItem(itemName);
     if (roomHasItem(itemName)) {
       return "From the " + this.currentRoom.getName() + " you examine the "
               + item.getName() + ": " + item.getDescription() + "\n";
@@ -318,7 +318,7 @@ public class GameModel implements IGameModel {
   }
 
   private String examineFixture(String fixtureName) {
-    Fixture fixture = gameData.getFixture(fixtureName);
+    Fixture fixture = this.gameData.getFixture(fixtureName);
     return "From the " + this.currentRoom.getName() + " you examine the "
             + fixture.getName() + ": " + fixture.getDescription() + "\n";
   }
@@ -346,10 +346,13 @@ public class GameModel implements IGameModel {
 
   public String saveGame() throws IOException {
     try {
-      String gameFile = Paths.get(jsonFile).getFileName().toString();
-      objectMapper.writerWithDefaultPrettyPrinter().writeValue(new File("src/data/savegamedata" + gameFile), gameInfo);
-      objectMapper.writerWithDefaultPrettyPrinter().writeValue(new File("src/data/saveroomdata" + gameFile), currentRoom);
-      objectMapper.writerWithDefaultPrettyPrinter().writeValue(new File("src/data/saveplayerdata" + gameFile), player);
+      String gameFile = Paths.get(this.jsonFile).getFileName().toString();
+      this.objectMapper.writerWithDefaultPrettyPrinter().writeValue(
+          new File("src/data/savegamedata" + gameFile), this.gameInfo);
+      this.objectMapper.writerWithDefaultPrettyPrinter().writeValue(
+          new File("src/data/saveroomdata" + gameFile), this.currentRoom);
+      this.objectMapper.writerWithDefaultPrettyPrinter().writeValue(
+          new File("src/data/saveplayerdata" + gameFile), this.player);
       return "Game saved successfully!\n";
     } catch (IOException e) {
       return "Game failed to save\n";
@@ -358,10 +361,13 @@ public class GameModel implements IGameModel {
 
   public String restoreGame() throws IOException {
     try {
-      String gameFile = Paths.get(jsonFile).getFileName().toString();
-      this.gameInfo = objectMapper.readValue(new File("src/data/savegamedata" + gameFile), GameInfo.class);
-      this.currentRoom = objectMapper.readValue(new File("src/data/saveroomdata" + gameFile), Room.class);
-      this.player = objectMapper.readValue(new File("src/data/saveplayerdata" + gameFile), Player.class);
+      String gameFile = Paths.get(this.jsonFile).getFileName().toString();
+      this.gameInfo = this.objectMapper.readValue(
+          new File("src/data/savegamedata" + gameFile), GameInfo.class);
+      this.currentRoom = this.objectMapper.readValue(
+          new File("src/data/saveroomdata" + gameFile), Room.class);
+      this.player = this.objectMapper.readValue(
+          new File("src/data/saveplayerdata" + gameFile), Player.class);
       return "Loaded your previous save\n";
     } catch (IOException e) {
       return "No game file to load\n";
@@ -389,13 +395,9 @@ public class GameModel implements IGameModel {
    * @return true if the player has the item in their inventory, false otherwise.
    */
   private boolean playerHasItem(String itemName) {
-    Item item = gameData.getItem(itemName);
-    Inventory playerInventory = player.getInventory();
-    if (playerInventory.hasItem(item)) {
-      return true;
-    }
-
-    return false;
+    Item item = this.gameData.getItem(itemName);
+    Inventory playerInventory = this.player.getInventory();
+    return playerInventory.hasItem(item);
   }
 
   /**
@@ -405,11 +407,9 @@ public class GameModel implements IGameModel {
    */
   private boolean roomHasItem(String itemName) {
     //Item item = gameData.getItem(itemName);
-    List<String> roomsItemNames = new ArrayList<>(Arrays.asList(currentRoom.getItemNames().split(", ")));
-    if (roomsItemNames.contains(itemName)) {
-      return true;
-    }
-    return false;
+    List<String> roomsItemNames =
+        new ArrayList<>(Arrays.asList(this.currentRoom.getItemNames().split(", ")));
+    return roomsItemNames.contains(itemName);
   }
 
   /**
@@ -418,11 +418,9 @@ public class GameModel implements IGameModel {
    * @return true if the room the item, false otherwise.
    */
   private boolean roomHasFixture(String fixtureName) {
-    List<String> roomsFixtureNames = new ArrayList<>(Arrays.asList(currentRoom.getFixtureNames().split(", ")));
-    if (roomsFixtureNames.contains(fixtureName.toUpperCase())) {
-      return true;
-    }
-    return false;
+    List<String> roomsFixtureNames =
+        new ArrayList<>(Arrays.asList(this.currentRoom.getFixtureNames().split(", ")));
+    return roomsFixtureNames.contains(fixtureName.toUpperCase());
   }
 
   /**
@@ -431,11 +429,8 @@ public class GameModel implements IGameModel {
    * @return true if the current room has an active monster, false otherwise.
    */
   private boolean roomHasActiveMonster() {
-    boolean roomHasMonster = currentRoom.getMonsterName() != null;
-
-    if (roomHasMonster) {
-      String monsterName = currentRoom.getMonsterName();
-      Monster monster = gameData.getMonster(monsterName);
+    if (this.currentRoom.getMonsterName() != null) {
+      Monster monster = gameData.getMonster(currentRoom.getMonsterName());
       return monster.isActive();
     }
     return false;
@@ -458,8 +453,7 @@ public class GameModel implements IGameModel {
   }
 
   private boolean roomHasActivePuzzle() {
-    boolean roomHasPuzzle = currentRoom.getPuzzleName() != null;
-    if (roomHasPuzzle) {
+    if (currentRoom.getPuzzleName() != null) {
       String puzzleName = currentRoom.getPuzzleName();
       Puzzle puzzle = gameData.getPuzzle(puzzleName);
       return puzzle.isActive();
