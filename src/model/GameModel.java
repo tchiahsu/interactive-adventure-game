@@ -111,7 +111,7 @@ public class GameModel implements IGameModel {
     if (this.player.getHealth() > 0) {
       output = output.concat("Items you see here: " + this.currentRoom.getItemNames() + "\n");
     }
-    return output.concat(output + this.player.getHealthStatus());
+    return output.concat(this.player.getHealthStatus());
   }
 
   /**
@@ -359,12 +359,9 @@ public class GameModel implements IGameModel {
   public String restoreGame() throws IOException {
     try {
       String gameFile = Paths.get(jsonFile).getFileName().toString();
-      GameInfo newGameInfo = objectMapper.readValue(new File("src/data/savegamedata" + gameFile), GameInfo.class);
-      this.gameInfo = newGameInfo;
-      Room newCurrentRoom = objectMapper.readValue(new File("src/data/saveroomdata" + gameFile), Room.class);
-      this.currentRoom = newCurrentRoom;
-      Player newPlayer = objectMapper.readValue(new File("src/data/saveplayerdata" + gameFile), Player.class);
-      this.player = newPlayer;
+      this.gameInfo = objectMapper.readValue(new File("src/data/savegamedata" + gameFile), GameInfo.class);
+      this.currentRoom = objectMapper.readValue(new File("src/data/saveroomdata" + gameFile), Room.class);
+      this.player = objectMapper.readValue(new File("src/data/saveplayerdata" + gameFile), Player.class);
       return "Loaded your previous save\n";
     } catch (IOException e) {
       return "No game file to load\n";
