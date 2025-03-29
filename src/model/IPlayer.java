@@ -9,4 +9,5 @@ public interface IPlayer {
   void decreaseHealth(int amount);
   void setName(String name);
   String getName();
+  String getRank();
 }

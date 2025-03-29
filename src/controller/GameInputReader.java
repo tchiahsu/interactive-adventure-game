@@ -39,7 +39,7 @@ public class GameInputReader {
 
       while (invalidInput) {
         // Display available commands to user
-        this.output.append("""
+        this.output.append("\n" + """
           ==========\s
           To move, enter: (N)orth, (S)outh, (E)ast or (W)est.
           Other actions: (I)nventory, (L)ook around the location, (U)se an item

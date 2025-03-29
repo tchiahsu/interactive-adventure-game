@@ -53,10 +53,10 @@ public class GameModel implements IGameModel {
     } else if (nextRoomNumber < 0) {
       // Check if monster or puzzle is blocking the path
       if (roomHasActiveMonster()) {
-        output = output.concat(getMonsterInRoom().getActiveDescription());
+        output = output.concat(getMonsterInRoom().getActiveDescription() + "\n");
         return output = monsterAttacks(output);
       } else if (roomHasActivePuzzle()) {
-        return output = output.concat(getPuzzleInRoom().getActiveDescription());
+        return output = output.concat(getPuzzleInRoom().getActiveDescription() + "\n");
       } else {
         currentRoom = gameData.getRoom(Math.abs(nextRoomNumber) + "");
       }
@@ -64,7 +64,7 @@ public class GameModel implements IGameModel {
       currentRoom = gameData.getRoom(nextRoom);
     }
 
-    output = output.concat("You enter the " + currentRoom.getName() + "\n");
+    output = output.concat("You are in the " + currentRoom.getName() + "\n");
     output = output.concat(getCurrentRoomDescription());
     output = roomHasActiveMonster() ? monsterAttacks(output) : output;
     output = output.concat("Items you see here: " + currentRoom.getItemNames() + "\n");
@@ -107,7 +107,7 @@ public class GameModel implements IGameModel {
     output = output.concat("You are standing in the " + currentRoom.getName() + "\n");
     output = output.concat(getCurrentRoomDescription());
     output = roomHasActiveMonster() ? monsterAttacks(output) : output;
-    output = output.concat("\nItems you see here: " + this.currentRoom.getItemNames() + "\n");
+    output = output.concat("Items you see here: " + this.currentRoom.getItemNames() + "\n");
     return displayPlayerHealth(output);
   }
 
@@ -342,9 +342,12 @@ public class GameModel implements IGameModel {
   public String restoreGame() throws IOException {
     try {
       String gameFile = Paths.get(jsonFile).getFileName().toString();
-      gameInfo = objectMapper.readValue(new File("src/data/savegamedata" + gameFile), GameInfo.class);
-      currentRoom = objectMapper.readValue(new File("src/data/saveroomdata" + gameFile), Room.class);
-      player = objectMapper.readValue(new File("src/data/saveplayerdata" + gameFile), Player.class);
+      GameInfo newGameInfo = objectMapper.readValue(new File("src/data/savegamedata" + gameFile), GameInfo.class);
+      this.gameInfo = newGameInfo;
+      Room newCurrentRoom = objectMapper.readValue(new File("src/data/saveroomdata" + gameFile), Room.class);
+      this.currentRoom = newCurrentRoom;
+      Player newPlayer = objectMapper.readValue(new File("src/data/saveplayerdata" + gameFile), Player.class);
+      this.player = newPlayer;
       return "Loaded your previous save\n";
     } catch (IOException e) {
       return "No game file to load\n";
@@ -452,6 +455,6 @@ public class GameModel implements IGameModel {
     } if (playerHealth < 70) {
       return output.concat("Adventuring has made you very tired! Your health is low!\n");
     }
-    return output.concat("You are healthy and wide awake.");
+    return output.concat("You are healthy and wide awake.\n");
   }
 }
