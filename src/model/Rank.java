@@ -1,5 +1,7 @@
 package model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+
 /**
  * Represents the rank of a player in the adventure game.
  * The rank is determined by the amount of points collected by the player as they played
@@ -26,5 +28,16 @@ public enum Rank {
    */
   public String getRankTitle() {
     return this.rank;
+  }
+
+  @JsonCreator
+  public static Rank parseRank(String rank) {
+    for (Rank r : Rank.values()) {
+      if (r.rank.equalsIgnoreCase(rank)) {
+        return r;
+      }
+    }
+
+    throw new IllegalArgumentException("Unknown rank: " + rank);
   }
 }

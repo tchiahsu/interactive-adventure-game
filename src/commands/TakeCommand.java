@@ -13,7 +13,8 @@ public class TakeCommand implements ICommand {
   private final Appendable output;
 
   /**
-   * Constructs an {@code TakeCommand} object with the specified item and output avenue.
+   * Constructs an {@code TakeCommand} object with the specified item and output destination.
+   *
    * @param item : the item that is being taken
    * @param output : the {@link Appendable} object where the command's output will be written.
    */
@@ -24,6 +25,7 @@ public class TakeCommand implements ICommand {
 
   /**
    * Executes the take command by passing the item to the game model.
+   *
    * @param model : the {@link IGameModel} instance that processes the answer.
    * @throws IOException when an I/O error occurs while appending the output.
    */
