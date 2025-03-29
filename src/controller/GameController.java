@@ -34,10 +34,8 @@ public class GameController implements IController {
    */
   @Override
   public void go() throws IOException {
-    // Initialize input reader and command processor
+    // Initialize input reader
     GameInputReader inputReader = new GameInputReader(this.input, this.output);
-    GameCommandFinder commandFinder = new GameCommandFinder(this.output);
-    ICommand associatedCommand;
 
     // Prompt user for name
     String avatarName = inputReader.getAvatarName();
@@ -50,26 +48,21 @@ public class GameController implements IController {
     // Read string input from user
     String userInput = inputReader.readInput();
 
+    // Initialize command finder
+    GameCommandFinder commandFinder = new GameCommandFinder(this.output);
+    ICommand associatedCommand;
+
     // Continuous game loop until player quits
     while (!userInput.equalsIgnoreCase("Q")) {
       associatedCommand = commandFinder.getCommand(userInput); // find command associated to input
       associatedCommand.execute(this.model); // executes command
-
       if (this.model.getPlayer().getHealth() <= 0) {
-        this.output.append("You are asleep\n");
         break;
-      } else if (this.model.getPlayer().getHealth() < 40) {
-        this.output.append("You are not feel so great\n");
-      } else if (this.model.getPlayer().getHealth() < 70) {
-        this.output.append("You've been hurt pretty badly\n");
       }
-
       userInput = inputReader.readInput(); // prompt user for next command
     }
 
     // Game Ending Message
-    this.output.append("Thank you for playing!\n");
-    this.output.append("You score is ").append(String.valueOf(this.model.getPlayer().getScore()));
-    this.output.append("\nYour rank: ").append(this.model.getPlayer().getRank()).append("\n");
+    this.output.append(this.model.getEndingMessage());
   }
 }

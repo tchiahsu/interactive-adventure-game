@@ -10,4 +10,5 @@ public interface IPlayer {
   void setName(String name);
   String getName();
   String getRank();
+  String getHealthStatus();
 }

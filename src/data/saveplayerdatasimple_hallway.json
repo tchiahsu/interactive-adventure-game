@@ -1,5 +1,9 @@
 {
-  "name" : "HARIROSN",
+<<<<<<< Updated upstream
+  "name" : "TONY",
+=======
+  "name" : "HA",
+>>>>>>> Stashed changes
   "health" : 100,
   "score" : 105,
   "inventory" : {
@@ -24,5 +28,6 @@
       "value" : 5,
       "when_used" : "You activate the clippers. It makes a loud buzzing sound as you use them!"
     } ]
-  }
+  },
+  "rank" : "Seasoned Pathfinder"
 }
