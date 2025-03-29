@@ -1,0 +1,14 @@
+{
+  "room_name" : "HALLWAY 2",
+  "description" : "This second 'room' is part of the hallway. There is a door to the north. it is now unlocked since you used the key to deactivate the puzzle. Take the hair clippers - you'll need them.",
+  "room_number" : "2",
+  "N" : "-3",
+  "S" : "1",
+  "E" : "0",
+  "W" : "0",
+  "puzzle" : "Lock",
+  "monster" : null,
+  "items" : "",
+  "fixtures" : "Chandelier",
+  "picture" : null
+}

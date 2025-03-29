@@ -1,0 +1,28 @@
+{
+  "name" : "TONY",
+  "health" : 100,
+  "score" : 105,
+  "inventory" : {
+    "maxCapacity" : 13,
+    "currentCapacity" : 2,
+    "items" : [ {
+      "name" : "NOTEBOOK",
+      "description" : "It's a developer's notebook. Some tips:\nKeep in mind that puzzles and monsters alter the room environment until they are deactivated\nYou CANNOT examine monsters, but you CAN examine fixtures and items. Items solve puzzles and defeat monsters.",
+      "weight" : 1,
+      "picture" : null,
+      "max_uses" : 1000,
+      "uses_remaining" : 1000,
+      "value" : 100,
+      "when_used" : "You read the notebook."
+    }, {
+      "name" : "HAIR CLIPPERS",
+      "description" : "Cordless Wahl hair clippers for pets or humans. The battery low light is blinking.",
+      "weight" : 2,
+      "picture" : null,
+      "max_uses" : 10,
+      "uses_remaining" : 4,
+      "value" : 5,
+      "when_used" : "You activate the clippers. It makes a loud buzzing sound as you use them!"
+    } ]
+  }
+}
