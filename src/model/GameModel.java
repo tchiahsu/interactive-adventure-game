@@ -16,7 +16,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  */
 public class GameModel implements IGameModel {
   // Constant
-  private static final String BASE_SAVE_PATH = "src/data/";
   private static final String ITEM_DELIMITER = ", ";
   // Game Data Fields
   private final String jsonFile;
