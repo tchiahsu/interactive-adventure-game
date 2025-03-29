@@ -143,6 +143,12 @@ public class GameModel implements IGameModel {
       return roomHasActiveMonster() ? monsterAttacks(output.toString()) : output.toString();
     }
 
+    // Item is used on the player
+    if (itemIsUsedOnPlayer(itemName)) {
+      item.reduceUse();
+      output.append(item.getWhenUsedDescription()).append("\n");
+      return roomHasActiveMonster() ? monsterAttacks(output.toString()) : output.toString();
+    }
     // Item is being used on a monster
     if (this.currentRoom.getMonsterName() != null) {
       Monster monster = getMonsterInRoom();
@@ -177,6 +183,18 @@ public class GameModel implements IGameModel {
     return output.toString();
   }
 
+  private boolean itemIsUsedOnPlayer(String itemName) {
+    if (currentRoom.getMonsterName() != null) {
+      Monster monster = getMonsterInRoom();
+      return !monster.getSolution().equalsIgnoreCase(itemName);
+    } else if (currentRoom.getPuzzleName() != null) {
+      Puzzle puzzle = getPuzzleInRoom();
+      return !puzzle.getSolution().equalsIgnoreCase(itemName);
+    }
+
+    return true;
+  }
+
   /**
    * Takes an item from a room into the player's inventory.
    *
@@ -193,10 +211,14 @@ public class GameModel implements IGameModel {
 
     // Handle item not being in the room's list of items
     if (!roomsItemNames.contains(itemName.toUpperCase())) {
-      output.append(itemName).append(" not found in ").append(this.currentRoom.getName())
-          .append("\n");
-      // Handle action with an active monster in the room
-      return roomHasActiveMonster() ? monsterAttacks(output.toString()) : output.toString();
+      if (itemIsObjectInRoom(itemName)) {
+        output.append("You can't take the ").append(itemName).append("!\n");
+      } else {
+        output.append(itemName).append(" not found in ").append(this.currentRoom.getName())
+                .append("\n");
+        // Handle action with an active monster in the room
+        return roomHasActiveMonster() ? monsterAttacks(output.toString()) : output.toString();
+      }
     }
 
     // Item is in the room's list of items
@@ -208,6 +230,8 @@ public class GameModel implements IGameModel {
     if (newWeight > playerInventory.getMaxCapacity()) {
       output.append("Your inventory is too full!\n");
     }
+    // Player can hold the item
+    // Add to their inventory
     else {
       // Player cannot hold the item
       playerInventory.addItem(item);
@@ -222,6 +246,16 @@ public class GameModel implements IGameModel {
     this.currentRoom.setItemNames(updatedRoomItemNames);
     // Handle action with an active monster in the room
     return roomHasActiveMonster() ? monsterAttacks(output.toString()) : output.toString();
+  }
+
+  private boolean itemIsObjectInRoom(String itemName) {
+    if (roomHasFixture(itemName)) {
+      return true;
+    } else if (currentRoom.getMonsterName() != null) {
+      return getMonsterInRoom().getName().equalsIgnoreCase(itemName);
+    } else {
+      return getMonsterInRoom().getName().equalsIgnoreCase(itemName);
+    }
   }
 
   /**

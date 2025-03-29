@@ -1,5 +1,7 @@
 package model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class Player implements IPlayer {
   private static final int LEGENDARY_LOWER_BOUND = 700;
   private static final int MASTER_LOWER_BOUND = 400;

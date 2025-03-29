@@ -1,5 +1,7 @@
 package model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+
 /**
  * Represents the health status of the player in the adventure game.
  */
@@ -25,5 +27,16 @@ public enum HealthStatus {
    */
   public String getStatusMessage() {
     return this.healthStatus;
+  }
+
+  @JsonCreator
+  public static HealthStatus parseHealthStatus(String healthStatus) {
+    for (HealthStatus h : HealthStatus.values()) {
+      if (h.healthStatus.equalsIgnoreCase(healthStatus)) {
+        return h;
+      }
+    }
+
+    throw new IllegalArgumentException("Unknown health status: " + healthStatus);
   }
 }

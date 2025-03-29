@@ -11,8 +11,8 @@
     "W" : "0",
     "puzzle" : null,
     "monster" : null,
-    "items" : "KEY",
-    "fixtures" : "Painting",
+    "items" : "",
+    "fixtures" : "PAINTING",
     "picture" : null
   }, {
     "room_name" : "Hallway 2",
@@ -24,8 +24,8 @@
     "W" : "0",
     "puzzle" : "Lock",
     "monster" : null,
-    "items" : "",
-    "fixtures" : "Chandelier",
+    "items" : "KEY, HAIR CLIPPERS",
+    "fixtures" : "CHANDELIER",
     "picture" : null
   }, {
     "room_name" : "Hallway End",
@@ -38,7 +38,7 @@
     "puzzle" : null,
     "monster" : "Teddy Bear",
     "items" : "LAMP",
-    "fixtures" : null,
+    "fixtures" : "",
     "picture" : null
   }, {
     "room_name" : "Exercise Room",
@@ -51,7 +51,7 @@
     "puzzle" : "DARKNESS",
     "monster" : null,
     "items" : "CANDYBAR",
-    "fixtures" : "Treadmill",
+    "fixtures" : "TREADMILL",
     "picture" : null
   } ],
   "items" : [ {
