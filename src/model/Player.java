@@ -51,4 +51,18 @@ public class Player implements IPlayer {
   public String getName() {
     return this.name;
   }
+
+  @Override
+  public String getRank() {
+    if (this.score <= 50) {
+      return "Novice Explorer";
+    } else if (this.score <= 150) {
+      return "Seasoned Pathfinder";
+    } else if (this.score <= 200) {
+      return "Master Voyager";
+    } else {
+      return "Legendary Trailblazer";
+    }
+  }
 }
+
