@@ -292,51 +292,39 @@ public class GameModel implements IGameModel {
   @Override
   public String examine(String itemName) {
     String output = "";
+    String generic = "From the " + this.currentRoom.getName() + " you examine the "
+            + itemName.toUpperCase() + ": ";
     // item could be item, fixture, puzzle, or monster
     if (roomHasFixture(itemName)) {
-      output = output.concat("From the " + this.currentRoom + " you examine the "
-              + itemName.toUpperCase() + ": " + gameData.getFixture(itemName).getDescription() + "\n");
+      output = output.concat(generic + gameData.getFixture(itemName).getDescription() + "\n");
       return output;
-    }
-    else if (playerHasItem(itemName)) {
+    } else if (playerHasItem(itemName)) {
       output = output.concat("From your inventory, you examine the "
               + itemName.toUpperCase() + ": " + gameData.getItem(itemName).getDescription() + "\n");
       return output;
-    }
-    else if (roomHasItem(itemName)) {
-      output = output.concat("From the " + this.currentRoom + " you examine the "
-              + itemName.toUpperCase() + ": " + gameData.getItem(itemName).getDescription() + "\n");
+    } else if (roomHasItem(itemName)) {
+      output = output.concat(generic + gameData.getItem(itemName).getDescription() + "\n");
       return output;
-    }
-    else if (itemName.equalsIgnoreCase(this.currentRoom.getMonsterName())) {
+    } else if (itemName.equalsIgnoreCase(this.currentRoom.getMonsterName())) {
       //if monster is active
-      if (gameData.getMonster(itemName).isActive()) {
-        output = output.concat("From the " + this.currentRoom + " you examine the "
-                + itemName.toUpperCase() + ": " + gameData.getMonster(itemName).getActiveDescription() + "\n");
+      if (roomHasActiveMonster()) {
+        output = output.concat(generic + gameData.getMonster(itemName).getActiveDescription() + "\n");
+        return output;
+      } else {
+        output = output.concat(generic + gameData.getMonster(itemName).getDescription() + "\n");
         return output;
       }
-      else {
-        output = output.concat("From the " + this.currentRoom + " you examine the "
-                + itemName.toUpperCase() + ": " + gameData.getMonster(itemName).getDescription() + "\n");
-        return output;
-      }
-    }
-    else if (itemName.equalsIgnoreCase(this.currentRoom.getPuzzleName())) { //puzzle
+    } else if (itemName.equalsIgnoreCase(this.currentRoom.getPuzzleName())) { //puzzle
       if (gameData.getPuzzle(itemName).isActive()) {
-        output = output.concat("From the " + this.currentRoom + " you examine the "
-                + itemName.toUpperCase() + ": " + gameData.getPuzzle(itemName).getActiveDescription() + "\n");
+        output = output.concat(generic + gameData.getPuzzle(itemName).getActiveDescription() + "\n");
         return output;
-      }
-      else {
-        output = output.concat("From the " + this.currentRoom + " you examine the "
-                + itemName.toUpperCase() + ": " + gameData.getPuzzle(itemName).getDescription() + "\n");
+      } else {
+        output = output.concat(generic + gameData.getPuzzle(itemName).getDescription() + "\n");
         return output;
       }
     }
     output = output.concat("There is no such item");
     return output;
-
-
   }
 
   public String saveGame() throws IOException {
@@ -423,7 +411,6 @@ public class GameModel implements IGameModel {
       Monster monster = gameData.getMonster(monsterName);
       return monster.isActive();
     }
-
     return false;
   }
 
