@@ -10,9 +10,9 @@ import java.util.List;
 
 public class GameModel implements IGameModel {
 
-  private ObjectMapper objectMapper;
-  private GameInfo gameInfo;
-  private GameData gameData;
+  private final ObjectMapper objectMapper;
+  private final GameInfo gameInfo;
+  private final GameData gameData;
 
   private Room currentRoom;
   private Player player;

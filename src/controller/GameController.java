@@ -42,6 +42,9 @@ public class GameController implements IController {
     GameCommandFinder commandFinder = new GameCommandFinder(this.output);
     ICommand associatedCommand;
 
+    // Prompt user for a name;
+
+
     // Read string input from user
     String userInput = inputReader.readInput();
 

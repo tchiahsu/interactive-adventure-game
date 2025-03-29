@@ -39,12 +39,14 @@ public class GameInputReader {
 
       while (invalidInput) {
         // Display available commands to user
-        this.output.append("To move, enter: (N)orth, (S)outh, (E)ast or (W)est.\n"
-            + "Other actions: (I)nventory, (L)ook around the location, (U)se an item\n"
-            + "(T)ake an item, (D)rop an item, or e(X)amine something. \n"
-            + "(A)nswer a question or provide a text solution. \n"
-            + "To end the game, enter (Q)uit to quit and exit.\n"
-            + "Your choice: ");
+        this.output.append("""
+          ==========\s
+          To move, enter: (N)orth, (S)outh, (E)ast or (W)est.
+          Other actions: (I)nventory, (L)ook around the location, (U)se an item
+          (T)ake an item, (D)rop an item, or e(X)amine something.\s
+          (A)nswer a question or provide a text solution.\s
+          To end the game, enter (Q)uit to quit and exit.
+          Your choice:\s""");
         userCommand = scanner.nextLine();
         String trimInput = userCommand.trim().toUpperCase(); // normalize input for validation
 
