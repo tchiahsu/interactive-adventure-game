@@ -30,6 +30,13 @@ public enum Rank {
     return this.rank;
   }
 
+  /**
+   * Parses a string representation of a rank and returns the Rank enum.
+   *
+   * @param rank The string representation of a rank.
+   * @return The rank enum corresponding the string representation.
+   * @throws IllegalArgumentException if the provided rank string does not match any valid rank.
+   */
   @JsonCreator
   public static Rank parseRank(String rank) {
     for (Rank r : Rank.values()) {
