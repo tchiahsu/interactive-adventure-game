@@ -1,5 +1,7 @@
 package model;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
@@ -356,9 +358,10 @@ public class GameModel implements IGameModel {
       return true;
     } else if (currentRoom.getMonsterName() != null) {
       return getMonsterInRoom().getName().equalsIgnoreCase(objectName);
-    } else {
-      return getMonsterInRoom().getName().equalsIgnoreCase(objectName);
+    } else if (currentRoom.getPuzzleName() != null) {
+      return getPuzzleInRoom().getName().equalsIgnoreCase(objectName);
     }
+    return false;
   }
 
   /**
@@ -546,6 +549,9 @@ public class GameModel implements IGameModel {
    */
   public String restoreGame() throws IOException {
     try {
+      this.gameInfo = null;
+      this.currentRoom = null;
+      this.player = null;
       String gameFile = Paths.get(this.jsonFile).getFileName().toString();
       this.gameInfo = this.objectMapper.readValue(
           new File("src/data/savegamedata" + gameFile), GameInfo.class);
