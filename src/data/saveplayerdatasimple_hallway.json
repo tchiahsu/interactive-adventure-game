@@ -1,5 +1,9 @@
 {
+<<<<<<< Updated upstream
   "name" : "TONY",
+=======
+  "name" : "HA",
+>>>>>>> Stashed changes
   "health" : 100,
   "score" : 105,
   "inventory" : {
