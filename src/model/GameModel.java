@@ -455,7 +455,7 @@ public class GameModel implements IGameModel {
   }
 
   /**
-   * Examines an item either in the room or the players inventory.
+   * Helper method. Examines an item either in the room or the players inventory.
    *
    * @param itemName item we are examining
    * @return description of the examined item
@@ -472,7 +472,7 @@ public class GameModel implements IGameModel {
   }
 
   /**
-   * Examines a fixture in the room.
+   * Helper method. Examines a fixture in the room.
    *
    * @param fixtureName : fixture we are examining
    * @return description of the fixture
@@ -484,7 +484,7 @@ public class GameModel implements IGameModel {
   }
 
   /**
-   * Examines a monster in the room.
+   * Helper method. Examines a monster in the room.
    *
    * @return description of the monster
    *          description changes based on whether monster is active or not
@@ -500,7 +500,7 @@ public class GameModel implements IGameModel {
   }
 
   /**
-   * Examines a puzzle in the room.
+   * Helper method. Examines a puzzle in the room.
    *
    * @return description of the puzzle
    *          description changes based on whether puzzle is active or not
@@ -585,7 +585,7 @@ public class GameModel implements IGameModel {
   }
 
   /**
-   * Checks if player has a specific item in their inventory.
+   * Helper method. Checks if player has a specific item in their inventory.
    *
    * @param itemName The name of the item to check.
    * @return true if the player has the item in their inventory, false otherwise.
@@ -597,7 +597,7 @@ public class GameModel implements IGameModel {
   }
 
   /**
-   * Checks if room has a specific item.
+   * Helper method. Checks if room has a specific item.
    *
    * @param itemName item to check in the room
    * @return true if the room the item, false otherwise.
@@ -610,7 +610,7 @@ public class GameModel implements IGameModel {
   }
 
   /**
-   * Checks if the room has a specific fixture.
+   * Helper method. Checks if the room has a specific fixture.
    *
    * @param fixtureName fixture to check in the room
    * @return true if the room has the fixture, false otherwise.
@@ -622,7 +622,7 @@ public class GameModel implements IGameModel {
   }
 
   /**
-   * Checks if the current room has an active monster.
+   * Helper method. Checks if the current room has an active monster.
    *
    * @return true if the current room has an active monster, false otherwise.
    */
@@ -635,7 +635,7 @@ public class GameModel implements IGameModel {
   }
 
   /**
-   * Handles the event of a monster attacking the player.
+   * Helper method. Handles the event of a monster attacking the player.
    *
    * @param output output string to attach to monster attack message.
    * @return new string with the attack message
@@ -651,7 +651,7 @@ public class GameModel implements IGameModel {
   }
 
   /**
-   * Check if the current room has an active puzzle.
+   * Helper method. Check if the current room has an active puzzle.
    *
    * @return true if the current room has an active puzzle, false otherwise.
    */
