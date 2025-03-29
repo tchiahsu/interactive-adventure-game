@@ -23,8 +23,8 @@ public class GameModel implements IGameModel {
   private GameInfo gameInfo;
   // Game State Fields
   private GameData gameData;
-  private Room currentRoom;
-  private Player player;
+  private ILocation currentRoom;
+  private IPlayer player;
 
   /**
    * Constructor for initializing the GameModel class.
@@ -343,7 +343,7 @@ public class GameModel implements IGameModel {
   }
 
   /**
-   * Determine if an fixture, monster of puzzle is in the room.
+   * Determine if a fixture, monster of puzzle is in the room.
    *
    * @param objectName : name of the object they want to take
    * @return true if object is in room, false otherwise.
