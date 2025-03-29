@@ -296,12 +296,10 @@ public class GameModel implements IGameModel {
     if (roomHasItem(objectName) || playerHasItem(objectName)) {
       output = examineItem(objectName);
     } else if (roomHasFixture(objectName)) {
-      Fixture fixture = gameData.getFixture(objectName);
-      output = output.concat("From the " + this.currentRoom.getName() + " you examine the "
-              + fixture.getName() + ": " + fixture.getDescription() + "\n");
-    } else if (currentRoom.getMonsterName() != null) {
+      output = examineFixture(objectName);
+    } else if (objectName.equalsIgnoreCase(currentRoom.getMonsterName())) {
       output = examineMonster();
-    } else if (currentRoom.getPuzzleName() != null) {
+    } else if (objectName.equalsIgnoreCase(currentRoom.getPuzzleName())) {
       output = examinePuzzle();
     } else {
       output = "There is no " + objectName + " to examine\n";
@@ -319,6 +317,12 @@ public class GameModel implements IGameModel {
     }
     return "From your inventory, you examine the "
               + item.getName() + ": " + item.getDescription() + "\n";
+  }
+
+  private String examineFixture(String fixtureName) {
+    Fixture fixture = gameData.getFixture(fixtureName);
+    return "From the " + this.currentRoom.getName() + " you examine the "
+            + fixture.getName() + ": " + fixture.getDescription() + "\n";
   }
 
   private String examineMonster() {
