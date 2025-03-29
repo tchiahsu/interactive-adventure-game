@@ -2,7 +2,7 @@
   "name" : "Simple Hallway",
   "version" : "1.0.0",
   "rooms" : [ {
-    "room_name" : "HALLWAY 1",
+    "room_name" : "Hallway 1",
     "description" : "You're standing in first part of a long hallway. The only direction forward is to the north.\nAn immense painting hangs on the wall. \nThere are a few items and fixtures here. Look around and see if your code can examine and manipulate them\nTry taking the notebook and examining the painting.",
     "room_number" : "1",
     "N" : "2",
@@ -15,7 +15,7 @@
     "fixtures" : "Painting",
     "picture" : null
   }, {
-    "room_name" : "HALLWAY 2",
+    "room_name" : "Hallway 2",
     "description" : "This second 'room' is part of the hallway. There is a door to the north. it is now unlocked since you used the key to deactivate the puzzle. Take the hair clippers - you'll need them.",
     "room_number" : "2",
     "N" : "-3",
@@ -28,7 +28,7 @@
     "fixtures" : "Chandelier",
     "picture" : null
   }, {
-    "room_name" : "HALLWAY END",
+    "room_name" : "Hallway End",
     "description" : "Just another room. There's a monster here that you defeated with the hair clippers. Try dropping one of your items here, and ensure your inventory is updating properly.",
     "room_number" : "3",
     "N" : "4",
@@ -41,7 +41,7 @@
     "fixtures" : null,
     "picture" : null
   }, {
-    "room_name" : "EXERCISE ROOM",
+    "room_name" : "Exercise Room",
     "description" : "Looks like an exercise room with a bunch of weight equipment. There's a treadmill (fixture) here. Want to take a quick jog?\nYou can't move fixtures, and note that when PUZZLES affect the environment, you won't see items either.",
     "room_number" : "4",
     "N" : "0",

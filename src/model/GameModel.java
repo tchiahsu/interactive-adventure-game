@@ -53,10 +53,10 @@ public class GameModel implements IGameModel {
     } else if (nextRoomNumber < 0) {
       // Check if monster or puzzle is blocking the path
       if (roomHasActiveMonster()) {
-        output = output.concat(getMonsterInRoom().getActiveDescription());
+        output = output.concat(getMonsterInRoom().getActiveDescription() + "\n");
         return output = monsterAttacks(output);
       } else if (roomHasActivePuzzle()) {
-        return output = output.concat(getPuzzleInRoom().getActiveDescription());
+        return output = output.concat(getPuzzleInRoom().getActiveDescription() + "\n");
       } else {
         currentRoom = gameData.getRoom(Math.abs(nextRoomNumber) + "");
       }
@@ -290,53 +290,59 @@ public class GameModel implements IGameModel {
   }
 
   @Override
-  public String examine(String itemName) {
+  public String examine(String objectName) {
+//    String output = "";
+//    // item could be item, fixture, puzzle, or monster
+//    if (roomHasFixture(itemName)) {
+//      output = output.concat("From the " + this.currentRoom.getName() + " you examine the "
+//              + itemName.toUpperCase() + ": " + gameData.getFixture(itemName).getDescription() + "\n");
+//      return output;
+//    }
+//    else if (playerHasItem(itemName)) {
+//      output = output.concat("From your inventory, you examine the "
+//              + itemName.toUpperCase() + ": " + gameData.getItem(itemName).getDescription() + "\n");
+//      return output;
+//    }
+//    else if (roomHasItem(itemName)) {
+//      output = output.concat("From the " + this.currentRoom.getName() + " you examine the "
+//              + itemName.toUpperCase() + ": " + gameData.getItem(itemName).getDescription() + "\n");
+//      return output;
+//    }
+//    else if (itemName.equalsIgnoreCase(this.currentRoom.getMonsterName())) {
+//      //if monster is active
+//      if (gameData.getMonster(itemName).isActive()) {
+//        output = output.concat("From the " + this.currentRoom.getName() + " you examine the "
+//                + itemName.toUpperCase() + ": " + gameData.getMonster(itemName).getActiveDescription() + "\n");
+//        return output;
+//      }
+//      else {
+//        output = output.concat("From the " + this.currentRoom.getName() + " you examine the "
+//                + itemName.toUpperCase() + ": " + gameData.getMonster(itemName).getDescription() + "\n");
+//        return output;
+//      }
+//    }
+//    else if (itemName.equalsIgnoreCase(this.currentRoom.getPuzzleName())) { //puzzle
+//      if (gameData.getPuzzle(itemName).isActive()) {
+//        output = output.concat("From the " + this.currentRoom.getName() + " you examine the "
+//                + itemName.toUpperCase() + ": " + gameData.getPuzzle(itemName).getActiveDescription() + "\n");
+//        return output;
+//      }
+//      else {
+//        output = output.concat("From the " + this.currentRoom.getName() + " you examine the "
+//                + itemName.toUpperCase() + ": " + gameData.getPuzzle(itemName).getDescription() + "\n");
+//        return output;
+//      }
+//    }
+//    output = output.concat("There is no such item");
+//    return output;
+
     String output = "";
-    // item could be item, fixture, puzzle, or monster
-    if (roomHasFixture(itemName)) {
-      output = output.concat("From the " + this.currentRoom.getName() + " you examine the "
-              + itemName.toUpperCase() + ": " + gameData.getFixture(itemName).getDescription() + "\n");
-      return output;
-    }
-    else if (playerHasItem(itemName)) {
-      output = output.concat("From your inventory, you examine the "
-              + itemName.toUpperCase() + ": " + gameData.getItem(itemName).getDescription() + "\n");
-      return output;
-    }
-    else if (roomHasItem(itemName)) {
-      output = output.concat("From the " + this.currentRoom.getName() + " you examine the "
-              + itemName.toUpperCase() + ": " + gameData.getItem(itemName).getDescription() + "\n");
-      return output;
-    }
-    else if (itemName.equalsIgnoreCase(this.currentRoom.getMonsterName())) {
-      //if monster is active
-      if (gameData.getMonster(itemName).isActive()) {
-        output = output.concat("From the " + this.currentRoom.getName() + " you examine the "
-                + itemName.toUpperCase() + ": " + gameData.getMonster(itemName).getActiveDescription() + "\n");
-        return output;
-      }
-      else {
-        output = output.concat("From the " + this.currentRoom.getName() + " you examine the "
-                + itemName.toUpperCase() + ": " + gameData.getMonster(itemName).getDescription() + "\n");
-        return output;
-      }
-    }
-    else if (itemName.equalsIgnoreCase(this.currentRoom.getPuzzleName())) { //puzzle
-      if (gameData.getPuzzle(itemName).isActive()) {
-        output = output.concat("From the " + this.currentRoom.getName() + " you examine the "
-                + itemName.toUpperCase() + ": " + gameData.getPuzzle(itemName).getActiveDescription() + "\n");
-        return output;
-      }
-      else {
-        output = output.concat("From the " + this.currentRoom.getName() + " you examine the "
-                + itemName.toUpperCase() + ": " + gameData.getPuzzle(itemName).getDescription() + "\n");
-        return output;
-      }
-    }
-    output = output.concat("There is no such item");
-    return output;
 
+    // could be fixture, monster, puzzle
+    // item inventory or from room
 
+//    if ()
+  return output;
   }
 
   public String saveGame() throws IOException {
@@ -354,9 +360,12 @@ public class GameModel implements IGameModel {
   public String restoreGame() throws IOException {
     try {
       String gameFile = Paths.get(jsonFile).getFileName().toString();
-      gameInfo = objectMapper.readValue(new File("src/data/savegamedata" + gameFile), GameInfo.class);
-      currentRoom = objectMapper.readValue(new File("src/data/saveroomdata" + gameFile), Room.class);
-      player = objectMapper.readValue(new File("src/data/saveplayerdata" + gameFile), Player.class);
+      GameInfo newGameInfo = objectMapper.readValue(new File("src/data/savegamedata" + gameFile), GameInfo.class);
+      this.gameInfo = newGameInfo;
+      Room newCurrentRoom = objectMapper.readValue(new File("src/data/saveroomdata" + gameFile), Room.class);
+      this.currentRoom = newCurrentRoom;
+      Player newPlayer = objectMapper.readValue(new File("src/data/saveplayerdata" + gameFile), Player.class);
+      this.player = newPlayer;
       return "Loaded your previous save\n";
     } catch (IOException e) {
       return "No game file to load\n";
