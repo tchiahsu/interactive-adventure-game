@@ -11,10 +11,12 @@ import java.util.Scanner;
 public class GameInputReader {
   private final Readable input;
   private final Appendable output;
-  private final List<String> validCommands = List.of(
-      "N", "S", "W", "E", "I", "L", "U", "T", "D", "X", "A", "Q",
-                "NORTH", "SOUTH", "WEST", "EAST", "INVENTORY", "LOOK", "USE",
-                "TAKE", "DROP", "EXAMINE", "ANSWER", "QUIT", "SAVE", "RESTORE");
+  private final List<String> noArgCommand = List.of(
+      "N", "S", "W", "E", "I", "L", "Q",
+                "NORTH", "SOUTH", "WEST", "EAST", "INVENTORY",
+                "LOOK", "QUIT", "SAVE", "RESTORE");
+  private final List<String> oneArgCommand = List.of("U", "T", "D", "X",
+                "A", "USE", "TAKE", "DROP", "EXAMINE", "ANSWER");
 
   /**
    * Construct a  {@code GameInputReader} with the specified input source and output destination.
@@ -94,7 +96,23 @@ public class GameInputReader {
    * @return true if command is valid, false otherwise.
    */
   public boolean validateInput(String input) {
-    String verb = input.split(" ", 2)[0];
-    return this.validCommands.contains(verb);
+    String[] parts = input.split(" ", 2);
+    String verb = parts[0];
+
+    // Check if the command exists in valid commands
+    if (!(this.noArgCommand.contains(verb) || this.oneArgCommand.contains(verb))) {
+      return false;
+    }
+
+    // Validate based on argument count
+    if (this.noArgCommand.contains(verb)) {
+      // single argument commands should only have one string
+      return parts.length == 1;
+    } else if (oneArgCommand.contains(verb)) {
+      // action and noun command pair
+      return parts.length == 2 && !parts[1].trim().isEmpty();
+    }
+    // Command is valid
+    return true;
   }
 }
