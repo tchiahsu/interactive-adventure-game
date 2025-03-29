@@ -53,9 +53,9 @@ public class GameModel implements IGameModel {
       // Check if monster or puzzle is blocking the path
       if (roomHasActiveMonster()) {
         output = output.concat(getMonsterInRoom().getActiveDescription() + "\n");
-        return output = monsterAttacks(output);
+        return monsterAttacks(output);
       } else if (roomHasActivePuzzle()) {
-        return output = output.concat(getPuzzleInRoom().getActiveDescription() + "\n");
+        return output.concat(getPuzzleInRoom().getActiveDescription() + "\n");
       } else {
         currentRoom = gameData.getRoom(Math.abs(nextRoomNumber) + "");
       }
@@ -85,14 +85,12 @@ public class GameModel implements IGameModel {
 
   private Monster getMonsterInRoom() {
     String monsterName = currentRoom.getMonsterName();
-    Monster monster = gameData.getMonster(monsterName);
-    return monster;
+    return gameData.getMonster(monsterName);
   }
 
   private Puzzle getPuzzleInRoom() {
     String puzzleName = currentRoom.getPuzzleName();
-    Puzzle puzzle = gameData.getPuzzle(puzzleName);
-    return puzzle;
+    return gameData.getPuzzle(puzzleName);
   }
 
   @Override
