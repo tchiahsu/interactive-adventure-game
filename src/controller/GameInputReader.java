@@ -64,6 +64,7 @@ public class GameInputReader {
 
   /**
    * Prompts the user for their avatar username.
+   *
    * @return the avatar username
    * @throws IOException if an I/0 error occurs while writing the output
    */
@@ -88,6 +89,7 @@ public class GameInputReader {
 
   /**
    * Validates if the given input command is a valid command for the adventure game.
+   *
    * @param input : user string input.
    * @return true if command is valid, false otherwise.
    */

@@ -13,7 +13,8 @@ public class LookCommand implements ICommand {
   private final Appendable output;
 
   /**
-   * Constructs an {@code LookCommand} object with the specified output avenue.
+   * Constructs an {@code LookCommand} object with the specified output destination.
+   *
    * @param output : the {@link Appendable} object where the command's output will be written.
    */
   public LookCommand(Appendable output) {
@@ -22,6 +23,7 @@ public class LookCommand implements ICommand {
 
   /**
    * Executes the look command by accessing the description of the room in the game model.
+   *
    * @param model : the {@link IGameModel} instance that processes the answer.
    * @throws IOException when an I/O error occurs while appending the output.
    */

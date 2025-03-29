@@ -24,6 +24,7 @@ public class GameCommandFinder {
 
   /**
    * Constructs a {@code GameCommandFinder} class with the given output destination.
+   *
    * @param output the {@code Appendable} object where command outputs will be written.
    */
   public GameCommandFinder(Appendable output) {
@@ -33,6 +34,7 @@ public class GameCommandFinder {
   /**
    * Splits the user command into an action and a noun, and matches the action to the corresponding
    * {@code ICommand} instance.
+   *
    * @param command : the user input string
    * @return an instance of {@code ICommand} corresponding to the user input
    * @throws IllegalArgumentException if the input is null or empty
@@ -64,6 +66,7 @@ public class GameCommandFinder {
 
   /**
    * Helper functions that splits the user input string into a verb and a noun.
+   *
    * @param command user input string
    * @return a list of string with two elements
    *          - first element is the action

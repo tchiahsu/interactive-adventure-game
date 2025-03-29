@@ -13,7 +13,8 @@ public class UseCommand implements ICommand {
   private final Appendable output;
 
   /**
-   * Construct an {@code UseCommand} object with the specified item and output avenue.
+   * Construct an {@code UseCommand} object with the specified item and output destination.
+   *
    * @param item : the item being used
    * @param output : the {@link Appendable} object where the command's output will be written.
    */
@@ -24,6 +25,7 @@ public class UseCommand implements ICommand {
 
   /**
    * Execute the use item command by passing the item to the game model.
+   *
    * @param model : the {@link IGameModel} instance that processes the answer
    * @throws IOException when an I/O error occurs while appending the output.
    */

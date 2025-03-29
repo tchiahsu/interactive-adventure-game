@@ -10,6 +10,7 @@ public interface IController {
 
   /**
    * Starts and manages the game loop.
+   *
    * @throws IOException if an I/O error occurs during execution.
    */
   void go() throws IOException;

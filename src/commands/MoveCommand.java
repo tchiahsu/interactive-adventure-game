@@ -25,6 +25,7 @@ public class MoveCommand implements ICommand {
 
   /**
    * Helper functions that modifies the user direction input to the system specified direction.
+   *
    * @param direction : direction the player moves to
    */
   private void convertInputToValid(String direction) {
@@ -46,6 +47,7 @@ public class MoveCommand implements ICommand {
 
   /**
    * Executes the move command by passing the direction the player moves to the game model.
+   *
    * @param model : the {@link IGameModel} instance that processes the answer.
    * @throws IOException when an I/O error occurs while appending the output.
    */

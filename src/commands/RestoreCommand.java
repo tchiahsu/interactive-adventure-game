@@ -12,8 +12,9 @@ public class RestoreCommand implements ICommand {
   private final Appendable output;
 
   /**
-   * Constructs an {@code RestoreCommand} object with the specified output avenue for the
+   * Constructs an {@code RestoreCommand} object with the specified output destination for the
    * restore message.
+   *
    * @param output : the {@link Appendable} object where the command's output will be written.
    */
   public RestoreCommand(Appendable output) {
@@ -22,6 +23,7 @@ public class RestoreCommand implements ICommand {
 
   /**
    * Executes the answer command by passing the user's response to the game model.
+   *
    * @param model : the {@link IGameModel} instance that processes the answer.
    * @throws IOException when an I/O error occurs while appending the output.
    */
