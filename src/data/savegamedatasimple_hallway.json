@@ -11,7 +11,7 @@
     "W" : "0",
     "puzzle" : null,
     "monster" : null,
-    "items" : "",
+    "items" : "KEY",
     "fixtures" : "PAINTING",
     "picture" : null
   }, {
@@ -24,7 +24,7 @@
     "W" : "0",
     "puzzle" : "Lock",
     "monster" : null,
-    "items" : "KEY, HAIR CLIPPERS",
+    "items" : "",
     "fixtures" : "CHANDELIER",
     "picture" : null
   }, {
