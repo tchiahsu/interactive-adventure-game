@@ -530,11 +530,11 @@ public class GameModel implements IGameModel {
     try {
       String gameFile = Paths.get(this.jsonFile).getFileName().toString();
       this.objectMapper.writerWithDefaultPrettyPrinter().writeValue(
-          new File("src/data/savegamedata" + gameFile), this.gameInfo);
+          new File("src/data/savegamedata_" + gameFile), this.gameInfo);
       this.objectMapper.writerWithDefaultPrettyPrinter().writeValue(
-          new File("src/data/saveroomdata" + gameFile), this.currentRoom);
+          new File("src/data/saveroomdata_" + gameFile), this.currentRoom);
       this.objectMapper.writerWithDefaultPrettyPrinter().writeValue(
-          new File("src/data/saveplayerdata" + gameFile), this.player);
+          new File("src/data/saveplayerdata_" + gameFile), this.player);
       return "Game saved successfully!\n";
     } catch (IOException e) {
       return "Game failed to save\n";
@@ -549,26 +549,46 @@ public class GameModel implements IGameModel {
    * @throws IOException if there is an error reading the saved files.
    */
   public String restoreGame() throws IOException {
-    try {
-      this.gameInfo = null;
-      this.currentRoom = null;
-      this.player = null;
-      this.gameData = null;
+    String gameFile = Paths.get(this.jsonFile).getFileName().toString();
 
-      String gameFile = Paths.get(this.jsonFile).getFileName().toString();
-      this.gameInfo = this.objectMapper.readValue(
-          new File("src/data/savegamedata" + gameFile), GameInfo.class);
-      this.currentRoom = this.objectMapper.readValue(
-          new File("src/data/saveroomdata" + gameFile), Room.class);
-      this.player = this.objectMapper.readValue(
-          new File("src/data/saveplayerdata" + gameFile), Player.class);
-
-      this.gameData = new GameData(gameInfo);
-
-      return "Loaded your previous save\n";
-    } catch (IOException e) {
+    // Check if there is saved data
+    if (!hasSaveData(gameFile)) {
       return "No game file to load\n";
     }
+
+    // Clear out the current data in the game
+    this.gameInfo = null;
+    this.currentRoom = null;
+    this.player = null;
+    this.gameData = null;
+
+    // Restore the game with the previous save data
+    this.gameInfo = this.objectMapper.readValue(
+            new File("src/data/savegamedata_" + gameFile), GameInfo.class);
+    this.currentRoom = this.objectMapper.readValue(
+            new File("src/data/saveroomdata_" + gameFile), Room.class);
+    this.player = this.objectMapper.readValue(
+            new File("src/data/saveplayerdata_" + gameFile), Player.class);
+    this.gameData = new GameData(gameInfo);
+
+    return "Game loaded successfully\n";
+  }
+
+  /**
+   * Checks if the .json game file has save data.
+   *
+   * @param gameFile The .json game file to check.
+   * @return true if the game has save data, false otherwise.
+   */
+  private boolean hasSaveData(String gameFile) {
+    // The saved data files for the .json game file
+    String gameDataFile = "src/data/savegamedata_" + gameFile;
+    String roomDataFile = "src/data/saveroomdata_" + gameFile;
+    String playerDataFile = "src/data/saveplayerdata_" + gameFile;
+
+    return new File(gameDataFile).isFile()
+            && new File(roomDataFile).isFile()
+            && new File(playerDataFile).isFile();
   }
 
   /**
