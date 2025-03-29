@@ -26,6 +26,14 @@ public class GameEngineApp {
    * @throws IOException if an error occurs while accessing the game file
    */
   public GameEngineApp(String gameFileName, Readable source, Appendable output) throws IOException {
+    // Error handling
+    if (gameFileName == null) {
+      throw new IOException("Game File could not be found!");
+    } else if (source == null) {
+      throw new IOException("Source data could not be found!");
+    } else if (output == null) {
+      throw new IOException("Output destination could not be found!");
+    }
     this.gameFile = gameFileName;
     this.source = source;
     this.output = output;

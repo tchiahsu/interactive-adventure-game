@@ -34,10 +34,6 @@ public class GameModel implements IGameModel {
    * @throws IOException handles file not found error.
    */
   public GameModel(String jsonFile) throws IOException {
-    if (jsonFile == null) {
-      throw new IOException("jsonFile cannot be found.");
-    }
-
     this.jsonFile = jsonFile;
     this.objectMapper = new ObjectMapper();
     this.gameInfo = this.objectMapper.readValue(new File(jsonFile), GameInfo.class);
