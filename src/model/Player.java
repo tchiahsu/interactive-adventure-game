@@ -1,7 +1,7 @@
 package model;
 
 public class Player implements IPlayer {
-
+  private String name;
   private int health;
   private int score;
   private Inventory inventory;
@@ -33,7 +33,22 @@ public class Player implements IPlayer {
   }
 
   @Override
+  public void decreaseScore(int amount) {
+    score -= amount;
+  }
+
+  @Override
   public void decreaseHealth(int amount) {
     health += amount;
+  }
+
+  @Override
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  @Override
+  public String getName() {
+    return this.name;
   }
 }

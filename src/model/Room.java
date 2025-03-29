@@ -92,7 +92,7 @@ public class Room implements ILocation {
    * @param itemNames a comma-separated list of item names to set.
    */
   public void setItemNames(String itemNames) {
-    this.itemNames = (itemNames != null) ? itemNames.toUpperCase() : null;
+    this.itemNames = (itemNames != null) ? itemNames.toUpperCase() : "";
   }
 
   /**

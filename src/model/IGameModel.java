@@ -13,4 +13,5 @@ public interface IGameModel {
   String answer(String answer);
   String saveGame() throws IOException;
   String restoreGame() throws IOException;
+  IPlayer getPlayer();
 }

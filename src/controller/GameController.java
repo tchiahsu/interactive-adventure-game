@@ -34,16 +34,18 @@ public class GameController implements IController {
    */
   @Override
   public void go() throws IOException {
-    // Display initial game state
-    this.output.append(model.look());
-
     // Initialize input reader and command processor
     GameInputReader inputReader = new GameInputReader(this.input, this.output);
     GameCommandFinder commandFinder = new GameCommandFinder(this.output);
     ICommand associatedCommand;
 
-    // Prompt user for a name;
+    // Prompt user for name
+    String avatarName = inputReader.getAvatarName();
+    this.model.getPlayer().setName(avatarName);
+    this.output.append("You shalt now be named: ").append(avatarName.toUpperCase()).append("\n\n");
 
+    // Display initial game state
+    this.output.append(this.model.look());
 
     // Read string input from user
     String userInput = inputReader.readInput();
