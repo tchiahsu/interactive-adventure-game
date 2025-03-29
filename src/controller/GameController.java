@@ -63,12 +63,6 @@ public class GameController implements IController {
     }
 
     // Game Ending Message
-    String endingMessage = "";
-    endingMessage = endingMessage.concat("Thank you for playing!\nYour score is "
-        + String.valueOf(this.model.getPlayer().getScore())
-        + "\nYour rank: "
-        + this.model.getPlayer().getRank()
-        + "\n");
-    this.output.append(endingMessage);
+    this.output.append(this.model.getEndingMessage());
   }
 }

@@ -372,6 +372,16 @@ public class GameModel implements IGameModel {
     return this.player;
   }
 
+  public String getEndingMessage() {
+    String endingMessage = "";
+    endingMessage = endingMessage.concat("Thank you for playing!\nYour score is "
+      + String.valueOf(this.player.getScore())
+      + "\nYour rank: "
+      + this.player.getRank()
+      + "\n");
+    return endingMessage;
+  }
+
   /**
    * Checks if player has an item in their inventory.
    *
