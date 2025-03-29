@@ -419,7 +419,9 @@ public class GameModel implements IGameModel {
 
     Puzzle puzzle = getPuzzleInRoom();
     // Answer matches the puzzle's solution
-    if (puzzle.isActive() && puzzle.getSolution().equals(answer)) {
+    if (puzzle.isActive() && puzzle.getSolution().equalsIgnoreCase(answer)) {
+      puzzle.deactivate();
+      player.increaseScore(puzzle.getValue());
       output.append("SUCCESS! You solved the puzzle with ").append(answer).append("\n");
       // Answer does not match the puzzle's solution or the puzzle is inactive
     } else {
