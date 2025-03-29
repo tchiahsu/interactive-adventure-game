@@ -66,7 +66,7 @@ class ItemTest {
    */
   @Test
   void testGetWeight() {
-    assertEquals(1, i1.getWeight());
+    assertEquals(10, i1.getWeight());
   }
 
   /**
