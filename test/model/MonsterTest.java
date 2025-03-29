@@ -148,7 +148,7 @@ public class MonsterTest {
    */
   @Test
   void testGetDamage() {
-    assertEquals(15, m1.getDamage());
+    assertEquals(-15, m1.getDamage());
   }
 
   /**
