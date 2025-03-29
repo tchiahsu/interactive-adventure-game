@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.List;
 import java.util.Scanner;
 
@@ -13,7 +14,16 @@ public class GameInputReader {
   private final Appendable output;
 
   /**
-   * Construct a  {@code GameInputReader} with the specified input source and output destination.
+   * Construct a {@code GameInputReader} that takes in keyboard input as the source
+   * and displays it to user as output destination.
+   */
+  public GameInputReader() {
+    this.input = new InputStreamReader(System.in);
+    this.output = System.out;
+  }
+
+  /**
+   * Construct a {@code GameInputReader} with the specified input source and output destination.
    * @param input : input source.
    * @param output : output destination.
    */
