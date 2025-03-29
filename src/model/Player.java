@@ -1,9 +1,9 @@
 package model;
 
 public class Player implements IPlayer {
-  private static final int LEGENDARY_LOWER_BOUND = 200;
-  private static final int MASTER_LOWER_BOUND = 100;
-  private static final int SEASONED_LOWER_BOUND = 50;
+  private static final int LEGENDARY_LOWER_BOUND = 700;
+  private static final int MASTER_LOWER_BOUND = 400;
+  private static final int SEASONED_LOWER_BOUND = 250;
   private static final int SLEEP_UPPER_BOUND = 0;
   private static final int WOOZY_UPPER_BOUND = 40;
   private static final int FATIGUED_UPPER_BOUND = 70;

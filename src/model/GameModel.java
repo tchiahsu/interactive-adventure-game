@@ -48,7 +48,7 @@ public class GameModel implements IGameModel {
     int nextRoomNumber = Integer.parseInt(nextRoom);
 
     if (nextRoomNumber == 0) {
-      output = output.concat("<<You cannot go in that direction>> \n");
+      output = output.concat("<<You cannot go in that direction>>\n\n");
     } else if (nextRoomNumber < 0) {
       // Check if monster or puzzle is blocking the path
       if (roomHasActiveMonster()) {
