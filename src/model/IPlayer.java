@@ -7,4 +7,6 @@ public interface IPlayer {
   void increaseScore(int amount);
   void decreaseScore(int amount);
   void decreaseHealth(int amount);
+  void setName(String name);
+  String getName();
 }

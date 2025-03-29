@@ -363,6 +363,10 @@ public class GameModel implements IGameModel {
     }
   }
 
+  public IPlayer getPlayer() {
+    return this.player;
+  }
+
   /**
    * Checks if player has an item in their inventory.
    *

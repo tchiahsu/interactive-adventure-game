@@ -32,7 +32,7 @@ public class GameInputReader {
    * @return the valid user command as a {@code String}.
    */
   public String readInput() {
-    String userCommand = "";
+    String userCommand = null;
     try {
       boolean invalidInput = true; // Makes loop continue until a valid command is used
       Scanner scanner = new Scanner(this.input);
@@ -47,14 +47,37 @@ public class GameInputReader {
           (A)nswer a question or provide a text solution.\s
           To end the game, enter (Q)uit to quit and exit.
           Your choice:\s""");
-        userCommand = scanner.nextLine();
-        String trimInput = userCommand.trim().toUpperCase(); // normalize input for validation
+        userCommand = scanner.nextLine().trim().toUpperCase(); // normalize input for validation
 
         // validate user input
-        if (!this.validateInput(trimInput)) {
+        if (!this.validateInput(userCommand)) {
           this.output.append("Invalid Command. Please try again.\n\n");
         } else {
           invalidInput = false;
+        }
+      }
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    return userCommand;
+  }
+
+  /**
+   * Prompts the user for their avatar username.
+   * @return the avatar username
+   * @throws IOException if an I/0 error occurs while writing the output
+   */
+  public String getAvatarName() throws IOException {
+    String userCommand = "";
+    Scanner scanner = new Scanner(this.input);
+    try {
+      while (userCommand.isEmpty()) {
+        // Ask user for an avatar
+        this.output.append("Enter a name for your player avatar: ");
+        userCommand = scanner.nextLine().trim().toUpperCase(); // normalize input for validation
+
+        if (userCommand.isEmpty()) {
+          this.output.append("Invalid Avatar Name. Please try again.\n\n");
         }
       }
     } catch (IOException e) {
