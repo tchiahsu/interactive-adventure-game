@@ -11,12 +11,6 @@ import java.util.Scanner;
 public class GameInputReader {
   private final Readable input;
   private final Appendable output;
-  private final List<String> noArgCommand = List.of(
-      "N", "S", "W", "E", "I", "L", "Q",
-                "NORTH", "SOUTH", "WEST", "EAST", "INVENTORY",
-                "LOOK", "QUIT", "SAVE", "RESTORE");
-  private final List<String> oneArgCommand = List.of("U", "T", "D", "X",
-                "A", "USE", "TAKE", "DROP", "EXAMINE", "ANSWER");
 
   /**
    * Construct a  {@code GameInputReader} with the specified input source and output destination.
@@ -97,22 +91,14 @@ public class GameInputReader {
    */
   public boolean validateInput(String input) {
     String[] parts = input.split(" ", 2);
-    String verb = parts[0];
+    String action = parts[0];
 
-    // Check if the command exists in valid commands
-    if (!(this.noArgCommand.contains(verb) || this.oneArgCommand.contains(verb))) {
+    Commands commandType = Commands.getEnum(action);
+    if (commandType == null) {
       return false;
     }
 
-    // Validate based on argument count
-    if (this.noArgCommand.contains(verb)) {
-      // single argument commands should only have one string
-      return parts.length == 1;
-    } else if (oneArgCommand.contains(verb)) {
-      // action and noun command pair
-      return parts.length == 2 && !parts[1].trim().isEmpty();
-    }
-    // Command is valid
-    return true;
+    return commandType.getRequiresArgument() ? parts.length == 2
+      && !parts[1].trim().isEmpty() : parts.length == 1;
   }
 }
