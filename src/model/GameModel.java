@@ -1,7 +1,5 @@
 package model;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
@@ -24,7 +22,7 @@ public class GameModel implements IGameModel {
   private final ObjectMapper objectMapper;
   private GameInfo gameInfo;
   // Game State Fields
-  private final GameData gameData;
+  private GameData gameData;
   private Room currentRoom;
   private Player player;
 
@@ -315,6 +313,7 @@ public class GameModel implements IGameModel {
     if (!roomsItemNames.contains(itemName.toUpperCase())) {
       if (itemIsObjectInRoom(itemName)) {
         output.append("You can't take the ").append(itemName).append("!\n");
+        return handleMonsterAttack(output.toString());
       } else {
         output.append(itemName).append(" not found in ").append(this.currentRoom.getName())
                 .append("\n");
@@ -554,6 +553,8 @@ public class GameModel implements IGameModel {
       this.gameInfo = null;
       this.currentRoom = null;
       this.player = null;
+      this.gameData = null;
+
       String gameFile = Paths.get(this.jsonFile).getFileName().toString();
       this.gameInfo = this.objectMapper.readValue(
           new File("src/data/savegamedata" + gameFile), GameInfo.class);
@@ -561,6 +562,9 @@ public class GameModel implements IGameModel {
           new File("src/data/saveroomdata" + gameFile), Room.class);
       this.player = this.objectMapper.readValue(
           new File("src/data/saveplayerdata" + gameFile), Player.class);
+
+      this.gameData = new GameData(gameInfo);
+
       return "Loaded your previous save\n";
     } catch (IOException e) {
       return "No game file to load\n";
