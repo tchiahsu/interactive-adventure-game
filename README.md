@@ -20,6 +20,7 @@ The Adventure Game Engine follows an object-oriented design using the MVC archit
 
 - **MVC Architecture**: The project follows a Model-View-Controller architecture, providing a modular and organized structure to separate game logic, user interface, and input handling.
 - **Object-Oriented Design**: The project utilizes an object-oriented approach to ensure code modularity, encapsulation, and reusability.
+- **Commands**: Commands follow the Command pattern where each user request is its own stand-alone object.
 - **Player Movement**: Players can move in four cardinal directions (North, South, East, West).
 - **Room**: Interconnected locations with path for player movement.
 - **Inventory**: Players can collect items, which are limited by weight.
@@ -44,6 +45,6 @@ We believe that our initial class diagram was fairly accurate in trying to captu
 
 1. Clone the repository and open it in IntelliJ.
 2. Load your JSON file in the data package or use the current data files.
-3. Compile and run the GameEngineApp class to start the game.
-4. The game starts by displaying the player's initial room and allows movement between rooms.
-5. The controller takes user input to control the avatar's actions and update the game state.
+3. Inovke entry point to initialize and run the game.
+4. The game starts by displaying the player's initial room and prompts the user for their first command.
+5. The controller reads the user command and tells the model to update the game state accordingly.
