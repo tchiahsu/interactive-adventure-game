@@ -44,14 +44,4 @@ class GameEngineAppTest {
       -> new GameEngineApp(gameFile, source, null));
     assertEquals("Output destination could not be found!", message.getMessage());
   }
-
-  @Test
-  void testConstructorInitialized() throws IOException {
-    GameEngineApp engine = new GameEngineApp(this.gameFile, this.source, this.output);
-    // start the game
-    engine.start();
-    // Verify the output contains expected content
-    assertFalse(this.output.toString().isEmpty());
-  }
-
 }

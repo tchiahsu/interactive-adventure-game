@@ -2,7 +2,6 @@ package controller;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -12,6 +11,7 @@ import java.util.Scanner;
 public class GameInputReader {
   private final Readable input;
   private final Appendable output;
+  private final Scanner scanner;
 
   /**
    * Construct a {@code GameInputReader} that takes in keyboard input as the source
@@ -20,6 +20,7 @@ public class GameInputReader {
   public GameInputReader() {
     this.input = new InputStreamReader(System.in);
     this.output = System.out;
+    this.scanner = new Scanner(this.input);
   }
 
   /**
@@ -30,6 +31,7 @@ public class GameInputReader {
   public GameInputReader(Readable input, Appendable output) {
     this.input = input;
     this.output = output;
+    this.scanner = new Scanner(this.input);
   }
 
   /**
@@ -41,7 +43,6 @@ public class GameInputReader {
     String userCommand = null;
     try {
       boolean invalidInput = true; // Makes loop continue until a valid command is used
-      Scanner scanner = new Scanner(this.input);
 
       while (invalidInput) {
         // Display available commands to user
@@ -76,7 +77,6 @@ public class GameInputReader {
    */
   public String getAvatarName() throws IOException {
     String userCommand = "";
-    Scanner scanner = new Scanner(this.input);
     try {
       while (userCommand.isEmpty()) {
         // Ask user for an avatar
