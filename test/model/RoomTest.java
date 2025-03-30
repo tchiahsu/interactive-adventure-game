@@ -35,7 +35,7 @@ class RoomTest {
    */
   @Test
   void testGetName() {
-    assertEquals("Front Door", r1.getName());
+    assertEquals("FRONT DOOR", r1.getName());
   }
 
   /**
