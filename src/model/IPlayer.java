@@ -24,6 +24,11 @@ public interface IPlayer {
    * @return the player's inventory.
    */
   Inventory getInventory();
+
+  /**
+   * Increase the players score
+   * @param amount : amount it should be increased.
+   */
   void increaseScore(int amount);
 
   /**
