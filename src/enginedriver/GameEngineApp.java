@@ -49,14 +49,4 @@ public class GameEngineApp {
     IController controller = new GameController(model, this.source, this.output);
     controller.go();
   }
-
-  /**
-   * ONLY TO RUN THE GAME, DELETE THIS BEFORE SUBMITTING.
-   */
-  public static void main(String [] args) throws IOException {
-    String hallwayjson = "src/data/simple_hallway.json";
-    BufferedReader stringReader = new BufferedReader(new InputStreamReader(System.in));
-    GameEngineApp engine = new GameEngineApp(hallwayjson, stringReader, System.out);
-    engine.start();
-  }
 }

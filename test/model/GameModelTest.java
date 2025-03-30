@@ -311,35 +311,6 @@ public class GameModelTest {
     assertEquals(expectedString, model.useItem("HOUSE KEY"));
   }
 
-//  /**
-//   * Tests using wrong item on monster.
-//   */
-//  @Test
-//  void testUseItemWrongMonster() {
-//    model.takeItem("HOUSE KEY");
-//    model.move("NORTH");
-//
-//    expectedString = "";
-//    assertEquals(expectedString, model.useItem("HOUSE KEY"));
-//  }
-//
-//  /**
-//   * Tests using an item with no current use.
-//   */
-//  @Test
-//  void testUseItemWrongUse() {
-//    model.takeItem("HOUSE KEY");
-//    model.useItem("HOUSE KEY");
-//    model.dropItem("HOUSE KEY");
-//    model.move("NORTH");
-//    model.takeItem("CARROT");
-//    model.move("SOUTH");
-//
-//    expectedString = "";
-//    assertEquals(expectedString, model.useItem("CARROT"));
-//  }
-//
-
   /**
    * Tests taking a fixture in a room.
    */
