@@ -59,13 +59,16 @@ public class GameModel implements IGameModel {
     if (nextRoomNumber == 0) {
       // Invalid direction - no path
       output.append("<<You cannot go in that direction>>\n\n");
+      return handleMonsterAttack(output.toString());
     } else if (nextRoomNumber < 0) {
       // path blocked by monster or puzzle
       if (roomHasActiveMonster()) {
         output.append(getMonsterInRoom().getActiveDescription()).append("\n");
-        return monsterAttacks(output.toString());
+        output.append(monsterAttacks(""));
+        return getItemsInRoom(output.toString());
       } else if (roomHasActivePuzzle()) {
-        return output.append(getPuzzleInRoom().getActiveDescription()).append("\n").toString();
+        output.append(getPuzzleInRoom().getActiveDescription()).append("\n");
+        return getItemsInRoom(output.toString());
       } else {
         // Convert negative room to positive once obstacle is defeated to allow passage
         this.currentRoom = gameData.getRoom(String.valueOf(Math.abs(nextRoomNumber)));
@@ -93,6 +96,10 @@ public class GameModel implements IGameModel {
       result = monsterAttacks(result);
     }
 
+    return getItemsInRoom(result);
+  }
+
+  private String getItemsInRoom(String result) {
     return result + "Items you see here: " + this.currentRoom.getItemNames() + "\n";
   }
 
@@ -148,7 +155,7 @@ public class GameModel implements IGameModel {
    * Provides the room descriptions and the contents of the room.
    * If there is a monster in the room, they will deal damage to the player.
    *
-   * @return a String describing what the player sees and whats happening in the room.
+   * @return a String describing what the player sees and what's happening in the room.
    */
   @Override
   public String look() {
@@ -156,10 +163,10 @@ public class GameModel implements IGameModel {
         + getCurrentRoomDescription();
 
     if (roomHasActiveMonster()) {
-      return monsterAttacks(result);
+      result = monsterAttacks(result);
     }
     if (this.player.getHealth() > 0) {
-      result += "Items you see here: " + this.currentRoom.getItemNames() + "\n";
+      result = getItemsInRoom(result);
     }
 
     return result + this.player.getHealthStatus();
@@ -176,6 +183,7 @@ public class GameModel implements IGameModel {
    */
   @Override
   public String useItem(String itemName) {
+    itemName = itemName.toUpperCase();
     StringBuilder output = new StringBuilder();
 
     // Check if item is in player's inventory
@@ -299,6 +307,7 @@ public class GameModel implements IGameModel {
    */
   @Override
   public String takeItem(String itemName) {
+    itemName = itemName.toUpperCase();
     StringBuilder output = new StringBuilder();
     // Items in a room are stored as: "ITEM1, ITEM2, ITEM3"
     // This will create a list of ["ITEM1", "ITEM2", "ITEM3"]
@@ -306,7 +315,7 @@ public class GameModel implements IGameModel {
                                                                   .split(ITEM_DELIMITER)));
 
     // Handle item not being in the room's list of items
-    if (!roomsItemNames.contains(itemName.toUpperCase())) {
+    if (!roomsItemNames.contains(itemName)) {
       if (itemIsObjectInRoom(itemName)) {
         output.append("You can't take the ").append(itemName).append("!\n");
         return handleMonsterAttack(output.toString());
@@ -369,6 +378,7 @@ public class GameModel implements IGameModel {
    */
   @Override
   public String dropItem(String itemName) {
+    itemName = itemName.toUpperCase();
     StringBuilder output = new StringBuilder();
 
     // Check if player has the item
@@ -436,6 +446,7 @@ public class GameModel implements IGameModel {
    */
   @Override
   public String examine(String objectName) {
+    objectName = objectName.toUpperCase();
     String output;
 
     if (roomHasItem(objectName) || playerHasItem(objectName)) {
@@ -630,7 +641,6 @@ public class GameModel implements IGameModel {
    * @return true if the room the item, false otherwise.
    */
   private boolean roomHasItem(String itemName) {
-    //Item item = gameData.getItem(itemName);
     List<String> roomsItemNames =
         new ArrayList<>(Arrays.asList(this.currentRoom.getItemNames().split(", ")));
     return roomsItemNames.contains(itemName);

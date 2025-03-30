@@ -46,6 +46,15 @@ public class Room implements ILocation {
   }
 
   /**
+   * Sets the name of the room.
+   * The name is converted to uppercase when set.
+   * @param name the name to assign to the room. If null, the name will be set to null.
+   */
+  protected void setName(String name) {
+    this.name = (name != null) ? name.toUpperCase() : null;
+  }
+
+  /**
    * Returns the description of the room.
    * @return the description of the room.
    */

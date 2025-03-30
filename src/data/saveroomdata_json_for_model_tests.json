@@ -1,0 +1,14 @@
+{
+  "room_name" : "FRONT DOOR",
+  "description" : "You're standing at the front door of a large, old house. The door is slightly ajar, revealing a dimly lit hallway.",
+  "room_number" : "1",
+  "N" : "2",
+  "S" : "0",
+  "E" : "-5",
+  "W" : "3",
+  "puzzle" : "Lock Mechanism",
+  "monster" : null,
+  "items" : "HOUSE KEY",
+  "fixtures" : "FIREPLACE",
+  "picture" : null
+}

@@ -5,8 +5,8 @@ Welcome to the Adventure Game Engine, an object-oriented design project that let
 
 ## Team: TBH
 - Chia-hsiang Hsu Tai
-- Harrison Pham
 - Bhoomika Gupta
+- Harrison Pham
 
 ## Project Overview
 The Adventure Game Engine follows an object-oriented design using the MVC architecture, ensuring modularity and separation of concerns. The game mechanics include player movement, health tracking, item collection, monster battles, and puzzle-solving. The game world consists of interconnected rooms that players can navigate, with various interactions available based on the environment, items, and challenges.

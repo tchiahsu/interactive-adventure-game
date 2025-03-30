@@ -5,16 +5,22 @@
   "rooms":[
     { "room_name":"Front Door", "room_number": "1",
       "description":"You're standing at the front door of a large, old house. The door is slightly ajar, revealing a dimly lit hallway.",
-      "N": "2", "S": "0", "E": "0", "W": "0", "puzzle": null, "monster": null, "items": "House Key", "fixtures": null, "picture": null },
+      "N": "2", "S": "0", "E": "-5", "W": "3", "puzzle": "Lock Mechanism", "monster": null, "items": "House Key", "fixtures": "Fireplace", "picture": null },
     { "room_name":"Living Room", "room_number": "2",
       "description":"The living room is cozy with antique furniture and a fireplace. A large bookshelf covers one wall.",
       "N": "-3", "S": "1", "E": "0", "W": "0", "puzzle": null, "monster": "Rabbit", "items": "Carrot", "fixtures": "Fireplace", "picture": null },
     { "room_name":"Kitchen", "room_number": "3",
       "description":"The kitchen is old-fashioned with a large stove and a refrigerator filled with strange items.",
-      "N": "4", "S": "2", "E": "0", "W": "0", "puzzle": null, "monster": null, "items": null, "fixtures": null, "picture": null },
+      "N": "4", "S": "2", "E": "5", "W": "0", "puzzle": null, "monster": null, "items": null, "fixtures": null, "picture": null },
     { "room_name":"Basement", "room_number": "4",
       "description":"The basement is dark and musty. The air feels heavy with mystery, and there's a distant, eerie sound.",
-      "N": "2", "S": "3", "E": "0", "W": "0", "puzzle": null, "monster": "Teddy Bear", "items": null, "fixtures": null, "picture": null }
+      "N": "0", "S": "3", "E": "0", "W": "0", "puzzle": null, "monster": "Teddy Bear", "items": null, "fixtures": null, "picture": null },
+    { "room_name":"Garden", "room_number": "5",
+      "description":"The garden is filled with dead leaves and broken branches.",
+      "N": "0", "S": "0", "E": "6", "W": "3", "puzzle": "Lock Mechanism", "monster": null, "items": null, "fixtures": null, "picture": null },
+    { "room_name":"Library", "room_number": "6",
+      "description":"The garden is filled with dead leaves and broken branches.",
+      "N": "0", "S": "0", "E": "5", "W": "0", "puzzle": "Bookshelf code", "monster": null, "items": null, "fixtures": null, "picture": null }
   ],
   "items":[
     { "name":"House Key", "weight": "10", "max_uses": "1", "uses_remaining": "1", "value" : "10", "when_used" : "You unlock the front door with the house key. It creaks as it opens.",
