@@ -36,6 +36,8 @@ One of the biggest design decision that we decided to stick with was treating ev
 
 Somehting that was new to use was how the interaction with the monster occurs. In our initial implemntation, we assumed that monsters (and puzzles) were unavoidable, meaning that if the player was to find one, they would be force to deactivate them before being able to do anything else in the game. However, through the information provided, we learn that the player has a choice in if the want to continue interacting with the obstacle or move to another room. This was an new implementation idea that was different from our initial thoughts. Also, we have assumed that fixtures were items that were only decorative, but they are instead interactable objects that the player can examine.
 
+For our tests, we don't test the command classes individually since they trigger the exact method in the GameModel. Since we tested the GameModel extensively, we believe that it was not necessary to test the command classes individually since it would result in double testing the same methods.
+
 We believe that our initial class diagram was fairly accurate in trying to capture the general idea of the game. We had to make slight changed to our classes to fit the specifications in homework 8, but where able to keep the general game flow the same. The additon of the controller has added a level of complexity that has made the flow more interesting and forced us to think of how to add these new features while trying to maintain the modularity and flexibility that we mentioned in homework 7. 
 
 ## How to Use
