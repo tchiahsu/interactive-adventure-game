@@ -25,7 +25,7 @@ class GameDataTest {
 
   @Test
   void testGetRoom() {
-    assertEquals("COURTYARD", gd.getRoom("1").getName());
+    assertEquals("Courtyard", gd.getRoom("1").getName());
     assertNull(gd.getRoom("1").getMonsterName());
   }
 
