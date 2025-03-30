@@ -1,23 +1,18 @@
 package model;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class GameModelTest {
-  IPlayer p1;
-  Room r1;
-  Room r2;
-  Room r3;
-  Room r4;
-  GameInfo gameInfo;
-  GameData gameData;
+  String testFilePath = "src/data/json_for_model_tests.json";
   GameModel model;
   String expectedString;
 
@@ -26,15 +21,7 @@ public class GameModelTest {
    */
   @BeforeEach
   void setUp() throws IOException {
-    ObjectMapper objectMapper = new ObjectMapper();
-    gameInfo = objectMapper.readValue(new File("src/data/json_for_model_tests.json"), GameInfo.class);
-    gameData = new GameData(gameInfo);
-    model = new GameModel("src/data/json_for_model_tests.json");
-    r1 = gameData.getRoom("1");
-    r2 = gameData.getRoom("2");
-    r3 = gameData.getRoom("3");
-    r4 = gameData.getRoom("4");
-    p1 = model.getPlayer();
+    model = new GameModel(testFilePath);
   }
 
   /**
@@ -42,7 +29,10 @@ public class GameModelTest {
    */
   @Test
   void testGetPlayer() {
-    assertEquals(p1, model.getPlayer());
+    IPlayer p = model.getPlayer();
+    assertEquals(100, p.getHealth());
+    assertEquals(0, p.getScore());
+    assertEquals(HealthStatus.AWAKE.getStatusMessage(), p.getHealthStatus());
   }
 
   /**
@@ -286,7 +276,7 @@ public class GameModelTest {
    */
   @Test
   void testExamineInvalid() {
-    expectedString = "There is no APPLE to examine\n";
+    expectedString = "There is no APPLE to examine.\n";
     assertEquals(expectedString, model.examine("apple"));
   }
 
@@ -307,8 +297,54 @@ public class GameModelTest {
     model.takeItem("HOUSE KEY");
     model.useItem("HOUSE KEY");
 
-    expectedString = "Oh no! HOUSE KEY is either empty or cannot be used again!";
+    expectedString = "Oh no! HOUSE KEY is either empty or cannot be used again!\n";
     assertEquals(expectedString, model.useItem("HOUSE KEY"));
+  }
+
+  /**
+   * Tests using an item with no current use for it.
+   */
+  @Test
+  void testItemNoCurrentUse() {
+    // Get to a room without monsters or puzzles
+    model.move("NORTH");
+    model.takeItem("CARROT");
+    model.useItem("CARROT");
+    model.dropItem("CARROT");
+    model.move("SOUTH");
+    model.takeItem("HOUSE KEY");
+    model.move("NORTH");
+    model.move("NORTH");
+
+    expectedString = "Using HOUSE KEY did nothing.\n";
+    assertEquals(expectedString, model.useItem("HOUSE KEY"));
+  }
+
+  /**
+   * Tests using the wrong item on a monster.
+   */
+  @Test
+  void testItemWrongMonster() {
+    model.takeItem("HOUSE KEY");
+    model.move("NORTH");
+
+    expectedString = "Using HOUSE KEY did nothing.\n"
+            + "RABBIT licks you with a giant tongue!\n"
+            + "You took -15 damage!\n";
+    assertEquals(expectedString, model.useItem("HOUSE KEY"));
+  }
+
+  /**
+   * Tests using the wrong item on a puzzle.
+   */
+  @Test
+  void testItemWrongPuzzle() {
+    model.move("NORTH");
+    model.takeItem("CARROT");
+    model.move("SOUTH");
+
+    expectedString = "Using CARROT did nothing.\n";
+    assertEquals(expectedString, model.useItem("CARROT"));
   }
 
   /**
@@ -371,7 +407,7 @@ public class GameModelTest {
    */
   @Test
   void testDropInvalidItem() {
-    expectedString = "You don't have APPLE.\n";
+    expectedString = "You don't have APPLE\n";
     assertEquals(expectedString, model.dropItem("APPLE"));
   }
 
@@ -436,10 +472,46 @@ public class GameModelTest {
    */
   @Test
   void testSaveGame() throws IOException {
+    String gameFile = Paths.get(testFilePath).getFileName().toString();
     expectedString = "Game saved successfully!\n";
     assertEquals(expectedString, model.saveGame());
+
+    assertTrue(Files.exists(Paths.get("src/data/savegamedata_" + gameFile)));
+    assertTrue(Files.exists(Paths.get("src/data/saveroomdata_" + gameFile)));
+    assertTrue(Files.exists(Paths.get("src/data/saveplayerdata_" + gameFile)));
   }
 
+  /**
+   * Tests restoring a previous saved game.
+   */
+  @Test
+  void testRestoreGame() throws IOException {
+    String gameFile = Paths.get(testFilePath).getFileName().toString();
+    model.takeItem("HOUSE KEY");
+    model.saveGame();
+    model.dropItem("HOUSE KEY");
+
+    assertEquals("Game loaded successfully!\n", model.restoreGame());
+    assertEquals("Items in inventory: HOUSE KEY\n", model.checkInventory());
+  }
+
+  /**
+   * Tests restoring from no saved file.
+   */
+  @Test
+  void testRestoreInvalidGame() throws IOException {
+    String gameFile = Paths.get(testFilePath).getFileName().toString();
+    Files.deleteIfExists(Paths.get("src/data/savegamedata_" + gameFile));
+    Files.deleteIfExists(Paths.get("src/data/saveroomdata_" + gameFile));
+    Files.deleteIfExists(Paths.get("src/data/saveplayerdata_" + gameFile));
+
+    expectedString = "No game file to load.\n";
+    assertEquals(expectedString, model.restoreGame());
+  }
+
+  /**
+   * Tests the ending message is displayed to the player.
+   */
   @Test
   void testGetEndingMessage() {
     expectedString = "Thank you for playing!\n"

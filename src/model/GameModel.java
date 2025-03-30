@@ -194,31 +194,20 @@ public class GameModel implements IGameModel {
 
     Item item = this.gameData.getItem(itemName);
 
-    // Check if item still have uses remaining
+    // Check if item can still be used
     if (item.getUsesRemaining() == 0) {
       output.append("Oh no! ").append(item.getName())
-        .append(" is either empty or cannot be used again!");
+        .append(" is either empty or cannot be used again!\n");
       return handleMonsterAttack(output.toString());
     }
 
-    // Item is used on the player
-    if (itemIsUsedOnPlayer(itemName)) {
-      item.reduceUse();
-      output.append(item.getWhenUsedDescription()).append("\n");
-      return roomHasActiveMonster() ? monsterAttacks(output.toString()) : output.toString();
+    if (currentRoom.getMonsterName() != null) {
+      return useItemOnMonster(item);
+    } else if (currentRoom.getPuzzleName() != null) {
+      return useItemOnPuzzle(item);
     }
-    // Item is being used on a monster
-    if (this.currentRoom.getMonsterName() != null) {
-      output.append(useItemOnMonster(item));
-    }
-    // Item is being used on a puzzle
-    else if (this.currentRoom.getPuzzleName() != null) {
-      Puzzle puzzle = getPuzzleInRoom();
-      output.append(useItemOnPuzzle(item));
-    } else {
-      output.append("Using ").append(item.getName()).append( "did nothing.\n");
-    }
-    return output.toString();
+
+    return "Using " + item.getName() + " did nothing.\n";
   }
 
   /**
@@ -252,9 +241,7 @@ public class GameModel implements IGameModel {
       output.append("SUCCESS! ").append(item.getWhenUsedDescription()).append("\n");
     } else {
       output.append("Using ").append(item.getName()).append(" did nothing.\n");
-      if (monster.isActive()) {
-        return monsterAttacks(output.toString());
-      }
+      return handleMonsterAttack(output.toString());
     }
     return output.toString();
   }
@@ -279,22 +266,6 @@ public class GameModel implements IGameModel {
       output.append("Using ").append(item.getName()).append(" did nothing.\n");
     }
     return output.toString();
-  }
-
-  /**
-   * Helper method. Attempt to use an item on a player.
-   * @param itemName : the item being used
-   * @return a description of what happens after item is used
-   */
-  private boolean itemIsUsedOnPlayer(String itemName) {
-    if (currentRoom.getMonsterName() != null) {
-      Monster monster = getMonsterInRoom();
-      return !monster.getSolution().equalsIgnoreCase(itemName);
-    } else if (currentRoom.getPuzzleName() != null) {
-      Puzzle puzzle = getPuzzleInRoom();
-      return !puzzle.getSolution().equalsIgnoreCase(itemName);
-    }
-    return true;
   }
 
   /**
@@ -340,7 +311,7 @@ public class GameModel implements IGameModel {
       playerInventory.addItem(item);
       playerInventory.setCurrentCapacity(newWeight);
       this.player.increaseScore(item.getValue());
-      roomsItemNames.remove(item.getName().toUpperCase());
+      roomsItemNames.remove(item.getName());
 
       // Update room items
       String updatedRoomItemNames = String.join(ITEM_DELIMITER, roomsItemNames);
@@ -383,7 +354,7 @@ public class GameModel implements IGameModel {
 
     // Check if player has the item
     if (!playerHasItem(itemName)) {
-      output.append("You don't have ").append(itemName).append(".\n");
+      output.append("You don't have ").append(itemName).append("\n");
       return handleMonsterAttack(output.toString());
     }
 
@@ -458,7 +429,7 @@ public class GameModel implements IGameModel {
     } else if (objectName.equalsIgnoreCase(this.currentRoom.getPuzzleName())) {
       output = examinePuzzle();
     } else {
-      output = "There is no " + objectName + " to examine\n";
+      output = "There is no " + objectName + " to examine.\n";
     }
 
     return roomHasActiveMonster() ? monsterAttacks(output) : output;
@@ -544,7 +515,7 @@ public class GameModel implements IGameModel {
           new File("src/data/saveplayerdata_" + gameFile), this.player);
       return "Game saved successfully!\n";
     } catch (IOException e) {
-      return "Game failed to save\n";
+      return "Game failed to save.\n";
     }
   }
 
@@ -560,7 +531,7 @@ public class GameModel implements IGameModel {
 
     // Check if there is saved data
     if (!hasSaveData(gameFile)) {
-      return "No game file to load\n";
+      return "No game file to load.\n";
     }
 
     // Clear out the current data in the game
@@ -578,7 +549,7 @@ public class GameModel implements IGameModel {
             new File("src/data/saveplayerdata_" + gameFile), Player.class);
     this.gameData = new GameData(gameInfo);
 
-    return "Game loaded successfully\n";
+    return "Game loaded successfully!\n";
   }
 
   /**
