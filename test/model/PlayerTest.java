@@ -98,11 +98,12 @@ public class PlayerTest {
 
   /**
    * Tests the getRank method of the Player when the score
-   * is less than 50.
+   * is greater than 700.
    */
   @Test
-  void testGetRankLow() {
-    assertEquals("Novice Explorer", p1.getRank());
+  void testGetRankLegendary() {
+    p1.increaseScore(800);
+    assertEquals("Legendary Trailblazer", p1.getRank());
   }
 
   /**
@@ -110,29 +111,81 @@ public class PlayerTest {
    * less than 150.
    */
   @Test
-  void testGetRankAverage() {
-    p1.increaseScore(140);
-    assertEquals("Seasoned Pathfinder", p1.getRank());
-  }
-
-  /**
-   * Tests the getRank method of the Player when score is
-   * less than 200.
-   */
-  @Test
-  void testGetRankHigh() {
-    p1.increaseScore(180);
+  void testGetRankMaster() {
+    p1.increaseScore(500);
     assertEquals("Master Voyager", p1.getRank());
   }
 
   /**
    * Tests the getRank method of the Player when score is
-   * less than 200.
+   * less and player's Rank is Novice.
    */
   @Test
-  void testGetRankMaximum() {
-    p1.increaseScore(250);
-    assertEquals("Legendary Trailblazer", p1.getRank());
+  void testGetRankSeasoned() {
+    p1.increaseScore(260);
+    assertEquals("Seasoned Pathfinder", p1.getRank());
   }
+
+  /**
+   * Tests the getRank method of the Player when score is
+   * less than .
+   */
+  @Test
+  void testGetRankNovice() {
+    p1.increaseScore(150);
+    assertEquals("Novice Explorer", p1.getRank());
+  }
+
+  /**
+   * Tests the healthStatus method when player health is less
+   * than zero.
+   */
+  @Test
+  void testGetHealthStatusSleepEqual() {
+    p1.decreaseHealth(-100);
+    assertEquals("Your health has dropped to the sleep zone. "
+           + "\nNighty-night\nGame Over!\n", p1.getHealthStatus());
+  }
+
+  /**
+   * Tests the healthStatus method when player health is less
+   * than zero.
+   */
+  @Test
+  void testGetHealthStatusSleep() {
+    p1.decreaseHealth(-150);
+    assertEquals("Your health has dropped to the sleep zone. "
+            + "\nNighty-night\nGame Over!\n", p1.getHealthStatus());
+  }
+
+
+  /**
+   * Tests the healthStatus method when player health status is WOOZY.
+   */
+  @Test
+  void testGetHealthStatusWoozy() {
+    p1.decreaseHealth(-70);
+    assertEquals("Your health is very low! And you're woozy\n", p1.getHealthStatus());
+  }
+
+  /**
+   * Tests the healthStatus method when player health status is WOOZY.
+   */
+  @Test
+  void testGetHealthStatusFatigue() {
+    p1.decreaseHealth(-40);
+    assertEquals("Adventuring has made you very tired! Your health is low!\n", p1.getHealthStatus());
+  }
+
+  /**
+   * Tests the healthStatus method when player health status is
+   * awake.
+   */
+  @Test
+  void testGetHealthStatusAwake() {
+    p1.decreaseHealth(-10);
+    assertEquals("You are healthy and wide awake.\n", p1.getHealthStatus());
+  }
+
 
 }
