@@ -9,22 +9,36 @@ import java.io.StringWriter;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Test class for GameInputReader class.
+ * The class handles input validation and processing.
+ */
 class GameInputReaderTest {
   private GameInputReader inputReader;
   private StringWriter output;
   private StringReader input;
 
+  /**
+   * Set up environment before each test.
+   * Initializes a new StringWritten as output.
+   */
   @BeforeEach
   void setUp() {
     this.output = new StringWriter();
   }
 
+  /**
+   * Tests that the default contractor creates a GameInputReader object.
+   */
   @Test
   void testDefaultConstructor() {
     GameInputReader reader = new GameInputReader();
     assertNotNull(reader);
   }
 
+  /**
+   * Test that the overloaded constructor accepts the input and output parameters.
+   */
   @Test
   void testOverloadedConstructor() {
     input = new StringReader("Hello");
@@ -32,6 +46,10 @@ class GameInputReaderTest {
     assertNotNull(inputReader);
   }
 
+  /**
+   * Test validation of a single-word and full-word commands.
+   * It also makes sure the command are recognized as valid commands.
+   */
   @Test
   public void testValidateSingleWordCommands() {
     input = new StringReader("");
@@ -58,6 +76,10 @@ class GameInputReaderTest {
     assertTrue(inputReader.validateInput("RESTORE"));
   }
 
+  /**
+   * Test validation method for invalid commands.
+   * It checks for invalid single-word and full-word commands.
+   */
   @Test
   void testValidateInvalidCommands() {
     input = new StringReader("");
@@ -78,6 +100,11 @@ class GameInputReaderTest {
     assertFalse(inputReader.validateInput("MOVE"));
   }
 
+  /**
+   * Test reading various valid input commands.
+   * It verifies that the input reader correctly reads the input and normalizes it to the format
+   * that we use throughout our implementation.
+   */
   @Test
   void testReadValidInput() {
     // Answer input
@@ -163,6 +190,11 @@ class GameInputReaderTest {
     assertEquals("U MOUSE", command);
   }
 
+  /**
+   * Test reading invalid input.
+   * Verifies that when invalid input is provided, the input reader displays an error message
+   * and prompts the user to try again.
+   */
   @Test
   void testReadInvalidInput() {
     inputReader = new GameInputReader(new StringReader("\nlook\n"), this.output);
@@ -170,6 +202,10 @@ class GameInputReaderTest {
     assertTrue(output.toString().contains("Invalid Command. Please try again."));
   }
 
+  /**
+   * Test providing a valid avatar name.
+   * @throws IOException if an I/O error occurs while reading the input
+   */
   @Test
   void testGetValidAvatarName() throws IOException {
     input = new StringReader("Aligner");
@@ -179,6 +215,11 @@ class GameInputReaderTest {
     assertEquals("ALIGNER", result);
   }
 
+  /**
+   * Test providing an invalid avatar name.
+   * Verifies that the appropriate error message is raised.
+   * @throws IOException if an I/O error occurs while reading input.
+   */
   @Test
   void testGetInvalidAvatarName() throws IOException {
     // Passing in an empty name;

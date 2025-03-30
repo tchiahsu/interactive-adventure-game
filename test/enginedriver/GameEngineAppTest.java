@@ -9,11 +9,18 @@ import java.io.StringWriter;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Test class for GameEngineApp.
+ */
 class GameEngineAppTest {
   private String gameFile;
   private Readable source;
   private Appendable output;
 
+  /**
+   * Set up before each test.
+   * Initializes the game file path and I/O objects.
+   */
   @BeforeEach
   void setup() {
     this.gameFile = "src/data/json_for_tests.json";
@@ -21,6 +28,10 @@ class GameEngineAppTest {
     this.output = new StringWriter();
   }
 
+  /**
+   * Test that the constructor throws IOException when given a null game file.
+   * It also verifies the error message is correct.
+   */
   @Test
   void testInvalidGameFile() {
     // Exception raised when game file is invalid
@@ -29,6 +40,10 @@ class GameEngineAppTest {
     assertEquals("Game File could not be found!", message.getMessage());
   }
 
+  /**
+   * Test that the constructor throws a IOException when given a null input source.
+   * It also verifies the error message is correct.
+   */
   @Test
   void testInvalidSource() {
     // Exception raised when game file is invalid
@@ -37,11 +52,42 @@ class GameEngineAppTest {
     assertEquals("Source data could not be found!", message.getMessage());
   }
 
+  /**
+   * Test that the constructor throws an IOException when given a null output destination.
+   * It also verifies the error message is correct.
+   */
   @Test
   void testInvalidOutput() {
     // Exception raised when game file is invalid
     Exception message = assertThrows(IOException.class, ()
       -> new GameEngineApp(gameFile, source, null));
     assertEquals("Output destination could not be found!", message.getMessage());
+  }
+
+  /**
+   * Test that valid parameters create an instance without an exception.
+   * @throws IOException if an I/O error occurs while working with input or output
+   */
+  @Test
+  void testValidConstructorCreatesInstance() throws IOException {
+    GameEngineApp engine = new GameEngineApp(this.gameFile, this.source, this.output);
+    assertNotNull(engine);
+  }
+
+  /**
+   * Test the start method of GameEngineApp.
+   * This test verifies that the game engine correctly initializes the model and controller.
+   * It runs through the scenarios where the user is asked to provide an avatar name.
+   * @throws IOException if an I/0 error occurs during game execution.
+   */
+  @Test
+  void testStartMethod() throws IOException {
+    StringReader newInput =  new StringReader("Aligners\nQ");
+    StringWriter gameOutput = new StringWriter();
+
+    GameEngineApp engine = new GameEngineApp(this.gameFile, newInput, gameOutput);
+    engine.start();
+    String outputText = gameOutput.toString();
+    assertTrue(outputText.contains("ALIGNERS"));
   }
 }

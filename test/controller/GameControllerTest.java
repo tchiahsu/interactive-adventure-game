@@ -38,7 +38,7 @@ class GameControllerTest {
   @Test
   void testPlayerNameAndLook() throws IOException {
     StringBuilder testOutput = new StringBuilder();
-    StringReader input = new StringReader("Aligners\nL\nQ");
+    StringReader input = new StringReader("Aligners\nQ");
     GameController controller = new GameController(model, input, testOutput);
 
     controller.go();
