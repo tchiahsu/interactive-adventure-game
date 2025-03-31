@@ -6,7 +6,7 @@ import model.IGameModel;
 
 /**
  * The {@code DropCommand} class represents a command for dropping an item in the adventure game.
- * It implements the {@link ICommand} class.
+ * It implements the {@link ICommand} interface.
  */
 public class DropCommand implements ICommand {
   private final String item;

@@ -7,7 +7,7 @@ import model.IGameModel;
 /**
  * The {@code MoveCommand} class represents a command for moving a player to another room in
  * the adventure game.
- * It implements the {@link ICommand} class.
+ * It implements the {@link ICommand} interface.
  */
 public class MoveCommand implements ICommand {
   private String direction;

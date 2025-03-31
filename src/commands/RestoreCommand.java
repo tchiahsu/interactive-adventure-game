@@ -6,7 +6,7 @@ import model.IGameModel;
 
 /**
  * The {@code RestoreCommand} class represents a command for answering a puzzle in the adventure
- * game. It implements the {@link ICommand} class.
+ * game. It implements the {@link ICommand} interface.
  */
 public class RestoreCommand implements ICommand {
   private final Appendable output;

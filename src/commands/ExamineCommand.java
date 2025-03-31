@@ -6,7 +6,7 @@ import model.IGameModel;
 
 /**
  * The {@code ExamineCommand} class represents a command to examine an object in the adventure game.
- * It implements the {@link ICommand} class.
+ * It implements the {@link ICommand} interface.
  */
 public class ExamineCommand implements ICommand {
   private final String object;
