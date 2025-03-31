@@ -1,7 +1,8 @@
 package controller;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.IOException;
 import java.util.List;
@@ -16,8 +17,8 @@ import commands.RestoreCommand;
 import commands.SaveCommand;
 import commands.TakeCommand;
 import commands.UseCommand;
-
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 class GameCommandFinderTest {
   private GameCommandFinder commandFinder;

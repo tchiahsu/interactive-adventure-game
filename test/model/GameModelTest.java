@@ -1,16 +1,18 @@
 package model;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
+/**
+ * Tests the methods of the GameModel class.
+ */
 public class GameModelTest {
   String testFilePath = "src/data/json_for_model_tests.json";
   GameModel model;
@@ -264,9 +266,9 @@ public class GameModelTest {
    */
   @Test
   void testExamineFixture() {
-    expectedString = "From the FRONT DOOR you examine the FIREPLACE: A grand stone " +
-            "fireplace that looks like it hasn't been used in years. " +
-            "There’s an odd symbol carved into the stone.\n";
+    expectedString = "From the FRONT DOOR you examine the FIREPLACE: A grand stone "
+            + "fireplace that looks like it hasn't been used in years. "
+            + "There’s an odd symbol carved into the stone.\n";
 
     assertEquals(expectedString, model.examine("FIREPLACE"));
   }

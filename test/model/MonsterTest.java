@@ -1,32 +1,20 @@
 package model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.io.File;
+import java.io.IOException;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
-import java.io.IOException;
-
+/**
+ * Test cLass to test the methods of the Monster class.
+ */
 public class MonsterTest {
-  //getName
-  //setName
-  //getDescription
-  //isActive
-  //affectsTarget
-  //affectsPlayer
-  //getSolution
-  //getValue
-  //getActiveDescription
-  //getTarget
-  //getPicture
-  //deactivate
-  //getDamage
-  //canAttack
-  //getAttackMessage
 
   Monster m1;
   GameInfo gameInfo;
@@ -56,12 +44,12 @@ public class MonsterTest {
    */
   @Test
   void testGetDescription() {
-    assertEquals("Awww. A furry rabbit twitching its nose and eating a carrot." +
-            " Makes you want to pet him.", m1.getDescription());
+    assertEquals("Awww. A furry rabbit twitching its nose and eating a carrot."
+            + " Makes you want to pet him.", m1.getDescription());
   }
 
   /**
-   * Tests the setName method of the Monster class
+   * Tests the setName method of the Monster class.
    */
   @Test
   void testSetName() {

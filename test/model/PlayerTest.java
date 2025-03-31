@@ -2,13 +2,16 @@ package model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.io.File;
+import java.io.IOException;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
-import java.io.IOException;
-
+/**
+ * Class to test the methods of the Player class.
+ */
 public class PlayerTest {
   GameInfo gameInfo;
   GameData gameData;
@@ -174,12 +177,12 @@ public class PlayerTest {
   @Test
   void testGetHealthStatusFatigue() {
     p1.decreaseHealth(-40);
-    assertEquals("Adventuring has made you very tired! Your health is low!\n", p1.getHealthStatus());
+    assertEquals("Adventuring has made you very tired! "
+            + "Your health is low!\n", p1.getHealthStatus());
   }
 
   /**
-   * Tests the healthStatus method when player health status is
-   * awake.
+   * Tests the healthStatus method when player health status is awake.
    */
   @Test
   void testGetHealthStatusAwake() {

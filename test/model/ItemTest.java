@@ -1,14 +1,13 @@
 package model;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.File;
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Class that tests the method of the Item class.
@@ -98,7 +97,8 @@ class ItemTest {
    */
   @Test
   void testGetWhenUsedDescription() {
-    assertEquals("You unlock the front door with the house key. It creaks as it opens.",i1.getWhenUsedDescription());
+    assertEquals("You unlock the front door with the house key. "
+            + "It creaks as it opens.",i1.getWhenUsedDescription());
   }
 
   /**

@@ -1,17 +1,19 @@
 package model;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
+/**
+ * Tests the methods of the GameData class.
+ */
 class GameDataTest {
 
   private GameData gd;
@@ -19,7 +21,8 @@ class GameDataTest {
   @BeforeEach
   void setUp() throws IOException {
     ObjectMapper objectMapper = new ObjectMapper();
-    GameInfo gameInfo = objectMapper.readValue(new File("src/data/align_quest_game_elements.json"), GameInfo.class);
+    GameInfo gameInfo = objectMapper.readValue(
+            new File("src/data/align_quest_game_elements.json"), GameInfo.class);
     gd = new GameData(gameInfo);
   }
 

@@ -1,13 +1,16 @@
 package enginedriver;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test class for GameEngineApp.
@@ -36,7 +39,7 @@ class GameEngineAppTest {
   void testInvalidGameFile() {
     // Exception raised when game file is invalid
     Exception message = assertThrows(IOException.class, ()
-      -> new GameEngineApp(null, source, output));
+        -> new GameEngineApp(null, source, output));
     assertEquals("Game File could not be found!", message.getMessage());
   }
 
@@ -48,7 +51,7 @@ class GameEngineAppTest {
   void testInvalidSource() {
     // Exception raised when game file is invalid
     Exception message = assertThrows(IOException.class, ()
-      -> new GameEngineApp(gameFile, null, output));
+        -> new GameEngineApp(gameFile, null, output));
     assertEquals("Source data could not be found!", message.getMessage());
   }
 
@@ -60,7 +63,7 @@ class GameEngineAppTest {
   void testInvalidOutput() {
     // Exception raised when game file is invalid
     Exception message = assertThrows(IOException.class, ()
-      -> new GameEngineApp(gameFile, source, null));
+        -> new GameEngineApp(gameFile, source, null));
     assertEquals("Output destination could not be found!", message.getMessage());
   }
 
@@ -78,7 +81,7 @@ class GameEngineAppTest {
    * Test the start method of GameEngineApp.
    * This test verifies that the game engine correctly initializes the model and controller.
    * It runs through the scenarios where the user is asked to provide an avatar name.
-   * @throws IOException if an I/0 error occurs during game execution.
+   * @throws IOException if I/0 error occurs during game execution.
    */
   @Test
   void testStartMethod() throws IOException {

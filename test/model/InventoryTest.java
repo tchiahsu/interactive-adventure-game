@@ -1,22 +1,31 @@
 package model;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
+/**
+ * Tests the methods of the Inventory class.
+ */
 public class InventoryTest {
   GameInfo gameInfo;
   GameData gameData;
   Player p1;
   Inventory i1;
 
+  /**
+   * Method that sets up objects to run before each test.
+   */
   @BeforeEach
   void setUp() throws IOException {
     ObjectMapper objectMapper = new ObjectMapper();
@@ -45,12 +54,14 @@ public class InventoryTest {
   void testAddItemInValid() {
     i1.addItem(gameData.getItem("House Key"));
 
-    assertThrows(IllegalArgumentException.class,
-            ()->{i1.addItem(gameData.getItem("Carrot"));});
+    IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+            () -> {
+              i1.addItem(gameData.getItem("Carrot"));
+            });
   }
 
   /**
-   * Tests the removeItem of the Inventory class
+   * Tests the removeItem of the Inventory class.
    */
   @Test
   void testRemoveItem() {
