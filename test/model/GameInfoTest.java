@@ -81,7 +81,7 @@ class GameInfoTest {
   }
 
   /**
-   * Tests the getPuzzles method.
+   * Tests the getMonsters method.
    */
   @Test
   void testGetMonsters() {
