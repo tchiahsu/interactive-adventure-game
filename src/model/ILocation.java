@@ -53,7 +53,7 @@ public interface ILocation extends IGameObject {
   String getPath(String direction);
 
   /**
-   * Sets the name of the items in a location with the delimiter ","
+   * Sets the name of the items in a location with the delimiter ",".
    * @param items : name of the items in the location
    */
   void setItemNames(String items);

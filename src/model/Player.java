@@ -3,7 +3,8 @@ package model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
- * Represents a player in the game, managing their health, score, inventory, rank, and health status.
+ * Represents a player in the game, managing their health, score,
+ * inventory, rank, and health status.
  */
 public class Player implements IPlayer {
   private static final int LEGENDARY_LOWER_BOUND = 700;
