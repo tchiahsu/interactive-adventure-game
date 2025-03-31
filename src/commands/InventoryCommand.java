@@ -7,7 +7,7 @@ import model.IGameModel;
 /**
  * The {@code InventoryCommand} class represents a command for checking the players inventory
  * in the adventure game.
- * It implements the {@link ICommand} class.
+ * It implements the {@link ICommand} interface.
  */
 public class InventoryCommand implements ICommand {
   private final Appendable output;

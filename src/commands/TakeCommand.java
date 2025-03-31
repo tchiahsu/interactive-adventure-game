@@ -6,7 +6,7 @@ import model.IGameModel;
 
 /**
  * The {@code TakeCommand} class represents a command for taking an item in the adventure game.
- * It implements the {@link ICommand} class.
+ * It implements the {@link ICommand} interface.
  */
 public class TakeCommand implements ICommand {
   private final String item;

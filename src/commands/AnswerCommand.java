@@ -7,7 +7,7 @@ import model.IGameModel;
 /**
  * The {@code AnswerCommand} class represents a command for answering a puzzle in the adventure
  * game.
- * It implements the {@link ICommand} class.
+ * It implements the {@link ICommand} interface.
  */
 public class AnswerCommand implements ICommand {
   private final String answer;

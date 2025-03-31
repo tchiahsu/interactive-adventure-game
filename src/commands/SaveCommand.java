@@ -6,7 +6,7 @@ import model.IGameModel;
 
 /**
  * The {@code SaveCommand} class represents a command for saving the state of adventure game.
- * It implements the {@link ICommand} class.
+ * It implements the {@link ICommand} interface.
  */
 public class SaveCommand implements ICommand {
   private final Appendable output;

@@ -7,7 +7,7 @@ import model.IGameModel;
 /**
  * The {@code LookCommand} class represents a command looking at the environment/surroundings
  * of a room in the adventure game.
- * It implements the {@link ICommand} class.
+ * It implements the {@link ICommand} interface.
  */
 public class LookCommand implements ICommand {
   private final Appendable output;
