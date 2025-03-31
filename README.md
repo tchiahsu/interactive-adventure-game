@@ -57,5 +57,5 @@ We have an extensive test suite that checks the model works as expected. We want
 
 1. Clone the repository and open it in IntelliJ.
 2. Load your JSON file in the data package or use the current data files available.
-3. Inovke entry point to initialize and run the game.
+3. Inovke entry point to initialize and run the game - We have provided a main function with a pre-defined JSON file.
 4. The game starts by displaying the player's initial room and prompts the user for their first command.
