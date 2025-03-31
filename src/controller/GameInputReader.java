@@ -72,8 +72,8 @@ public class GameInputReader {
   /**
    * Prompts the user for their avatar username.
    *
-   * @return the avatar username
-   * @throws IOException if an I/0 error occurs while writing the output
+   * @return the avatar username.
+   * @throws IOException if an I/0 error occurs while writing the output.
    */
   public String getAvatarName() throws IOException {
     String userCommand = "";

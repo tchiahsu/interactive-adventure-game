@@ -16,7 +16,7 @@ public class AnswerCommand implements ICommand {
   /**
    * Constructs an {@code AnswerCommand} object with the specified response and output destination.
    *
-   * @param answer : user specified answer to the puzzle
+   * @param answer : user specified answer to the puzzle.
    * @param output : the {@link Appendable} object where the command's output will be written.
    */
   public AnswerCommand(String answer, Appendable output) {

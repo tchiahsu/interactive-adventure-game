@@ -99,6 +99,12 @@ public class GameModel implements IGameModel {
     return getItemsInRoom(result);
   }
 
+  /**
+   * Returns an output message with the items in the room added to it.
+   *
+   * @param result message to add items onto to return to the player.
+   * @return an output message with the items in the room added to it.
+   */
   private String getItemsInRoom(String result) {
     return result + "Items you see here: " + this.currentRoom.getItemNames() + "\n";
   }

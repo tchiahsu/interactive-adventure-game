@@ -18,9 +18,9 @@ public class GameController implements IController {
    * Constructs a {@code GameController} with the specified game model,
    * input source and output destination.
    *
-   * @param model : game model
-   * @param input : input source
-   * @param output : output destination
+   * @param model : game model.
+   * @param input : input source.
+   * @param output : output destination.
    */
   public GameController(IGameModel model, Readable input, Appendable output) {
     this.model = model;
@@ -32,7 +32,7 @@ public class GameController implements IController {
    * Starts the game loop, continues prompting the user for input, getting the appropriate commands
    * and updating the game state until the user quits the game.
    *
-   * @throws IOException if an I/O error occurs while writing output
+   * @throws IOException if an I/O error occurs while writing output.
    */
   @Override
   public void go() throws IOException {

@@ -15,7 +15,7 @@ public class MoveCommand implements ICommand {
 
   /**
    * Constructs an {@code MoveCommand} object with the specified direction and output avenue.
-   * @param direction : direction the player moves
+   * @param direction : direction the player moves.
    * @param output : the {@link Appendable} object where the command's output will be written.
    */
   public MoveCommand(String direction, Appendable output) {
@@ -26,7 +26,7 @@ public class MoveCommand implements ICommand {
   /**
    * Helper functions that modifies the user direction input to the system specified direction.
    *
-   * @param direction : direction the player moves to
+   * @param direction : direction the player moves to.
    */
   private void convertInputToValid(String direction) {
     switch (this.direction.toUpperCase()) {

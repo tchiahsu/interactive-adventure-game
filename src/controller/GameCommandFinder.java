@@ -35,9 +35,9 @@ public class GameCommandFinder {
    * Splits the user command into an action and a noun, and matches the action to the corresponding
    * {@code Command} enum and uses the enum to trigger the corresponding {@link ICommand} instance.
    *
-   * @param command : the user input string
-   * @return an instance of {@code ICommand} corresponding to the user input
-   * @throws IllegalArgumentException if the input is null or empty
+   * @param command : the user input string.
+   * @return an instance of {@code ICommand} corresponding to the user input.
+   * @throws IllegalArgumentException if the input is null or empty.
    */
   public ICommand getCommand(String command) throws IllegalArgumentException {
     if (command == null || command.isEmpty()) {
@@ -71,10 +71,10 @@ public class GameCommandFinder {
   /**
    * Helper functions that splits the user input string into a verb and a noun.
    *
-   * @param command user input string
-   * @return a list of string with two elements
-   *          - first element is the action
-   *          - second element is the noun
+   * @param command user input string.
+   * @return a list of string with two elements.
+   *          - first element is the action.
+   *          - second element is the noun.
    *         If the command only has one word then the array will only have one element.
    */
   private List<String> splitCommand(String command) {

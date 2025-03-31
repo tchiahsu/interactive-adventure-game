@@ -57,7 +57,7 @@ public class GameData {
   }
 
   /**
-   * Populates the fixtures map with the provided list of fixtures in jSON.
+   * Populates the fixtures map with the provided list of fixtures in JSON.
    * @param fixturesList a list of Fixture objects to be added to the fixtures map.
    */
   private void createFixturesMap(List<Fixture> fixturesList) {

@@ -35,7 +35,7 @@ public enum Commands {
 
   /**
    * Checks if the command matches any of the specified aliases for the commands.
-   * @param input : string command
+   * @param input : string command.
    * @return true if command is valid, false otherwise
    */
   public boolean checkMatch(String input) {
@@ -44,7 +44,7 @@ public enum Commands {
 
   /**
    * Determines if the command needs another argument or not.
-   * @return true if it does, false otherwise
+   * @return true if it does, false otherwise.
    */
   public boolean getRequiresArgument() {
     return this.requiresArgument;
@@ -54,8 +54,8 @@ public enum Commands {
    * Static method for the enum class. It gets the enum that is associated with the alias that is
    * being passed. It checks that the action inputted by the user matches any of hte aliases and
    * returns the enum with that alias.
-   * @param input : user input command
-   * @return enum with given alias
+   * @param input : user input command.
+   * @return enum with given alias.
    */
   public static Commands getEnum(String input) {
     for (Commands command : Commands.values()) {

@@ -15,7 +15,7 @@ public class DropCommand implements ICommand {
   /**
    * Constructs an {@code DropCommand} object with the specified object and output destination.
    *
-   * @param item : item we want to drop
+   * @param item : item we want to drop.
    * @param output : the {@link Appendable} object where the command's output will be written.
    */
   public DropCommand(String item, Appendable output) {
