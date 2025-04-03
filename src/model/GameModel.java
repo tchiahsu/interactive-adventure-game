@@ -51,7 +51,6 @@ public class GameModel implements IGameModel {
    * @param direction : direction player wants to move to
    * @return a description describing the state of the game after the move
    */
-  @Override
   public String move(String direction) {
     StringBuilder output = new StringBuilder();
     String nextRoom = this.currentRoom.getPath(direction);
