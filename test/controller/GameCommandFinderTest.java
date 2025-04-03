@@ -4,9 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import java.io.IOException;
-import java.util.List;
-
 import commands.AnswerCommand;
 import commands.DropCommand;
 import commands.ExamineCommand;
@@ -20,16 +17,26 @@ import commands.UseCommand;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Test class for the GameCommandFinder.
+ */
 class GameCommandFinderTest {
   private GameCommandFinder commandFinder;
   private StringBuilder output;
 
+  /**
+   * Initialize test objects before each test case.
+   */
   @BeforeEach
   void setUp() {
     this.output = new StringBuilder();
     this.commandFinder = new GameCommandFinder(this.output);
   }
 
+  /**
+   * Tests when the given command is an invalid command.
+   * This is when the command is null or empty.
+   */
   @Test
   void testGetInvalidCommand() {
     // Null command
@@ -43,6 +50,10 @@ class GameCommandFinderTest {
     assertNull(commandFinder.getCommand("PICK"));
   }
 
+  /**
+   * Test valid movement commands. It tests both the full-work and the single-letter version
+   * for each command.
+   */
   @Test
   void testGetValidMoveCommand() {
     // All variations of north command
@@ -70,6 +81,10 @@ class GameCommandFinderTest {
     assertInstanceOf(MoveCommand.class, commandFinder.getCommand("WEST"));
   }
 
+  /**
+   * Test valid inventory command. It checks that all the variations for the inventory command
+   * are considered valid and are execute.
+   */
   @Test
   void testGetValidInventoryCommand() {
     assertInstanceOf(InventoryCommand.class, commandFinder.getCommand("i"));
@@ -78,6 +93,10 @@ class GameCommandFinderTest {
     assertInstanceOf(InventoryCommand.class, commandFinder.getCommand("INVENTORY"));
   }
 
+  /**
+   * Test valid look command. It checks that all the variations for the look command are
+   * considered valid and are executed.
+   */
   @Test
   void testGetValidLookCommand() {
     assertInstanceOf(LookCommand.class, commandFinder.getCommand("l"));
@@ -86,6 +105,10 @@ class GameCommandFinderTest {
     assertInstanceOf(LookCommand.class, commandFinder.getCommand("LOOK"));
   }
 
+  /**
+   * Test valid use command. It checks that all the variations for the use command are considered
+   * valid and executed.
+   */
   @Test
   void testGetValidUseCommand() {
     assertInstanceOf(UseCommand.class, commandFinder.getCommand("u"));
@@ -94,6 +117,10 @@ class GameCommandFinderTest {
     assertInstanceOf(UseCommand.class, commandFinder.getCommand("USE"));
   }
 
+  /**
+   * Test valid take command. It checks that all the variations for the take command are considered
+   * valid and executed.
+   */
   @Test
   void testGetValidTakeCommand() {
     assertInstanceOf(TakeCommand.class, commandFinder.getCommand("t"));
@@ -102,6 +129,10 @@ class GameCommandFinderTest {
     assertInstanceOf(TakeCommand.class, commandFinder.getCommand("TAKE"));
   }
 
+  /**
+   * Test valid drop command. It checks that all the variation for the drop command are considered
+   * valid and executed.
+   */
   @Test
   void testGetValidDropCommand() {
     assertInstanceOf(DropCommand.class, commandFinder.getCommand("d"));
@@ -110,6 +141,10 @@ class GameCommandFinderTest {
     assertInstanceOf(DropCommand.class, commandFinder.getCommand("DROP"));
   }
 
+  /**
+   * Test valid examine command. It checks that all the variations for the examine command are
+   * considered valid and executed.
+   */
   @Test
   void testGetValidExamineCommand() {
     assertInstanceOf(ExamineCommand.class, commandFinder.getCommand("x"));
@@ -118,6 +153,10 @@ class GameCommandFinderTest {
     assertInstanceOf(ExamineCommand.class, commandFinder.getCommand("EXAMINE"));
   }
 
+  /**
+   * Test valid answer command. It checks that all the variation for the answer command are
+   * considered valid and executed.
+   */
   @Test
   void testGetValidAnswerCommand() {
     assertInstanceOf(AnswerCommand.class, commandFinder.getCommand("a"));
@@ -126,18 +165,30 @@ class GameCommandFinderTest {
     assertInstanceOf(AnswerCommand.class, commandFinder.getCommand("ANSWER"));
   }
 
+  /**
+   * Test valid save command. It checks that all the variation for the save command are considered
+   * valid and executed.
+   */
   @Test
   void testGetValidSaveCommand() {
     assertInstanceOf(SaveCommand.class, commandFinder.getCommand("save"));
     assertInstanceOf(SaveCommand.class, commandFinder.getCommand("SAVE"));
   }
 
+  /**
+   * Test valid restore command. It checks that all the variations for the restore command are
+   * considered valid and executed.
+   */
   @Test
   void testGetValidRestoreCommand() {
     assertInstanceOf(RestoreCommand.class, commandFinder.getCommand("restore"));
     assertInstanceOf(RestoreCommand.class, commandFinder.getCommand("RESTORE"));
   }
 
+  /**
+   * Test valid quit command. It checks that all the variations for the quit command are considered
+   * valid and executed.
+   */
   @Test
   void testGetQuitCommand() {
     assertNull(commandFinder.getCommand("q"));
@@ -146,6 +197,9 @@ class GameCommandFinderTest {
     assertNull(commandFinder.getCommand("QUIT"));
   }
 
+  /**
+   * Test commands that have additional arguments. Meaning they interact with other game entities.
+   */
   @Test
   void testGetCommandWithArguments() {
     assertInstanceOf(UseCommand.class, commandFinder.getCommand("u key"));

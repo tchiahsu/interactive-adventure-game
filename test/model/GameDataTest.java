@@ -26,17 +26,27 @@ class GameDataTest {
     gd = new GameData(gameInfo);
   }
 
+  /**
+   * Ensures that a valid room is retrieved correctly and that a room without a monster returns
+   * null for the mosnter name.
+   */
   @Test
   void testGetRoom() {
     assertEquals("COURTYARD", gd.getRoom("1").getName());
     assertNull(gd.getRoom("1").getMonsterName());
   }
 
+  /**
+   * Ensures that an item is retrieved correctly.
+   */
   @Test
   void testGetItem() {
     assertEquals(100, gd.getItem("Lamp").getMaxUses());
   }
 
+  /**
+   * Ensures that the monster's solution/weakness is retrieved correctly.
+   */
   @Test
   void testGetMonster() {
     assertEquals("Carrot", gd.getMonster("Rabbit").getSolution());
