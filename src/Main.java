@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 import enginedriver.GameEngineApp;
+import view.View;
 
 /**
  * This Main class invokes the entry point {@link GameEngineApp} for the adventure game.
@@ -23,5 +24,9 @@ public class Main {
     BufferedReader stringReader = new BufferedReader(new InputStreamReader(System.in));
     GameEngineApp engine = new GameEngineApp(hallwayjson, stringReader, System.out);
     engine.start();
+
+//run this command if you want test running the view:
+//      View view = new View();
+
   }
 }
