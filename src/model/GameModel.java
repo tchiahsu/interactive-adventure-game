@@ -115,7 +115,7 @@ public class GameModel implements IGameModel {
     // Add the item to the room's list of items
     String roomItemNames = this.currentRoom.getItemNames();
     String updatedRoomItemNames =
-        roomItemNames.isEmpty() ? item.getName() : roomItemNames.concat(", " + item.getName());
+      roomItemNames.isEmpty() ? item.getName() : roomItemNames.concat(", " + item.getName());
     this.currentRoom.setItemNames(updatedRoomItemNames);
     output.append(item.getName()).append(" removed from inventory.\n");
 
@@ -159,10 +159,10 @@ public class GameModel implements IGameModel {
   @Override
   public String getEndingMessage() {
     return "Thank you for playing!\nYour score is "
-        + this.player.getScore()
-        + "\nYour rank: "
-        + this.player.getRank()
-        + "\n";
+      + this.player.getScore()
+      + "\nYour rank: "
+      + this.player.getRank()
+      + "\n";
   }
 
   /**
@@ -422,10 +422,10 @@ public class GameModel implements IGameModel {
    */
   private String buildRoomDescription(boolean looking) {
     String result = "You are "
-        + (looking ? "standing " : "")
-        + (this.currentRoom.getName().startsWith("the ") ? "in " : "in the ")
-        + this.currentRoom.getName() + "\n"
-        + getCurrentRoomDescription();
+      + (looking ? "standing " : "")
+      + (this.currentRoom.getName().startsWith("the ") ? "in " : "in the ")
+      + this.currentRoom.getName() + "\n"
+      + getCurrentRoomDescription();
 
     if (roomHasActiveMonster()) {
       result = monsterAttacks(result);
@@ -528,10 +528,10 @@ public class GameModel implements IGameModel {
     Item item = this.gameData.getItem(itemName);
     if (roomHasItem(itemName)) {
       return "From the " + this.currentRoom.getName() + " you examine the "
-              + item.getName() + ": " + item.getDescription() + "\n";
+        + item.getName() + ": " + item.getDescription() + "\n";
     }
     return "From your inventory, you examine the "
-              + item.getName() + ": " + item.getDescription() + "\n";
+      + item.getName() + ": " + item.getDescription() + "\n";
   }
 
   /**
@@ -543,7 +543,7 @@ public class GameModel implements IGameModel {
   private String examineFixture(String fixtureName) {
     Fixture fixture = this.gameData.getFixture(fixtureName);
     return "From the " + this.currentRoom.getName() + " you examine the "
-            + fixture.getName() + ": " + fixture.getDescription() + "\n";
+      + fixture.getName() + ": " + fixture.getDescription() + "\n";
   }
 
   /**
@@ -556,10 +556,10 @@ public class GameModel implements IGameModel {
     Monster monster = getMonsterInRoom();
     if (!monster.isActive()) {
       return "From the " + this.currentRoom.getName() + " you examine the "
-                + monster.getName() + ": " + monster.getDescription() + "\n";
+        + monster.getName() + ": " + monster.getDescription() + "\n";
     }
     return "From the " + this.currentRoom.getName() + " you examine the "
-            + monster.getName() + ": " + monster.getActiveDescription() + "\n";
+      + monster.getName() + ": " + monster.getActiveDescription() + "\n";
   }
 
   /**
@@ -573,11 +573,11 @@ public class GameModel implements IGameModel {
     Puzzle puzzle = getPuzzleInRoom();
     if (!puzzle.isActive()) {
       return "From the " + this.currentRoom.getName() + " you examine the "
-                + puzzle.getName() + ": " + puzzle.getDescription() + "\n";
+        + puzzle.getName() + ": " + puzzle.getDescription() + "\n";
     }
 
     return "From the " + this.currentRoom.getName() + " you examine the "
-            + puzzle.getName() + ": " + puzzle.getActiveDescription() + "\n";
+      + puzzle.getName() + ": " + puzzle.getActiveDescription() + "\n";
   }
 
   /**
@@ -593,8 +593,8 @@ public class GameModel implements IGameModel {
     String playerDataFile = "src/data/saveplayerdata_" + gameFile;
 
     return new File(gameDataFile).isFile()
-            && new File(roomDataFile).isFile()
-            && new File(playerDataFile).isFile();
+      && new File(roomDataFile).isFile()
+      && new File(playerDataFile).isFile();
   }
 
   /**
