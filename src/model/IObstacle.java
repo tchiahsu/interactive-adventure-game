@@ -47,4 +47,10 @@ public interface IObstacle extends IGameObject {
    * @return the target that the obstacle influences.
    */
   String getTarget();
+
+  /**
+   * Deactivates the obstacle, making it inactive.
+   * This method sets the active status of the obstacle to false.
+   */
+  void deactivate();
 }
