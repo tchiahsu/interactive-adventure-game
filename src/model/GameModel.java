@@ -115,7 +115,7 @@ public class GameModel implements IGameModel {
     // Add the item to the room's list of items
     String roomItemNames = this.currentRoom.getItemNames();
     String updatedRoomItemNames =
-      roomItemNames.isEmpty() ? item.getName() : roomItemNames.concat(", " + item.getName());
+        roomItemNames.isEmpty() ? item.getName() : roomItemNames.concat(", " + item.getName());
     this.currentRoom.setItemNames(updatedRoomItemNames);
     output.append(item.getName()).append(" removed from inventory.\n");
 
@@ -385,6 +385,13 @@ public class GameModel implements IGameModel {
     return new ArrayList<>(Arrays.asList(itemString.split(ITEM_DELIMITER)));
   }
 
+  /**
+   * Helper method. Determines if an item can be used on an obstacle.
+   *
+   * @param item : item we are attempting to use.
+   * @param obstacle : obstacle we are using the item on.
+   * @return message indicating success or failure.
+   */
   private String useItemOnObstacle(Item item, IObstacle obstacle) {
     StringBuilder output = new StringBuilder();
     String solution = obstacle.getSolution();
@@ -415,10 +422,10 @@ public class GameModel implements IGameModel {
    */
   private String buildRoomDescription(boolean looking) {
     String result = "You are "
-      + (looking ? "standing " : "")
-      + (this.currentRoom.getName().startsWith("the ") ? "in " : "in the ")
-      + this.currentRoom.getName() + "\n"
-      + getCurrentRoomDescription();
+        + (looking ? "standing " : "")
+        + (this.currentRoom.getName().startsWith("the ") ? "in " : "in the ")
+        + this.currentRoom.getName() + "\n"
+        + getCurrentRoomDescription();
 
     if (roomHasActiveMonster()) {
       result = monsterAttacks(result);
@@ -489,6 +496,13 @@ public class GameModel implements IGameModel {
     return roomHasActiveMonster() ? monsterAttacks(output) : output;
   }
 
+  /**
+   * Helper method that determines whether an object is unmovable or not.
+   * Fixtures are the only unmovable object.
+   *
+   * @param objectName : object we are trying to move.
+   * @return true if it's unmovable.
+   */
   private boolean isUnmovableObject(String objectName) {
     if (roomHasFixture(objectName)) {
       return true;
