@@ -1,5 +1,7 @@
 package view;
 
+import org.w3c.dom.css.RGBColor;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -36,14 +38,70 @@ public class GameView implements IGameView {
     this.board.setJMenuBar(createMenuBar());
 
     // Set a left and right panel
+//    JPanel mainPanel = new JPanel(new GridBagLayout());
+//    mainPanel.setBackground(Color.BLACK);
+//    gbc.gridx = 0;
+//    gbc.gridy = 0;
+//    gbc.weightx = 1;
+//    gbc.weighty = 1;
+//    gbc.fill = gbc.BOTH;
+//    mainPanel.add(new PicturePanel(), gbc);
+//
+//    gbc.gridx = 1;
+//    gbc.gridy = 0;
+//    gbc.weightx = 0.3;
+//    gbc.weighty = 0.3;
+//    gbc.fill = gbc.BOTH;
+//    mainPanel.add(new PicturePanel(), gbc);
+//
+//    gbc.gridx = 1;
+//    gbc.gridy = 1;
+//    gbc.weightx = 0.3;
+//    gbc.weighty = 0.3;
+//    gbc.fill = gbc.BOTH;
+//    mainPanel.add(new PicturePanel(), gbc);
+//
+//    gbc.gridx = 0;
+//    gbc.gridy = 1;
+//    gbc.weightx = 0.3;
+//    gbc.weighty = 0.3;
+//    gbc.fill = gbc.BOTH;
+//    mainPanel.add(new PicturePanel(), gbc);
+//
+//    gbc.gridx = 1;
+//    gbc.gridy = 2;
+//    gbc.weightx = 0.3;
+//    gbc.weighty = 0.3;
+//    gbc.fill = gbc.BOTH;
+//    mainPanel.add(new PicturePanel(), gbc);
+
     JPanel mainPanel = new JPanel(new GridBagLayout());
     mainPanel.setBackground(Color.BLACK);
-    gbc.gridx = 1;
-    gbc.gridy = 1;
-    gbc.gridwidth = 3;
-    gbc.gridheight = 3;
-    gbc.fill = GridBagConstraints.HORIZONTAL;
+    gbc.insets = new Insets(5, 5, 5, 5);
+
+    gbc.gridx = 0;
+    gbc.gridy = 0;
+    gbc.weightx = 1;
+    gbc.weighty = 1;
+    gbc.fill = gbc.gridheight;
     mainPanel.add(new PicturePanel(), gbc);
+
+    gbc.gridx++;
+    gbc.weightx = 0.3;
+    gbc.weighty = 0.3;
+    mainPanel.add(new PicturePanel(), gbc);
+
+    gbc.gridx = 0;
+    gbc.gridy++;
+    mainPanel.add(new PicturePanel(), gbc);
+
+    gbc.gridx++;
+    mainPanel.add(new PicturePanel(), gbc);
+
+    gbc.gridy++;
+    mainPanel.add(new PicturePanel(), gbc);
+
+
 
 //    centerPanel.add(setLeftPanel());
 //    centerPanel.add(setRightPanel());
