@@ -2,34 +2,29 @@ package view;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
-import java.util.List;
 
-public class View implements IView {
+public class GameView implements IView {
   private static final Color BACKGROUND_COLOR = new Color(255, 255, 255);
   private static final Color HEADER_COLOR = new Color(40, 54, 24);
-  private static final int PANEL_SPACING = 10;
+  private static final int PANEL_SPACING = 0;
 
   // Gameboard where components will be placed on
   private final GameBoard board;
 
   // Panel components for the gameboard
-  private final PicturePanel picturePanel;
-  private final DescriptionPanel descriptionPanel;
-  private final InventoryPanel inventoryPanel;
-  private final NavigationPanel navigationPanel;
-  private final StatusPanel statusPanel;
+//  private final PicturePanel picturePanel;
+//  private final DescriptionPanel descriptionPanel;
+//  private final InventoryPanel inventoryPanel;
+//  private final NavigationPanel navigationPanel;
+//  private final StatusPanel statusPanel;
 
   /**
    * Construct a View object
    */
-  public View() {
+  public GameView() {
     this.board = new GameBoard();
-    this.picturePanel = new PicturePanel();
-    this.descriptionPanel = new DescriptionPanel();
-    this.inventoryPanel = new InventoryPanel();
-    this.navigationPanel = new NavigationPanel();
-    this.statusPanel = new StatusPanel();
+    setupLayout();
+    this.board.display();
   }
 
   /**
@@ -84,14 +79,8 @@ public class View implements IView {
    * @return the new left panel
    */
   private JPanel setLeftPanel() {
-    JPanel leftPanel = new JPanel(new BorderLayout(0, PANEL_SPACING));
+    JPanel leftPanel = new JPanel();
     leftPanel.setBackground(new Color(255, 0, 0));
-
-    picturePanel.setPreferredSize(new Dimension(600, 350));
-    leftPanel.add(picturePanel, BorderLayout.CENTER);
-
-    descriptionPanel.setPreferredSize(new Dimension(800, 150));
-    leftPanel.add(descriptionPanel, BorderLayout.SOUTH);
 
     return leftPanel;
   }
@@ -105,29 +94,6 @@ public class View implements IView {
     JPanel rightPanel = new JPanel();
     rightPanel.setBackground(new Color(0, 0, 255));
     rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.Y_AXIS));
-
-    // Configure the status panel
-    statusPanel.setPreferredSize(new Dimension(200, 120)); //status panel
-    statusPanel.setBorder(BorderFactory.createEmptyBorder(PANEL_SPACING, PANEL_SPACING,
-      PANEL_SPACING, PANEL_SPACING));
-    statusPanel.setMaximumSize(new Dimension(Short.MAX_VALUE, 120));
-
-    // Configure the inventory panel
-    inventoryPanel.setPreferredSize(new Dimension(370, 310));
-    inventoryPanel.setMaximumSize(new Dimension(370, 310));
-    inventoryPanel.setBorder(BorderFactory.createEmptyBorder(PANEL_SPACING, PANEL_SPACING,
-      PANEL_SPACING, PANEL_SPACING));
-
-    // Configure navigation panel
-    navigationPanel.setPreferredSize(new Dimension(370, 150));
-    navigationPanel.setMaximumSize(new Dimension(370, 150));
-
-    // Add components
-    rightPanel.add(statusPanel);
-    rightPanel.add(Box.createRigidArea(new Dimension(0, PANEL_SPACING)));
-    rightPanel.add(inventoryPanel);
-    rightPanel.add(Box.createRigidArea(new Dimension(0, PANEL_SPACING)));
-    rightPanel.add(navigationPanel);
 
     return rightPanel;
   }
