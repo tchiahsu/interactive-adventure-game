@@ -3,10 +3,11 @@ package view;
 import javax.swing.*;
 import java.awt.*;
 
-public class GameView implements IView {
+public class GameView implements IGameView {
   private static final Color BACKGROUND_COLOR = new Color(255, 255, 255);
   private static final Color HEADER_COLOR = new Color(40, 54, 24);
   private static final int PANEL_SPACING = 0;
+  GridBagConstraints gbc = new GridBagConstraints();
 
   // Gameboard where components will be placed on
   private final GameBoard board;
@@ -31,22 +32,23 @@ public class GameView implements IView {
    * Set up the layout and add panels to the GameBoard.
    */
   public void setupLayout() {
-    // Create the main panel for the UI
-    JPanel mainPanel = new JPanel(new BorderLayout());
-    mainPanel.setBackground(BACKGROUND_COLOR);
-    mainPanel.setBorder(BorderFactory.createEmptyBorder());
 
-    // Set up header
-    JPanel headerPanel = setHeaderPanel();
+    this.board.setJMenuBar(createMenuBar());
 
     // Set a left and right panel
-    JPanel centerPanel = new JPanel(new GridLayout(1, 2,PANEL_SPACING, PANEL_SPACING));
-    centerPanel.add(setLeftPanel());
-    centerPanel.add(setRightPanel());
+    JPanel mainPanel = new JPanel(new GridBagLayout());
+    mainPanel.setBackground(Color.BLACK);
+    gbc.gridx = 1;
+    gbc.gridy = 1;
+    gbc.gridwidth = 3;
+    gbc.gridheight = 3;
+    gbc.fill = GridBagConstraints.HORIZONTAL;
+    mainPanel.add(new PicturePanel(), gbc);
 
-    // Create the main panel
-    mainPanel.add(headerPanel, BorderLayout.NORTH);
-    mainPanel.add(centerPanel, BorderLayout.CENTER);
+//    centerPanel.add(setLeftPanel());
+//    centerPanel.add(setRightPanel());
+
+    board.add(mainPanel, BorderLayout.CENTER);
 
     // Set the content pane
     board.setContentPane(mainPanel);
@@ -58,6 +60,26 @@ public class GameView implements IView {
    */
   public GameBoard getBoard() {
     return this.board;
+  }
+
+  private JMenuBar createMenuBar() {
+    JMenuBar menuBar = new JMenuBar();
+    JMenu fileMenu = new JMenu("File");
+    JMenuItem about = new JMenuItem("About");
+    JMenuItem credits = new JMenuItem("Credits");
+    JMenuItem saveGame = new JMenuItem("Save");
+    JMenuItem restoreGame = new JMenuItem("Restore");
+    JMenuItem exit = new JMenuItem("Exit");
+    exit.addActionListener(event -> System.exit(0));
+
+    menuBar.add(fileMenu);
+    fileMenu.add(about);
+    fileMenu.add(credits);
+    fileMenu.add(saveGame);
+    fileMenu.add(restoreGame);
+    fileMenu.add(exit);
+
+    return menuBar;
   }
 
   /**

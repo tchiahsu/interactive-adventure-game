@@ -16,6 +16,7 @@ public class GameBoard extends JFrame {
    */
   public GameBoard() {
     this.board = new JFrame();
+    this.setLayout(null);
 
     this.board.setTitle("Adventure Game");
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // to be deleted - quit option to be added in menu bar
