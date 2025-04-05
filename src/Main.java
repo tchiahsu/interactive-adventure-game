@@ -25,8 +25,9 @@ public class Main {
     GameEngineApp engine = new GameEngineApp(hallwayjson, stringReader, System.out);
     engine.start();
 
-//run this command if you want test running the view:
-//      View view = new View();
-
+    //run this command if you want test running the view:
+//    View view = new View();
+//    view.setupLayout();
+//    view.getBoard().display();
   }
 }

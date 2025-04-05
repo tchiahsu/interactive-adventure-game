@@ -9,17 +9,20 @@ import java.awt.*;
 public class GameBoard extends JFrame {
   private static final int DEFAULT_WIDTH = 850;
   private static final int DEFAULT_HEIGHT = 700;
-  JFrame board;
+  JFrame board; // SHOULDN'T THIS BE PRIVATE?
 
+  /**
+   * Constructs a gameboard instance.
+   */
   public GameBoard() {
     this.board = new JFrame();
 
-    this.setTitle("Adventure Game");
+    this.board.setTitle("Adventure Game");
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // to be deleted - quit option to be added in menu bar
     this.setBackground(Color.WHITE);
-    //this.setLocationRelativeTo(null);
-    this.setResizable(false);
     this.setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
+    this.setResizable(false);
+    //this.setLocationRelativeTo(null); WHAT IS THIS FOR?
   }
 
   /**

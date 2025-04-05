@@ -17,21 +17,21 @@ public class DescriptionPanel extends JPanel {
 
     //header
     JLabel descriptionLabel = new JLabel("Description");
-    descriptionLabel.setFont(new Font("Arial", Font.BOLD, 22));
+    descriptionLabel.setFont(new Font("Dialog", Font.BOLD, 22));
     descriptionLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 0));
 
-    descriptionTextArea = new JTextArea();
-    descriptionTextArea.setText("<<INITIAL ROOM DESCRIPTION>>.\n"
+    this.descriptionTextArea = new JTextArea();
+    this.descriptionTextArea.setText("<<INITIAL ROOM DESCRIPTION>>.\n"
             + "Items you see here: <<Items in Room>>");
-    descriptionTextArea.setFont(new Font("Arial", Font.PLAIN, 16));
-    descriptionTextArea.setEditable(false);
-    descriptionTextArea.setBackground(BACKGROUND_COLOR);
-    descriptionTextArea.setLineWrap(true);
-    descriptionTextArea.setWrapStyleWord(true);
-    descriptionTextArea.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+    this.descriptionTextArea.setFont(new Font("Arial", Font.PLAIN, 16));
+    this.descriptionTextArea.setEditable(false);
+    this.descriptionTextArea.setBackground(BACKGROUND_COLOR);
+    this.descriptionTextArea.setLineWrap(true);
+    this.descriptionTextArea.setWrapStyleWord(true);
+    this.descriptionTextArea.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
     add(descriptionLabel, BorderLayout.NORTH);
-    add(descriptionTextArea, BorderLayout.CENTER);
+    add(this.descriptionTextArea, BorderLayout.CENTER);
   }
 
   /**
@@ -41,6 +41,4 @@ public class DescriptionPanel extends JPanel {
   public void setDescription(String description) {
     descriptionTextArea.setText(description);
   }
-
-
 }
