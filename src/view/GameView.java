@@ -1,9 +1,6 @@
 package view;
 
-import org.w3c.dom.css.RGBColor;
-
 import javax.swing.*;
-import javax.swing.border.LineBorder;
 
 import java.awt.*;
 
@@ -12,29 +9,30 @@ public class GameView implements IGameView {
   private static final Color MAIN_COLOR = new Color(40, 54, 24);
   private static final Color PANEL_COLOR = new Color(236, 240, 235);
 
-  // Gameboard where components will be placed on
   private final GameBoard board;
-
-  // Panel components for the gameboard
-//  private final PicturePanel picturePanel;
-//  private final DescriptionPanel descriptionPanel;
-//  private final InventoryPanel inventoryPanel;
-//  private final NavigationPanel navigationPanel;
-//  private final StatusPanel statusPanel;
+  private DescriptionPanel descriptionPanel;
 
   /**
    * Construct a View object
    */
   public GameView() {
     this.board = new GameBoard();
-    setupLayout();
+    this.initializeView();
+    this.setupLayout();
     this.board.display();
+  }
+
+  private void initializeView() {
+    String test = "This is a very long string to test that the placement wraps around when "
+        + "it reaches the ends of the panel. Try resizing the panel.";
+    this.descriptionPanel = new DescriptionPanel("HELLO");
+    this.descriptionPanel.setCurrentDescription(test);
   }
 
   /**
    * Set up the layout and add panels to the gameboard.
    */
-  public void setupLayout() {
+  private void setupLayout() {
     // Add Menu Bar to the Top
     this.board.setJMenuBar(createMenuBar());
 
@@ -82,21 +80,21 @@ public class GameView implements IGameView {
     leftGC.gridy = 0;
     leftGC.gridwidth = 1;
     leftGC.gridheight = 1;
-    leftGC.weightx = 50;
-    leftGC.weighty = 0.80;
+    leftGC.weightx = 1;
+    leftGC.weighty = 0.75;
     leftGC.insets = new Insets(8, 8, 8, 8);
     leftGC.fill = GridBagConstraints.BOTH;
 
     JPanel leftTopPanel = new JPanel();
     leftTopPanel.setBackground(PANEL_COLOR);
-    JPanel leftBottomPanel = new JPanel();
-    leftBottomPanel.setBackground(PANEL_COLOR);
-
+    JPanel leftBottomPanel = this.descriptionPanel;
+    leftBottomPanel.setPreferredSize(new Dimension(25, 50));
+    leftBottomPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 100));
 
     leftPanel.add(leftTopPanel, leftGC);
     leftGC.insets = new Insets(8, 8, 8, 8);
     leftGC.gridy = 1;
-    leftGC.weighty = 0.20;
+    leftGC.weighty = 0.25;
     leftPanel.add(leftBottomPanel, leftGC);
 
     // =================================================================
@@ -109,7 +107,7 @@ public class GameView implements IGameView {
     rightGC.gridy = 0;
     rightGC.gridwidth = 1;
     rightGC.gridheight = 1;
-    rightGC.weightx = 50;
+    rightGC.weightx = 1;
     rightGC.weighty = 0.2;
     rightGC.insets = new Insets(8, 8, 8, 8);
     rightGC.fill = GridBagConstraints.BOTH;

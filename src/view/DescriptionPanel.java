@@ -4,16 +4,15 @@ import java.awt.*;
 import java.io.File;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 
 /**
  * A class representing the description panel in the graphical view of the game.
  */
 public class DescriptionPanel extends JPanel {
-  // Data fields
-  // The text to be displayed
-  private JTextArea descriptionText;
-  // The color of the panel
-  private static final Color BACKGROUND_COLOR = Color.decode("#F0EFEB");
+  private final JTextArea descriptionText;
+  private static final Color MAIN_COLOR = new Color(40, 54, 24);
+  private static final Color PANEL_COLOR = new Color(236, 240, 235);
 
   /**
    * Constructor for DescriptionPanel.
@@ -23,18 +22,28 @@ public class DescriptionPanel extends JPanel {
    */
   public DescriptionPanel(String description) {
     // Set the title
-    this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-    this.setBorder(BorderFactory.createEmptyBorder(10, 20, 20, 20));
+    this.setLayout(new BorderLayout(10, 10));
+    this.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
+    this.setBackground(PANEL_COLOR);
+
+    // Create a title panel for the top
     JLabel title = new JLabel("Description");
+    title.setForeground(MAIN_COLOR);
     Font font = getPanelFont().deriveFont(Font.BOLD, 30);
     title.setFont(font);
-    title.setAlignmentX(Component.LEFT_ALIGNMENT);
-    this.add(title);
-    this.add(Box.createRigidArea(new Dimension(0, 25)));
+    this.add(title, BorderLayout.NORTH);
 
-    // Set the description
-    descriptionText = new JTextArea();
-    setCurrentDescription(description);
+    // Generate the text area
+    this.descriptionText = new JTextArea();
+    this.descriptionText.setEditable(false);
+    this.descriptionText.setLineWrap(true);
+    this.descriptionText.setWrapStyleWord(true);
+    this.descriptionText.setFocusable(false);
+    this.descriptionText.setFont(getPanelFont().deriveFont(Font.PLAIN, 18));
+    this.descriptionText.setBackground(PANEL_COLOR);
+    this.descriptionText.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+    this.add(this.descriptionText, BorderLayout.CENTER);
   }
 
   /**
@@ -43,18 +52,7 @@ public class DescriptionPanel extends JPanel {
    * @param description The description to be displayed.
    */
   public void setCurrentDescription(String description) {
-    descriptionText.setText(description);
-    descriptionText.setBackground(BACKGROUND_COLOR);
-    Font font = getPanelFont().deriveFont(Font.PLAIN, 20);
-    descriptionText.setFont(font);
-    // Wraps the description if it's too long
-    descriptionText.setLineWrap(true);
-    // Wraps the word to a new line rather than splitting it by characters
-    descriptionText.setWrapStyleWord(true);
-    // Prevent the user from clicking the description
-    descriptionText.setFocusable(false);
-    descriptionText.setAlignmentX(Component.LEFT_ALIGNMENT);
-    this.add(descriptionText);
+    this.descriptionText.setText(description);
   }
 
   /**
@@ -72,28 +70,5 @@ public class DescriptionPanel extends JPanel {
     }
 
     return font;
-  }
-
-  /**
-   * For testing.
-   */
-  public static void main(String[] args) {
-    JFrame frame = new JFrame();
-    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    frame.setSize(750, 300);
-
-    String test = "This is a very long string to test that the placement wraps around when " +
-            "it reaches the ends of the panel. Try resizing the panel. nfdksanfdjksanfjdsajfkdn" +
-            "jasvnerlavnrianjfbaufilehauffdjskafdjsahfuiaefndbvuialbuaehufriahfurialfhuidsnvaulr" +
-            "awnfjriaghuiodsufaidsafnejwafnfjdisoafjdiaofjdsiaofdisoafndsaofdbsaifdbsafdhusaifhds" +
-            "uiafdhsauifhdsaenarjaklgnrkangr";
-
-    DescriptionPanel descriptionPanel = new DescriptionPanel(test);
-    frame.add(descriptionPanel);
-    frame.setVisible(true);
-
-    // Test that description is replaced
-//    String test2 = "Replace";
-//    descriptionPanel.setCurrentDescription(test2);
   }
 }
