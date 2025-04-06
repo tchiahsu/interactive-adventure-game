@@ -9,13 +9,13 @@ public class NavigationPanel extends JPanel {
   private final static Color MAIN_COLOR = new Color(40, 54, 24);
   private final static Color PANEL_COLOR = new Color(236, 240, 235);
   private final static Color BUTTON_COLOR = new Color(220, 220, 220);
-  private final JButton examineBtn;
-  private final JButton takeBtn;
-  private final JButton answerBtn;
-  private final JButton northBtn;
-  private final JButton westBtn;
-  private final JButton eastBtn;
-  private final JButton southBtn;
+//  private final JButton examineBtn;
+//  private final JButton takeBtn;
+//  private final JButton answerBtn;
+//  private final JButton northBtn;
+//  private final JButton westBtn;
+//  private final JButton eastBtn;
+//  private final JButton southBtn;
 
   public NavigationPanel() {
     // Set the title

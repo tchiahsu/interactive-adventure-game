@@ -9,17 +9,15 @@ import java.awt.*;
 public class GameBoard extends JFrame {
   private static final int DEFAULT_WIDTH = 850;
   private static final int DEFAULT_HEIGHT = 700;
-  JFrame board; // SHOULDN'T THIS BE PRIVATE?
+  private static final Color BACKGROUND_COLOR = new Color(255, 255, 255);
 
   /**
    * Constructs a gameboard instance.
    */
   public GameBoard() {
-    this.board = new JFrame();
-
-    this.board.setTitle("Adventure Game");
+    this.setTitle("Adventure Game");
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    this.setBackground(Color.WHITE);
+    this.setBackground(BACKGROUND_COLOR);
     this.setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
     this.setResizable(false);
   }
