@@ -16,14 +16,12 @@ public class GameBoard extends JFrame {
    */
   public GameBoard() {
     this.board = new JFrame();
-    this.setLayout(null);
 
     this.board.setTitle("Adventure Game");
-    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // to be deleted - quit option to be added in menu bar
+    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.setBackground(Color.WHITE);
     this.setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
     this.setResizable(false);
-    //this.setLocationRelativeTo(null); WHAT IS THIS FOR?
   }
 
   /**
