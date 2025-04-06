@@ -10,9 +10,9 @@ public class InventoryPanel extends JPanel {
   private final static Color MAIN_COLOR = new Color(40, 54, 24);
   private final static Color PANEL_COLOR = new Color(236, 240, 235);
   private final static Color BUTTON_COLOR = new Color(220, 220, 220);
-  private final JButton answerBtn;
-  private final JButton takeBtn;
-  private final JButton examineBtn;
+  private final JButton inspectBtn;
+  private final JButton useBtn;
+  private final JButton dropBtn;
 
   public InventoryPanel() {
     // Set the title
@@ -46,16 +46,16 @@ public class InventoryPanel extends JPanel {
       JPanel buttonPanel = new JPanel();
       buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.X_AXIS));
 
-      this.answerBtn = createButton("Answer");
-      this.examineBtn = createButton("Examine");
-      this.takeBtn = createButton("Take");
+      this.inspectBtn = createButton("Inspect");
+      this.useBtn = createButton("Use");
+      this.dropBtn = createButton("Drop");
 
       buttonPanel.add(Box.createHorizontalGlue());
-      buttonPanel.add(this.answerBtn);
+      buttonPanel.add(this.inspectBtn);
       buttonPanel.add(Box.createRigidArea(new Dimension(5, 0)));
-      buttonPanel.add(this.examineBtn);
+      buttonPanel.add(this.useBtn);
       buttonPanel.add(Box.createRigidArea(new Dimension(5, 0)));
-      buttonPanel.add(this.takeBtn);
+      buttonPanel.add(this.dropBtn);
       buttonPanel.add(Box.createHorizontalGlue());
 
       this.add(buttonPanel, BorderLayout.SOUTH);
