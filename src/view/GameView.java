@@ -26,7 +26,7 @@ public class GameView implements IGameView {
     String test = "This is a very long string to test that the placement wraps around when "
         + "it reaches the ends of the panel. Try resizing the panel.";
     this.descriptionPanel = new DescriptionPanel("HELLO");
-    this.descriptionPanel.setCurrentDescription(test);
+    this.descriptionPanel.updateDescriptionPanel(test);
   }
 
   /**

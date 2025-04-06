@@ -51,7 +51,7 @@ public class DescriptionPanel extends JPanel {
    *
    * @param description The description to be displayed.
    */
-  public void setCurrentDescription(String description) {
+  public void updateDescriptionPanel(String description) {
     this.descriptionText.setText(description);
   }
 
