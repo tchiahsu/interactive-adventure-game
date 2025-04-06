@@ -11,6 +11,7 @@ public class GameView implements IGameView {
 
   private final GameBoard board;
   private DescriptionPanel descriptionPanel;
+  private InventoryPanel inventoryPanel;
 
   /**
    * Construct a View object
@@ -27,6 +28,7 @@ public class GameView implements IGameView {
         + "it reaches the ends of the panel. Try resizing the panel.";
     this.descriptionPanel = new DescriptionPanel("HELLO");
     this.descriptionPanel.updateDescriptionPanel(test);
+    this.inventoryPanel = new InventoryPanel();
   }
 
   /**
@@ -87,6 +89,7 @@ public class GameView implements IGameView {
 
     JPanel leftTopPanel = new JPanel();
     leftTopPanel.setBackground(PANEL_COLOR);
+
     JPanel leftBottomPanel = this.descriptionPanel;
     leftBottomPanel.setPreferredSize(new Dimension(25, 50));
     leftBottomPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 100));
@@ -114,8 +117,12 @@ public class GameView implements IGameView {
 
     JPanel rightTopPanel = new JPanel();
     rightTopPanel.setBackground(PANEL_COLOR);
-    JPanel rightMiddlePanel = new JPanel();
+
+    JPanel rightMiddlePanel = this.inventoryPanel;
+    rightMiddlePanel.setPreferredSize(new Dimension(25, 50));
+    rightMiddlePanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 100));
     rightMiddlePanel.setBackground(PANEL_COLOR);
+
     JPanel rightBottomPanel = new JPanel();
     rightBottomPanel.setBackground(PANEL_COLOR);
 
@@ -144,6 +151,9 @@ public class GameView implements IGameView {
     exit.addActionListener(event -> System.exit(0));
 
     menuBar.add(fileMenu);
+    menuBar.setBackground(MAIN_COLOR);
+    menuBar.setOpaque(true);
+
     fileMenu.add(about);
     fileMenu.add(credits);
     fileMenu.add(saveGame);
