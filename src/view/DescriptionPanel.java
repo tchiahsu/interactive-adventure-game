@@ -4,7 +4,6 @@ import java.awt.*;
 import java.io.File;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 
 /**
  * A class representing the description panel in the graphical view of the game.
