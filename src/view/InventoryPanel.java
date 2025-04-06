@@ -1,6 +1,8 @@
 package view;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 
 import javax.swing.*;
@@ -13,6 +15,7 @@ public class InventoryPanel extends JPanel {
   private final JButton inspectBtn;
   private final JButton useBtn;
   private final JButton dropBtn;
+  private final JList<String> inventoryList;
 
   public InventoryPanel() {
     // Set the title
@@ -28,39 +31,45 @@ public class InventoryPanel extends JPanel {
     this.add(title, BorderLayout.NORTH);
 
     // Create inventory list
-    DefaultListModel<String> invList = new DefaultListModel<>();
+    DefaultListModel<String> listModel = new DefaultListModel<>();
 
-    invList.addElement("Fish");
-    invList.addElement("Chicken");
-    invList.addElement("Cow Meat");
-    invList.addElement("Sardines");
+    listModel.addElement("Fish");
+    listModel.addElement("Chicken");
+    listModel.addElement("Cow Meat");
+    listModel.addElement("Sardines");
 
-    JList<String> list = new JList<>(invList);
-    list.setBorder(new EmptyBorder(5, 5, 5, 5));
-    list.setFont(getPanelFont().deriveFont(Font.BOLD, 16));
-    list.setBackground(BUTTON_COLOR);
+    this.inventoryList = new JList<>(listModel);
+    inventoryList.setBorder(new EmptyBorder(5, 5, 5, 5));
+    inventoryList.setFont(getPanelFont().deriveFont(Font.BOLD, 16));
+    inventoryList.setBackground(BUTTON_COLOR);
 
-    this.add(list, BorderLayout.CENTER);
+    this.add(inventoryList, BorderLayout.CENTER);
 
     // Create buttons for inventory
-      JPanel buttonPanel = new JPanel();
-      buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.X_AXIS));
+    JPanel buttonPanel = new JPanel();
+    buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.X_AXIS));
 
-      this.inspectBtn = createButton("Inspect");
-      this.useBtn = createButton("Use");
-      this.dropBtn = createButton("Drop");
+    this.inspectBtn = createButton("Inspect");
+    this.useBtn = createButton("Use");
+    this.dropBtn = createButton("Drop");
 
-      buttonPanel.add(Box.createHorizontalGlue());
-      buttonPanel.add(this.inspectBtn);
-      buttonPanel.add(Box.createRigidArea(new Dimension(5, 0)));
-      buttonPanel.add(this.useBtn);
-      buttonPanel.add(Box.createRigidArea(new Dimension(5, 0)));
-      buttonPanel.add(this.dropBtn);
-      buttonPanel.add(Box.createHorizontalGlue());
+    buttonPanel.add(Box.createHorizontalGlue());
+    buttonPanel.add(this.inspectBtn);
+    buttonPanel.add(Box.createRigidArea(new Dimension(5, 0)));
+    buttonPanel.add(this.useBtn);
+    buttonPanel.add(Box.createRigidArea(new Dimension(5, 0)));
+    buttonPanel.add(this.dropBtn);
+    buttonPanel.add(Box.createHorizontalGlue());
 
-      this.add(buttonPanel, BorderLayout.SOUTH);
+    this.add(buttonPanel, BorderLayout.SOUTH);
   }
 
+  /**
+   * Creates a button object with the given title for the button.
+   *
+   * @param title : text displayed in button.
+   * @return the newly created button.
+   */
   private JButton createButton(String title) {
     JButton newBtn = new JButton();
     Dimension buttonSize = new Dimension(90, 30);
@@ -74,7 +83,15 @@ public class InventoryPanel extends JPanel {
     newBtn.setPreferredSize(buttonSize);
     newBtn.setMinimumSize(buttonSize);
     newBtn.setMaximumSize(buttonSize);
-
+    newBtn.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        String command = title.toUpperCase();
+        if (inventoryList.getSelectedValue() != null) {
+          command = (command + " " + inventoryList.getSelectedValue()).toUpperCase();
+        }
+      }
+    });
     return newBtn;
   }
 
@@ -91,7 +108,6 @@ public class InventoryPanel extends JPanel {
     } catch (Exception e) {
       font = new Font("arial", Font.PLAIN, 20);
     }
-
     return font;
   }
 }

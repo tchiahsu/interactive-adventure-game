@@ -67,4 +67,37 @@ public class GameController implements IController {
     // Game Ending Message
     this.output.append(this.model.getEndingMessage());
   }
+
+  /**
+   * Executes a command from the GUI.
+   *
+   * @param command : command that needs to be executed.
+   * @throws IOException if an I/O error occurs.
+   */
+  public void executeCommand(String command) throws IOException {
+    if (validateInput(command)) {
+        GameCommandFinder commandFinder = new GameCommandFinder(this.output);
+        ICommand associatedCommand = commandFinder.getCommand(command);
+        associatedCommand.execute(this.model);
+    }
+  }
+
+  /**
+   * Validates if the given input command is a valid command for the adventure game.
+   *
+   * @param input : user string input.
+   * @return true if command is valid, false otherwise.
+   */
+  private boolean validateInput(String input) {
+    String[] parts = input.split(" ", 2);
+    String action = parts[0];
+
+    Commands commandType = Commands.getEnum(action);
+    if (commandType == null) {
+      return false;
+    }
+
+    return commandType.getRequiresArgument() ? parts.length == 2
+      && !parts[1].trim().isEmpty() : parts.length == 1;
+  }
 }
