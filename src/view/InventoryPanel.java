@@ -64,6 +64,18 @@ public class InventoryPanel extends JPanel {
     this.add(buttonPanel, BorderLayout.SOUTH);
   }
 
+  public JButton getDropBtn() {
+    return this.dropBtn;
+  }
+
+  public JButton getInspectBtn() {
+    return this.inspectBtn;
+  }
+
+  public JButton getUseBtn() {
+    return this.useBtn;
+  }
+
   /**
    * Creates a button object with the given title for the button.
    *
@@ -84,16 +96,6 @@ public class InventoryPanel extends JPanel {
     newBtn.setMinimumSize(buttonSize);
     newBtn.setMaximumSize(buttonSize);
     newBtn.setBackground(BUTTON_COLOR);
-
-    newBtn.addActionListener(new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        String command = title.toUpperCase();
-        if (inventoryList.getSelectedValue() != null) {
-          command = (command + " " + inventoryList.getSelectedValue()).toUpperCase();
-        }
-      }
-    });
     return newBtn;
   }
 
