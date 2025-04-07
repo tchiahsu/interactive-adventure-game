@@ -13,60 +13,62 @@ import javax.swing.*;
  */
 public class PicturePanel extends JPanel {
   // Data fields
-  // Add extra spaces to the room name as padding
-  private static final String NAME_PADDING = "   ";
+  private static final int WIDTH_SCALE = 450;
+  private static final int HEIGHT_SCALE = 400;
   private static final Color TEXT_COLOR = new Color(40, 54, 24);
   private final static Color PANEL_COLOR = new Color(236, 240, 235);
-  private static final Color NAME_PANEL_COLOR = new Color(212, 212, 212);
 
-  private JPanel roomPanel;
   private JLabel roomLabel;
   private JLabel pictureLabel;
   BufferedImage image;
 
   public PicturePanel(String roomName, String picturePath) {
-    this.setLayout(new GridBagLayout());
+    this.setLayout(new BorderLayout());
     this.setBackground(PANEL_COLOR);
-    GridBagConstraints gbc = new GridBagConstraints();
-
-    this.roomPanel = new JPanel();
-    this.roomPanel.setBackground(NAME_PANEL_COLOR);
-    this.roomLabel = new JLabel(NAME_PADDING + roomName + NAME_PADDING);
-    Font font = getPanelFont().deriveFont(Font.BOLD, 30);
-    this.roomLabel.setFont(font);
-    this.roomLabel.setForeground(TEXT_COLOR);
-    roomPanel.add(roomLabel);
-
-    gbc.gridx = 0;
-    gbc.gridy = 0;
-    gbc.anchor = GridBagConstraints.NORTHWEST;
-    this.add(roomPanel, gbc);
+    this.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
+    this.roomLabel = new JLabel(roomName);
+    this.roomLabel.setFont(getPanelFont().deriveFont(Font.BOLD, 30));
+    this.add(roomLabel, BorderLayout.NORTH);
 
     try {
       image = ImageIO.read(new File(picturePath));
-      this.pictureLabel = new JLabel(new ImageIcon(image));
+      Image scaledImage = getScaledImage(image);
+      this.pictureLabel = new JLabel(new ImageIcon(scaledImage));
+      this.pictureLabel.setBorder(BorderFactory.createEmptyBorder(25, 0,0,0));
     } catch (IOException e) {
       this.pictureLabel = new JLabel("No picture found", SwingConstants.CENTER);
       this.pictureLabel.setFont(getPanelFont().deriveFont(Font.BOLD, 20));
     }
-    gbc.gridy = 1;
-    gbc.weightx = 1;
-    gbc.weighty = 1;
-    gbc.fill = GridBagConstraints.BOTH;
-    this.add(pictureLabel, gbc);
+
+    this.add(pictureLabel, BorderLayout.CENTER);
   }
 
   public void updatePicturePanel(String roomName, String picturePath) {
-    roomLabel.setText(NAME_PADDING + roomName + NAME_PADDING);
+    roomLabel.setText(roomName);
 
     try {
       this.pictureLabel.setText(null);
       image = ImageIO.read(new File(picturePath));
+      Image scaledImage = getScaledImage(image);
+      this.pictureLabel = new JLabel(new ImageIcon(scaledImage));
       this.pictureLabel.setIcon(new ImageIcon(image));
     } catch (IOException e) {
       this.pictureLabel.setIcon(null);
       this.pictureLabel.setText("No picture found");
       this.pictureLabel.setFont(getPanelFont().deriveFont(Font.BOLD, 20));
+    }
+  }
+
+  private Image getScaledImage(BufferedImage image) {
+    int imageWidth = image.getWidth();
+    int imageHeight = image.getHeight();
+
+    if (imageWidth > WIDTH_SCALE && imageHeight > HEIGHT_SCALE) {
+      return image.getScaledInstance(WIDTH_SCALE, HEIGHT_SCALE, Image.SCALE_SMOOTH);
+    } else if (imageWidth > WIDTH_SCALE) {
+      return image.getScaledInstance(WIDTH_SCALE, imageHeight, Image.SCALE_SMOOTH);
+    } else {
+      return image.getScaledInstance(imageWidth, HEIGHT_SCALE, Image.SCALE_SMOOTH);
     }
   }
 

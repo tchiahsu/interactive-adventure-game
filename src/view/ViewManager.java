@@ -94,7 +94,7 @@ public class ViewManager {
     leftGC.fill = GridBagConstraints.BOTH;
 
     JPanel leftTopPanel = this.picturePanel;
-    leftTopPanel.setPreferredSize(new Dimension(25, 50));
+    leftTopPanel.setPreferredSize(new Dimension(50, 50));
     leftTopPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 100));
 
     JPanel leftBottomPanel = this.descriptionPanel;
