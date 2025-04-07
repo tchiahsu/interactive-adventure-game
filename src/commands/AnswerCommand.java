@@ -2,7 +2,7 @@ package commands;
 
 import java.io.IOException;
 
-import io.IGameOutput;
+import io.IOHandler;
 import model.IGameModel;
 
 /**
@@ -12,15 +12,15 @@ import model.IGameModel;
  */
 public class AnswerCommand implements ICommand {
   private final String answer;
-  private final IGameOutput output;
+  private final IOHandler output;
 
   /**
    * Constructs an {@code AnswerCommand} object with the specified response and output destination.
    *
    * @param answer : user specified answer to the puzzle.
-   * @param output : the {@link IGameOutput} object where the command's output will be written.
+   * @param output : the {@link IOHandler} object where the command's output will be written.
    */
-  public AnswerCommand(String answer, IGameOutput output) {
+  public AnswerCommand(String answer, IOHandler output) {
     this.answer = answer;
     this.output = output;
   }
@@ -33,6 +33,6 @@ public class AnswerCommand implements ICommand {
    */
   @Override
   public void execute(IGameModel model) throws IOException {
-    output.append(model.answer(this.answer));
+    this.output.write(model.answer(this.answer));
   }
 }

@@ -2,7 +2,7 @@ package commands;
 
 import java.io.IOException;
 
-import io.IGameOutput;
+import io.IOHandler;
 import model.IGameModel;
 
 /**
@@ -11,15 +11,15 @@ import model.IGameModel;
  */
 public class ExamineCommand implements ICommand {
   private final String object;
-  private final IGameOutput output;
+  private final IOHandler output;
 
   /**
    * Constructs an {@code ExamineCommand} object with the specified object and output destination.
    *
    * @param object : the object we are trying to examine.
-   * @param output : the {@link IGameOutput} object where the command's output will be written.
+   * @param output : the {@link IOHandler} object where the command's output will be written.
    */
-  public ExamineCommand(String object, IGameOutput output) {
+  public ExamineCommand(String object, IOHandler output) {
     this.object = object;
     this.output = output;
   }
@@ -32,6 +32,6 @@ public class ExamineCommand implements ICommand {
    */
   @Override
   public void execute(IGameModel model) throws IOException {
-    this.output.append(model.examine(this.object));
+    this.output.write(model.examine(this.object));
   }
 }

@@ -16,7 +16,8 @@ public class PicturePanel extends JPanel {
   // Add extra spaces to the room name as padding
   private static final String NAME_PADDING = "   ";
   private static final Color TEXT_COLOR = new Color(40, 54, 24);
-  private static final Color ROOM_PANEL_COLOR = new Color(212, 212, 212);
+  private final static Color PANEL_COLOR = new Color(236, 240, 235);
+  private static final Color NAME_PANEL_COLOR = new Color(212, 212, 212);
 
   private JPanel roomPanel;
   private JLabel roomLabel;
@@ -25,10 +26,11 @@ public class PicturePanel extends JPanel {
 
   public PicturePanel(String roomName, String picturePath) {
     this.setLayout(new GridBagLayout());
+    this.setBackground(PANEL_COLOR);
     GridBagConstraints gbc = new GridBagConstraints();
 
     this.roomPanel = new JPanel();
-    this.roomPanel.setBackground(ROOM_PANEL_COLOR);
+    this.roomPanel.setBackground(NAME_PANEL_COLOR);
     this.roomLabel = new JLabel(NAME_PADDING + roomName + NAME_PADDING);
     Font font = getPanelFont().deriveFont(Font.BOLD, 30);
     this.roomLabel.setFont(font);
@@ -44,7 +46,8 @@ public class PicturePanel extends JPanel {
       image = ImageIO.read(new File(picturePath));
       this.pictureLabel = new JLabel(new ImageIcon(image));
     } catch (IOException e) {
-      this.pictureLabel = new JLabel("No picture found");
+      this.pictureLabel = new JLabel("No picture found", SwingConstants.CENTER);
+      this.pictureLabel.setFont(getPanelFont().deriveFont(Font.BOLD, 20));
     }
     gbc.gridy = 1;
     gbc.weightx = 1;
@@ -57,11 +60,13 @@ public class PicturePanel extends JPanel {
     roomLabel.setText(NAME_PADDING + roomName + NAME_PADDING);
 
     try {
+      this.pictureLabel.setText(null);
       image = ImageIO.read(new File(picturePath));
       this.pictureLabel.setIcon(new ImageIcon(image));
     } catch (IOException e) {
       this.pictureLabel.setIcon(null);
       this.pictureLabel.setText("No picture found");
+      this.pictureLabel.setFont(getPanelFont().deriveFont(Font.BOLD, 20));
     }
   }
 
@@ -80,17 +85,5 @@ public class PicturePanel extends JPanel {
     }
 
     return font;
-  }
-
-  /**
-   * For testing.
-   */
-  public static void main(String[] args) {
-    JFrame frame = new JFrame();
-    frame.setLayout(new BorderLayout());
-    PicturePanel pp = new PicturePanel("Hallway 1", "src/data/images/courtyard.png");
-//    pp.updatePicturePanel("Test", "src/data/images/bridge.png");
-    frame.add(pp, BorderLayout.CENTER);
-    frame.setVisible(true);
   }
 }

@@ -1,37 +1,37 @@
-package enginedriver;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.io.IOException;
-import java.io.StringReader;
-import java.io.StringWriter;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-/**
- * Test class for GameEngineApp.
- */
-class GameEngineAppTest {
-  private String gameFile;
-  private Readable source;
-  private Appendable output;
-
-  /**
-   * Set up before each test.
-   * Initializes the game file path and I/O objects.
-   */
-  @BeforeEach
-  void setup() {
-    this.gameFile = "src/data/json_for_tests.json";
-    this.source = new StringReader("test input");
-    this.output = new StringWriter();
-  }
-}
-
+//package enginedriver;
+//
+//import static org.junit.jupiter.api.Assertions.assertEquals;
+//import static org.junit.jupiter.api.Assertions.assertNotNull;
+//import static org.junit.jupiter.api.Assertions.assertThrows;
+//import static org.junit.jupiter.api.Assertions.assertTrue;
+//
+//import java.io.IOException;
+//import java.io.StringReader;
+//import java.io.StringWriter;
+//
+//import org.junit.jupiter.api.BeforeEach;
+//import org.junit.jupiter.api.Test;
+//
+///**
+// * Test class for GameEngineApp.
+// */
+//class GameEngineAppTest {
+//  private String gameFile;
+//  private Readable source;
+//  private Appendable output;
+//
+//  /**
+//   * Set up before each test.
+//   * Initializes the game file path and I/O objects.
+//   */
+//  @BeforeEach
+//  void setup() {
+//    this.gameFile = "src/data/json_for_tests.json";
+//    this.source = new StringReader("test input");
+//    this.output = new StringWriter();
+//  }
+//
+//
 //  /**
 //   * Test that the constructor throws IOException when given a null game file.
 //   * It also verifies the error message is correct.
@@ -40,7 +40,7 @@ class GameEngineAppTest {
 //  void testInvalidGameFile() {
 //    // Exception raised when game file is invalid
 //    Exception message = assertThrows(IOException.class, ()
-//        -> new GameEngineApp(null, source, output));
+//      -> new GameEngineApp(null, source, output));
 //    assertEquals("Game File could not be found!", message.getMessage());
 //  }
 //
@@ -52,7 +52,7 @@ class GameEngineAppTest {
 //  void testInvalidSource() {
 //    // Exception raised when game file is invalid
 //    Exception message = assertThrows(IOException.class, ()
-//        -> new GameEngineApp(gameFile, null, output));
+//      -> new GameEngineApp(gameFile, null, output));
 //    assertEquals("Source data could not be found!", message.getMessage());
 //  }
 //
@@ -64,7 +64,7 @@ class GameEngineAppTest {
 //  void testInvalidOutput() {
 //    // Exception raised when game file is invalid
 //    Exception message = assertThrows(IOException.class, ()
-//        -> new GameEngineApp(gameFile, source, null));
+//      -> new GameEngineApp(gameFile, source, null));
 //    assertEquals("Output destination could not be found!", message.getMessage());
 //  }
 //
@@ -94,4 +94,4 @@ class GameEngineAppTest {
 //    String outputText = gameOutput.toString();
 //    assertTrue(outputText.contains("ALIGNERS"));
 //  }
-//}
+// }

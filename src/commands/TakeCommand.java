@@ -2,7 +2,7 @@ package commands;
 
 import java.io.IOException;
 
-import io.IGameOutput;
+import io.IOHandler;
 import model.IGameModel;
 
 /**
@@ -11,15 +11,15 @@ import model.IGameModel;
  */
 public class TakeCommand implements ICommand {
   private final String item;
-  private final IGameOutput output;
+  private final IOHandler output;
 
   /**
    * Constructs an {@code TakeCommand} object with the specified item and output destination.
    *
    * @param item : the item that is being taken.
-   * @param output : the {@link IGameOutput} object where the command's output will be written.
+   * @param output : the {@link IOHandler} object where the command's output will be written.
    */
-  public TakeCommand(String item, IGameOutput output) {
+  public TakeCommand(String item, IOHandler output) {
     this.item = item;
     this.output = output;
   }
@@ -32,6 +32,6 @@ public class TakeCommand implements ICommand {
    */
   @Override
   public void execute(IGameModel model) throws IOException {
-    output.append(model.takeItem(this.item));
+    output.write(model.takeItem(this.item));
   }
 }

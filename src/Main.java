@@ -1,22 +1,6 @@
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonParser;
-
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
 
 import enginedriver.GameEngineApp;
-import io.FileInput;
-import io.FileOutput;
-import io.IGameInput;
-import io.IGameOutput;
-import io.TextInput;
-import io.TextOutput;
 import view.GameView;
 
 /**
@@ -39,8 +23,8 @@ public class Main {
    */
   public static void main(String [] args) throws IOException {
 //    String hallwayjson = "src/data/simple_hallway.json";
-//    BufferedReader stringReader = new BufferedReader(new InputStreamReader(System.in));
-//    GameEngineApp engine = new GameEngineApp(hallwayjson, stringReader, System.out);
+//    IOHandler handler = new ConsoleIO();
+//    GameEngineApp engine = new GameEngineApp(hallwayjson, handler);
 //    engine.start();
 
     //run this command if you want test running the view:
