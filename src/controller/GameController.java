@@ -3,6 +3,7 @@ package controller;
 import java.io.IOException;
 
 import commands.ICommand;
+import io.IOHandler;
 import model.IGameModel;
 
 /**
@@ -11,21 +12,18 @@ import model.IGameModel;
  */
 public class GameController implements IController {
   private final IGameModel model;
-  private final Readable input;
-  private final Appendable output;
+  private final IOHandler io;
 
   /**
    * Constructs a {@code GameController} with the specified game model,
    * input source and output destination.
    *
    * @param model : game model.
-   * @param input : input source.
-   * @param output : output destination.
+   * @param io : input and output handler
    */
-  public GameController(IGameModel model, Readable input, Appendable output) {
+  public GameController(IGameModel model, IOHandler io) {
     this.model = model;
-    this.input = input;
-    this.output = output;
+    this.io = io;
   }
 
   /**
@@ -37,21 +35,21 @@ public class GameController implements IController {
   @Override
   public void go() throws IOException {
     // Initialize input reader
-    GameInputReader inputReader = new GameInputReader(this.input, this.output);
+    GameInputReader inputReader = new GameInputReader(this.io);
 
     // Prompt user for name
     String avatarName = inputReader.getAvatarName();
     this.model.getPlayer().setName(avatarName);
-    this.output.append("You shalt now be named: ").append(avatarName.toUpperCase()).append("\n\n");
+    this.io.write("You shalt now be named: " + avatarName.toUpperCase() + "\n\n");
 
     // Display initial game state
-    this.output.append(this.model.look());
+    this.io.write(this.model.look());
 
     // Read string input from user
     String userInput = inputReader.readInput();
 
     // Initialize command finder
-    GameCommandFinder commandFinder = new GameCommandFinder(this.output);
+    GameCommandFinder commandFinder = new GameCommandFinder(this.io);
     ICommand associatedCommand;
 
     // Continuous game loop until player quits
@@ -65,7 +63,7 @@ public class GameController implements IController {
     }
 
     // Game Ending Message
-    this.output.append(this.model.getEndingMessage());
+    this.io.write(this.model.getEndingMessage());
   }
 
   /**
@@ -76,7 +74,7 @@ public class GameController implements IController {
    */
   public void executeCommand(String command) throws IOException {
     if (validateInput(command)) {
-      GameCommandFinder commandFinder = new GameCommandFinder(this.output);
+      GameCommandFinder commandFinder = new GameCommandFinder(this.io);
       ICommand associatedCommand = commandFinder.getCommand(command);
       associatedCommand.execute(this.model);
     }

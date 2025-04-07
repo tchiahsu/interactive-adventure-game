@@ -2,7 +2,7 @@ package commands;
 
 import java.io.IOException;
 
-import io.IGameOutput;
+import io.IOHandler;
 import model.IGameModel;
 
 /**
@@ -11,15 +11,15 @@ import model.IGameModel;
  */
 public class DropCommand implements ICommand {
   private final String item;
-  private final Appendable output;
+  private final IOHandler output;
 
   /**
    * Constructs an {@code DropCommand} object with the specified object and output destination.
    *
    * @param item : item we want to drop.
-   * @param output : the {@link Appendable} object where the command's output will be written.
+   * @param output : the {@link IOHandler} object where the command's output will be written.
    */
-  public DropCommand(String item, Appendable output) {
+  public DropCommand(String item, IOHandler output) {
     this.item = item;
     this.output = output;
   }
@@ -32,6 +32,6 @@ public class DropCommand implements ICommand {
    */
   @Override
   public void execute(IGameModel model) throws IOException {
-    this.output.append(model.dropItem(this.item));
+    this.output.write(model.dropItem(this.item));
   }
 }

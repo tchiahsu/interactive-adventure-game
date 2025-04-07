@@ -14,21 +14,22 @@ import commands.RestoreCommand;
 import commands.SaveCommand;
 import commands.TakeCommand;
 import commands.UseCommand;
+import io.IOHandler;
 
 /**
  * The {@code GameCommandFinder} class is responsible for parsing and retrieving the correct
  * commands based on the user input.
  */
 public class GameCommandFinder {
-  private final Appendable output;
+  private final IOHandler io;
 
   /**
    * Constructs a {@code GameCommandFinder} class with the given output destination.
    *
    * @param output the {@code Appendable} object where command outputs will be written.
    */
-  public GameCommandFinder(Appendable output) {
-      this.output = output;
+  public GameCommandFinder(IOHandler output) {
+      this.io = output;
     }
 
     /**
@@ -54,16 +55,16 @@ public class GameCommandFinder {
       }
 
       return switch (commandType) {
-        case MOVE -> new MoveCommand(action, this.output);
-        case INVENTORY -> new InventoryCommand(this.output);
-        case LOOK -> new LookCommand(this.output);
-        case USE -> new UseCommand(noun, this.output);
-        case TAKE -> new TakeCommand(noun, this.output);
-        case DROP -> new DropCommand(noun, this.output);
-        case EXAMINE -> new ExamineCommand(noun, this.output);
-        case ANSWER -> new AnswerCommand(noun, this.output);
-        case SAVE -> new SaveCommand(this.output);
-        case RESTORE -> new RestoreCommand(this.output);
+        case MOVE -> new MoveCommand(action, this.io);
+        case INVENTORY -> new InventoryCommand(this.io);
+        case LOOK -> new LookCommand(this.io);
+        case USE -> new UseCommand(noun, this.io);
+        case TAKE -> new TakeCommand(noun, this.io);
+        case DROP -> new DropCommand(noun, this.io);
+        case EXAMINE -> new ExamineCommand(noun, this.io);
+        case ANSWER -> new AnswerCommand(noun, this.io);
+        case SAVE -> new SaveCommand(this.io);
+        case RESTORE -> new RestoreCommand(this.io);
         case QUIT -> null;
       };
     }

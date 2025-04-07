@@ -2,7 +2,7 @@ package commands;
 
 import java.io.IOException;
 
-import io.IGameOutput;
+import io.IOHandler;
 import model.IGameModel;
 
 /**
@@ -10,15 +10,15 @@ import model.IGameModel;
  * game. It implements the {@link ICommand} interface.
  */
 public class RestoreCommand implements ICommand {
-  private final Appendable output;
+  private final IOHandler output;
 
   /**
    * Constructs an {@code RestoreCommand} object with the specified output destination for the
    * restore message.
    *
-   * @param output : the {@link Appendable} object where the command's output will be written.
+   * @param output : the {@link IOHandler} object where the command's output will be written.
    */
-  public RestoreCommand(Appendable output) {
+  public RestoreCommand(IOHandler output) {
     this.output = output;
   }
 
@@ -30,6 +30,6 @@ public class RestoreCommand implements ICommand {
    */
   @Override
   public void execute(IGameModel model) throws IOException {
-    this.output.append(model.restoreGame());
+    this.output.write(model.restoreGame());
   }
 }

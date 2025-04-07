@@ -4,34 +4,21 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Scanner;
 
+import io.IOHandler;
+
 /**
  * The {@code GameInputReader} class is responsible for reading and validating user input.
  * It ensures that only valid commands can be processed.
  */
 public class GameInputReader {
-  private final Readable input;
-  private final Appendable output;
-  private final Scanner scanner;
-
-  /**
-   * Construct a {@code GameInputReader} that takes in keyboard input as the source
-   * and displays it to user as output destination.
-   */
-  public GameInputReader() {
-    this.input = new InputStreamReader(System.in);
-    this.output = System.out;
-    this.scanner = new Scanner(this.input);
-  }
+  private final IOHandler io;
 
   /**
    * Construct a {@code GameInputReader} with the specified input source and output destination.
-   * @param input : input source.
-   * @param output : output destination.
+   * @param io : input and output operations.
    */
-  public GameInputReader(Readable input, Appendable output) {
-    this.input = input;
-    this.output = output;
-    this.scanner = new Scanner(this.input);
+  public GameInputReader(IOHandler io) {
+    this.io = io;
   }
 
   /**
@@ -46,7 +33,7 @@ public class GameInputReader {
 
       while (invalidInput) {
         // Display available commands to user
-        this.output.append("\n" + """
+        this.io.write("\n" + """
           ==========\s
           To move, enter: (N)orth, (S)outh, (E)ast or (W)est.
           Other actions: (I)nventory, (L)ook around the location, (U)se an item
@@ -54,11 +41,11 @@ public class GameInputReader {
           (A)nswer a question or provide a text solution.\s
           To end the game, enter (Q)uit to quit and exit.
           Your choice:\s""");
-        userCommand = scanner.nextLine().trim().toUpperCase(); // normalize input for validation
+        userCommand = this.io.read().trim().toUpperCase(); // normalize input for validation
 
         // validate user input
         if (!this.validateInput(userCommand)) {
-          this.output.append("Invalid Command. Please try again.\n\n");
+          this.io.write("Invalid Command. Please try again.\n\n");
         } else {
           invalidInput = false;
         }
@@ -80,11 +67,11 @@ public class GameInputReader {
     try {
       while (userCommand.isEmpty()) {
         // Ask user for an avatar
-        this.output.append("Enter a name for your player avatar: ");
-        userCommand = scanner.nextLine().trim().toUpperCase(); // normalize input for validation
+        this.io.write("Enter a name for your player avatar: ");
+        userCommand = this.io.read().trim().toUpperCase(); // normalize input for validation
 
         if (userCommand.isEmpty()) {
-          this.output.append("Invalid Avatar Name. Please try again.\n\n");
+          this.io.write("Invalid Avatar Name. Please try again.\n\n");
         }
       }
     } catch (IOException e) {
