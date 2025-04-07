@@ -29,13 +29,14 @@ class GameCommandFinderTest {
   private GameCommandFinder commandFinder;
   private IGameOutput output;
 
+
   /**
    * Initialize test objects before each test case.
    */
   @BeforeEach
   void setUp() {
     this.output = new TextOutput();
-    this.input = new TextInput();
+    //this.input = new TextInput();
     this.commandFinder = new GameCommandFinder(this.output);
   }
 

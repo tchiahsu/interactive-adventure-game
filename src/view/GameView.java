@@ -8,7 +8,7 @@ public class GameView implements IGameView {
   private StatusPanel statusPanel;
 
   /**
-   * Construct a View object
+   * Construct a View object.
    */
   public GameView() {
     this.initializePanels();
