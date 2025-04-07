@@ -44,6 +44,7 @@ public class StatusPanel extends JPanel {
     this.currentStatus.setBackground(PANEL_COLOR);
     this.currentStatus.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
     this.currentStatus.setText(status);
+
     this.add(this.currentStatus);
 
     //Health
@@ -60,6 +61,7 @@ public class StatusPanel extends JPanel {
     this.currentHealth.setBackground(PANEL_COLOR);
     this.currentHealth.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
     this.currentHealth.setText(health);
+
     this.add(this.currentHealth);
 
     //Score
@@ -76,9 +78,10 @@ public class StatusPanel extends JPanel {
     this.currentScore.setFocusable(false);
     this.currentScore.setFont(getPanelFont().deriveFont(Font.PLAIN, 20));
     this.currentScore.setBackground(PANEL_COLOR);
-
     this.currentScore.setText(score);
+
     this.add(this.currentScore);
+
   }
 
   /**
