@@ -4,6 +4,8 @@ import java.io.IOException;
 
 import controller.GameController;
 import controller.IController;
+import io.IGameInput;
+import io.IGameOutput;
 import model.GameModel;
 import model.IGameModel;
 
@@ -12,8 +14,8 @@ import model.IGameModel;
  */
 public class GameEngineApp {
   private final String gameFile;
-  private final Readable source;
-  private final Appendable output;
+  private final IGameInput source;
+  private final IGameOutput output;
 
   /**
    * The {@code GameEngineApp} class initializes the game with the specified game file name,
@@ -23,7 +25,7 @@ public class GameEngineApp {
    * @param output : output destination
    * @throws IOException if an error occurs while accessing the game file
    */
-  public GameEngineApp(String gameFileName, Readable source, Appendable output) throws IOException {
+  public GameEngineApp(String gameFileName, IGameInput source, IGameOutput output) throws IOException {
     // Error handling
     if (gameFileName == null) {
       throw new IOException("Game File could not be found!");

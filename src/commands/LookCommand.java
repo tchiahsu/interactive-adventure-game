@@ -2,6 +2,7 @@ package commands;
 
 import java.io.IOException;
 
+import io.IGameOutput;
 import model.IGameModel;
 
 /**
@@ -10,14 +11,14 @@ import model.IGameModel;
  * It implements the {@link ICommand} interface.
  */
 public class LookCommand implements ICommand {
-  private final Appendable output;
+  private final IGameOutput output;
 
   /**
    * Constructs an {@code LookCommand} object with the specified output destination.
    *
-   * @param output : the {@link Appendable} object where the command's output will be written.
+   * @param output : the {@link IGameOutput} object where the command's output will be written.
    */
-  public LookCommand(Appendable output) {
+  public LookCommand(IGameOutput output) {
     this.output = output;
   }
 

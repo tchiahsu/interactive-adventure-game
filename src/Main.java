@@ -11,6 +11,12 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 import enginedriver.GameEngineApp;
+import io.FileInput;
+import io.FileOutput;
+import io.IGameInput;
+import io.IGameOutput;
+import io.TextInput;
+import io.TextOutput;
 import view.GameView;
 
 /**
@@ -78,8 +84,9 @@ public class Main {
     }
 
     private static void playConsoleGame (String filePath) throws IOException {
-      BufferedReader stringReader = new BufferedReader(new InputStreamReader(System.in));
-      GameEngineApp engine = new GameEngineApp(filePath, stringReader, System.out);
+      IGameInput input = new TextInput();
+      IGameOutput output = new TextOutput();
+      GameEngineApp engine = new GameEngineApp(filePath, input, output);
       engine.start();
     }
 
@@ -109,16 +116,16 @@ public class Main {
   }
 
   private static void playBatchConsoleGame(String filePath, String sourcePath) throws IOException {
-    BufferedReader stringReader = new BufferedReader(new FileReader(sourcePath));
-    GameEngineApp engine = new GameEngineApp(filePath, stringReader, System.out);
+    IGameInput input = new TextInput();
+    IGameOutput output = new TextOutput();
+    GameEngineApp engine = new GameEngineApp(filePath, input, output);
     engine.start();
   }
 
   private static void playBatchFileGame(String filePath, String sourcePath, String targetPath) throws IOException {
-    BufferedReader stringReader = new BufferedReader(new FileReader(sourcePath));
-    FileWriter fileWriter = new FileWriter(targetPath, true);
-    BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-    GameEngineApp engine = new GameEngineApp(filePath, stringReader, bufferedWriter);
+    IGameInput input = new FileInput(sourcePath);
+    IGameOutput output = new FileOutput(targetPath);
+    GameEngineApp engine = new GameEngineApp(filePath, input, output);
     engine.start();
   }
 }

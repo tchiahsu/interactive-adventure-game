@@ -2,6 +2,7 @@ package commands;
 
 import java.io.IOException;
 
+import io.IGameOutput;
 import model.IGameModel;
 
 /**
@@ -10,15 +11,15 @@ import model.IGameModel;
  */
 public class ExamineCommand implements ICommand {
   private final String object;
-  private final Appendable output;
+  private final IGameOutput output;
 
   /**
    * Constructs an {@code ExamineCommand} object with the specified object and output destination.
    *
    * @param object : the object we are trying to examine.
-   * @param output : the {@link Appendable} object where the command's output will be written.
+   * @param output : the {@link IGameOutput} object where the command's output will be written.
    */
-  public ExamineCommand(String object, Appendable output) {
+  public ExamineCommand(String object, IGameOutput output) {
     this.object = object;
     this.output = output;
   }
