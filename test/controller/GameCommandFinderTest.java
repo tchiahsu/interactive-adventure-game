@@ -27,7 +27,7 @@ import org.junit.jupiter.api.Test;
  */
 class GameCommandFinderTest {
   private GameCommandFinder commandFinder;
-  private IGameOutput output;
+  private StringBuilder output;
 
 
   /**
@@ -35,8 +35,7 @@ class GameCommandFinderTest {
    */
   @BeforeEach
   void setUp() {
-    this.output = new TextOutput();
-    //this.input = new TextInput();
+    this.output = new StringBuilder();
     this.commandFinder = new GameCommandFinder(this.output);
   }
 

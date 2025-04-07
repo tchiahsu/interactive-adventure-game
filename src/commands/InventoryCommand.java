@@ -11,14 +11,14 @@ import model.IGameModel;
  * It implements the {@link ICommand} interface.
  */
 public class InventoryCommand implements ICommand {
-  private final IGameOutput output;
+  private final Appendable output;
 
   /**
    * Constructs an {@code InventoryCommand} object with the specified output destination.
    *
-   * @param output : the {@link IGameOutput} object where the command's output will be written.
+   * @param output : the {@link Appendable} object where the command's output will be written.
    */
-  public InventoryCommand(IGameOutput output) {
+  public InventoryCommand(Appendable output) {
     this.output = output;
   }
 

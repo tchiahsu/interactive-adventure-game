@@ -11,15 +11,15 @@ import model.IGameModel;
  */
 public class ExamineCommand implements ICommand {
   private final String object;
-  private final IGameOutput output;
+  private final Appendable output;
 
   /**
    * Constructs an {@code ExamineCommand} object with the specified object and output destination.
    *
    * @param object : the object we are trying to examine.
-   * @param output : the {@link IGameOutput} object where the command's output will be written.
+   * @param output : the {@link Appendable} object where the command's output will be written.
    */
-  public ExamineCommand(String object, IGameOutput output) {
+  public ExamineCommand(String object, Appendable output) {
     this.object = object;
     this.output = output;
   }

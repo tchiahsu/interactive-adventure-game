@@ -11,14 +11,14 @@ import model.IGameModel;
  * It implements the {@link ICommand} interface.
  */
 public class LookCommand implements ICommand {
-  private final IGameOutput output;
+  private final Appendable output;
 
   /**
    * Constructs an {@code LookCommand} object with the specified output destination.
    *
-   * @param output : the {@link IGameOutput} object where the command's output will be written.
+   * @param output : the {@link Appendable} object where the command's output will be written.
    */
-  public LookCommand(IGameOutput output) {
+  public LookCommand(Appendable output) {
     this.output = output;
   }
 

@@ -11,15 +11,15 @@ import model.IGameModel;
  */
 public class TakeCommand implements ICommand {
   private final String item;
-  private final IGameOutput output;
+  private final Appendable output;
 
   /**
    * Constructs an {@code TakeCommand} object with the specified item and output destination.
    *
    * @param item : the item that is being taken.
-   * @param output : the {@link IGameOutput} object where the command's output will be written.
+   * @param output : the {@link Appendable} object where the command's output will be written.
    */
-  public TakeCommand(String item, IGameOutput output) {
+  public TakeCommand(String item, Appendable output) {
     this.item = item;
     this.output = output;
   }

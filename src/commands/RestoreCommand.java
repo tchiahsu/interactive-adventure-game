@@ -10,15 +10,15 @@ import model.IGameModel;
  * game. It implements the {@link ICommand} interface.
  */
 public class RestoreCommand implements ICommand {
-  private final IGameOutput output;
+  private final Appendable output;
 
   /**
    * Constructs an {@code RestoreCommand} object with the specified output destination for the
    * restore message.
    *
-   * @param output : the {@link IGameOutput} object where the command's output will be written.
+   * @param output : the {@link Appendable} object where the command's output will be written.
    */
-  public RestoreCommand(IGameOutput output) {
+  public RestoreCommand(Appendable output) {
     this.output = output;
   }
 

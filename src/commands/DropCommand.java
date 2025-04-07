@@ -11,15 +11,15 @@ import model.IGameModel;
  */
 public class DropCommand implements ICommand {
   private final String item;
-  private final IGameOutput output;
+  private final Appendable output;
 
   /**
    * Constructs an {@code DropCommand} object with the specified object and output destination.
    *
    * @param item : item we want to drop.
-   * @param output : the {@link IGameOutput} object where the command's output will be written.
+   * @param output : the {@link Appendable} object where the command's output will be written.
    */
-  public DropCommand(String item, IGameOutput output) {
+  public DropCommand(String item, Appendable output) {
     this.item = item;
     this.output = output;
   }

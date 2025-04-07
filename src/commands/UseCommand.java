@@ -11,15 +11,15 @@ import model.IGameModel;
  */
 public class UseCommand implements ICommand {
   private final String item;
-  private final IGameOutput output;
+  private final Appendable output;
 
   /**
    * Construct an {@code UseCommand} object with the specified item and output destination.
    *
    * @param item : the item being used.
-   * @param output : the {@link IGameOutput} object where the command's output will be written.
+   * @param output : the {@link Appendable} object where the command's output will be written.
    */
-  public UseCommand(String item, IGameOutput output) {
+  public UseCommand(String item, Appendable output) {
     this.item = item;
     this.output = output;
   }

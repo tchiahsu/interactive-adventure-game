@@ -3,8 +3,6 @@ package controller;
 import java.io.IOException;
 
 import commands.ICommand;
-import io.IGameInput;
-import io.IGameOutput;
 import model.IGameModel;
 
 /**
@@ -13,8 +11,8 @@ import model.IGameModel;
  */
 public class GameController implements IController {
   private final IGameModel model;
-  private final IGameInput input;
-  private final IGameOutput output;
+  private final Readable input;
+  private final Appendable output;
 
   /**
    * Constructs a {@code GameController} with the specified game model,
@@ -24,7 +22,7 @@ public class GameController implements IController {
    * @param input : input source.
    * @param output : output destination.
    */
-  public GameController(IGameModel model, IGameInput input, IGameOutput output) {
+  public GameController(IGameModel model, Readable input, Appendable output) {
     this.model = model;
     this.input = input;
     this.output = output;
@@ -38,19 +36,22 @@ public class GameController implements IController {
    */
   @Override
   public void go() throws IOException {
+    // Initialize input reader
+    GameInputReader inputReader = new GameInputReader(this.input, this.output);
 
-    // Initialize the command finder
-    GameCommandFinder commandFinder = new GameCommandFinder(this.output);
-
-    // Prompt user for avatar name
-    String avatarName = this.input.getAvatarName();
+    // Prompt user for name
+    String avatarName = inputReader.getAvatarName();
     this.model.getPlayer().setName(avatarName);
-    this.output.append("You shalt now be named: " + avatarName.toUpperCase() + "\n\n");
+    this.output.append("You shalt now be named: ").append(avatarName.toUpperCase()).append("\n\n");
 
     // Display initial game state
     this.output.append(this.model.look());
 
-    String userInput = this.input.readInput();
+    // Read string input from user
+    String userInput = inputReader.readInput();
+
+    // Initialize command finder
+    GameCommandFinder commandFinder = new GameCommandFinder(this.output);
     ICommand associatedCommand;
 
     // Continuous game loop until player quits
@@ -60,7 +61,7 @@ public class GameController implements IController {
       if (this.model.getPlayer().getHealth() <= 0) {
         break;
       }
-      userInput = this.input.readInput(); // prompt user for next command
+      userInput = inputReader.readInput(); // prompt user for next command
     }
 
     // Game Ending Message
@@ -75,9 +76,9 @@ public class GameController implements IController {
    */
   public void executeCommand(String command) throws IOException {
     if (validateInput(command)) {
-        GameCommandFinder commandFinder = new GameCommandFinder(this.output);
-        ICommand associatedCommand = commandFinder.getCommand(command);
-        associatedCommand.execute(this.model);
+      GameCommandFinder commandFinder = new GameCommandFinder(this.output);
+      ICommand associatedCommand = commandFinder.getCommand(command);
+      associatedCommand.execute(this.model);
     }
   }
 

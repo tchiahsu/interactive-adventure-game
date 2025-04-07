@@ -38,13 +38,13 @@ public class Main {
    * @throws IOException if an I/O error occurs during input/output operations.
    */
   public static void main(String [] args) throws IOException {
-//    String hallwayjson = "src/data/simple_hallway.json";
-//    BufferedReader stringReader = new BufferedReader(new InputStreamReader(System.in));
-//    GameEngineApp engine = new GameEngineApp(hallwayjson, stringReader, System.out);
-//    engine.start();
+    String hallwayjson = "src/data/simple_hallway.json";
+    BufferedReader stringReader = new BufferedReader(new InputStreamReader(System.in));
+    GameEngineApp engine = new GameEngineApp(hallwayjson, stringReader, System.out);
+    engine.start();
 
     //run this command if you want test running the view:
-    GameView view = new GameView();
+//    GameView view = new GameView();
 
 //    if (args.length < 2 || args.length > 4) {
 //      displayCommands();

@@ -12,14 +12,14 @@ import model.IGameModel;
  */
 public class MoveCommand implements ICommand {
   private String direction;
-  private final IGameOutput output;
+  private final Appendable output;
 
   /**
    * Constructs an {@code MoveCommand} object with the specified direction and output avenue.
    * @param direction : direction the player moves.
-   * @param output : the {@link IGameOutput} object where the command's output will be written.
+   * @param output : the {@link Appendable} object where the command's output will be written.
    */
-  public MoveCommand(String direction, IGameOutput output) {
+  public MoveCommand(String direction, Appendable output) {
     this.direction = direction;
     this.output = output;
   }

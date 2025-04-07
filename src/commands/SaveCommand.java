@@ -10,15 +10,15 @@ import model.IGameModel;
  * It implements the {@link ICommand} interface.
  */
 public class SaveCommand implements ICommand {
-  private final IGameOutput output;
+  private final Appendable output;
 
   /**
    * Constructs an {@code SaveCommand} object with the specified output destination for the save
    * message.
    *
-   * @param output : the {@link IGameOutput} object where the command's output will be written.
+   * @param output : the {@link Appendable} object where the command's output will be written.
    */
-  public SaveCommand(IGameOutput output) {
+  public SaveCommand(Appendable output) {
     this.output = output;
   }
 
