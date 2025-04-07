@@ -38,87 +38,87 @@ public class Main {
 //    engine.start();
 
     //run this command if you want test running the view:
-//    GameView view = new GameView();
-
-    if (args.length < 2 || args.length > 4) {
-      displayCommands();
-      return;
-    }
-
-    String filePath = args[0];
-    if (isInvalidFile(filePath) || !filePath.endsWith(".json")) {
-      System.out.println("Invalid game file.");
-      return;
-    }
-
-    String playStyle = args[1];
-    if (playStyle.equals(CONSOLE_GAME)) {
-      playConsoleGame(filePath);
-    } else if (playStyle.equals(GRAPHICAL_GAME)) {
-      // Play game in view mode
-    } else if (playStyle.equals(BATCH_GAME)) {
-      handleBatchGame(args);
-    } else {
-      displayCommands();
-    }
-  }
-
-    private static void displayCommands () {
-      System.out.println("Incorrect command-line format for game engine.");
-      System.out.println("Formats allowed:");
-      System.out.println("game_engine <filename> -text");
-      System.out.println("game_engine <filename> -graphics");
-      System.out.println("game_engine <filename> -batch <source file>");
-      System.out.println("game_engine <filename> -batch <source file> <target file>");
-    }
-
-    private static boolean isInvalidFile (String path) {
-      File file = new File(path);
-      return !file.isFile();
-    }
-
-    private static void playConsoleGame (String filePath) throws IOException {
-      BufferedReader stringReader = new BufferedReader(new InputStreamReader(System.in));
-      GameEngineApp engine = new GameEngineApp(filePath, stringReader, System.out);
-      engine.start();
-    }
-
-    private static void handleBatchGame (String[]args) throws IOException {
-      if (args.length < 3) {
-        System.out.println("Missing files for batch game.");
-        return;
-      }
-
-      String sourceFile = args[2];
-      if (isInvalidFile(sourceFile)) {
-        System.out.println("Invalid source file.");
-        return;
-      }
-
-      String filePath = args[0];
-      if (args.length == 3) {
-        playBatchConsoleGame(filePath, sourceFile);
-      } else {
-        String targetFile = args[3];
-        if (isInvalidFile(targetFile)) {
-          System.out.println("Invalid target file.");
-          return;
-        }
-        playBatchFileGame(filePath, sourceFile, targetFile);
-      }
-  }
-
-  private static void playBatchConsoleGame(String filePath, String sourcePath) throws IOException {
-    BufferedReader stringReader = new BufferedReader(new FileReader(sourcePath));
-    GameEngineApp engine = new GameEngineApp(filePath, stringReader, System.out);
-    engine.start();
-  }
-
-  private static void playBatchFileGame(String filePath, String sourcePath, String targetPath) throws IOException {
-    BufferedReader stringReader = new BufferedReader(new FileReader(sourcePath));
-    FileWriter fileWriter = new FileWriter(targetPath, true);
-    BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-    GameEngineApp engine = new GameEngineApp(filePath, stringReader, bufferedWriter);
-    engine.start();
+    GameView view = new GameView();
+//
+//    if (args.length < 2 || args.length > 4) {
+//      displayCommands();
+//      return;
+//    }
+//
+//    String filePath = args[0];
+//    if (isInvalidFile(filePath) || !filePath.endsWith(".json")) {
+//      System.out.println("Invalid game file.");
+//      return;
+//    }
+//
+//    String playStyle = args[1];
+//    if (playStyle.equals(CONSOLE_GAME)) {
+//      playConsoleGame(filePath);
+//    } else if (playStyle.equals(GRAPHICAL_GAME)) {
+//      // Play game in view mode
+//    } else if (playStyle.equals(BATCH_GAME)) {
+//      handleBatchGame(args);
+//    } else {
+//      displayCommands();
+//    }
+//  }
+//
+//    private static void displayCommands () {
+//      System.out.println("Incorrect command-line format for game engine.");
+//      System.out.println("Formats allowed:");
+//      System.out.println("game_engine <filename> -text");
+//      System.out.println("game_engine <filename> -graphics");
+//      System.out.println("game_engine <filename> -batch <source file>");
+//      System.out.println("game_engine <filename> -batch <source file> <target file>");
+//    }
+//
+//    private static boolean isInvalidFile (String path) {
+//      File file = new File(path);
+//      return !file.isFile();
+//    }
+//
+//    private static void playConsoleGame (String filePath) throws IOException {
+//      BufferedReader stringReader = new BufferedReader(new InputStreamReader(System.in));
+//      GameEngineApp engine = new GameEngineApp(filePath, stringReader, System.out);
+//      engine.start();
+//    }
+//
+//    private static void handleBatchGame (String[]args) throws IOException {
+//      if (args.length < 3) {
+//        System.out.println("Missing files for batch game.");
+//        return;
+//      }
+//
+//      String sourceFile = args[2];
+//      if (isInvalidFile(sourceFile)) {
+//        System.out.println("Invalid source file.");
+//        return;
+//      }
+//
+//      String filePath = args[0];
+//      if (args.length == 3) {
+//        playBatchConsoleGame(filePath, sourceFile);
+//      } else {
+//        String targetFile = args[3];
+//        if (isInvalidFile(targetFile)) {
+//          System.out.println("Invalid target file.");
+//          return;
+//        }
+//        playBatchFileGame(filePath, sourceFile, targetFile);
+//      }
+//  }
+//
+//  private static void playBatchConsoleGame(String filePath, String sourcePath) throws IOException {
+//    BufferedReader stringReader = new BufferedReader(new FileReader(sourcePath));
+//    GameEngineApp engine = new GameEngineApp(filePath, stringReader, System.out);
+//    engine.start();
+//  }
+//
+//  private static void playBatchFileGame(String filePath, String sourcePath, String targetPath) throws IOException {
+//    BufferedReader stringReader = new BufferedReader(new FileReader(sourcePath));
+//    FileWriter fileWriter = new FileWriter(targetPath, true);
+//    BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+//    GameEngineApp engine = new GameEngineApp(filePath, stringReader, bufferedWriter);
+//    engine.start();
   }
 }

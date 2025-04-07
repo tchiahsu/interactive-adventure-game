@@ -11,6 +11,7 @@ public class ViewManager {
   private GameBoard board;
   private DescriptionPanel descriptionPanel;
   private InventoryPanel inventoryPanel;
+  private StatusPanel statusPanel;
 
   /**
    * Constructs a class that manages the layout of the gameboard.
@@ -20,10 +21,11 @@ public class ViewManager {
    * @param inventoryPanel : the inventory panel component.
    */
   public ViewManager(GameBoard board, DescriptionPanel descriptionPanel,
-                     InventoryPanel inventoryPanel) {
+                     InventoryPanel inventoryPanel, StatusPanel statusPanel) {
     this.board = board;
     this.descriptionPanel = descriptionPanel;
     this.inventoryPanel = inventoryPanel;
+    this.statusPanel = statusPanel;
   }
 
   /**
@@ -121,6 +123,10 @@ public class ViewManager {
 
     JPanel rightTopPanel = new JPanel();
     rightTopPanel.setBackground(PANEL_COLOR);
+
+    rightTopPanel = this.statusPanel;
+    rightTopPanel.setPreferredSize(new Dimension(25, 20));
+    rightTopPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 100));
 
     JPanel rightMiddlePanel = this.inventoryPanel;
     rightMiddlePanel.setPreferredSize(new Dimension(25, 50));
