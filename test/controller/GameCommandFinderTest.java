@@ -14,6 +14,11 @@ import commands.RestoreCommand;
 import commands.SaveCommand;
 import commands.TakeCommand;
 import commands.UseCommand;
+import io.IGameInput;
+import io.IGameOutput;
+import io.TextInput;
+import io.TextOutput;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -22,14 +27,15 @@ import org.junit.jupiter.api.Test;
  */
 class GameCommandFinderTest {
   private GameCommandFinder commandFinder;
-  private StringBuilder output;
+  private IGameOutput output;
 
   /**
    * Initialize test objects before each test case.
    */
   @BeforeEach
   void setUp() {
-    this.output = new StringBuilder();
+    this.output = new TextOutput();
+    this.input = new TextInput();
     this.commandFinder = new GameCommandFinder(this.output);
   }
 

@@ -14,20 +14,22 @@ import commands.RestoreCommand;
 import commands.SaveCommand;
 import commands.TakeCommand;
 import commands.UseCommand;
+import io.IGameInput;
+import io.IGameOutput;
 
 /**
  * The {@code GameCommandFinder} class is responsible for parsing and retrieving the correct
  * commands based on the user input.
  */
 public class GameCommandFinder {
-  private final Appendable output;
+  private final IGameOutput output;
 
   /**
    * Constructs a {@code GameCommandFinder} class with the given output destination.
    *
-   * @param output the {@code Appendable} object where command outputs will be written.
+   * @param output the {@code IGameOutput} object where command outputs will be written.
    */
-  public GameCommandFinder(Appendable output) {
+  public GameCommandFinder(IGameOutput output) {
     this.output = output;
   }
 
