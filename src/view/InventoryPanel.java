@@ -83,6 +83,8 @@ public class InventoryPanel extends JPanel {
     newBtn.setPreferredSize(buttonSize);
     newBtn.setMinimumSize(buttonSize);
     newBtn.setMaximumSize(buttonSize);
+    newBtn.setBackground(BUTTON_COLOR);
+
     newBtn.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {

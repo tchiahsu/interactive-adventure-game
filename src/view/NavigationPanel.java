@@ -3,42 +3,111 @@ package view;
 import java.awt.*;
 import java.io.File;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 public class NavigationPanel extends JPanel {
   private final static Color MAIN_COLOR = new Color(40, 54, 24);
   private final static Color PANEL_COLOR = new Color(236, 240, 235);
   private final static Color BUTTON_COLOR = new Color(220, 220, 220);
-//  private final JButton examineBtn;
-//  private final JButton takeBtn;
-//  private final JButton answerBtn;
-//  private final JButton northBtn;
-//  private final JButton westBtn;
-//  private final JButton eastBtn;
-//  private final JButton southBtn;
+  private final JButton examineBtn;
+  private final JButton takeBtn;
+  private final JButton answerBtn;
+  private final JButton northBtn;
+  private final JButton westBtn;
+  private final JButton eastBtn;
+  private final JButton southBtn;
 
   public NavigationPanel() {
     // Set the title
-    this.setLayout(new BorderLayout(10, 10));
-    this.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
+    this.setLayout(new BorderLayout(5, 5));
+    this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
     this.setBackground(PANEL_COLOR);
 
     // Create a title panel for the top
-    JLabel title = new JLabel("Inventory");
+    JLabel title = new JLabel("Navigation");
     title.setForeground(MAIN_COLOR);
     Font font = getPanelFont().deriveFont(Font.BOLD, 30);
     title.setFont(font);
     this.add(title, BorderLayout.NORTH);
 
-    // Create buttons for movement
-
-
     // Create buttons for actions
+    JPanel buttonPanel = new JPanel();
+    buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
+
+    this.takeBtn = createButton("Take");
+    this.examineBtn = createButton("Examine");
+    this.answerBtn = createButton("Answer");
+    buttonPanel.add(Box.createVerticalGlue());
+    buttonPanel.add(takeBtn);
+    buttonPanel.add(Box.createRigidArea(new Dimension(0, 5)));
+    buttonPanel.add(examineBtn);
+    buttonPanel.add(Box.createRigidArea(new Dimension(0, 5)));
+    buttonPanel.add(answerBtn);
+    buttonPanel.add(Box.createVerticalGlue());
+
+    this.add(buttonPanel, BorderLayout.WEST);
+
+    // Create buttons for movement
+    this.northBtn = createMoveButton("../data/images/north.png");
+    this.westBtn = createMoveButton("../data/images/west.png");
+    this.eastBtn = createMoveButton("../data/images/east.png");
+    this.southBtn = createMoveButton("../data/images/south.png");
+
+    JPanel directionPanel = new JPanel();
+    directionPanel.setLayout(new GridLayout(3,3));
+    directionPanel.setBackground(PANEL_COLOR);
+
+    directionPanel.add(new JLabel());
+    directionPanel.add(northBtn);
+    directionPanel.add(new JLabel());
+
+    directionPanel.add(westBtn);
+    directionPanel.add(new JLabel());
+    directionPanel.add(eastBtn);
+
+    directionPanel.add(new JLabel());
+    directionPanel.add(southBtn);
+    directionPanel.add(new JLabel());
+    directionPanel.setPreferredSize(new Dimension(50, 50));
+    directionPanel.setMaximumSize(new Dimension(50, 50));
+
+    this.add(directionPanel, BorderLayout.CENTER);
+
+  }
+
+  private JButton createMoveButton(String image) {
+    JButton newBtn = new JButton();
+
+    try {
+      Image img = ImageIO.read(getClass().getResource(image));
+      //resize image
+      int width = 30;
+      int height = 30;
+      Image resizedImg = img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+
+      newBtn.setIcon(new ImageIcon(resizedImg));
+    } catch (Exception ex) {
+      System.out.println("Image not found");
+    }
+
+    Dimension buttonSize = new Dimension(20, 20);
+
+    newBtn.setBounds(50, 50, 50, 50);
+    newBtn.setFocusable(false);
+    newBtn.setBorderPainted(false);
+    newBtn.setFont(getPanelFont().deriveFont(Font.PLAIN, 14));
+    newBtn.setPreferredSize(buttonSize);
+    newBtn.setMinimumSize(buttonSize);
+    newBtn.setMaximumSize(buttonSize);
+    newBtn.setBackground(PANEL_COLOR);
+
+    return newBtn;
   }
 
   private JButton createButton(String title) {
     JButton newBtn = new JButton();
-    Dimension buttonSize = new Dimension(90, 30);
+    Dimension buttonSize = new Dimension(100, 30);
 
     newBtn.setBounds(100, 100, 250, 100);
     newBtn.setText(title);
@@ -49,6 +118,7 @@ public class NavigationPanel extends JPanel {
     newBtn.setPreferredSize(buttonSize);
     newBtn.setMinimumSize(buttonSize);
     newBtn.setMaximumSize(buttonSize);
+    newBtn.setBackground(BUTTON_COLOR);
 
     return newBtn;
   }

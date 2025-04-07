@@ -6,13 +6,15 @@ public class GameView implements IGameView {
   private DescriptionPanel descriptionPanel;
   private InventoryPanel inventoryPanel;
   private StatusPanel statusPanel;
+  private NavigationPanel navigationPanel;
 
   /**
    * Construct a View object.
    */
   public GameView() {
     this.initializePanels();
-    this.viewManager = new ViewManager(board, descriptionPanel, inventoryPanel, statusPanel);
+    this.viewManager = new ViewManager(board, descriptionPanel,
+            inventoryPanel, statusPanel, navigationPanel);
     this.viewManager.displayView();
   }
 
@@ -25,6 +27,7 @@ public class GameView implements IGameView {
     this.descriptionPanel.updateDescriptionPanel("HELLO");
     this.inventoryPanel = new InventoryPanel();
     this.statusPanel = new StatusPanel("You are healthy and wide awake!", "100", "0");
+    this.navigationPanel = new NavigationPanel();
   }
 }
 

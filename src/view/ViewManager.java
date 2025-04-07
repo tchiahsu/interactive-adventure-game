@@ -12,6 +12,7 @@ public class ViewManager {
   private DescriptionPanel descriptionPanel;
   private InventoryPanel inventoryPanel;
   private StatusPanel statusPanel;
+  private NavigationPanel navigationPanel;
 
   /**
    * Constructs a class that manages the layout of the gameboard.
@@ -21,11 +22,12 @@ public class ViewManager {
    * @param inventoryPanel : the inventory panel component.
    */
   public ViewManager(GameBoard board, DescriptionPanel descriptionPanel,
-                     InventoryPanel inventoryPanel, StatusPanel statusPanel) {
+                     InventoryPanel inventoryPanel, StatusPanel statusPanel, NavigationPanel navigationPanel) {
     this.board = board;
     this.descriptionPanel = descriptionPanel;
     this.inventoryPanel = inventoryPanel;
     this.statusPanel = statusPanel;
+    this.navigationPanel = navigationPanel;
   }
 
   /**
@@ -47,7 +49,7 @@ public class ViewManager {
     mainGC.insets = new Insets(8, 8, 8, 0);
     mainGC.fill = GridBagConstraints.BOTH;
 
-    // Create JPanel
+    // Create left and right JPanels
     JPanel leftPanel = new JPanel();
     leftPanel.setBackground(BACKGROUND_COLOR);
     JPanel rightPanel = new JPanel();
@@ -129,11 +131,13 @@ public class ViewManager {
     rightTopPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 100));
 
     JPanel rightMiddlePanel = this.inventoryPanel;
-    rightMiddlePanel.setPreferredSize(new Dimension(25, 50));
+    rightMiddlePanel.setPreferredSize(new Dimension(25, 35));
     rightMiddlePanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 100));
     rightMiddlePanel.setBackground(PANEL_COLOR);
 
-    JPanel rightBottomPanel = new JPanel();
+    JPanel rightBottomPanel = this.navigationPanel;
+    rightBottomPanel.setPreferredSize(new Dimension(25, 40));
+    rightBottomPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 100));
     rightBottomPanel.setBackground(PANEL_COLOR);
 
     rightPanel.add(rightTopPanel, rightGC);
