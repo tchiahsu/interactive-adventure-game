@@ -1,10 +1,7 @@
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 
 import enginedriver.GameEngineApp;
-import io.ConsoleIO;
-import io.IOHandler;
+import view.GameView;
 
 /**
  * This Main class invokes the entry point {@link GameEngineApp} for the adventure game.
@@ -25,13 +22,13 @@ public class Main {
    * @throws IOException if an I/O error occurs during input/output operations.
    */
   public static void main(String [] args) throws IOException {
-    String hallwayjson = "src/data/simple_hallway.json";
-    IOHandler handler = new ConsoleIO();
-    GameEngineApp engine = new GameEngineApp(hallwayjson, handler);
-    engine.start();
+//    String hallwayjson = "src/data/simple_hallway.json";
+//    IOHandler handler = new ConsoleIO();
+//    GameEngineApp engine = new GameEngineApp(hallwayjson, handler);
+//    engine.start();
 
     //run this command if you want test running the view:
-//    GameView view = new GameView();
+    GameView view = new GameView();
 
 //    if (args.length < 2 || args.length > 4) {
 //      displayCommands();
