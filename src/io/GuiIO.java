@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class GUIIO implements IOHandler {
+public class GuiIO implements IOHandler {
   private final Queue<String> commandQueue = new LinkedList<>();
   private final StringBuilder guiOutput = new StringBuilder();
 
