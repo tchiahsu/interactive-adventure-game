@@ -14,7 +14,7 @@ public class GameView implements IGameView {
    */
   public GameView() {
     this.initializePanels();
-    this.viewManager = new ViewManager(board, descriptionPanel, inventoryPanel, statusPanel, picturePanel, navigationPanel);
+    this.viewManager = new ViewManager(board, descriptionPanel, inventoryPanel, statusPanel, navigationPanel, picturePanel);
     this.viewManager.displayView();
   }
 

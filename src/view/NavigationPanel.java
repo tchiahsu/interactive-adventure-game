@@ -27,7 +27,7 @@ public class NavigationPanel extends JPanel {
     // Create a title panel for the top
     JLabel title = new JLabel("Navigation");
     title.setForeground(MAIN_COLOR);
-    Font font = getPanelFont().deriveFont(Font.BOLD, 30);
+    Font font = getPanelFont().deriveFont(Font.BOLD, 25);
     title.setFont(font);
     this.add(title, BorderLayout.NORTH);
 
@@ -55,24 +55,43 @@ public class NavigationPanel extends JPanel {
     this.southBtn = createMoveButton("../data/images/south.png");
 
     JPanel directionPanel = new JPanel();
-    directionPanel.setLayout(new GridLayout(3,3));
+    directionPanel.setLayout(new GridBagLayout());
     directionPanel.setBackground(PANEL_COLOR);
 
-    directionPanel.add(new JLabel());
-    directionPanel.add(northBtn);
-    directionPanel.add(new JLabel());
+    GridBagConstraints gbc = new GridBagConstraints();
+    gbc.fill = GridBagConstraints.HORIZONTAL;
+    gbc.gridx = 1; // Center column
+    gbc.gridy = 0;
+    gbc.insets = new Insets(5, 5, 5, 5);
+    gbc.fill = GridBagConstraints.BOTH;
+    directionPanel.add(new JLabel(), gbc); // Empty space at the top
 
-    directionPanel.add(westBtn);
-    directionPanel.add(new JLabel());
-    directionPanel.add(eastBtn);
+    gbc.gridx = 1; // Center column
+    gbc.gridy = 1;
+    directionPanel.add(northBtn, gbc); // North button
 
-    directionPanel.add(new JLabel());
-    directionPanel.add(southBtn);
-    directionPanel.add(new JLabel());
-    directionPanel.setPreferredSize(new Dimension(50, 50));
-    directionPanel.setMaximumSize(new Dimension(50, 50));
+    gbc.gridx = 0; // Left column
+    gbc.gridy = 2;
+    directionPanel.add(westBtn, gbc); // West button
 
-    this.add(directionPanel, BorderLayout.CENTER);
+    gbc.gridx = 2; // Right column
+    gbc.gridy = 2;
+    directionPanel.add(eastBtn, gbc); // East button
+
+    gbc.gridx = 1; // Center column
+    gbc.gridy = 3;
+    directionPanel.add(southBtn, gbc); // South button
+
+    // Empty space at the bottom
+    gbc.gridx = 1;
+    gbc.gridy = 4;
+    directionPanel.add(new JLabel(), gbc);
+
+    int size = 150;
+    directionPanel.setPreferredSize(new Dimension(size, size));
+    directionPanel.setMaximumSize(new Dimension(size, size));
+
+    this.add(directionPanel, BorderLayout.EAST);
 
   }
 
@@ -91,9 +110,9 @@ public class NavigationPanel extends JPanel {
       System.out.println("Image not found");
     }
 
-    Dimension buttonSize = new Dimension(20, 20);
+    Dimension buttonSize = new Dimension(28, 28);
 
-    newBtn.setBounds(50, 50, 50, 50);
+    newBtn.setBounds(20, 20, 20, 20);
     newBtn.setFocusable(false);
     newBtn.setBorderPainted(false);
     newBtn.setFont(getPanelFont().deriveFont(Font.PLAIN, 14));
