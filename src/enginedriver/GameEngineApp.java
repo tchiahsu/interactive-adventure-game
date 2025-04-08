@@ -75,7 +75,7 @@ public class GameEngineApp {
       }
       case GRAPHICS -> {
         GameView view = new GameView();
-        IEventHandler handler = new GuiHandler(view);
+        GuiHandler handler = new GuiHandler(view);
         controller = new GameController(model, handler);
         view.setController(controller);
         view.startView();

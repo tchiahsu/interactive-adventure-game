@@ -16,4 +16,9 @@ public class ConsoleHandler implements IEventHandler {
   public void write(String s) throws IOException {
     output.append(s);
   }
+
+  @Override
+  public void setCommandAction(String action) {
+
+  }
 }

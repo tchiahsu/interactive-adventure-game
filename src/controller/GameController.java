@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import commands.ICommand;
 import eventhandler.IEventHandler;
@@ -74,6 +75,8 @@ public class GameController implements IController {
    */
   public void executeCommand(String command) throws IOException {
     if (validateInput(command)) {
+      String[] splitCommand = command.split(" ", 2);
+      this.handler.setCommandAction(splitCommand[0]);
       GameCommandFinder commandFinder = new GameCommandFinder(this.handler);
       ICommand associatedCommand = commandFinder.getCommand(command);
       associatedCommand.execute(this.model);
