@@ -78,6 +78,7 @@ public class GameEngineApp {
         IEventHandler handler = new GuiHandler(view);
         controller = new GameController(model, handler);
         view.setController(controller);
+        view.startView();
       }
       case BATCH_CONSOLE -> {
         IEventHandler handler = new BatchConsoleHandler(this.sourceFile);

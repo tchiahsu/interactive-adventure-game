@@ -16,4 +16,6 @@ public interface IController {
   void go() throws IOException;
 
   void executeCommand(String command) throws IOException;
+
+  void setPlayerName(String name);
 }

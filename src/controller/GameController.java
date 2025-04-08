@@ -39,7 +39,7 @@ public class GameController implements IController {
 
     // Prompt user for name
     String avatarName = inputReader.getAvatarName();
-    this.model.getPlayer().setName(avatarName);
+    this.setPlayerName(avatarName);
     this.handler.write("You shalt now be named: " + avatarName.toUpperCase() + "\n\n");
 
     // Display initial game state
@@ -78,6 +78,10 @@ public class GameController implements IController {
       ICommand associatedCommand = commandFinder.getCommand(command);
       associatedCommand.execute(this.model);
     }
+  }
+
+  public void setPlayerName(String name) {
+    this.model.getPlayer().setName(name);
   }
 
   /**

@@ -2,6 +2,8 @@ package view;
 
 import java.io.IOException;
 
+import javax.swing.*;
+
 import controller.IController;
 
 public class GameView implements IGameView {
@@ -21,7 +23,6 @@ public class GameView implements IGameView {
     this.initializePanels();
     this.viewManager = new ViewManager(board, descriptionPanel, inventoryPanel, statusPanel,
         navigationPanel, picturePanel);
-    this.viewManager.displayView();
   }
 
   private void initializePanels() {
@@ -36,6 +37,12 @@ public class GameView implements IGameView {
     this.picturePanel = new PicturePanel("Hallway 1", "src/data/images/courtyard.png");
 
     this.setActionListener();
+  }
+
+  public void startView() {
+    String name = JOptionPane.showInputDialog("Enter a name for your player avatar: ");
+    this.controller.setPlayerName(name);
+    this.viewManager.displayView();
   }
 
   public DescriptionPanel getDescriptionPanel() {
