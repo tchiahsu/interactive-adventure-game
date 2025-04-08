@@ -1,7 +1,7 @@
 package view;
 
 import java.awt.*;
-
+import java.util.List;
 import javax.swing.*;
 
 public class ViewManager {
@@ -152,5 +152,24 @@ public class ViewManager {
     rightGC.weighty = 0.25;
     rightGC.gridy = 2;
     rightPanel.add(rightBottomPanel, rightGC);
+  }
+
+  public void setCurrentState(List<String> currentState) {
+    String roomName = currentState.get(0);
+    String roomPicture = currentState.get(1);
+    System.out.println(roomPicture);
+    this.picturePanel.updatePicturePanel(roomName, roomPicture);
+
+    String currentDescription = currentState.get(2);
+    this.descriptionPanel.updateDescriptionPanel(currentDescription);
+
+    String status = currentState.get(3);
+    this.statusPanel.updateStatus(status);
+
+    String health = currentState.get(4);
+    this.statusPanel.updateHealth(health);
+
+    String score = currentState.get(5);
+    this.statusPanel.updateScore(score);
   }
 }

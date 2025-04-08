@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Represents a game controller that manages the flow of the game.
@@ -16,6 +17,8 @@ public interface IController {
   void go() throws IOException;
 
   void executeCommand(String command) throws IOException;
+
+  List<String> getCurrentState();
 
   void setPlayerName(String name);
 }

@@ -83,6 +83,10 @@ public class GameController implements IController {
     }
   }
 
+  public List<String> getCurrentState() {
+    return this.model.getCurrentState();
+  }
+
   public void setPlayerName(String name) {
     this.model.getPlayer().setName(name);
   }

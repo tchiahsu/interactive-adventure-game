@@ -1,6 +1,7 @@
 package model;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Defines the interactions and functionalities for the game model.
@@ -86,4 +87,6 @@ public interface IGameModel {
    * @return the final message displayed at the end of the game.
    */
   String getEndingMessage();
+
+  List<String> getCurrentState();
 }

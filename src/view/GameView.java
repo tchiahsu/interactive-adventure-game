@@ -28,6 +28,7 @@ public class GameView implements IGameView {
   public void startView() {
     String name = JOptionPane.showInputDialog("Enter a name for your player avatar: ");
     this.controller.setPlayerName(name);
+    this.viewManager.setCurrentState(this.controller.getCurrentState());
     this.viewManager.displayView();
   }
 
@@ -49,7 +50,7 @@ public class GameView implements IGameView {
     this.inventoryPanel = new InventoryPanel();
     this.statusPanel = new StatusPanel();
     this.navigationPanel = new NavigationPanel();
-    this.picturePanel = new PicturePanel("", "src/data/images/courtyard.png");
+    this.picturePanel = new PicturePanel();
 
     this.setActionListener();
   }

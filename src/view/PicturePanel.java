@@ -24,22 +24,24 @@ public class PicturePanel extends JPanel {
   private JLabel pictureLabel;
   BufferedImage image;
 
-  public PicturePanel(String roomName, String picturePath) {
+  public PicturePanel() {
     this.setLayout(new BorderLayout());
     this.setBackground(PANEL_COLOR);
     this.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
-    this.roomLabel = new JLabel(roomName);
+    this.roomLabel = new JLabel();
     this.roomLabel.setFont(getPanelFont().deriveFont(Font.BOLD, 30));
     this.add(roomLabel, BorderLayout.NORTH);
-
-    try {
-      image = ImageIO.read(new File(picturePath));
-      Image scaledImage = getScaledImage(image);
-      this.pictureLabel = new JLabel(new ImageIcon(scaledImage));
-    } catch (IOException e) {
-      this.pictureLabel = new JLabel("No picture found", SwingConstants.CENTER);
-      this.pictureLabel.setFont(getPanelFont().deriveFont(Font.BOLD, 20));
-    }
+//
+//    try {
+//      image = ImageIO.read(getClass().getResource(picturePath));
+//      Image scaledImage = getScaledImage(image);
+//      this.pictureLabel = new JLabel(new ImageIcon(scaledImage));
+//    } catch (IOException e) {
+//      this.pictureLabel = new JLabel("No picture found", SwingConstants.CENTER);
+//      this.pictureLabel.setFont(getPanelFont().deriveFont(Font.BOLD, 20));
+//    }
+    this.pictureLabel = new JLabel("No picture found", SwingConstants.CENTER);
+    this.pictureLabel.setFont(getPanelFont().deriveFont(Font.BOLD, 20));
     this.pictureLabel.setBorder(BorderFactory.createEmptyBorder(75, 0,0,0));
     this.add(pictureLabel, BorderLayout.CENTER);
   }
@@ -49,7 +51,7 @@ public class PicturePanel extends JPanel {
 
     try {
       this.pictureLabel.setText(null);
-      image = ImageIO.read(new File(picturePath));
+      image = ImageIO.read(getClass().getResource(picturePath));
       Image scaledImage = getScaledImage(image);
       this.pictureLabel.setIcon(new ImageIcon(scaledImage));
     } catch (IOException e) {

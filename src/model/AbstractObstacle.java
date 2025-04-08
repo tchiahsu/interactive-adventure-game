@@ -26,8 +26,6 @@ public abstract class AbstractObstacle implements IObstacle {
   protected String activeDescription;
   @JsonProperty("target")
   protected String target;
-  @JsonProperty("picture")
-  protected String picture;
 
   /**
    * Gets the name of the obstacle.
@@ -107,23 +105,6 @@ public abstract class AbstractObstacle implements IObstacle {
    */
   public String getTarget() {
     return target;
-  }
-
-  /**
-   * Gets the picture associated with the obstacle.
-   * @return the picture URL or file path for the obstacle.
-   */
-  public String getPicture() {
-    return picture;
-  }
-
-  /**
-   * Sets the picture file for the room with the path to the file.
-   *
-   * @param picture The picture file.
-   */
-  public void setPicture(String picture) {
-    this.picture = "/data/Resources/" + picture;
   }
 
   /**

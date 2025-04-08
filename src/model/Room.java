@@ -126,7 +126,11 @@ public class Room implements ILocation {
    * @param picture The picture file.
    */
   public void setPicture(String picture) {
-    this.picture = "/data/Resources/" + picture;
+    if (picture == null) {
+      this.picture = "/data/Resources/generic_location.png";
+    } else {
+      this.picture = "/data/Resources/" + picture;
+    }
   }
 
   /**

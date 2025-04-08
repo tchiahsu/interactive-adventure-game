@@ -165,6 +165,20 @@ public class GameModel implements IGameModel {
       + "\n";
   }
 
+  public List<String> getCurrentState() {
+    List<String> currentState = new ArrayList<>();
+    currentState.add(currentRoom.getName());
+    currentState.add(currentRoom.getPicture());
+    currentState.add(currentRoom.getDescription());
+    currentState.add(String.valueOf(player.getHealthStatus()));
+    currentState.add(String.valueOf(player.getHealth()));
+    currentState.add(String.valueOf(player.getScore()));
+
+    return currentState;
+  }
+
+
+
   /**
    * Gets the player object.
    *

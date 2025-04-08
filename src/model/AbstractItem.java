@@ -64,6 +64,10 @@ public abstract class AbstractItem implements IItem {
    * @param picture The picture file.
    */
   public void setPicture(String picture) {
-    this.picture = "/data/Resources/" + picture;
+    if (picture == null) {
+      this.picture = "/data/Resources/generic_item.png";
+    } else {
+      this.picture = "/data/Resources/" + picture;
+    }
   }
 }
