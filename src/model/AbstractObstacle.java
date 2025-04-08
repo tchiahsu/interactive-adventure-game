@@ -118,6 +118,15 @@ public abstract class AbstractObstacle implements IObstacle {
   }
 
   /**
+   * Sets the picture file for the room with the path to the file.
+   *
+   * @param picture The picture file.
+   */
+  public void setPicture(String picture) {
+    this.picture = "/data/Resources/" + picture;
+  }
+
+  /**
    * Deactivates the obstacle, making it inactive.
    * This method sets the active status of the obstacle to false.
    */

@@ -111,8 +111,22 @@ public class Room implements ILocation {
     return fixtureNames;
   }
 
+  /**
+   * Sets the names of the fixtures in the room.
+   *
+   * @param fixtureNames The names of the fixtures in the room.
+   */
   public void setFixtureNames(String fixtureNames) {
     this.fixtureNames = (fixtureNames != null) ? fixtureNames.toUpperCase() : "";
+  }
+
+  /**
+   * Sets the picture file for the room with the path to the file.
+   *
+   * @param picture The picture file.
+   */
+  public void setPicture(String picture) {
+    this.picture = "/data/Resources/" + picture;
   }
 
   /**

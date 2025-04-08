@@ -57,4 +57,13 @@ public abstract class AbstractItem implements IItem {
   public String getPicture() {
     return picture;
   }
+
+  /**
+   * Sets the picture file for the room with the path to the file.
+   *
+   * @param picture The picture file.
+   */
+  public void setPicture(String picture) {
+    this.picture = "/data/Resources/" + picture;
+  }
 }
