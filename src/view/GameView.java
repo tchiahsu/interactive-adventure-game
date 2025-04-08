@@ -25,20 +25,6 @@ public class GameView implements IGameView {
         navigationPanel, picturePanel);
   }
 
-  private void initializePanels() {
-    MenuBar menuBar = new MenuBar();
-    this.board = new GameBoard();
-    this.board.setJMenuBar(menuBar.getMenuBar());
-
-    this.descriptionPanel = new DescriptionPanel("HELLO");
-    this.inventoryPanel = new InventoryPanel();
-    this.statusPanel = new StatusPanel("You are healthy and wide awake!", "100", "0");
-    this.navigationPanel = new NavigationPanel();
-    this.picturePanel = new PicturePanel("Hallway 1", "src/data/images/courtyard.png");
-
-    this.setActionListener();
-  }
-
   public void startView() {
     String name = JOptionPane.showInputDialog("Enter a name for your player avatar: ");
     this.controller.setPlayerName(name);
@@ -51,6 +37,20 @@ public class GameView implements IGameView {
 
   public void setController(IController controller) {
     this.controller = controller;
+    this.setActionListener();
+  }
+
+  private void initializePanels() {
+    MenuBar menuBar = new MenuBar();
+    this.board = new GameBoard();
+    this.board.setJMenuBar(menuBar.getMenuBar());
+
+    this.descriptionPanel = new DescriptionPanel();
+    this.inventoryPanel = new InventoryPanel();
+    this.statusPanel = new StatusPanel();
+    this.navigationPanel = new NavigationPanel();
+    this.picturePanel = new PicturePanel("", "src/data/images/courtyard.png");
+
     this.setActionListener();
   }
 

@@ -15,10 +15,8 @@ public class StatusPanel extends JPanel {
   /**
    * Constructor for StatusPanel.
    * Creates a description panel with the given description.
-   *
-   * @param status The description to be displayed in the panel.
    */
-  public StatusPanel(String status, String health, String score) {
+  public StatusPanel() {
     this.setLayout(new GridLayout(3,2));
     this.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
     this.setBackground(PANEL_COLOR);
@@ -43,7 +41,6 @@ public class StatusPanel extends JPanel {
     this.currentStatus.setFont(getPanelFont().deriveFont(Font.PLAIN, 14));
     this.currentStatus.setBackground(PANEL_COLOR);
     this.currentStatus.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
-    this.currentStatus.setText(status);
 
     this.add(this.currentStatus);
 
@@ -60,7 +57,6 @@ public class StatusPanel extends JPanel {
     this.currentHealth.setFont(getPanelFont().deriveFont(Font.PLAIN, 20));
     this.currentHealth.setBackground(PANEL_COLOR);
     this.currentHealth.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
-    this.currentHealth.setText(health);
 
     this.add(this.currentHealth);
 
@@ -78,7 +74,6 @@ public class StatusPanel extends JPanel {
     this.currentScore.setFocusable(false);
     this.currentScore.setFont(getPanelFont().deriveFont(Font.PLAIN, 20));
     this.currentScore.setBackground(PANEL_COLOR);
-    this.currentScore.setText(score);
 
     this.add(this.currentScore);
 
@@ -107,7 +102,7 @@ public class StatusPanel extends JPanel {
    * @param status The current status to be displayed.
    */
   public void updateStatus(String status) {
-    //this.descriptionText.setText(description);
+    this.currentStatus.setText(status);
   }
 
   /**
@@ -116,7 +111,7 @@ public class StatusPanel extends JPanel {
    * @param health The current health to be displayed.
    */
   public void updateHealth(String health) {
-    //this.descriptionText.setText(description);
+    this.currentHealth.setText(health);
   }
 
   /**
@@ -125,6 +120,6 @@ public class StatusPanel extends JPanel {
    * @param score The current score to be displayed.
    */
   public void updateScore(String score) {
-    //this.descriptionText.setText(description);
+    this.currentScore.setText(score);
   }
 }

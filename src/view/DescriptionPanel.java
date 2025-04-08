@@ -16,10 +16,8 @@ public class DescriptionPanel extends JPanel {
   /**
    * Constructor for DescriptionPanel.
    * Creates a description panel with the given description.
-   *
-   * @param description The description to be displayed in the panel.
    */
-  public DescriptionPanel(String description) {
+  public DescriptionPanel() {
     // Set the title
     this.setLayout(new BorderLayout(10, 10));
     this.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
