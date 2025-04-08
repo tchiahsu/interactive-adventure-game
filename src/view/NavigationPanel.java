@@ -46,7 +46,7 @@ public class NavigationPanel extends JPanel {
     buttonPanel.add(answerBtn);
     buttonPanel.add(Box.createVerticalGlue());
 
-    this.add(buttonPanel, BorderLayout.WEST);
+    this.add(buttonPanel, BorderLayout.CENTER);
 
     // Create buttons for movement
     this.northBtn = createMoveButton("../data/images/north.png");
@@ -155,7 +155,6 @@ public class NavigationPanel extends JPanel {
     } catch (Exception e) {
       font = new Font("arial", Font.PLAIN, 20);
     }
-
     return font;
   }
 }
