@@ -1,4 +1,4 @@
-package EventHandler;
+package eventhandler;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;

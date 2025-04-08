@@ -3,7 +3,7 @@ package controller;
 import java.io.IOException;
 
 import commands.ICommand;
-import EventHandler.IEventHandler;
+import eventhandler.IEventHandler;
 import model.IGameModel;
 
 /**

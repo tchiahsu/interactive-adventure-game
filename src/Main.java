@@ -1,19 +1,8 @@
 import java.io.File;
 import java.io.IOException;
 
-import controller.GameController;
-import controller.IController;
 import enginedriver.GameEngineApp;
-import EventHandler.BatchConsoleHandler;
-import EventHandler.BatchFileHandler;
-import EventHandler.ConsoleHandler;
-import EventHandler.GuiHandler;
-import EventHandler.IEventHandler;
 import enginedriver.GameMode;
-import model.GameModel;
-import model.IGameModel;
-import view.GameView;
-import view.IGameView;
 
 /**
  * This Main class invokes the entry point {@link GameEngineApp} for the adventure game.

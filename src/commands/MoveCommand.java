@@ -2,7 +2,7 @@ package commands;
 
 import java.io.IOException;
 
-import EventHandler.IEventHandler;
+import eventhandler.IEventHandler;
 import model.IGameModel;
 
 /**

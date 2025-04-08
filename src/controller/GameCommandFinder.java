@@ -14,7 +14,7 @@ import commands.RestoreCommand;
 import commands.SaveCommand;
 import commands.TakeCommand;
 import commands.UseCommand;
-import EventHandler.IEventHandler;
+import eventhandler.IEventHandler;
 
 /**
  * The {@code GameCommandFinder} class is responsible for parsing and retrieving the correct

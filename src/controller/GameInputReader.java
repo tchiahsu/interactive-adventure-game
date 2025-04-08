@@ -2,7 +2,7 @@ package controller;
 
 import java.io.IOException;
 
-import EventHandler.IEventHandler;
+import eventhandler.IEventHandler;
 
 /**
  * The {@code GameInputReader} class is responsible for reading and validating user input.

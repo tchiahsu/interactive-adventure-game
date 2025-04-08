@@ -2,18 +2,16 @@ package enginedriver;
 
 import java.io.IOException;
 
-import EventHandler.BatchConsoleHandler;
-import EventHandler.BatchFileHandler;
-import EventHandler.ConsoleHandler;
-import EventHandler.GuiHandler;
+import eventhandler.BatchConsoleHandler;
+import eventhandler.BatchFileHandler;
+import eventhandler.ConsoleHandler;
+import eventhandler.GuiHandler;
 import controller.GameController;
 import controller.IController;
-import EventHandler.IEventHandler;
+import eventhandler.IEventHandler;
 import model.GameModel;
 import model.IGameModel;
-import model.Player;
 import view.GameView;
-import view.IGameView;
 
 /**
  * The {@code GameEngineApp} class is the single entry point for the game.
