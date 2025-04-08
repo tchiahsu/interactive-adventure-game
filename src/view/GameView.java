@@ -2,7 +2,6 @@ package view;
 
 import java.io.IOException;
 
-import controller.GameController;
 import controller.IController;
 
 public class GameView implements IGameView {
@@ -45,7 +44,7 @@ public class GameView implements IGameView {
 
   public void setController(IController controller) {
     this.controller = controller;
-    setActionListener();
+    this.setActionListener();
   }
 
   private void setActionListener() {
@@ -53,7 +52,7 @@ public class GameView implements IGameView {
       String selectedItem = inventoryPanel.getInventoryList().getSelectedValue();
       if (selectedItem != null) {
         try {
-          controller.executeCommand("USE" + selectedItem);
+          controller.executeCommand("USE " + selectedItem);
         } catch (IOException ex) {
           ex.printStackTrace();
         }
@@ -64,7 +63,7 @@ public class GameView implements IGameView {
       String selectedItem = inventoryPanel.getInventoryList().getSelectedValue();
       if (selectedItem != null) {
         try {
-          controller.executeCommand("DROP" + selectedItem);
+          controller.executeCommand("DROP " + selectedItem);
         } catch (IOException ex) {
           ex.printStackTrace();
         }
@@ -75,14 +74,11 @@ public class GameView implements IGameView {
       String selectedItem = inventoryPanel.getInventoryList().getSelectedValue();
       if (selectedItem != null) {
         try {
-          controller.executeCommand("EXAMINE" + selectedItem);
+          controller.executeCommand("EXAMINE " + selectedItem);
         } catch (IOException ex) {
           ex.printStackTrace();
         }
       }
     });
   }
-
 }
-
-

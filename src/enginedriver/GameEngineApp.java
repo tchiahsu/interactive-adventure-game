@@ -59,7 +59,6 @@ public class GameEngineApp {
       this.targetFile = targetFile;
   }
 
-
   /**
    * Starts the game by initializing the game model and controller.
    * It calls the go method in the controller to start the game flow.

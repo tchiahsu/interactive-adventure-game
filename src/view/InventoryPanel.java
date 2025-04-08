@@ -32,7 +32,7 @@ public class InventoryPanel extends JPanel {
     // Create inventory list
     DefaultListModel<String> listModel = new DefaultListModel<>();
 
-    listModel.addElement("Fish");
+    listModel.addElement("TICKET");
     listModel.addElement("Chicken");
     listModel.addElement("Cow Meat");
     listModel.addElement("Sardines");
