@@ -5,6 +5,8 @@ import java.awt.event.*;
 import java.io.File;
 import javax.swing.*;
 
+import static view.ViewUtils.getPanelFont;
+
 public class MenuBar {
   private static final Color MAIN_COLOR = new Color(40, 54, 24);
   private final static Color PANEL_COLOR = new Color(236, 240, 235);
@@ -80,22 +82,4 @@ public class MenuBar {
     dialog.setLocationRelativeTo(getMenuBar()); // Center the dialog on the main frame
     dialog.setVisible(true);
   }
-
-  /**
-   * Gets the Aharoni font for the panel.
-   *
-   * @return Aharoni font if the path to the file exists, Arial font otherwise.
-   */
-  private Font getPanelFont() {
-    File fontFile = new File("src/data/ahronbd.ttf");
-    Font font;
-    try {
-      font = Font.createFont(Font.TRUETYPE_FONT, fontFile);
-    } catch (Exception e) {
-      font = new Font("arial", Font.PLAIN, 20);
-    }
-    return font;
-  }
-
-
 }

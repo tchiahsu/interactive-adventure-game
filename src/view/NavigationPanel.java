@@ -6,6 +6,8 @@ import java.io.File;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
+import static view.ViewUtils.getPanelFont;
+
 public class NavigationPanel extends JPanel {
   private final static Color MAIN_COLOR = new Color(40, 54, 24);
   private final static Color PANEL_COLOR = new Color(236, 240, 235);
@@ -49,10 +51,10 @@ public class NavigationPanel extends JPanel {
     this.add(buttonPanel, BorderLayout.CENTER);
 
     // Create buttons for movement
-    this.northBtn = createMoveButton("../data/images/north.png");
-    this.westBtn = createMoveButton("../data/images/west.png");
-    this.eastBtn = createMoveButton("../data/images/east.png");
-    this.southBtn = createMoveButton("../data/images/south.png");
+    this.northBtn = createMoveButton("/data/Resources/north.png");
+    this.westBtn = createMoveButton("/data/Resources/west.png");
+    this.eastBtn = createMoveButton("/data/Resources/east.png");
+    this.southBtn = createMoveButton("/data/Resources/south.png");
 
     JPanel directionPanel = new JPanel();
     directionPanel.setLayout(new GridBagLayout());
@@ -140,21 +142,5 @@ public class NavigationPanel extends JPanel {
     newBtn.setBackground(BUTTON_COLOR);
 
     return newBtn;
-  }
-
-  /**
-   * Gets the Aharoni font for the panel.
-   *
-   * @return Aharoni font if the path to the file exists, Arial font otherwise.
-   */
-  private Font getPanelFont() {
-    File fontFile = new File("src/data/ahronbd.ttf");
-    Font font;
-    try {
-      font = Font.createFont(Font.TRUETYPE_FONT, fontFile);
-    } catch (Exception e) {
-      font = new Font("arial", Font.PLAIN, 20);
-    }
-    return font;
   }
 }

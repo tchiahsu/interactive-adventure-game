@@ -5,6 +5,8 @@ import java.io.File;
 
 import javax.swing.*;
 
+import static view.ViewUtils.getPanelFont;
+
 public class StatusPanel extends JPanel {
   private JTextArea currentStatus;
   private JTextArea currentHealth;
@@ -77,23 +79,6 @@ public class StatusPanel extends JPanel {
 
     this.add(this.currentScore);
 
-  }
-
-  /**
-   * Gets the Aharoni font for the panel.
-   *
-   * @return Aharoni font if the path to the file exists, Arial font otherwise.
-   */
-  private Font getPanelFont() {
-    File fontFile = new File("src/data/ahronbd.ttf");
-    Font font;
-    try {
-      font = Font.createFont(Font.TRUETYPE_FONT, fontFile);
-    } catch (Exception e) {
-      font = new Font("arial", Font.PLAIN, 8);
-    }
-
-    return font;
   }
 
   /**

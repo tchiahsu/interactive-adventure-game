@@ -6,6 +6,8 @@ import java.io.File;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
+import static view.ViewUtils.getPanelFont;
+
 public class InventoryPanel extends JPanel {
   private final static Color MAIN_COLOR = new Color(40, 54, 24);
   private final static Color PANEL_COLOR = new Color(236, 240, 235);
@@ -100,21 +102,5 @@ public class InventoryPanel extends JPanel {
     newBtn.setMaximumSize(buttonSize);
     newBtn.setBackground(BUTTON_COLOR);
     return newBtn;
-  }
-
-  /**
-   * Gets the Aharoni font for the panel.
-   *
-   * @return Aharoni font if the path to the file exists, Arial font otherwise.
-   */
-  private Font getPanelFont() {
-    File fontFile = new File("src/data/ahronbd.ttf");
-    Font font;
-    try {
-      font = Font.createFont(Font.TRUETYPE_FONT, fontFile);
-    } catch (Exception e) {
-      font = new Font("arial", Font.PLAIN, 20);
-    }
-    return font;
   }
 }

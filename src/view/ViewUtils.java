@@ -37,7 +37,7 @@ public final class ViewUtils {
    * @return Aharoni font if the path to the file exists, Arial font otherwise.
    */
   public static Font getPanelFont() {
-    File fontFile = new File("src/data/ahronbd.ttf");
+    File fontFile = new File("/data/Resources/ahronbd.ttf");
     Font font;
     try {
       font = Font.createFont(Font.TRUETYPE_FONT, fontFile);
@@ -47,5 +47,4 @@ public final class ViewUtils {
 
     return font;
   }
-
 }
