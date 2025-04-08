@@ -30,56 +30,47 @@ public class StatusPanel extends JPanel {
     JLabel healthTitle = new JLabel("HEALTH :");
     JLabel scoreTitle = new JLabel("SCORE :");
 
-    //Status
+    // Status
     statusTitle.setForeground(MAIN_COLOR);
     statusTitle.setFont(font);
     this.add(statusTitle);
-
-    this.currentStatus = new JTextArea();
-    this.currentStatus.setEditable(false);
-    this.currentStatus.setLineWrap(true);
-    this.currentStatus.setWrapStyleWord(true);
-    this.currentStatus.setFocusable(false);
-    this.currentStatus.setFont(getPanelFont().deriveFont(Font.PLAIN, 14));
-    this.currentStatus.setBackground(PANEL_COLOR);
-    this.currentStatus.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
-
+    this.currentStatus = createTextArea(14);
     this.add(this.currentStatus);
 
-    //Health
+    // Health
     healthTitle.setForeground(MAIN_COLOR);
     healthTitle.setFont(font);
     this.add(healthTitle);
-
-    this.currentHealth = new JTextArea();
-    this.currentHealth.setEditable(false);
-    this.currentHealth.setLineWrap(true);
-    this.currentHealth.setWrapStyleWord(true);
-    this.currentHealth.setFocusable(false);
-    this.currentHealth.setFont(getPanelFont().deriveFont(Font.PLAIN, 20));
-    this.currentHealth.setBackground(PANEL_COLOR);
-    this.currentHealth.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
-
+    this.currentHealth = createTextArea(20);
     this.add(this.currentHealth);
 
-    //Score
+    // Score
     scoreTitle.setForeground(MAIN_COLOR);
     scoreTitle.setFont(font);
     this.add(scoreTitle);
-
-    this.currentScore = new JTextArea();
-    this.currentScore.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
-    this.currentScore.setEditable(false);
-    this.currentScore.setLineWrap(true);
-    this.currentScore.setLineWrap(true);
-    this.currentScore.setWrapStyleWord(true);
-    this.currentScore.setFocusable(false);
-    this.currentScore.setFont(getPanelFont().deriveFont(Font.PLAIN, 20));
-    this.currentScore.setBackground(PANEL_COLOR);
-
+    this.currentScore = createTextArea(20);
     this.add(this.currentScore);
 
   }
+
+  /**
+   * Creates a JTextArea with the specified font size.
+   *
+   * @param fontSize The font size to be used for the JTextArea.
+   * @return The configured JTextArea.
+   */
+  private JTextArea createTextArea(int fontSize) {
+    JTextArea textArea = new JTextArea();
+    textArea.setEditable(false);
+    textArea.setLineWrap(true);
+    textArea.setWrapStyleWord(true);
+    textArea.setFocusable(false);
+    textArea.setFont(getPanelFont().deriveFont(Font.PLAIN, fontSize));
+    textArea.setBackground(PANEL_COLOR);
+    textArea.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+    return textArea;
+  }
+
 
   /**
    * Displays the given status of player to the panel.
