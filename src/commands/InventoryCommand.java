@@ -2,7 +2,7 @@ package commands;
 
 import java.io.IOException;
 
-import io.IOHandler;
+import EventHandler.IEventHandler;
 import model.IGameModel;
 
 /**
@@ -11,14 +11,14 @@ import model.IGameModel;
  * It implements the {@link ICommand} interface.
  */
 public class InventoryCommand implements ICommand {
-  private final IOHandler output;
+  private final IEventHandler output;
 
   /**
    * Constructs an {@code InventoryCommand} object with the specified output destination.
    *
-   * @param output : the {@link IOHandler} object where the command's output will be written.
+   * @param output : the {@link IEventHandler} object where the command's output will be written.
    */
-  public InventoryCommand(IOHandler output) {
+  public InventoryCommand(IEventHandler output) {
     this.output = output;
   }
 

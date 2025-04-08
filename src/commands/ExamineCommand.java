@@ -2,7 +2,7 @@ package commands;
 
 import java.io.IOException;
 
-import io.IOHandler;
+import EventHandler.IEventHandler;
 import model.IGameModel;
 
 /**
@@ -11,15 +11,15 @@ import model.IGameModel;
  */
 public class ExamineCommand implements ICommand {
   private final String object;
-  private final IOHandler output;
+  private final IEventHandler output;
 
   /**
    * Constructs an {@code ExamineCommand} object with the specified object and output destination.
    *
    * @param object : the object we are trying to examine.
-   * @param output : the {@link IOHandler} object where the command's output will be written.
+   * @param output : the {@link IEventHandler} object where the command's output will be written.
    */
-  public ExamineCommand(String object, IOHandler output) {
+  public ExamineCommand(String object, IEventHandler output) {
     this.object = object;
     this.output = output;
   }

@@ -2,7 +2,7 @@ package commands;
 
 import java.io.IOException;
 
-import io.IOHandler;
+import EventHandler.IEventHandler;
 import model.IGameModel;
 
 /**
@@ -11,15 +11,15 @@ import model.IGameModel;
  */
 public class DropCommand implements ICommand {
   private final String item;
-  private final IOHandler output;
+  private final IEventHandler output;
 
   /**
    * Constructs an {@code DropCommand} object with the specified object and output destination.
    *
    * @param item : item we want to drop.
-   * @param output : the {@link IOHandler} object where the command's output will be written.
+   * @param output : the {@link IEventHandler} object where the command's output will be written.
    */
-  public DropCommand(String item, IOHandler output) {
+  public DropCommand(String item, IEventHandler output) {
     this.item = item;
     this.output = output;
   }

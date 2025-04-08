@@ -1,12 +1,19 @@
 import java.io.File;
 import java.io.IOException;
 
+import controller.GameController;
+import controller.IController;
 import enginedriver.GameEngineApp;
-import io.BatchConsoleIO;
-import io.BatchFileIO;
-import io.ConsoleIO;
-import io.IOHandler;
+import EventHandler.BatchConsoleHandler;
+import EventHandler.BatchFileHandler;
+import EventHandler.ConsoleHandler;
+import EventHandler.GuiHandler;
+import EventHandler.IEventHandler;
+import enginedriver.GameMode;
+import model.GameModel;
+import model.IGameModel;
 import view.GameView;
+import view.IGameView;
 
 /**
  * This Main class invokes the entry point {@link GameEngineApp} for the adventure game.
@@ -27,91 +34,67 @@ public class Main {
    * @throws IOException if an I/O error occurs during input/output operations.
    */
   public static void main(String [] args) throws IOException {
-//    String hallwayjson = "src/data/simple_hallway.json";
-//    IOHandler handler = new ConsoleIO();
-//    GameEngineApp engine = new GameEngineApp(hallwayjson, handler);
-//    engine.start();
-
-    //run this command if you want test running the view:
-    GameView view = new GameView();
-
     if (args.length < 2 || args.length > 4) {
       displayCommands();
       return;
     }
 
     String filePath = args[0];
+    String playStyle = args[1];
+
     if (isInvalidFile(filePath) || !filePath.endsWith(".json")) {
       System.out.println("Invalid game file.");
       return;
     }
 
-    String playStyle = args[1];
-    if (playStyle.equals(CONSOLE_GAME)) {
-      playConsoleGame(filePath);
-    } else if (playStyle.equals(GRAPHICAL_GAME)) {
-      // Play game in view mode
-    } else if (playStyle.equals(BATCH_GAME)) {
-      handleBatchGame(args);
-    } else {
-      displayCommands();
-    }
-  }
-
-    private static void displayCommands () {
-      System.out.println("Incorrect command-line format for game engine.");
-      System.out.println("Formats allowed:");
-      System.out.println("game_engine <filename> -text");
-      System.out.println("game_engine <filename> -graphics");
-      System.out.println("game_engine <filename> -batch <source file>");
-      System.out.println("game_engine <filename> -batch <source file> <target file>");
-    }
-
-    private static boolean isInvalidFile (String path) {
-      File file = new File(path);
-      return !file.isFile();
-    }
-
-    private static void playConsoleGame (String filePath) throws IOException {
-      IOHandler io = new ConsoleIO();
-      GameEngineApp engine = new GameEngineApp(filePath, io);
-      engine.start();
-    }
-
-    private static void handleBatchGame (String[]args) throws IOException {
-      if (args.length < 3) {
-        System.out.println("Missing files for batch game.");
-        return;
+    GameEngineApp engine;
+    switch (playStyle) {
+      case CONSOLE_GAME -> {
+        engine = new GameEngineApp(filePath, GameMode.CONSOLE);
+        engine.start();
       }
-
-      String sourceFile = args[2];
-      if (isInvalidFile(sourceFile)) {
-        System.out.println("Invalid source file.");
-        return;
+      case GRAPHICAL_GAME -> {
+        engine = new GameEngineApp(filePath, GameMode.GRAPHICS);
+        engine.start();
       }
-
-      String filePath = args[0];
-      if (args.length == 3) {
-        playBatchConsoleGame(filePath, sourceFile);
-      } else {
-        String targetFile = args[3];
-        if (isInvalidFile(targetFile)) {
-          System.out.println("Invalid target file.");
-          return;
+      case BATCH_GAME -> {
+        if (args.length < 3) {
+          System.out.println("Missing files for batch game.");
         }
-        playBatchFileGame(filePath, sourceFile, targetFile);
+
+        if (args.length == 3) {
+          String sourceFile = args[2];
+          if (isInvalidFile(sourceFile)) {
+            System.out.println("Invalid source file.");
+            return;
+          }
+          engine = new GameEngineApp(filePath, GameMode.BATCH_CONSOLE, sourceFile);
+          engine.start();
+        } else if (args.length == 4) {
+          String sourceFile = args[2];
+          String targetFile = args[3];
+          if (isInvalidFile(sourceFile) || isInvalidFile(targetFile)) {
+            System.out.println("Invalid source or target file.");
+          }
+          engine = new GameEngineApp(filePath, GameMode.BATCH_FILE, sourceFile, targetFile);
+          engine.start();
+        }
       }
+      default -> displayCommands();
+    }
   }
 
-  private static void playBatchConsoleGame(String filePath, String sourcePath) throws IOException {
-    IOHandler io = new BatchConsoleIO(sourcePath);
-    GameEngineApp engine = new GameEngineApp(filePath, io);
-    engine.start();
+  private static void displayCommands () {
+    System.out.println("Incorrect command-line format for game engine.");
+    System.out.println("Formats allowed:");
+    System.out.println("game_engine <filename> -text");
+    System.out.println("game_engine <filename> -graphics");
+    System.out.println("game_engine <filename> -batch <source file>");
+    System.out.println("game_engine <filename> -batch <source file> <target file>");
   }
 
-  private static void playBatchFileGame(String filePath, String sourcePath, String targetPath) throws IOException {
-    IOHandler io = new BatchFileIO(sourcePath, targetPath);
-    GameEngineApp engine = new GameEngineApp(filePath, io);
-    engine.start();
+  private static boolean isInvalidFile (String path) {
+    File file = new File(path);
+    return !file.isFile();
   }
 }

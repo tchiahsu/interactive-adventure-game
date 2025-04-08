@@ -2,7 +2,7 @@ package commands;
 
 import java.io.IOException;
 
-import io.IOHandler;
+import EventHandler.IEventHandler;
 import model.IGameModel;
 
 /**
@@ -12,15 +12,15 @@ import model.IGameModel;
  */
 public class AnswerCommand implements ICommand {
   private final String answer;
-  private final IOHandler output;
+  private final IEventHandler output;
 
   /**
    * Constructs an {@code AnswerCommand} object with the specified response and output destination.
    *
    * @param answer : user specified answer to the puzzle.
-   * @param output : the {@link IOHandler} object where the command's output will be written.
+   * @param output : the {@link IEventHandler} object where the command's output will be written.
    */
-  public AnswerCommand(String answer, IOHandler output) {
+  public AnswerCommand(String answer, IEventHandler output) {
     this.answer = answer;
     this.output = output;
   }

@@ -2,7 +2,7 @@ package commands;
 
 import java.io.IOException;
 
-import io.IOHandler;
+import EventHandler.IEventHandler;
 import model.IGameModel;
 
 /**
@@ -12,14 +12,14 @@ import model.IGameModel;
  */
 public class MoveCommand implements ICommand {
   private String direction;
-  private final IOHandler output;
+  private final IEventHandler output;
 
   /**
    * Constructs an {@code MoveCommand} object with the specified direction and output avenue.
    * @param direction : direction the player moves.
-   * @param output : the {@link IOHandler} object where the command's output will be written.
+   * @param output : the {@link IEventHandler} object where the command's output will be written.
    */
-  public MoveCommand(String direction, IOHandler output) {
+  public MoveCommand(String direction, IEventHandler output) {
     this.direction = direction;
     this.output = output;
   }

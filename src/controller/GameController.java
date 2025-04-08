@@ -3,7 +3,7 @@ package controller;
 import java.io.IOException;
 
 import commands.ICommand;
-import io.IOHandler;
+import EventHandler.IEventHandler;
 import model.IGameModel;
 
 /**
@@ -12,18 +12,18 @@ import model.IGameModel;
  */
 public class GameController implements IController {
   private final IGameModel model;
-  private final IOHandler io;
+  private final IEventHandler handler;
 
   /**
    * Constructs a {@code GameController} with the specified game model,
    * input source and output destination.
    *
    * @param model : game model.
-   * @param io : input and output handler
+   * @param handler : input and output handler
    */
-  public GameController(IGameModel model, IOHandler io) {
+  public GameController(IGameModel model, IEventHandler handler) {
     this.model = model;
-    this.io = io;
+    this.handler = handler;
   }
 
   /**
@@ -35,21 +35,21 @@ public class GameController implements IController {
   @Override
   public void go() throws IOException {
     // Initialize input reader
-    GameInputReader inputReader = new GameInputReader(this.io);
+    GameInputReader inputReader = new GameInputReader(this.handler);
 
     // Prompt user for name
     String avatarName = inputReader.getAvatarName();
     this.model.getPlayer().setName(avatarName);
-    this.io.write("You shalt now be named: " + avatarName.toUpperCase() + "\n\n");
+    this.handler.write("You shalt now be named: " + avatarName.toUpperCase() + "\n\n");
 
     // Display initial game state
-    this.io.write(this.model.look());
+    this.handler.write(this.model.look());
 
     // Read string input from user
     String userInput = inputReader.readInput();
 
     // Initialize command finder
-    GameCommandFinder commandFinder = new GameCommandFinder(this.io);
+    GameCommandFinder commandFinder = new GameCommandFinder(this.handler);
     ICommand associatedCommand;
 
     // Continuous game loop until player quits
@@ -63,7 +63,7 @@ public class GameController implements IController {
     }
 
     // Game Ending Message
-    this.io.write(this.model.getEndingMessage());
+    this.handler.write(this.model.getEndingMessage());
   }
 
   /**
@@ -74,7 +74,7 @@ public class GameController implements IController {
    */
   public void executeCommand(String command) throws IOException {
     if (validateInput(command)) {
-      GameCommandFinder commandFinder = new GameCommandFinder(this.io);
+      GameCommandFinder commandFinder = new GameCommandFinder(this.handler);
       ICommand associatedCommand = commandFinder.getCommand(command);
       associatedCommand.execute(this.model);
     }

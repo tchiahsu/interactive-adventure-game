@@ -1,8 +1,6 @@
 package view;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 
 import javax.swing.*;
@@ -18,6 +16,7 @@ public class InventoryPanel extends JPanel {
   private final JList<String> inventoryList;
 
   public InventoryPanel() {
+
     // Set the title
     this.setLayout(new BorderLayout(10, 10));
     this.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
@@ -62,6 +61,10 @@ public class InventoryPanel extends JPanel {
     buttonPanel.add(Box.createHorizontalGlue());
 
     this.add(buttonPanel, BorderLayout.SOUTH);
+  }
+
+  public JList<String> getInventoryList() {
+    return inventoryList;
   }
 
   public JButton getDropBtn() {

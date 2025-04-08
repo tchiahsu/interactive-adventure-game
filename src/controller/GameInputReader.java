@@ -1,24 +1,22 @@
 package controller;
 
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.Scanner;
 
-import io.IOHandler;
+import EventHandler.IEventHandler;
 
 /**
  * The {@code GameInputReader} class is responsible for reading and validating user input.
  * It ensures that only valid commands can be processed.
  */
 public class GameInputReader {
-  private final IOHandler io;
+  private final IEventHandler handler;
 
   /**
    * Construct a {@code GameInputReader} with the specified input source and output destination.
-   * @param io : input and output operations.
+   * @param eventHandler : input and output operations.
    */
-  public GameInputReader(IOHandler io) {
-    this.io = io;
+  public GameInputReader(IEventHandler eventHandler) {
+    this.handler = eventHandler;
   }
 
   /**
@@ -33,7 +31,7 @@ public class GameInputReader {
 
       while (invalidInput) {
         // Display available commands to user
-        this.io.write("\n" + """
+        this.handler.write("\n" + """
           ==========\s
           To move, enter: (N)orth, (S)outh, (E)ast or (W)est.
           Other actions: (I)nventory, (L)ook around the location, (U)se an item
@@ -41,11 +39,11 @@ public class GameInputReader {
           (A)nswer a question or provide a text solution.\s
           To end the game, enter (Q)uit to quit and exit.
           Your choice:\s""");
-        userCommand = this.io.read().trim().toUpperCase(); // normalize input for validation
+        userCommand = this.handler.read().trim().toUpperCase(); // normalize input for validation
 
         // validate user input
         if (!this.validateInput(userCommand)) {
-          this.io.write("Invalid Command. Please try again.\n\n");
+          this.handler.write("Invalid Command. Please try again.\n\n");
         } else {
           invalidInput = false;
         }
@@ -67,11 +65,11 @@ public class GameInputReader {
     try {
       while (userCommand.isEmpty()) {
         // Ask user for an avatar
-        this.io.write("Enter a name for your player avatar: ");
-        userCommand = this.io.read().trim().toUpperCase(); // normalize input for validation
+        this.handler.write("Enter a name for your player avatar: ");
+        userCommand = this.handler.read().trim().toUpperCase(); // normalize input for validation
 
         if (userCommand.isEmpty()) {
-          this.io.write("Invalid Avatar Name. Please try again.\n\n");
+          this.handler.write("Invalid Avatar Name. Please try again.\n\n");
         }
       }
     } catch (IOException e) {

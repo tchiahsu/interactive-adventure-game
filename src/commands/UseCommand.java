@@ -2,7 +2,7 @@ package commands;
 
 import java.io.IOException;
 
-import io.IOHandler;
+import EventHandler.IEventHandler;
 import model.IGameModel;
 
 /**
@@ -11,15 +11,15 @@ import model.IGameModel;
  */
 public class UseCommand implements ICommand {
   private final String item;
-  private final IOHandler output;
+  private final IEventHandler output;
 
   /**
    * Construct an {@code UseCommand} object with the specified item and output destination.
    *
    * @param item : the item being used.
-   * @param output : the {@link IOHandler} object where the command's output will be written.
+   * @param output : the {@link IEventHandler} object where the command's output will be written.
    */
-  public UseCommand(String item, IOHandler output) {
+  public UseCommand(String item, IEventHandler output) {
     this.item = item;
     this.output = output;
   }

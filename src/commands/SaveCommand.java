@@ -2,7 +2,7 @@ package commands;
 
 import java.io.IOException;
 
-import io.IOHandler;
+import EventHandler.IEventHandler;
 import model.IGameModel;
 
 /**
@@ -10,15 +10,15 @@ import model.IGameModel;
  * It implements the {@link ICommand} interface.
  */
 public class SaveCommand implements ICommand {
-  private final IOHandler output;
+  private final IEventHandler output;
 
   /**
    * Constructs an {@code SaveCommand} object with the specified output destination for the save
    * message.
    *
-   * @param output : the {@link IOHandler} object where the command's output will be written.
+   * @param output : the {@link IEventHandler} object where the command's output will be written.
    */
-  public SaveCommand(IOHandler output) {
+  public SaveCommand(IEventHandler output) {
     this.output = output;
   }
 
