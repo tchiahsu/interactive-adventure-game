@@ -34,12 +34,11 @@ public class PicturePanel extends JPanel {
       image = ImageIO.read(new File(picturePath));
       Image scaledImage = getScaledImage(image);
       this.pictureLabel = new JLabel(new ImageIcon(scaledImage));
-      this.pictureLabel.setBorder(BorderFactory.createEmptyBorder(25, 0,0,0));
     } catch (IOException e) {
       this.pictureLabel = new JLabel("No picture found", SwingConstants.CENTER);
       this.pictureLabel.setFont(getPanelFont().deriveFont(Font.BOLD, 20));
     }
-
+    this.pictureLabel.setBorder(BorderFactory.createEmptyBorder(75, 0,0,0));
     this.add(pictureLabel, BorderLayout.CENTER);
   }
 
@@ -50,8 +49,7 @@ public class PicturePanel extends JPanel {
       this.pictureLabel.setText(null);
       image = ImageIO.read(new File(picturePath));
       Image scaledImage = getScaledImage(image);
-      this.pictureLabel = new JLabel(new ImageIcon(scaledImage));
-      this.pictureLabel.setIcon(new ImageIcon(image));
+      this.pictureLabel.setIcon(new ImageIcon(scaledImage));
     } catch (IOException e) {
       this.pictureLabel.setIcon(null);
       this.pictureLabel.setText("No picture found");

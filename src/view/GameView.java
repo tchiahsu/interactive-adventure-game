@@ -28,7 +28,7 @@ public class GameView implements IGameView {
     this.inventoryPanel = new InventoryPanel();
     this.statusPanel = new StatusPanel("You are healthy and wide awake!", "100", "0");
     this.navigationPanel = new NavigationPanel();
-    this.picturePanel = new PicturePanel("Hallway 1", "src/data/images/coming-soon.png");
+    this.picturePanel = new PicturePanel("Hallway 1", "src/data/images/courtyard.png");
   }
 }
 
