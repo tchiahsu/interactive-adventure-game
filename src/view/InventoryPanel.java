@@ -113,6 +113,10 @@ public class InventoryPanel extends JPanel {
     this.listModel.addElement(item);
   }
 
+  public void clearItemsInInventory() {
+    this.listModel.clear();
+  }
+
   /**
    * Method to show a JDialog with a given description.
    * @param description : The text to display in the dialog.

@@ -176,6 +176,7 @@ public class ViewManager {
     if (inventoryItems.isEmpty()) {
       return;
     } else {
+      this.inventoryPanel.clearItemsInInventory();
       Arrays.asList(inventoryItems.split(","))
               .forEach(item -> this.inventoryPanel.addItemToInventory(item));
     }
