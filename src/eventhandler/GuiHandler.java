@@ -24,14 +24,15 @@ public class GuiHandler implements IGuiEventHandler {
 
     String testDescription = "This is a description for testing"; //to be deleted
     String testImage = "/data/Resources/lamp.png"; //to be deleted
+    String testItem = "LAMP";
 
     Commands commandType = Commands.getEnum(this.getCommandAction());
     switch (commandType) {
       case MOVE, LOOK -> view.getDescriptionPanel().updateDescriptionPanel(s);
       case INVENTORY -> System.out.println("INVENTORY!");
-      case USE -> view.getInventoryPanel().addActionListenerToButton(view.getInventoryPanel().getUseBtn(), testDescription, "USE", testImage);
-      case TAKE -> System.out.println("TAKE!");
-      case DROP -> System.out.println("DROP!");
+      case USE -> view.getInventoryPanel().getDescriptionBox(view.getInventoryPanel().getUseBtn(), s, "USE", testImage);
+      case TAKE -> System.out.println("TAKE");
+      case DROP -> view.getInventoryPanel().getDescriptionBox(view.getInventoryPanel().getDropBtn(), s, "DROP", testImage);
       case EXAMINE -> System.out.println("EXAMINE!");
       case ANSWER -> System.out.println("ANSWER!");
       case SAVE -> System.out.println("SAVE!");

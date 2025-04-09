@@ -53,6 +53,9 @@ public class GameView implements IGameView {
     this.picturePanel = new PicturePanel();
 
     this.setActionListener();
+
+    //assert this.controller != null;
+    this.navigationPanel.getOptionsBox(this.navigationPanel.getTakeBtn(), "TAKE", this.controller.getCurrentRoomItems());
   }
 
   private void setActionListener() {

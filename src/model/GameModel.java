@@ -177,6 +177,10 @@ public class GameModel implements IGameModel {
     return currentState;
   }
 
+  public String[] getCurrentRoomItem() {
+    String[] currentRoomItems = {currentRoom.getItemNames(), currentRoom.getFixtureNames()};
+    return currentRoomItems;
+  }
 
 
   /**

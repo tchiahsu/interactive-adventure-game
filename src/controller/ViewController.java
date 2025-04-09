@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import commands.ICommand;
@@ -29,6 +30,10 @@ public class ViewController implements IViewController {
 
   public List<String> getCurrentState() {
     return this.model.getCurrentState();
+  }
+
+  public String[] getCurrentRoomItems() {
+    return this.model.getCurrentRoomItem();
   }
 
   public void setPlayerName(String name) {

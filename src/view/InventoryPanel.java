@@ -24,6 +24,8 @@ public class InventoryPanel extends JPanel {
   private final JButton useBtn;
   private final JButton dropBtn;
   private final JList<String> inventoryList;
+  private DefaultListModel<String> listModel;
+
 
   public InventoryPanel() {
     String testDescription = "This is a description for testing"; //to be deleted
@@ -41,7 +43,7 @@ public class InventoryPanel extends JPanel {
     this.add(title, BorderLayout.NORTH);
 
     // Create inventory list
-    DefaultListModel<String> listModel = new DefaultListModel<>();
+    this.listModel = new DefaultListModel<>();
 
     listModel.addElement("TICKET");
     listModel.addElement("Chicken");
@@ -62,10 +64,6 @@ public class InventoryPanel extends JPanel {
     this.inspectBtn = createButton("Inspect");
     this.useBtn = createButton("Use");
     this.dropBtn = createButton("Drop");
-
-    //addActionListenerToButton(inspectBtn, testDescription,"INSPECT", testImage);
-    //addActionListenerToButton(useBtn, testDescription, "USE", testImage);
-    //addActionListenerToButton(dropBtn,testDescription, "DROP", testImage);
 
     buttonPanel.add(Box.createHorizontalGlue());
     buttonPanel.add(this.inspectBtn);
@@ -94,11 +92,16 @@ public class InventoryPanel extends JPanel {
     return this.useBtn;
   }
 
+  public DefaultListModel<String> getListModel() {
+    return this.listModel;
+  }
+
   // Method to add action listeners to buttons
-  public void addActionListenerToButton(JButton button, String message, String title, String imgPath) {
+  public void getDescriptionBox(JButton button, String message, String title, String imgPath) {
     button.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
+        System.out.println("Button clicked, showing dialog...");
         try {
           showDescriptionDialog(message, title, imgPath);
         } catch (IOException ex) {
@@ -106,6 +109,13 @@ public class InventoryPanel extends JPanel {
         }
       }
     });
+  }
+
+  /**
+   * Method to add items to inventory's listModel
+   */
+  public void addItemsToInventory(String item) {
+    this.listModel.addElement(item);
   }
 
   /**

@@ -89,4 +89,5 @@ public interface IGameModel {
   String getEndingMessage();
 
   List<String> getCurrentState();
+  String[] getCurrentRoomItem();
 }
