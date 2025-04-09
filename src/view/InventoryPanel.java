@@ -1,6 +1,8 @@
 package view;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -15,13 +17,17 @@ public class InventoryPanel extends JPanel {
   private final static Color MAIN_COLOR = new Color(40, 54, 24);
   private final static Color PANEL_COLOR = new Color(236, 240, 235);
   private final static Color BUTTON_COLOR = new Color(220, 220, 220);
+  private static final int WIDTH_SCALE = 100;
+  private static final int HEIGHT_SCALE = 100;
+
   private final JButton inspectBtn;
   private final JButton useBtn;
   private final JButton dropBtn;
   private final JList<String> inventoryList;
 
   public InventoryPanel() {
-
+    String testDescription = "This is a description for testing"; //to be deleted
+    String testImage = "/data/Resources/lamp.png"; //to be deleted
     // Set the title
     this.setLayout(new BorderLayout(10, 10));
     this.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
@@ -57,6 +63,10 @@ public class InventoryPanel extends JPanel {
     this.useBtn = createButton("Use");
     this.dropBtn = createButton("Drop");
 
+    //addActionListenerToButton(inspectBtn, testDescription,"INSPECT", testImage);
+    //addActionListenerToButton(useBtn, testDescription, "USE", testImage);
+    //addActionListenerToButton(dropBtn,testDescription, "DROP", testImage);
+
     buttonPanel.add(Box.createHorizontalGlue());
     buttonPanel.add(this.inspectBtn);
     buttonPanel.add(Box.createRigidArea(new Dimension(5, 0)));
@@ -84,14 +94,29 @@ public class InventoryPanel extends JPanel {
     return this.useBtn;
   }
 
+  // Method to add action listeners to buttons
+  public void addActionListenerToButton(JButton button, String message, String title, String imgPath) {
+    button.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        try {
+          showDescriptionDialog(message, title, imgPath);
+        } catch (IOException ex) {
+          throw new RuntimeException(ex);
+        }
+      }
+    });
+  }
+
   /**
    * Method to show a JDialog with a given description.
    * @param description : The text to display in the dialog.
    */
   public void showDescriptionDialog(String description, String title, String imgPath) throws IOException {
-    Image image = ImageIO.read(getClass().getResource(imgPath));
+    BufferedImage image = ImageIO.read(getClass().getResource(imgPath));
+    Image scaledImage = getScaledImage(image);
     JOptionPane.showMessageDialog(null, description, title,
-            JOptionPane.INFORMATION_MESSAGE, new ImageIcon(image));
+            JOptionPane.INFORMATION_MESSAGE, new ImageIcon(scaledImage));
 
   }
 
@@ -116,5 +141,18 @@ public class InventoryPanel extends JPanel {
     newBtn.setMaximumSize(buttonSize);
     newBtn.setBackground(BUTTON_COLOR);
     return newBtn;
+  }
+
+  private Image getScaledImage(BufferedImage image) {
+    int imageWidth = image.getWidth();
+    int imageHeight = image.getHeight();
+
+    if (imageWidth > WIDTH_SCALE && imageHeight > HEIGHT_SCALE) {
+      return image.getScaledInstance(WIDTH_SCALE, HEIGHT_SCALE, Image.SCALE_SMOOTH);
+    } else if (imageWidth > WIDTH_SCALE) {
+      return image.getScaledInstance(WIDTH_SCALE, imageHeight, Image.SCALE_SMOOTH);
+    } else {
+      return image.getScaledInstance(imageWidth, HEIGHT_SCALE, Image.SCALE_SMOOTH);
+    }
   }
 }

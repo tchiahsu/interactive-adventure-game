@@ -38,7 +38,7 @@ public class GameView implements IGameView {
 
   public void setController(IViewController controller) {
     this.controller = controller;
-    this.inventorySetActionListener();
+    //this.setActionListener();
   }
 
   private void initializePanels() {
@@ -52,19 +52,15 @@ public class GameView implements IGameView {
     this.navigationPanel = new NavigationPanel();
     this.picturePanel = new PicturePanel();
 
-    this.inventorySetActionListener();
+    this.setActionListener();
   }
 
-  private void inventorySetActionListener() {
-    String testDescription = "This is description for testing";
-    String testImage = "/data/Resources/lamp.png";
+  private void setActionListener() {
     this.inventoryPanel.getUseBtn().addActionListener(event -> {
       String selectedItem = inventoryPanel.getInventoryList().getSelectedValue();
       if (selectedItem != null) {
         try {
-          String use = "USE ";
-          controller.executeCommand(use + selectedItem);
-          this.inventoryPanel.showDescriptionDialog(testDescription, use, testImage);
+          controller.executeCommand("USE" + selectedItem);
         } catch (IOException ex) {
           ex.printStackTrace();
         }
@@ -75,9 +71,7 @@ public class GameView implements IGameView {
       String selectedItem = inventoryPanel.getInventoryList().getSelectedValue();
       if (selectedItem != null) {
         try {
-          String drop = "DROP ";
-          controller.executeCommand(drop + selectedItem);
-          this.inventoryPanel.showDescriptionDialog(testDescription, drop, testImage);
+          controller.executeCommand("DROP" + selectedItem);
         } catch (IOException ex) {
           ex.printStackTrace();
         }
@@ -88,15 +82,22 @@ public class GameView implements IGameView {
       String selectedItem = inventoryPanel.getInventoryList().getSelectedValue();
       if (selectedItem != null) {
         try {
-          String inspect = "EXAMINE ";
-          controller.executeCommand(inspect + selectedItem);
-          this.inventoryPanel.showDescriptionDialog(testDescription, inspect, testImage);
+          controller.executeCommand("EXAMINE" + selectedItem);
         } catch (IOException ex) {
           ex.printStackTrace();
         }
       }
     });
   }
+
+  /**
+   * Method that returns the InventoryPanel.
+   */
+  @Override
+  public InventoryPanel getInventoryPanel() {
+    return this.inventoryPanel;
+  }
+
 }
 
 
