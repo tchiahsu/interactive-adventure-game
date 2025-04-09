@@ -67,46 +67,7 @@ public class GameController implements IController {
     this.handler.write(this.model.getEndingMessage());
   }
 
-  /**
-   * Executes a command from the GUI.
-   *
-   * @param command : command that needs to be executed.
-   * @throws IOException if an I/O error occurs.
-   */
-  public void executeCommand(String command) throws IOException {
-    if (validateInput(command)) {
-      String[] splitCommand = command.split(" ", 2);
-      this.handler.setCommandAction(splitCommand[0]);
-      GameCommandFinder commandFinder = new GameCommandFinder(this.handler);
-      ICommand associatedCommand = commandFinder.getCommand(command);
-      associatedCommand.execute(this.model);
-    }
-  }
-
-  public List<String> getCurrentState() {
-    return this.model.getCurrentState();
-  }
-
   public void setPlayerName(String name) {
     this.model.getPlayer().setName(name);
-  }
-
-  /**
-   * Validates if the given input command is a valid command for the adventure game.
-   *
-   * @param input : user string input.
-   * @return true if command is valid, false otherwise.
-   */
-  private boolean validateInput(String input) {
-    String[] parts = input.split(" ", 2);
-    String action = parts[0];
-
-    Commands commandType = Commands.getEnum(action);
-    if (commandType == null) {
-      return false;
-    }
-
-    return commandType.getRequiresArgument() ? parts.length == 2
-      && !parts[1].trim().isEmpty() : parts.length == 1;
   }
 }

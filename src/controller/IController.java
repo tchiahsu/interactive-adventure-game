@@ -15,10 +15,4 @@ public interface IController {
    * @throws IOException if an I/O error occurs during execution.
    */
   void go() throws IOException;
-
-  void executeCommand(String command) throws IOException;
-
-  List<String> getCurrentState();
-
-  void setPlayerName(String name);
 }

@@ -6,7 +6,7 @@ import java.io.UnsupportedEncodingException;
 import controller.Commands;
 import view.IGameView;
 
-public class GuiHandler implements IEventHandler {
+public class GuiHandler implements IGuiEventHandler {
   private final IGameView view;
   private String commandAction = "N";
 
@@ -23,9 +23,8 @@ public class GuiHandler implements IEventHandler {
   public void write(String s) throws IOException {
     Commands commandType = Commands.getEnum(this.getCommandAction());
     switch (commandType) {
-      case MOVE -> System.out.println("MOVE");
+      case MOVE, LOOK -> view.getDescriptionPanel().updateDescriptionPanel(s);
       case INVENTORY -> System.out.println("INVENTORY!");
-      case LOOK -> System.out.println("LOOK!");
       case USE -> System.out.println("USE");
       case TAKE -> System.out.println("TAKE!");
       case DROP -> System.out.println("DROP!");
@@ -36,7 +35,6 @@ public class GuiHandler implements IEventHandler {
       case QUIT -> System.out.println("QUIT!");
       case null -> System.out.println("INVALID");
     }
-    view.getDescriptionPanel().updateDescriptionPanel(s);
   }
 
   public void setCommandAction(String action) {

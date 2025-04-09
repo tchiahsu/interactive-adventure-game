@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import javax.swing.*;
 
-import controller.IController;
+import controller.IViewController;
 
 public class GameView implements IGameView {
   private GameBoard board;
@@ -14,7 +14,7 @@ public class GameView implements IGameView {
   private StatusPanel statusPanel;
   private NavigationPanel navigationPanel;
   private PicturePanel picturePanel;
-  private IController controller;
+  private IViewController controller;
 
   /**
    * Construct a View object.
@@ -36,7 +36,7 @@ public class GameView implements IGameView {
     return this.descriptionPanel;
   }
 
-  public void setController(IController controller) {
+  public void setController(IViewController controller) {
     this.controller = controller;
     this.inventorySetActionListener();
   }

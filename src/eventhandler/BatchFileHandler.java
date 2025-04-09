@@ -25,9 +25,4 @@ public class BatchFileHandler implements IEventHandler {
     writer.write(s);
     writer.flush();
   }
-
-  @Override
-  public void setCommandAction(String action) {
-
-  }
 }

@@ -2,6 +2,8 @@ package enginedriver;
 
 import java.io.IOException;
 
+import controller.ViewController;
+import controller.IViewController;
 import eventhandler.BatchConsoleHandler;
 import eventhandler.BatchFileHandler;
 import eventhandler.ConsoleHandler;
@@ -9,6 +11,7 @@ import eventhandler.GuiHandler;
 import controller.GameController;
 import controller.IController;
 import eventhandler.IEventHandler;
+import eventhandler.IGuiEventHandler;
 import model.GameModel;
 import model.IGameModel;
 import view.GameView;
@@ -75,9 +78,9 @@ public class GameEngineApp {
       }
       case GRAPHICS -> {
         GameView view = new GameView();
-        GuiHandler handler = new GuiHandler(view);
-        controller = new GameController(model, handler);
-        view.setController(controller);
+        IGuiEventHandler handler = new GuiHandler(view);
+        IViewController guiController = new ViewController(model, handler);
+        view.setController(guiController);
         view.startView();
       }
       case BATCH_CONSOLE -> {
