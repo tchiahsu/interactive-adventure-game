@@ -1,6 +1,10 @@
 package view;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.swing.*;
 
@@ -15,6 +19,7 @@ public class GameView implements IGameView {
   private NavigationPanel navigationPanel;
   private PicturePanel picturePanel;
   private IViewController controller;
+  private int itemIndex;
 
   /**
    * Construct a View object.
@@ -28,6 +33,7 @@ public class GameView implements IGameView {
   public void startView() {
     String name = JOptionPane.showInputDialog("Enter a name for your player avatar: ");
     this.controller.setPlayerName(name);
+    this.setActionListener();
     this.viewManager.setCurrentState(this.controller.getCurrentState());
     this.viewManager.displayView();
   }
@@ -36,9 +42,12 @@ public class GameView implements IGameView {
     return this.descriptionPanel;
   }
 
+  public NavigationPanel getNavigationPanel() {
+    return this.navigationPanel;
+  }
+
   public void setController(IViewController controller) {
     this.controller = controller;
-    //this.setActionListener();
   }
 
   private void initializePanels() {
@@ -51,11 +60,6 @@ public class GameView implements IGameView {
     this.statusPanel = new StatusPanel();
     this.navigationPanel = new NavigationPanel();
     this.picturePanel = new PicturePanel();
-
-    this.setActionListener();
-
-    //assert this.controller != null;
-//    this.navigationPanel.getOptionsBox(this.navigationPanel.getTakeBtn(), "TAKE", this.controller.getCurrentRoomItems());
   }
 
   private void setActionListener() {
@@ -127,6 +131,23 @@ public class GameView implements IGameView {
         e.printStackTrace();
       }
     });
+
+    String[] roomItems = this.getRoomItems();
+    this.navigationPanel.getTakeBtn().addActionListener(event -> {
+      try {
+        this.showSelectionDialog("Items you can take:", roomItems);
+        this.controller.executeCommand("TAKE " + roomItems[this.itemIndex]);
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    });
+
+  }
+
+  public void showSelectionDialog(String title, String[] items) {
+    this.itemIndex = JOptionPane.showOptionDialog(null,
+            "Select", title, JOptionPane.DEFAULT_OPTION,
+            JOptionPane.INFORMATION_MESSAGE, null, items, null);
   }
 
   /**
@@ -146,6 +167,11 @@ public class GameView implements IGameView {
   public void showPopUp(String s) {
     JFrame popUp = new JFrame();
     JOptionPane.showMessageDialog(popUp, s, "Path Blocked!", JOptionPane.ERROR_MESSAGE);
+  }
+
+  public String[] getRoomItems() {
+    String roomItemNames = this.controller.getCurrentRoomItems()[0];
+    return roomItemNames.split(", ");
   }
 }
 

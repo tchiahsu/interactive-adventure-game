@@ -23,6 +23,7 @@ public class NavigationPanel extends JPanel {
   private final JButton westBtn;
   private final JButton eastBtn;
   private final JButton southBtn;
+  private int itemIndex;
 
 
   public NavigationPanel() {
@@ -117,30 +118,33 @@ public class NavigationPanel extends JPanel {
     return answerBtn;
   }
 
-  // Method to add action listeners to buttons
-  public void getOptionsBox(JButton button, String title, String[] options) {
-    button.addActionListener(new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        System.out.println("Button clicked, showing dialog...");
-        try {
-          showSelectionDialog(title, options);
-        } catch (IOException ex) {
-          throw new RuntimeException(ex);
-        }
-      }
-    });
-  }
-
-  /**
-   * Method to show a JDialog with a given description.
-   * @param title : The text to display in the dialog.
-   */
-  public void showSelectionDialog(String title, String[] items) throws IOException {
-    int choice = JOptionPane.showOptionDialog(null,
-            "Select", title, JOptionPane.DEFAULT_OPTION,
-            JOptionPane.INFORMATION_MESSAGE, null, items, null);
-  }
+//  // Method to add action listeners to buttons
+//  public void getOptionsBox(JButton button, String title, String[] options) {
+//    button.addActionListener(new ActionListener() {
+//      @Override
+//      public void actionPerformed(ActionEvent e) {
+//        try {
+//          showSelectionDialog(title, options);
+//        } catch (IOException ex) {
+//          throw new RuntimeException(ex);
+//        }
+//      }
+//    });
+//  }
+//
+//  /**
+//   * Method to show a JDialog with a given description.
+//   * @param title : The text to display in the dialog.
+//   */
+//  public void showSelectionDialog(String title, String[] items) throws IOException {
+//    this.itemIndex = JOptionPane.showOptionDialog(null,
+//            "Select", title, JOptionPane.DEFAULT_OPTION,
+//            JOptionPane.INFORMATION_MESSAGE, null, items, null);
+//  }
+//
+//  public int getItemIndex() {
+//    return this.itemIndex;
+//  }
 
   private JButton createMoveButton(String image) {
     JButton newBtn = new JButton();

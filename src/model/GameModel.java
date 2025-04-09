@@ -6,6 +6,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -187,6 +188,10 @@ public class GameModel implements IGameModel {
     currentState.add(player.getHealthStatus());
     currentState.add(String.valueOf(player.getHealth()));
     currentState.add(String.valueOf(player.getScore()));
+    currentState.add(
+            player.getInventory().getItems()
+                    .stream()
+                    .map(item -> item.getName()).collect(Collectors.joining(",")));
 
     return currentState;
   }

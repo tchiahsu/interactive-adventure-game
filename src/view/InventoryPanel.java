@@ -45,11 +45,6 @@ public class InventoryPanel extends JPanel {
     // Create inventory list
     this.listModel = new DefaultListModel<>();
 
-    listModel.addElement("TICKET");
-    listModel.addElement("Chicken");
-    listModel.addElement("Cow Meat");
-    listModel.addElement("Sardines");
-
     this.inventoryList = new JList<>(listModel);
     inventoryList.setBorder(new EmptyBorder(5, 5, 5, 5));
     inventoryList.setFont(getPanelFont().deriveFont(Font.BOLD, 16));
@@ -114,7 +109,7 @@ public class InventoryPanel extends JPanel {
   /**
    * Method to add items to inventory's listModel
    */
-  public void addItemsToInventory(String item) {
+  public void addItemToInventory(String item) {
     this.listModel.addElement(item);
   }
 

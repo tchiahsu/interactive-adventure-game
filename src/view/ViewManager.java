@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.*;
+import java.util.Arrays;
 import java.util.List;
 import javax.swing.*;
 
@@ -170,5 +171,13 @@ public class ViewManager {
 
     String score = currentState.get(5);
     this.statusPanel.updateScore(score);
+
+    String inventoryItems = currentState.get(6);
+    if (inventoryItems.isEmpty()) {
+      return;
+    } else {
+      Arrays.asList(inventoryItems.split(","))
+              .forEach(item -> this.inventoryPanel.addItemToInventory(item));
+    }
   }
 }
