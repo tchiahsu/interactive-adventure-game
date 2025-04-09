@@ -136,7 +136,10 @@ public class GameView implements IGameView {
     this.navigationPanel.getTakeBtn().addActionListener(event -> {
       try {
         this.showSelectionDialog("Items you can take:", roomItems);
-        this.controller.executeCommand("TAKE " + roomItems[this.itemIndex]);
+        if (this.itemIndex != -1) {
+          this.controller.executeCommand("TAKE " + roomItems[this.itemIndex]);
+          this.itemIndex = -1;
+        }
       } catch (IOException e) {
         e.printStackTrace();
       }
