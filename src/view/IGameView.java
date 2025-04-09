@@ -5,5 +5,6 @@ public interface IGameView {
   void startView();
 
   InventoryPanel getInventoryPanel();
-
+  void updateView();
+  void showPopUp(String s);
 }

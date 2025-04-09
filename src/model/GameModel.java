@@ -168,9 +168,23 @@ public class GameModel implements IGameModel {
   public List<String> getCurrentState() {
     List<String> currentState = new ArrayList<>();
     currentState.add(currentRoom.getName());
-    currentState.add(currentRoom.getPicture());
-    currentState.add(currentRoom.getDescription());
-    currentState.add(String.valueOf(player.getHealthStatus()));
+
+    StringBuilder output = new StringBuilder();
+    if (roomHasActiveMonster()) {
+      Monster monster = getMonsterInRoom();
+      currentState.add(monster.getPicture());
+      output.append(monster.getActiveDescription() + "\n");
+      output.append(monster.getName() + " " + monster.getAttackMessage() + "\n");
+      output.append("You took " + monster.getDamage() + " damage!\n");
+    } else if (roomHasActivePuzzle()) {
+      currentState.add(getPuzzleInRoom().getPicture());
+      output.append(getPuzzleInRoom().getActiveDescription()).append("\n");
+    } else {
+      currentState.add(currentRoom.getPicture());
+      output.append(currentRoom.getDescription()).append("\n");
+    }
+    currentState.add(getItemsInRoom(output.toString()));
+    currentState.add(player.getHealthStatus());
     currentState.add(String.valueOf(player.getHealth()));
     currentState.add(String.valueOf(player.getScore()));
 

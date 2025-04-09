@@ -157,7 +157,6 @@ public class ViewManager {
   public void setCurrentState(List<String> currentState) {
     String roomName = currentState.get(0);
     String roomPicture = currentState.get(1);
-    System.out.println(roomPicture);
     this.picturePanel.updatePicturePanel(roomName, roomPicture);
 
     String currentDescription = currentState.get(2);

@@ -55,7 +55,7 @@ public class GameView implements IGameView {
     this.setActionListener();
 
     //assert this.controller != null;
-    this.navigationPanel.getOptionsBox(this.navigationPanel.getTakeBtn(), "TAKE", this.controller.getCurrentRoomItems());
+//    this.navigationPanel.getOptionsBox(this.navigationPanel.getTakeBtn(), "TAKE", this.controller.getCurrentRoomItems());
   }
 
   private void setActionListener() {
@@ -91,6 +91,42 @@ public class GameView implements IGameView {
         }
       }
     });
+
+    setNavigationPanelActionListener();
+  }
+
+  public void setNavigationPanelActionListener() {
+    this.navigationPanel.getNorthBtn().addActionListener(event -> {
+      try {
+        this.controller.executeCommand("NORTH");
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    });
+
+    this.navigationPanel.getSouthBtn().addActionListener(event -> {
+      try {
+        this.controller.executeCommand("SOUTH");
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    });
+
+    this.navigationPanel.getEastBtn().addActionListener(event -> {
+      try {
+        this.controller.executeCommand("EAST");
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    });
+
+    this.navigationPanel.getWestBtn().addActionListener(event -> {
+      try {
+        this.controller.executeCommand("WEST");
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    });
   }
 
   /**
@@ -101,6 +137,16 @@ public class GameView implements IGameView {
     return this.inventoryPanel;
   }
 
+  @Override
+  public void updateView() {
+    this.viewManager.setCurrentState(this.controller.getCurrentState());
+  }
+
+  @Override
+  public void showPopUp(String s) {
+    JFrame popUp = new JFrame();
+    JOptionPane.showMessageDialog(popUp, s, "Path Blocked!", JOptionPane.ERROR_MESSAGE);
+  }
 }
 
 

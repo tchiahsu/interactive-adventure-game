@@ -28,7 +28,7 @@ public class DescriptionPanel extends JPanel {
     // Create a title panel for the top
     JLabel title = new JLabel("Description");
     title.setForeground(MAIN_COLOR);
-    Font font = getPanelFont().deriveFont(Font.BOLD, 30);
+    Font font = getPanelFont().deriveFont(Font.BOLD, 20);
     title.setFont(font);
     this.add(title, BorderLayout.NORTH);
 
@@ -38,7 +38,7 @@ public class DescriptionPanel extends JPanel {
     this.descriptionText.setLineWrap(true);
     this.descriptionText.setWrapStyleWord(true);
     this.descriptionText.setFocusable(false);
-    this.descriptionText.setFont(getPanelFont().deriveFont(Font.PLAIN, 18));
+    this.descriptionText.setFont(getPanelFont().deriveFont(Font.PLAIN, 14));
     this.descriptionText.setBackground(PANEL_COLOR);
     this.descriptionText.setAlignmentX(Component.LEFT_ALIGNMENT);
 

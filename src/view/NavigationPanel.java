@@ -189,8 +189,23 @@ public class NavigationPanel extends JPanel {
     return newBtn;
   }
 
+  public JButton getNorthBtn() {
+    return this.northBtn;
+  }
 
-//  /**
+  public JButton getSouthBtn() {
+    return this.southBtn;
+  }
+
+  public JButton getWestBtn() {
+    return this.westBtn;
+  }
+
+  public JButton getEastBtn() {
+    return this.eastBtn;
+  }
+
+  //  /**
 //   * Method to show a pop-up box where user can enter answer
 //   * @param  : The text that says display your answer
 //   */

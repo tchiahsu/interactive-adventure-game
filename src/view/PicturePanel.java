@@ -29,7 +29,7 @@ public class PicturePanel extends JPanel {
     this.setBackground(PANEL_COLOR);
     this.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
     this.roomLabel = new JLabel();
-    this.roomLabel.setFont(getPanelFont().deriveFont(Font.BOLD, 30));
+    this.roomLabel.setFont(getPanelFont().deriveFont(Font.BOLD, 20));
     this.add(roomLabel, BorderLayout.NORTH);
 //
 //    try {
@@ -57,7 +57,7 @@ public class PicturePanel extends JPanel {
     } catch (IOException e) {
       this.pictureLabel.setIcon(null);
       this.pictureLabel.setText("No picture found");
-      this.pictureLabel.setFont(getPanelFont().deriveFont(Font.BOLD, 20));
+      this.pictureLabel.setFont(getPanelFont().deriveFont(Font.BOLD, 12));
     }
   }
 

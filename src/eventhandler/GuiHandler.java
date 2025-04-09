@@ -28,15 +28,19 @@ public class GuiHandler implements IGuiEventHandler {
 
     Commands commandType = Commands.getEnum(this.getCommandAction());
     switch (commandType) {
-      case MOVE, LOOK -> view.getDescriptionPanel().updateDescriptionPanel(s);
+      case MOVE, LOOK -> {
+        view.updateView();
+        if (s.contains("cannot go in")) {
+          view.showPopUp(s);
+        }
+      }
       case INVENTORY -> System.out.println("INVENTORY!");
       case USE -> view.getInventoryPanel().getDescriptionBox(view.getInventoryPanel().getUseBtn(), s, "USE", testImage);
       case TAKE -> System.out.println("TAKE");
       case DROP -> view.getInventoryPanel().getDescriptionBox(view.getInventoryPanel().getDropBtn(), s, "DROP", testImage);
       case EXAMINE -> System.out.println("EXAMINE!");
       case ANSWER -> System.out.println("ANSWER!");
-      case SAVE -> System.out.println("SAVE!");
-      case RESTORE -> System.out.println("RESTORE!");
+      case SAVE, RESTORE -> view.showPopUp(s);
       case QUIT -> System.out.println("QUIT!");
       case null -> System.out.println("INVALID");
     }
