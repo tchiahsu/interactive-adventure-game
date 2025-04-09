@@ -38,7 +38,7 @@ public class GameView implements IGameView {
 
   public void setController(IController controller) {
     this.controller = controller;
-    this.setActionListener();
+    this.inventorySetActionListener();
   }
 
   private void initializePanels() {
@@ -52,15 +52,19 @@ public class GameView implements IGameView {
     this.navigationPanel = new NavigationPanel();
     this.picturePanel = new PicturePanel();
 
-    this.setActionListener();
+    this.inventorySetActionListener();
   }
 
-  private void setActionListener() {
+  private void inventorySetActionListener() {
+    String testDescription = "This is description for testing";
+    String testImage = "/data/Resources/lamp.png";
     this.inventoryPanel.getUseBtn().addActionListener(event -> {
       String selectedItem = inventoryPanel.getInventoryList().getSelectedValue();
       if (selectedItem != null) {
         try {
-          controller.executeCommand("USE " + selectedItem);
+          String use = "USE ";
+          controller.executeCommand(use + selectedItem);
+          this.inventoryPanel.showDescriptionDialog(testDescription, use, testImage);
         } catch (IOException ex) {
           ex.printStackTrace();
         }
@@ -71,7 +75,9 @@ public class GameView implements IGameView {
       String selectedItem = inventoryPanel.getInventoryList().getSelectedValue();
       if (selectedItem != null) {
         try {
-          controller.executeCommand("DROP " + selectedItem);
+          String drop = "DROP ";
+          controller.executeCommand(drop + selectedItem);
+          this.inventoryPanel.showDescriptionDialog(testDescription, drop, testImage);
         } catch (IOException ex) {
           ex.printStackTrace();
         }
@@ -82,7 +88,9 @@ public class GameView implements IGameView {
       String selectedItem = inventoryPanel.getInventoryList().getSelectedValue();
       if (selectedItem != null) {
         try {
-          controller.executeCommand("EXAMINE " + selectedItem);
+          String inspect = "EXAMINE ";
+          controller.executeCommand(inspect + selectedItem);
+          this.inventoryPanel.showDescriptionDialog(testDescription, inspect, testImage);
         } catch (IOException ex) {
           ex.printStackTrace();
         }
@@ -90,3 +98,15 @@ public class GameView implements IGameView {
     });
   }
 }
+
+
+
+// 6 buttons
+//inventory - drop use, inspect
+//navigation - take, examine, answer
+
+//drop, use, inspect, - message
+// take, examine - list
+// answer - input
+
+//pop up - you cannot move in that direction

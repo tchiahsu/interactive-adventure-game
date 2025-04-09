@@ -1,8 +1,11 @@
 package view;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
@@ -79,6 +82,17 @@ public class InventoryPanel extends JPanel {
 
   public JButton getUseBtn() {
     return this.useBtn;
+  }
+
+  /**
+   * Method to show a JDialog with a given description.
+   * @param description : The text to display in the dialog.
+   */
+  public void showDescriptionDialog(String description, String title, String imgPath) throws IOException {
+    Image image = ImageIO.read(getClass().getResource(imgPath));
+    JOptionPane.showMessageDialog(null, description, title,
+            JOptionPane.INFORMATION_MESSAGE, new ImageIcon(image));
+
   }
 
   /**

@@ -2,7 +2,10 @@ package view;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import static view.ViewUtils.getPanelFont;
@@ -10,6 +13,9 @@ import static view.ViewUtils.getPanelFont;
 public class MenuBar {
   private static final Color MAIN_COLOR = new Color(40, 54, 24);
   private final static Color PANEL_COLOR = new Color(236, 240, 235);
+  private final static Color BUTTON_COLOR = new Color(220, 220, 220);
+  private static final int WIDTH_SCALE = 100;
+  private static final int HEIGHT_SCALE = 80;
 
   public JMenuBar getMenuBar() {
     JMenuBar menuBar = new JMenuBar();
@@ -21,7 +27,7 @@ public class MenuBar {
     JMenuItem saveGame = new JMenuItem("Save");
     JMenuItem restoreGame = new JMenuItem("Restore");
     JMenuItem exit = new JMenuItem("Exit");
-    exit.addActionListener(event -> System.exit(0));
+    //exit.addActionListener(event -> System.exit(0));
 
     fileMenu.setFont(getPanelFont().deriveFont(Font.PLAIN, 18));;
     fileMenu.setForeground(Color.WHITE);
@@ -49,16 +55,28 @@ public class MenuBar {
     about.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        showAboutDialog("About the game"); // Call the method to display the text box
+        showAboutDialog("About the game");
       }
     });
 
     credits.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        showAboutDialog("credits"); // Call the method to display the text box
+        showAboutDialog("credits");
       }
     });
+
+    exit.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        try {
+          showExitDialog("Game Summary", "/data/Resources/lamp.png");
+        } catch (IOException ex) {
+          throw new RuntimeException(ex);
+        }
+      }
+    });
+
 
     fileMenu.add(about);
     fileMenu.add(credits);
@@ -79,7 +97,66 @@ public class MenuBar {
     dialog.setBackground(PANEL_COLOR);
     dialog.add(new JScrollPane(aboutText));
     dialog.setSize(300, 200);
-    dialog.setLocationRelativeTo(getMenuBar()); // Center the dialog on the main frame
+    dialog.setLocationRelativeTo(getMenuBar());
     dialog.setVisible(true);
   }
+
+  private void showExitDialog(String text, String imgPath) throws IOException {
+    JLabel gameSummary = new JLabel(text);
+    gameSummary.setFont(getPanelFont().deriveFont(Font.PLAIN, 12));
+    gameSummary.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+    BufferedImage image = ImageIO.read(getClass().getResource(imgPath));
+    Image scaledImage = getScaledImage(image);
+    JLabel imageLabel = new JLabel();
+    imageLabel.setIcon(new ImageIcon(scaledImage));
+
+    JButton exitButton = createButton("Exit");
+    exitButton.addActionListener(event -> System.exit(0));
+
+    // Create a dialog to display the exit box
+    JDialog dialog = new JDialog();
+    dialog.setBackground(PANEL_COLOR);
+    dialog.setLayout(new BorderLayout());
+
+    dialog.add(new JScrollPane(gameSummary), BorderLayout.EAST);
+    dialog.add(imageLabel, BorderLayout.WEST);
+    dialog.add(exitButton, BorderLayout.SOUTH);
+
+    dialog.setSize(400, 400);
+    dialog.setLocationRelativeTo(null);
+    dialog.setVisible(true);
+  }
+
+  private JButton createButton(String title) {
+    JButton newBtn = new JButton();
+    Dimension buttonSize = new Dimension(40, 20);
+
+    newBtn.setBounds(100, 100, 250, 100);
+    newBtn.setText(title);
+    newBtn.setHorizontalTextPosition(JButton.CENTER);
+    newBtn.setVerticalTextPosition(JButton.CENTER);
+    newBtn.setFocusable(false);
+    newBtn.setFont(getPanelFont().deriveFont(Font.PLAIN, 14));
+    newBtn.setPreferredSize(buttonSize);
+    newBtn.setMinimumSize(buttonSize);
+    newBtn.setMaximumSize(buttonSize);
+    newBtn.setBackground(BUTTON_COLOR);
+
+    return newBtn;
+  }
+
+  private Image getScaledImage(BufferedImage image) {
+    int imageWidth = image.getWidth();
+    int imageHeight = image.getHeight();
+
+    if (imageWidth > WIDTH_SCALE && imageHeight > HEIGHT_SCALE) {
+      return image.getScaledInstance(WIDTH_SCALE, HEIGHT_SCALE, Image.SCALE_SMOOTH);
+    } else if (imageWidth > WIDTH_SCALE) {
+      return image.getScaledInstance(WIDTH_SCALE, imageHeight, Image.SCALE_SMOOTH);
+    } else {
+      return image.getScaledInstance(imageWidth, HEIGHT_SCALE, Image.SCALE_SMOOTH);
+    }
+  }
+
 }

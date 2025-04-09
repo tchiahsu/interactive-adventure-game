@@ -2,6 +2,7 @@ package view;
 
 import java.awt.*;
 import java.io.File;
+import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -143,4 +144,20 @@ public class NavigationPanel extends JPanel {
 
     return newBtn;
   }
+
+
+//  /**
+//   * Method to show a pop-up box where user can enter answer
+//   * @param  : The text that says display your answer
+//   */
+//  public void answerDialog(String answer) {
+//    String input = JOptionPane.showInputDialog(null, "Enter your answer:");
+//
+//
+//
+//  }
+
+  //showInputDialog	for answer
+  //show list dialog box for take/examine
+
 }
