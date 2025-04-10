@@ -559,11 +559,11 @@ public class GameModel implements IGameModel {
   }
 
   /**
-   * Helper method. Gets the puzzle in the current room.
+   * Method that Gets the puzzle in the current room.
    *
    * @return the puzzle object in the current room
    */
-  private Puzzle getPuzzleInRoom() {
+  public Puzzle getPuzzleInRoom() {
     String puzzleName = this.currentRoom.getPuzzleName();
     return this.gameData.getPuzzle(puzzleName);
   }

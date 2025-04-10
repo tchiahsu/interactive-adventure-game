@@ -10,4 +10,5 @@ public interface IViewController {
   String[] getCurrentRoomItems();
   String[] getExaminableObjects();
   String getImagePath(String object);
+  String getPuzzleSolution();
 }

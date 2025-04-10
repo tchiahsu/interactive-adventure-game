@@ -14,8 +14,8 @@ public class MenuBar {
   private static final Color MAIN_COLOR = new Color(40, 54, 24);
   private final static Color PANEL_COLOR = new Color(236, 240, 235);
   private final static Color BUTTON_COLOR = new Color(220, 220, 220);
-  private static final int WIDTH_SCALE = 100;
-  private static final int HEIGHT_SCALE = 80;
+  private static final int WIDTH_SCALE = 300;
+  private static final int HEIGHT_SCALE = 175;
 
   public JMenuBar getMenuBar() {
     JMenuBar menuBar = new JMenuBar();
@@ -70,7 +70,7 @@ public class MenuBar {
       @Override
       public void actionPerformed(ActionEvent e) {
         try {
-          showExitDialog("Game Summary", "/data/Resources/lamp.png");
+          showExitDialog("Game Summary", "/data/Resources/nighty_night.png");
         } catch (IOException ex) {
           throw new RuntimeException(ex);
         }
@@ -89,42 +89,82 @@ public class MenuBar {
 
   private void showAboutDialog(String text) {
     JLabel aboutText = new JLabel(text);
-    aboutText.setFont(getPanelFont().deriveFont(Font.PLAIN, 12));
+    aboutText.setFont(getPanelFont().deriveFont(Font.PLAIN, 14));
     aboutText.setAlignmentX(Component.CENTER_ALIGNMENT);
+    aboutText.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
     // Create a dialog to display the text box
+//    JDialog dialog = new JDialog();
+//    dialog.setLayout(new BorderLayout(2,2));
+//    dialog.setBackground(PANEL_COLOR);
+//    dialog.add(aboutText, BorderLayout.CENTER);
+//    dialog.setSize(300, 200);
+//    dialog.setLocationRelativeTo(getMenuBar());
+//    dialog.setVisible(true);
+
     JDialog dialog = new JDialog();
+    dialog.setLayout(new BorderLayout(10, 10));
     dialog.setBackground(PANEL_COLOR);
-    dialog.add(new JScrollPane(aboutText));
-    dialog.setSize(300, 200);
-    dialog.setLocationRelativeTo(getMenuBar());
+    dialog.setResizable(false);
+
+    // Add the about text to the dialog's center
+    dialog.add(aboutText, BorderLayout.CENTER);
+
+    // Set the dialog size
+    dialog.setSize(350, 250);
+    dialog.setLocationRelativeTo(null);
+
+    // Make the dialog visible
+    dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
     dialog.setVisible(true);
+
+
   }
 
   private void showExitDialog(String text, String imgPath) throws IOException {
     JLabel gameSummary = new JLabel(text);
-    gameSummary.setFont(getPanelFont().deriveFont(Font.PLAIN, 12));
+    gameSummary.setFont(getPanelFont().deriveFont(Font.PLAIN, 14));
     gameSummary.setAlignmentX(Component.CENTER_ALIGNMENT);
+    gameSummary.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
+    // Load and scale the image
     BufferedImage image = ImageIO.read(getClass().getResource(imgPath));
     Image scaledImage = getScaledImage(image);
     JLabel imageLabel = new JLabel();
     imageLabel.setIcon(new ImageIcon(scaledImage));
+    imageLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-    JButton exitButton = createButton("Exit");
+    // okay button
+    JButton exitButton = createButton("OKAY");
     exitButton.addActionListener(event -> System.exit(0));
+    exitButton.setPreferredSize(new Dimension(50, 20));
 
-    // Create a dialog to display the exit box
+    JPanel contentPanel = new JPanel();
+    contentPanel.setLayout(new BorderLayout(20, 20));
+    contentPanel.setBackground(PANEL_COLOR);
+    contentPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+
+    // Create a subpanel
+    JPanel messagePanel = new JPanel();
+    messagePanel.setLayout(new BoxLayout(messagePanel, BoxLayout.Y_AXIS));
+    messagePanel.setBackground(PANEL_COLOR);
+    messagePanel.add(gameSummary);  // Add game summary text
+    messagePanel.add(Box.createRigidArea(new Dimension(0, 10)));
+
+    // Create the dialog and set layout
     JDialog dialog = new JDialog();
     dialog.setBackground(PANEL_COLOR);
     dialog.setLayout(new BorderLayout());
 
-    dialog.add(new JScrollPane(gameSummary), BorderLayout.EAST);
+    // Add components to the dialog
+    dialog.add(messagePanel, BorderLayout.CENTER);
     dialog.add(imageLabel, BorderLayout.WEST);
     dialog.add(exitButton, BorderLayout.SOUTH);
 
-    dialog.setSize(400, 400);
+    // Set dialog size and visibility
+    dialog.setSize(450, 250);
     dialog.setLocationRelativeTo(null);
+    dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
     dialog.setVisible(true);
   }
 

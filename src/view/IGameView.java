@@ -1,5 +1,6 @@
 package view;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface IGameView {
@@ -8,9 +9,11 @@ public interface IGameView {
   NavigationPanel getNavigationPanel();
   InventoryPanel getInventoryPanel();
   void updateView();
-  void showPopUp(String s);
+  void showPopUp(String s, String title) throws IOException;
 
-  void showBlockedPopUp(String s);
+  void showBlockedPopUp(String s) throws IOException;
+
+  void showInputDialog(String title);
 
   String[] getRoomItems();
 

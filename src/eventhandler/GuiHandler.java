@@ -39,10 +39,10 @@ public class GuiHandler implements IGuiEventHandler {
       case USE -> view.getInventoryPanel().getDescriptionBox(view.getInventoryPanel().getUseBtn(), s, "USE", testImage);
       case TAKE -> view.updateView();
       case DROP -> view.getInventoryPanel().getDescriptionBox(view.getInventoryPanel().getDropBtn(), s, "DROP", testImage);
-      case EXAMINE -> this.view.showPopUp(s);
-      case ANSWER -> System.out.println("ANSWER!");
-      case SAVE, RESTORE -> view.showPopUp(s);
-      case QUIT -> System.out.println("QUIT!");
+      case EXAMINE -> this.view.showPopUp(s, "Inspecting...");
+      case ANSWER -> System.out.println("ANSWER!");//this.view.showInputDialog("ANSWER");
+      case SAVE, RESTORE -> view.showPopUp(s, "Inspecting...");
+      case QUIT -> System.out.println("QUIT!"); //I don't think we need this - we have exit in file
       case null -> System.out.println("INVALID");
     }
   }

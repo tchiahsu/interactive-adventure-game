@@ -48,6 +48,10 @@ public class ViewController implements IViewController {
     this.model.getPlayer().setName(name);
   }
 
+  public String getPuzzleSolution() {
+    return this.model.getPuzzleInRoom().getSolution();
+  }
+
   /**
    * Validates if the given input command is a valid command for the adventure game.
    *

@@ -96,7 +96,7 @@ public class InventoryPanel extends JPanel {
     button.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        System.out.println("Button clicked, showing dialog...");
+        //System.out.println("Button clicked, showing dialog...");
         try {
           showDescriptionDialog(message, title, imgPath);
         } catch (IOException ex) {
@@ -107,7 +107,7 @@ public class InventoryPanel extends JPanel {
   }
 
   /**
-   * Method to add items to inventory's listModel
+   * Method to add items to inventory's listModel.
    */
   public void addItemToInventory(String item) {
     this.listModel.addElement(item);
