@@ -174,7 +174,7 @@ public class ViewManager {
 
     String inventoryItems = currentState.get(6);
     if (inventoryItems.isEmpty()) {
-      return;
+      this.inventoryPanel.clearItemsInInventory();
     } else {
       this.inventoryPanel.clearItemsInInventory();
       Arrays.asList(inventoryItems.split(","))

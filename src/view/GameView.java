@@ -41,7 +41,6 @@ public class GameView implements IGameView {
   public void startView() {
     String name = JOptionPane.showInputDialog("Enter a name for your player avatar: ");
     this.controller.setPlayerName(name);
-    //this.setActionListener();
     this.viewManager.setCurrentState(this.controller.getCurrentState());
     this.viewManager.displayView();
   }
@@ -102,16 +101,16 @@ public class GameView implements IGameView {
       }
     });
     //INSPECT BUTTON
-//    this.inventoryPanel.getInspectBtn().addActionListener(event -> {
-//      String selectedItem = inventoryPanel.getInventoryList().getSelectedValue();
-//      if (selectedItem != null) {
-//        try {
-//          controller.executeCommand("EXAMINE " + selectedItem);
-//        } catch (IOException ex) {
-//          ex.printStackTrace();
-//        }
-//      }
-//    });
+    this.inventoryPanel.getInspectBtn().addActionListener(event -> {
+      String selectedItem = inventoryPanel.getInventoryList().getSelectedValue();
+      if (selectedItem != null) {
+        try {
+          controller.executeCommand("EXAMINE " + selectedItem);
+        } catch (IOException ex) {
+          ex.printStackTrace();
+        }
+      }
+    });
   }
 
   /**
@@ -239,6 +238,7 @@ public class GameView implements IGameView {
     cancelButton.addActionListener(e -> {
       dialog.dispose();
     });
+
     dialog.setVisible(true);
   }
 
@@ -303,15 +303,12 @@ public class GameView implements IGameView {
     JOptionPane.showMessageDialog(this.board, s, "Using: " + itemName, JOptionPane.INFORMATION_MESSAGE);
   }
 
-
-
   @Override
   public void showPopUp(String s, String title) throws IOException {
     BufferedImage image = ImageIO.read(getClass().getResource(this.imagePath));
     Image scaledImage = getScaledImage(image);
     JOptionPane.showMessageDialog(this.board, s, title,
             JOptionPane.INFORMATION_MESSAGE, new ImageIcon(scaledImage));
-
   }
 
   public String[] getRoomItems() {
@@ -337,20 +334,8 @@ public class GameView implements IGameView {
     }
   }
 
+  public boolean isPlayerDead() {
+    Integer playerHealth = Integer.parseInt(this.controller.getCurrentState().get(4));
+    return playerHealth <= 0;
+  }
 }
-
-
-
-// 6 buttons
-//inventory - drop use, inspect
-//navigation - take, examine, answer
-
-//drop, use, inspect, - message
-// take, examine - list
-// answer - input
-
-//pop up - you cannot move in that direction
-
-//take inventory list from model
-//show list dialog in view
-//show

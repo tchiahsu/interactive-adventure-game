@@ -1,7 +1,6 @@
 package view;
 
 import java.io.IOException;
-import java.util.List;
 
 public interface IGameView {
   DescriptionPanel getDescriptionPanel();
@@ -20,6 +19,8 @@ public interface IGameView {
   String[] getRoomItems();
 
   void showSelectionDialog(String s, String[] roomItems);
+
+  boolean isPlayerDead();
 //  String[] getRoomItems();
 
 

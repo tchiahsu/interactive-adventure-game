@@ -40,13 +40,17 @@ public class GuiHandler implements IGuiEventHandler {
         view.showItemUsePopUp(s);
         view.updateView();
       }
-      case TAKE -> view.updateView();
-      case DROP -> view.getInventoryPanel().getDescriptionBox(view.getInventoryPanel().getDropBtn(), s, "DROP", testImage);
+      case TAKE, DROP -> view.updateView();
       case EXAMINE -> this.view.showPopUp(s, "Inspecting...");
       case ANSWER -> this.view.showPopUpAnswer(s);
       case SAVE, RESTORE -> view.showPopUp(s, "Inspecting...");
       case QUIT -> System.out.println("QUIT!"); //I don't think we need this - we have exit in file
       case null -> System.out.println("INVALID");
+    }
+
+    view.updateView();
+    if (view.isPlayerDead()) {
+      view.showBlockedPopUp("Game over!");
     }
   }
 
