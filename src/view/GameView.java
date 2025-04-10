@@ -18,8 +18,10 @@ public class GameView implements IGameView {
   private NavigationPanel navigationPanel;
   private PicturePanel picturePanel;
   private IViewController controller;
+
   private int itemIndex = -1;
   private String imagePath;
+  private String itemName;
 
   /**
    * Construct a View object.
@@ -67,6 +69,7 @@ public class GameView implements IGameView {
       String selectedItem = inventoryPanel.getInventoryList().getSelectedValue();
       if (selectedItem != null) {
         try {
+          this.itemName = selectedItem;
           controller.executeCommand("USE " + selectedItem);
         } catch (IOException ex) {
           ex.printStackTrace();
@@ -188,6 +191,12 @@ public class GameView implements IGameView {
   public void showBlockedPopUp(String s) {
     JFrame popUp = new JFrame();
     JOptionPane.showMessageDialog(popUp, s, "Path Blocked!", JOptionPane.ERROR_MESSAGE);
+  }
+
+  @Override
+  public void showItemUsePopUp(String s) {
+    JFrame popUp = new JFrame();
+    JOptionPane.showMessageDialog(popUp, s, "Using: " + itemName, JOptionPane.INFORMATION_MESSAGE);
   }
 
   @Override
