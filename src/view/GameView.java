@@ -41,7 +41,7 @@ public class GameView implements IGameView {
   public void startView() {
     String name = JOptionPane.showInputDialog("Enter a name for your player avatar: ");
     this.controller.setPlayerName(name);
-    this.setActionListener();
+    //this.setActionListener();
     this.viewManager.setCurrentState(this.controller.getCurrentState());
     this.viewManager.displayView();
   }
@@ -102,16 +102,16 @@ public class GameView implements IGameView {
       }
     });
     //INSPECT BUTTON
-    this.inventoryPanel.getInspectBtn().addActionListener(event -> {
-      String selectedItem = inventoryPanel.getInventoryList().getSelectedValue();
-      if (selectedItem != null) {
-        try {
-          controller.executeCommand("EXAMINE " + selectedItem);
-        } catch (IOException ex) {
-          ex.printStackTrace();
-        }
-      }
-    });
+//    this.inventoryPanel.getInspectBtn().addActionListener(event -> {
+//      String selectedItem = inventoryPanel.getInventoryList().getSelectedValue();
+//      if (selectedItem != null) {
+//        try {
+//          controller.executeCommand("EXAMINE " + selectedItem);
+//        } catch (IOException ex) {
+//          ex.printStackTrace();
+//        }
+//      }
+//    });
   }
 
   /**
@@ -194,25 +194,7 @@ public class GameView implements IGameView {
         e.printStackTrace();
       }
     });
-
-//    String[] roomItems = this.getRoomItems();
-//    this.navigationPanel.getTakeBtn().addActionListener(event -> {
-//      try {
-//        this.showSelectionDialog("Items you can take:", roomItems);
-//        this.controller.executeCommand("TAKE " + roomItems[this.itemIndex]);
-//      } catch (IOException e) {
-//        e.printStackTrace();
-//      }
-//    });
-
   }
-
-  //old code - should be deleted
-//  public void showSelectionDialog(String title, String[] items) {
-//    this.itemIndex = JOptionPane.showOptionDialog(null,
-//            "Select an item", title, JOptionPane.DEFAULT_OPTION,
-//            JOptionPane.INFORMATION_MESSAGE, null, items, null);
-//  }
 
   /**
    * Method that displays a dialog box that takes in user input.
@@ -257,7 +239,6 @@ public class GameView implements IGameView {
     cancelButton.addActionListener(e -> {
       dialog.dispose();
     });
-
     dialog.setVisible(true);
   }
 
@@ -292,6 +273,26 @@ public class GameView implements IGameView {
   }
 
   /**
+   * Method that shows a pop-up for the answer command.
+   * @param s description to return.
+   * @throws IOException error if image is not found.
+   */
+  public void showPopUpAnswer(String s) throws IOException {
+    if (s.contains("SUCCESS")) {
+      BufferedImage image = ImageIO.read(getClass().getResource("/data/Resources/correct_answer.png"));
+      Image scaledImage = getScaledImage(image);
+      JOptionPane.showMessageDialog(this.board, s, "ANSWER",
+              JOptionPane.INFORMATION_MESSAGE, new ImageIcon(scaledImage));
+    }
+    else {
+      BufferedImage image = ImageIO.read(getClass().getResource("/data/Resources/incorrect_answer.png"));
+      Image scaledImage = getScaledImage(image);
+      JOptionPane.showMessageDialog(this.board, s, "ANSWER",
+              JOptionPane.INFORMATION_MESSAGE, new ImageIcon(scaledImage));
+    }
+  }
+
+  /**
    * Method to show a pop-up with a given description.
    * @param s : The text to display in the dialog.
    */
@@ -302,6 +303,8 @@ public class GameView implements IGameView {
     JOptionPane.showMessageDialog(this.board, s, "Using: " + itemName, JOptionPane.INFORMATION_MESSAGE);
   }
 
+
+
   @Override
   public void showPopUp(String s, String title) throws IOException {
     BufferedImage image = ImageIO.read(getClass().getResource(this.imagePath));
@@ -310,28 +313,6 @@ public class GameView implements IGameView {
             JOptionPane.INFORMATION_MESSAGE, new ImageIcon(scaledImage));
 
   }
-
-  //Harrison popup
-//  @Override
-//  public void showPopUp(String s) {
-//    JFrame popUp = new JFrame();
-//    popUp.setSize(500, 500);
-//    popUp.setLocationRelativeTo(null);
-//    popUp.setLayout(new FlowLayout());
-//    String imagePath = this.imagePath;
-//    JLabel pictureLabel = new JLabel();
-//    JLabel descriptionLabel = new JLabel(s);
-//    try {
-//      Image image = ImageIO.read(getClass().getResource(imagePath));
-//      Image scaledImage = image.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
-//      pictureLabel.setIcon(new ImageIcon(scaledImage));
-//      popUp.add(pictureLabel);
-//    } catch (IOException e) {
-//      e.printStackTrace();
-//    }
-//    popUp.add(descriptionLabel);
-//    popUp.setVisible(true);
-//  }
 
   public String[] getRoomItems() {
     String roomItemNames = this.controller.getCurrentRoomItems()[0];
@@ -369,3 +350,7 @@ public class GameView implements IGameView {
 // answer - input
 
 //pop up - you cannot move in that direction
+
+//take inventory list from model
+//show list dialog in view
+//show

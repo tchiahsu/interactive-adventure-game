@@ -14,7 +14,8 @@ public interface IGameView {
   void showBlockedPopUp(String s) throws IOException;
   void showItemUsePopUp(String s);
   void showInputDialog(String title);
-//  void showItemUsePopUp(String s);
+// void showItemUsePopUp(String s);
+  void showPopUpAnswer(String s) throws IOException;
 
   String[] getRoomItems();
 
