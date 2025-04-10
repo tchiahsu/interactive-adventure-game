@@ -90,4 +90,8 @@ public interface IGameModel {
 
   List<String> getCurrentState();
   String[] getCurrentRoomItem();
+
+  String[] getExaminableObjects();
+
+  String getImagePath(String object);
 }

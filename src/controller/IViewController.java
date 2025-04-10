@@ -8,4 +8,6 @@ public interface IViewController {
   List<String> getCurrentState();
   void setPlayerName(String name);
   String[] getCurrentRoomItems();
+  String[] getExaminableObjects();
+  String getImagePath(String object);
 }

@@ -145,6 +145,8 @@ public class GameModel implements IGameModel {
       output = examineMonster();
     } else if (objectName.equalsIgnoreCase(this.currentRoom.getPuzzleName())) {
       output = examinePuzzle();
+    } else if (objectName.equals("ME")) {
+      output = player.getName() + " I know you! You're a fearless adventurer!\n";
     } else {
       output = "There is no " + objectName + " to examine.\n";
     }
@@ -164,6 +166,33 @@ public class GameModel implements IGameModel {
       + "\nYour rank: "
       + this.player.getRank()
       + "\n";
+  }
+
+  @Override
+  public String[] getExaminableObjects() {
+    ArrayList<String> examinableObjects = new ArrayList<>();
+
+    if (!currentRoom.getItemNames().isEmpty()) {
+      List<String> roomsItemNames = getItemList(this.currentRoom.getItemNames());
+      roomsItemNames.stream().forEach(item -> examinableObjects.add(item));
+    }
+
+    if (currentRoom.getMonsterName() != null) {
+      examinableObjects.add(currentRoom.getMonsterName());
+    }
+
+    if (currentRoom.getPuzzleName() != null) {
+      examinableObjects.add(currentRoom.getPuzzleName());
+    }
+
+    if (!roomHasActivePuzzle()) {
+      List<String> fixtureNames = getItemList(this.currentRoom.getFixtureNames());
+      fixtureNames.stream().forEach(fixture -> examinableObjects.add(fixture));
+    }
+
+    examinableObjects.add("ME");
+    return examinableObjects.toArray(
+            new String[examinableObjects.size()]);
   }
 
   public List<String> getCurrentState() {
@@ -201,6 +230,24 @@ public class GameModel implements IGameModel {
     return currentRoomItems;
   }
 
+  @Override
+  public String getImagePath(String object) {
+    if (gameData.getItem(object) != null) {
+      Item item = gameData.getItem(object);
+      return item.getPicture();
+    } else if (gameData.getFixture(object) != null) {
+      Fixture fixture = gameData.getFixture(object);
+      return fixture.getPicture();
+    } else if (gameData.getMonster(object) != null) {
+      Monster monster = gameData.getMonster(object);
+      return monster.getPicture();
+    } else if (gameData.getPuzzle(object) != null) {
+      Puzzle puzzle = gameData.getPuzzle(object);
+      return puzzle.getPicture();
+    } else {
+      return "/data/Resources/epic_adventurer.png";
+    }
+  }
 
   /**
    * Gets the player object.

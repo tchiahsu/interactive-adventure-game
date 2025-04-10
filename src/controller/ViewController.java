@@ -36,6 +36,14 @@ public class ViewController implements IViewController {
     return this.model.getCurrentRoomItem();
   }
 
+  public String[] getExaminableObjects() {
+    return this.model.getExaminableObjects();
+  }
+
+  public String getImagePath(String object) {
+    return this.model.getImagePath(object);
+  }
+
   public void setPlayerName(String name) {
     this.model.getPlayer().setName(name);
   }

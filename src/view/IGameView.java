@@ -9,6 +9,9 @@ public interface IGameView {
   InventoryPanel getInventoryPanel();
   void updateView();
   void showPopUp(String s);
+
+  void showBlockedPopUp(String s);
+
   String[] getRoomItems();
 
   void showSelectionDialog(String s, String[] roomItems);

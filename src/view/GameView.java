@@ -1,11 +1,10 @@
 package view;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import controller.IViewController;
@@ -19,7 +18,8 @@ public class GameView implements IGameView {
   private NavigationPanel navigationPanel;
   private PicturePanel picturePanel;
   private IViewController controller;
-  private int itemIndex;
+  private int itemIndex = -1;
+  private String imagePath;
 
   /**
    * Construct a View object.
@@ -67,7 +67,7 @@ public class GameView implements IGameView {
       String selectedItem = inventoryPanel.getInventoryList().getSelectedValue();
       if (selectedItem != null) {
         try {
-          controller.executeCommand("USE" + selectedItem);
+          controller.executeCommand("USE " + selectedItem);
         } catch (IOException ex) {
           ex.printStackTrace();
         }
@@ -78,7 +78,7 @@ public class GameView implements IGameView {
       String selectedItem = inventoryPanel.getInventoryList().getSelectedValue();
       if (selectedItem != null) {
         try {
-          controller.executeCommand("DROP" + selectedItem);
+          controller.executeCommand("DROP " + selectedItem);
         } catch (IOException ex) {
           ex.printStackTrace();
         }
@@ -89,7 +89,7 @@ public class GameView implements IGameView {
       String selectedItem = inventoryPanel.getInventoryList().getSelectedValue();
       if (selectedItem != null) {
         try {
-          controller.executeCommand("EXAMINE" + selectedItem);
+          controller.executeCommand("EXAMINE " + selectedItem);
         } catch (IOException ex) {
           ex.printStackTrace();
         }
@@ -100,6 +100,38 @@ public class GameView implements IGameView {
   }
 
   public void setNavigationPanelActionListener() {
+    setMovementActionListener();
+
+    this.navigationPanel.getTakeBtn().addActionListener(event -> {
+      try {
+        String[] roomItems = this.getRoomItems();
+        this.showSelectionDialog("Items you can take:", roomItems);
+        if (this.itemIndex != -1) {
+          this.controller.executeCommand("TAKE " + roomItems[this.itemIndex]);
+          this.itemIndex = -1;
+        }
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    });
+
+    this.navigationPanel.getExamineBtn().addActionListener(event -> {
+      try {
+        String[] examinableObjects = getAllExaminableObjects();
+        this.showSelectionDialog("What you can examine:", examinableObjects);
+        if (this.itemIndex != -1) {
+          this.imagePath = this.controller.getImagePath(examinableObjects[this.itemIndex]);
+          this.controller.executeCommand("EXAMINE " + examinableObjects[this.itemIndex]);
+          this.itemIndex = -1;
+        }
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+    });
+
+  }
+
+  public void setMovementActionListener() {
     this.navigationPanel.getNorthBtn().addActionListener(event -> {
       try {
         this.controller.executeCommand("NORTH");
@@ -131,20 +163,6 @@ public class GameView implements IGameView {
         e.printStackTrace();
       }
     });
-
-    String[] roomItems = this.getRoomItems();
-    this.navigationPanel.getTakeBtn().addActionListener(event -> {
-      try {
-        this.showSelectionDialog("Items you can take:", roomItems);
-        if (this.itemIndex != -1) {
-          this.controller.executeCommand("TAKE " + roomItems[this.itemIndex]);
-          this.itemIndex = -1;
-        }
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
-    });
-
   }
 
   public void showSelectionDialog(String title, String[] items) {
@@ -167,14 +185,40 @@ public class GameView implements IGameView {
   }
 
   @Override
-  public void showPopUp(String s) {
+  public void showBlockedPopUp(String s) {
     JFrame popUp = new JFrame();
     JOptionPane.showMessageDialog(popUp, s, "Path Blocked!", JOptionPane.ERROR_MESSAGE);
+  }
+
+  @Override
+  public void showPopUp(String s) {
+    JFrame popUp = new JFrame();
+    popUp.setSize(500, 500);
+    popUp.setLocationRelativeTo(null);
+    popUp.setLayout(new FlowLayout());
+    String imagePath = this.imagePath;
+    JLabel pictureLabel = new JLabel();
+    JLabel descriptionLabel = new JLabel(s);
+    try {
+      Image image = ImageIO.read(getClass().getResource(imagePath));
+      Image scaledImage = image.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+      pictureLabel.setIcon(new ImageIcon(scaledImage));
+      popUp.add(pictureLabel);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    popUp.add(descriptionLabel);
+    popUp.setVisible(true);
   }
 
   public String[] getRoomItems() {
     String roomItemNames = this.controller.getCurrentRoomItems()[0];
     return roomItemNames.split(", ");
+  }
+
+  public String[] getAllExaminableObjects() {
+    String[] examinableObjects = this.controller.getExaminableObjects();
+    return examinableObjects;
   }
 }
 
