@@ -26,6 +26,7 @@ public class GameView implements IGameView {
   private static final int WIDTH_SCALE = 100;
   private static final int HEIGHT_SCALE = 100;
 
+  private String itemName;
 
   /**
    * Construct a View object.
@@ -85,6 +86,7 @@ public class GameView implements IGameView {
       String selectedItem = inventoryPanel.getInventoryList().getSelectedValue();
       if (selectedItem != null) {
         try {
+          this.itemName = selectedItem;
           controller.executeCommand("USE " + selectedItem);
         } catch (IOException ex) {
           ex.printStackTrace();
@@ -306,6 +308,12 @@ public class GameView implements IGameView {
    * @param s : The text to display in the dialog.
    */
   //Bhoomika popup
+  @Override
+  public void showItemUsePopUp(String s) {
+    JFrame popUp = new JFrame();
+    JOptionPane.showMessageDialog(popUp, s, "Using: " + itemName, JOptionPane.INFORMATION_MESSAGE);
+  }
+
   @Override
   public void showPopUp(String s, String title) throws IOException {
     BufferedImage image = ImageIO.read(getClass().getResource(this.imagePath));

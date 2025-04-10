@@ -36,7 +36,10 @@ public class GuiHandler implements IGuiEventHandler {
         }
       }
       case INVENTORY -> System.out.println("INVENTORY!");
-      case USE -> view.getInventoryPanel().getDescriptionBox(view.getInventoryPanel().getUseBtn(), s, "USE", testImage);
+      case USE -> {
+        view.showItemUsePopUp(s);
+        view.updateView();
+      }
       case TAKE -> view.updateView();
       case DROP -> view.getInventoryPanel().getDescriptionBox(view.getInventoryPanel().getDropBtn(), s, "DROP", testImage);
       case EXAMINE -> this.view.showPopUp(s, "Inspecting...");
