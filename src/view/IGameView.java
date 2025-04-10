@@ -1,5 +1,6 @@
 package view;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface IGameView {
@@ -13,11 +14,12 @@ public interface IGameView {
   void showBlockedPopUp(String s) throws IOException;
   void showItemUsePopUp(String s);
   void showInputDialog(String title);
+//  void showItemUsePopUp(String s);
 
   String[] getRoomItems();
 
   void showSelectionDialog(String s, String[] roomItems);
-  String[] getRoomItems();
+//  String[] getRoomItems();
 
 
 }

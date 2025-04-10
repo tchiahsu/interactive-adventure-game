@@ -23,7 +23,7 @@ public class Main {
    * @throws IOException if an I/O error occurs during input/output operations.
    */
   public static void main(String [] args) throws IOException {
-    String fileABC = "src/data/align_quest_game_elements.json";
+    String fileABC = "src/data/museum.json";
     GameEngineApp engine2 = new GameEngineApp(fileABC, GameMode.GRAPHICS);
     engine2.start();
 

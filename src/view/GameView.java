@@ -19,6 +19,7 @@ public class GameView implements IGameView {
   private PicturePanel picturePanel;
   private MenuBar menuBar;
   private IViewController controller;
+
   private int itemIndex = -1;
   private String imagePath;
   private String answer;
@@ -55,7 +56,6 @@ public class GameView implements IGameView {
 
   public void setController(IViewController controller) {
     this.controller = controller;
-    //this.setActionListener();
   }
 
   private void initializePanels() {
@@ -70,9 +70,6 @@ public class GameView implements IGameView {
     this.picturePanel = new PicturePanel();
 
     this.setActionListener();
-
-    //this.navigationPanel.getOptionsBox(this.navigationPanel.getTakeBtn(), "TAKE", this.controller.getCurrentRoomItems());
-
   }
 
   private void setActionListener() {
@@ -154,24 +151,15 @@ public class GameView implements IGameView {
 
     //ANSWER BUTTON
     this.navigationPanel.getAnswerBtn().addActionListener(event -> {
-
-//      this.showInputDialog("ANSWER");
-//      if (this.answer.equalsIgnoreCase(this.controller.getPuzzleSolution())) {
-//        String correct = "Success! You solved this puzzle with the answer " + this.answer;
-//        try {
-//          showPopUp(correct, "ANSWER");
-//        } catch (IOException e) { throw new RuntimeException(e); }
-//      }
-//      else {
-//        String incorrect = "Wrong answer, try again!";
-//        try {
-//          showPopUp(incorrect, "ANSWER");
-//          this.answer = "";
-//        }
-//        catch (IOException e) { throw new RuntimeException(e); }
-//      }
+      this.showInputDialog("ANSWER");
+      if (this.answer != null) {
+        try {
+          this.controller.executeCommand("ANSWER " + this.answer);
+        } catch (IOException e) {
+          throw new RuntimeException(e);
+        }
+      }
     });
-
   }
 
   public void setMovementActionListener() {
@@ -299,7 +287,7 @@ public class GameView implements IGameView {
     String imgPath = "/data/Resources/block.png";
     BufferedImage image = ImageIO.read(getClass().getResource(imgPath));
     Image scaledImage = getScaledImage(image);
-    JOptionPane.showMessageDialog(null, s, "Path Blocked!",
+    JOptionPane.showMessageDialog(this.board, s, "Path Blocked!",
             JOptionPane.INFORMATION_MESSAGE, new ImageIcon(scaledImage));
   }
 
@@ -310,15 +298,15 @@ public class GameView implements IGameView {
   //Bhoomika popup
   @Override
   public void showItemUsePopUp(String s) {
-    JFrame popUp = new JFrame();
-    JOptionPane.showMessageDialog(popUp, s, "Using: " + itemName, JOptionPane.INFORMATION_MESSAGE);
+    //JFrame popUp = new JFrame();
+    JOptionPane.showMessageDialog(this.board, s, "Using: " + itemName, JOptionPane.INFORMATION_MESSAGE);
   }
 
   @Override
   public void showPopUp(String s, String title) throws IOException {
     BufferedImage image = ImageIO.read(getClass().getResource(this.imagePath));
     Image scaledImage = getScaledImage(image);
-    JOptionPane.showMessageDialog(null, s, title,
+    JOptionPane.showMessageDialog(this.board, s, title,
             JOptionPane.INFORMATION_MESSAGE, new ImageIcon(scaledImage));
 
   }
