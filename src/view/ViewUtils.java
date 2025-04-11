@@ -9,6 +9,9 @@ import java.io.File;
  *  It offers functionalities such as creating a button, getting specific font.
  */
 public final class ViewUtils {
+  private final static Color MAIN_COLOR = new Color(40, 54, 24);
+  private final static Color PANEL_COLOR = new Color(236, 240, 235);
+  private final static Color BUTTON_COLOR = new Color(220, 220, 220);
 
   /**
    * Method to create a button.
@@ -46,5 +49,17 @@ public final class ViewUtils {
     }
 
     return font;
+  }
+
+  public static Color getMainColor() {
+    return MAIN_COLOR;
+  }
+
+  public static Color getPanelColor() {
+    return PANEL_COLOR;
+  }
+
+  public static Color getButtonColor() {
+    return BUTTON_COLOR;
   }
 }

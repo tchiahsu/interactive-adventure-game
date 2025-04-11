@@ -28,30 +28,37 @@ public class ViewController implements IViewController {
     }
   }
 
+  @Override
   public List<String> getCurrentState() {
     return this.model.getCurrentState();
   }
 
+  @Override
   public String[] getCurrentRoomItems() {
     return this.model.getCurrentRoomItem();
   }
 
+  @Override
   public String[] getInventoryItems() {
     return this.model.getInventoryItems();
   }
 
+  @Override
   public String[] getExaminableObjects() {
     return this.model.getExaminableObjects();
   }
 
+  @Override
   public String getImagePath(String object) {
     return this.model.getImagePath(object);
   }
 
+  @Override
   public String getGameSummary() {
     return this.model.getEndingMessage();
   }
 
+  @Override
   public void setPlayerName(String name) {
     this.model.getPlayer().setName(name);
   }

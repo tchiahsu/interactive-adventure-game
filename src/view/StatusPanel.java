@@ -5,14 +5,14 @@ import java.io.File;
 
 import javax.swing.*;
 
+import static view.ViewUtils.getMainColor;
+import static view.ViewUtils.getPanelColor;
 import static view.ViewUtils.getPanelFont;
 
 public class StatusPanel extends JPanel {
   private JTextArea currentStatus;
   private JTextArea currentHealth;
   private JTextArea currentScore;
-  private static final Color MAIN_COLOR = new Color(40, 54, 24);
-  private static final Color PANEL_COLOR = new Color(236, 240, 235);
 
   /**
    * Constructor for StatusPanel.
@@ -21,7 +21,7 @@ public class StatusPanel extends JPanel {
   public StatusPanel() {
     this.setLayout(new GridLayout(3,2));
     this.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
-    this.setBackground(PANEL_COLOR);
+    this.setBackground(getPanelColor());
 
     Font font = getPanelFont().deriveFont(Font.BOLD, 20);
 
@@ -31,21 +31,21 @@ public class StatusPanel extends JPanel {
     JLabel scoreTitle = new JLabel("SCORE :");
 
     // Status
-    statusTitle.setForeground(MAIN_COLOR);
+    statusTitle.setForeground(getMainColor());
     statusTitle.setFont(font);
     this.add(statusTitle);
     this.currentStatus = createTextArea(14);
     this.add(this.currentStatus);
 
     // Health
-    healthTitle.setForeground(MAIN_COLOR);
+    healthTitle.setForeground(getMainColor());
     healthTitle.setFont(font);
     this.add(healthTitle);
     this.currentHealth = createTextArea(20);
     this.add(this.currentHealth);
 
     // Score
-    scoreTitle.setForeground(MAIN_COLOR);
+    scoreTitle.setForeground(getMainColor());
     scoreTitle.setFont(font);
     this.add(scoreTitle);
     this.currentScore = createTextArea(20);
@@ -66,7 +66,7 @@ public class StatusPanel extends JPanel {
     textArea.setWrapStyleWord(true);
     textArea.setFocusable(false);
     textArea.setFont(getPanelFont().deriveFont(Font.PLAIN, fontSize));
-    textArea.setBackground(PANEL_COLOR);
+    textArea.setBackground(getPanelColor());
     textArea.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
     return textArea;
   }

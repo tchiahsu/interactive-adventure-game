@@ -54,6 +54,7 @@ public class GuiHandler implements IGuiEventHandler {
     }
   }
 
+  @Override
   public void setCommandAction(String action) {
     this.commandAction = action;
   }

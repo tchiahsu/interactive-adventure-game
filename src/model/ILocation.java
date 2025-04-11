@@ -57,4 +57,8 @@ public interface ILocation extends IGameObject {
    * @param items : name of the items in the location
    */
   void setItemNames(String items);
+
+  void setFixtureNames(String name);
+
+  void setPicture(String picture);
 }

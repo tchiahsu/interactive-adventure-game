@@ -8,12 +8,12 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
+import static view.ViewUtils.getButtonColor;
+import static view.ViewUtils.getMainColor;
+import static view.ViewUtils.getPanelColor;
 import static view.ViewUtils.getPanelFont;
 
 public class MenuBar {
-  private static final Color MAIN_COLOR = new Color(40, 54, 24);
-  private final static Color PANEL_COLOR = new Color(236, 240, 235);
-  private final static Color BUTTON_COLOR = new Color(220, 220, 220);
   private static final int WIDTH_SCALE = 200;
   private static final int HEIGHT_SCALE = 200;
 
@@ -51,7 +51,7 @@ public class MenuBar {
       }
     });
     menuBar.add(fileMenu);
-    menuBar.setBackground(MAIN_COLOR);
+    menuBar.setBackground(getMainColor());
 
     about.addActionListener(new ActionListener() {
       @Override
@@ -124,7 +124,7 @@ public class MenuBar {
 
     JDialog dialog = new JDialog();
     dialog.setLayout(new BorderLayout(10, 10));
-    dialog.setBackground(PANEL_COLOR);
+    dialog.setBackground(getPanelColor());
     dialog.setTitle(title);
     dialog.setResizable(false);
 
@@ -153,7 +153,7 @@ public class MenuBar {
     newBtn.setPreferredSize(buttonSize);
     newBtn.setMinimumSize(buttonSize);
     newBtn.setMaximumSize(buttonSize);
-    newBtn.setBackground(BUTTON_COLOR);
+    newBtn.setBackground(getButtonColor());
 
     return newBtn;
   }
