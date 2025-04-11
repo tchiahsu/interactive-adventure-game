@@ -10,12 +10,11 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
+import static view.ViewUtils.getMainColor;
+import static view.ViewUtils.getPanelColor;
 import static view.ViewUtils.getPanelFont;
 
 public class NavigationPanel extends JPanel {
-  private final static Color MAIN_COLOR = new Color(40, 54, 24);
-  private final static Color PANEL_COLOR = new Color(236, 240, 235);
-  private final static Color BUTTON_COLOR = new Color(220, 220, 220);
   private final JButton examineBtn;
   private final JButton takeBtn;
   private final JButton answerBtn;
@@ -30,11 +29,11 @@ public class NavigationPanel extends JPanel {
     // Set the title
     this.setLayout(new BorderLayout(5, 5));
     this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-    this.setBackground(PANEL_COLOR);
+    this.setBackground(getPanelColor());
 
     // Create a title panel for the top
     JLabel title = new JLabel("Navigation");
-    title.setForeground(MAIN_COLOR);
+    title.setForeground(getMainColor());
     Font font = getPanelFont().deriveFont(Font.BOLD, 25);
     title.setFont(font);
     this.add(title, BorderLayout.NORTH);
@@ -65,7 +64,7 @@ public class NavigationPanel extends JPanel {
 
     JPanel directionPanel = new JPanel();
     directionPanel.setLayout(new GridBagLayout());
-    directionPanel.setBackground(PANEL_COLOR);
+    directionPanel.setBackground(getPanelColor());
 
     GridBagConstraints gbc = new GridBagConstraints();
     gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -168,7 +167,7 @@ public class NavigationPanel extends JPanel {
     newBtn.setPreferredSize(buttonSize);
     newBtn.setMinimumSize(buttonSize);
     newBtn.setMaximumSize(buttonSize);
-    newBtn.setBackground(PANEL_COLOR);
+    newBtn.setBackground(getPanelColor());
 
     return newBtn;
   }
@@ -187,7 +186,7 @@ public class NavigationPanel extends JPanel {
     newBtn.setPreferredSize(buttonSize);
     newBtn.setMinimumSize(buttonSize);
     newBtn.setMaximumSize(buttonSize);
-    newBtn.setBackground(BUTTON_COLOR);
+    newBtn.setBackground(getPanelColor());
 
     return newBtn;
   }

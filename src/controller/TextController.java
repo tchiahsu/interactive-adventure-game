@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.util.List;
 
 import commands.ICommand;
 import eventhandler.IEventHandler;
@@ -11,7 +10,7 @@ import model.IGameModel;
  * The {@code GameController} class manages the flow of the game.
  * It handles the user input, the command processing, and interacting with the game model.
  */
-public class GameController implements IController {
+public class TextController implements IController {
   private final IGameModel model;
   private final IEventHandler handler;
 
@@ -22,7 +21,7 @@ public class GameController implements IController {
    * @param model : game model.
    * @param handler : input and output handler
    */
-  public GameController(IGameModel model, IEventHandler handler) {
+  public TextController(IGameModel model, IEventHandler handler) {
     this.model = model;
     this.handler = handler;
   }
@@ -67,6 +66,7 @@ public class GameController implements IController {
     this.handler.write(this.model.getEndingMessage());
   }
 
+  @Override
   public void setPlayerName(String name) {
     this.model.getPlayer().setName(name);
   }

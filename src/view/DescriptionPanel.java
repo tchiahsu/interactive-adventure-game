@@ -5,6 +5,10 @@ import java.io.File;
 
 import javax.swing.*;
 
+import static view.ViewUtils.getButtonColor;
+import static view.ViewUtils.getMainColor;
+import static view.ViewUtils.getButtonColor;
+import static view.ViewUtils.getPanelColor;
 import static view.ViewUtils.getPanelFont;
 
 /**
@@ -12,8 +16,6 @@ import static view.ViewUtils.getPanelFont;
  */
 public class DescriptionPanel extends JPanel {
   private final JTextArea descriptionText;
-  private static final Color MAIN_COLOR = new Color(40, 54, 24);
-  private static final Color PANEL_COLOR = new Color(236, 240, 235);
 
   /**
    * Constructor for DescriptionPanel.
@@ -23,11 +25,11 @@ public class DescriptionPanel extends JPanel {
     // Set the title
     this.setLayout(new BorderLayout(10, 10));
     this.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
-    this.setBackground(PANEL_COLOR);
+    this.setBackground(getPanelColor());
 
     // Create a title panel for the top
     JLabel title = new JLabel("Description");
-    title.setForeground(MAIN_COLOR);
+    title.setForeground(getMainColor());
     Font font = getPanelFont().deriveFont(Font.BOLD, 20);
     title.setFont(font);
     this.add(title, BorderLayout.NORTH);
@@ -39,7 +41,7 @@ public class DescriptionPanel extends JPanel {
     this.descriptionText.setWrapStyleWord(true);
     this.descriptionText.setFocusable(false);
     this.descriptionText.setFont(getPanelFont().deriveFont(Font.PLAIN, 14));
-    this.descriptionText.setBackground(PANEL_COLOR);
+    this.descriptionText.setBackground(getPanelColor());
     this.descriptionText.setAlignmentX(Component.LEFT_ALIGNMENT);
 
     this.add(this.descriptionText, BorderLayout.CENTER);

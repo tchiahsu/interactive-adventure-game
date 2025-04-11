@@ -83,7 +83,6 @@ public interface IGameModel {
   IPlayer getPlayer();
 
 
-
   /**
    * Gets the game's ending message.
    * @return the final message displayed at the end of the game.

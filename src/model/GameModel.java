@@ -197,6 +197,7 @@ public class GameModel implements IGameModel {
             new String[examinableObjects.size()]);
   }
 
+  @Override
   public List<String> getCurrentState() {
     List<String> currentState = new ArrayList<>();
     currentState.add(currentRoom.getName());
@@ -227,6 +228,7 @@ public class GameModel implements IGameModel {
     return currentState;
   }
 
+  @Override
   public String[] getInventoryItems() {
     List<Item> itemList = this.player.getInventory().getItems();
     String[] itemNames = new String[itemList.size()];
@@ -236,6 +238,7 @@ public class GameModel implements IGameModel {
     return itemNames;
   }
 
+  @Override
   public String[] getCurrentRoomItem() {
     String[] currentRoomItems = {currentRoom.getItemNames(), currentRoom.getFixtureNames()};
     return currentRoomItems;
@@ -289,6 +292,7 @@ public class GameModel implements IGameModel {
    * @param direction : direction player wants to move to
    * @return a description describing the state of the game after the move
    */
+  @Override
   public String move(String direction) {
     StringBuilder output = new StringBuilder();
     String nextRoom = this.currentRoom.getPath(direction);

@@ -9,8 +9,8 @@ import static view.ViewUtils.getPanelFont;
 
 public class StatusPanel extends JPanel {
   private JTextArea currentStatus;
-  private JTextArea currentHealth;
-  private JTextArea currentScore;
+  private JLabel currentHealth;
+  private JLabel currentScore;
   private static final Color MAIN_COLOR = new Color(40, 54, 24);
   private static final Color PANEL_COLOR = new Color(236, 240, 235);
 
@@ -19,38 +19,73 @@ public class StatusPanel extends JPanel {
    * Creates a description panel with the given description.
    */
   public StatusPanel() {
-    this.setLayout(new GridLayout(3,2));
+    this.setLayout(new GridBagLayout());
     this.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
     this.setBackground(PANEL_COLOR);
 
-    Font font = getPanelFont().deriveFont(Font.BOLD, 20);
+    Font boldFont = getPanelFont().deriveFont(Font.BOLD, 16);
+    Font plainFont = getPanelFont().deriveFont(Font.PLAIN, 16);
 
-    // create status, health and score headers
+    // Headers
     JLabel statusTitle = new JLabel("STATUS :");
-    JLabel healthTitle = new JLabel("HEALTH :");
-    JLabel scoreTitle = new JLabel("SCORE :");
-
-    // Status
+    statusTitle.setFont(boldFont);
     statusTitle.setForeground(MAIN_COLOR);
-    statusTitle.setFont(font);
-    this.add(statusTitle);
-    this.currentStatus = createTextArea(14);
-    this.add(this.currentStatus);
 
-    // Health
+    JLabel healthTitle = new JLabel("HEALTH :");
+    healthTitle.setFont(boldFont);
     healthTitle.setForeground(MAIN_COLOR);
-    healthTitle.setFont(font);
-    this.add(healthTitle);
-    this.currentHealth = createTextArea(20);
-    this.add(this.currentHealth);
 
-    // Score
+    JLabel scoreTitle = new JLabel("SCORE :");
+    scoreTitle.setFont(boldFont);
     scoreTitle.setForeground(MAIN_COLOR);
-    scoreTitle.setFont(font);
-    this.add(scoreTitle);
-    this.currentScore = createTextArea(20);
-    this.add(this.currentScore);
 
+    this.currentStatus = createTextArea(14);
+    this.currentHealth = new JLabel();
+    this.currentScore = new JLabel();
+
+    this.currentHealth.setPreferredSize(new Dimension(50, 20));
+    this.currentHealth.setFont(plainFont);
+    this.currentHealth.setAlignmentX(LEFT_ALIGNMENT);
+
+    currentScore.setPreferredSize(new Dimension(50, 20));
+    currentScore.setAlignmentX(LEFT_ALIGNMENT);
+    this.currentScore.setFont(plainFont);
+
+    GridBagConstraints gbc = new GridBagConstraints();
+    gbc.insets = new Insets(4, 4, 4, 4);
+    gbc.anchor = GridBagConstraints.NORTHWEST;
+    gbc.fill = GridBagConstraints.HORIZONTAL;
+
+    // HEALTH
+    gbc.gridx = 0;
+    gbc.gridy = 0;
+    gbc.weightx = 0.25;
+    this.add(healthTitle, gbc);
+
+    gbc.gridx = 1;
+    gbc.gridy = 0;
+    gbc.weightx = 0.5;
+    this.add(this.currentHealth, gbc);
+
+    // SCORE
+    gbc.gridx = 0;
+    gbc.gridy = 1;
+    gbc.weightx = 0.25;
+    this.add(scoreTitle, gbc);
+
+    gbc.gridx = 1;
+    gbc.gridy = 1;
+    gbc.weightx = 0.5;
+    this.add(this.currentScore, gbc);
+
+    //STATUS
+    gbc.gridx = 0;
+    gbc.gridy = 2;
+    this.add(statusTitle, gbc);
+
+    gbc.gridx = 1;
+    gbc.gridy = 2;
+    this.add(this.currentStatus, gbc);
   }
 
   /**
@@ -67,10 +102,10 @@ public class StatusPanel extends JPanel {
     textArea.setFocusable(false);
     textArea.setFont(getPanelFont().deriveFont(Font.PLAIN, fontSize));
     textArea.setBackground(PANEL_COLOR);
+    textArea.setAlignmentX(LEFT_ALIGNMENT);
     textArea.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
     return textArea;
   }
-
 
   /**
    * Displays the given status of player to the panel.

@@ -7,6 +7,7 @@ import org.apache.commons.text.WordUtils;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
+import static view.ViewUtils.getPanelColor;
 import static view.ViewUtils.getPanelFont;
 
 /**
@@ -17,7 +18,6 @@ public class PicturePanel extends JPanel {
   private static final int WIDTH_SCALE = 450;
   private static final int HEIGHT_SCALE = 400;
   private static final Color TEXT_COLOR = new Color(40, 54, 24);
-  private final static Color PANEL_COLOR = new Color(236, 240, 235);
 
   private JLabel roomLabel;
   private JLabel pictureLabel;
@@ -25,7 +25,7 @@ public class PicturePanel extends JPanel {
 
   public PicturePanel() {
     this.setLayout(new BorderLayout());
-    this.setBackground(PANEL_COLOR);
+    this.setBackground(getPanelColor());
     this.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
     this.roomLabel = new JLabel();
     this.roomLabel.setFont(getPanelFont().deriveFont(Font.BOLD, 20));

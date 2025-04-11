@@ -324,6 +324,7 @@ public class GameView implements IGameView {
       dialog.dispose();
     });
 
+    dialog.setResizable(false);
     dialog.setVisible(true);
   }
 
@@ -369,6 +370,7 @@ public class GameView implements IGameView {
     dialog.setSize(450, 200);
     dialog.setLocationRelativeTo(this.board);
     dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+    dialog.setResizable(false);
     dialog.setVisible(true);
 
   }
