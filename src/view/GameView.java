@@ -10,8 +10,7 @@ import javax.swing.*;
 
 import controller.IViewController;
 
-import static view.ViewUtils.getButtonColor;
-import static view.ViewUtils.getPanelFont;
+import static view.ViewUtils.*;
 
 public class GameView implements IGameView {
   private GameBoard board;
@@ -223,7 +222,7 @@ public class GameView implements IGameView {
     this.menuBar.getExitMenuItem().addActionListener(event -> {
       try {
         String status = this.controller.getGameSummary();
-        showExitDialog(status, "/data/Resources/nighty_night.png");
+        showExitPopUp(status);
       } catch (IOException e) {
         e.printStackTrace();
       }
@@ -330,52 +329,70 @@ public class GameView implements IGameView {
     dialog.setVisible(true);
   }
 
-  private void showExitDialog(String text, String imgPath) throws IOException {
-    JTextArea gameSummary = new JTextArea(text, 1, 30);
-    gameSummary.setWrapStyleWord(true);
-    gameSummary.setLineWrap(true);
-    gameSummary.setOpaque(false);
-    gameSummary.setBorder(null);
-    gameSummary.setFocusable(false);
-    gameSummary.setEditable(false);
-
-    // Load and scale the image
+  public void showExitPopUp(String description) throws IOException {
+    String imgPath = "/data/Resources/nighty_night.png";
+    JTextArea text = new JTextArea(description, 1, 20);
+    text.setFont(getPanelFont().deriveFont(Font.BOLD, 12));
+    text.setWrapStyleWord(true);
+    text.setLineWrap(true);
+    text.setOpaque(false);
+    text.setBorder(null);
+    text.setFocusable(false);
+    text.setEditable(false);
     BufferedImage image = ImageIO.read(getClass().getResource(imgPath));
     Image scaledImage = getScaledImage(image);
-    JLabel imageLabel = new JLabel();
-    imageLabel.setIcon(new ImageIcon(scaledImage));
-    imageLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-
-    JButton exitButton = createButton("OKAY");
-    exitButton.setPreferredSize(new Dimension(200, 40));
-    exitButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-    exitButton.addActionListener(event -> System.exit(0));
-
-    JPanel mainPanel = new JPanel();
-    mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
-    mainPanel.setBackground(PANEL_COLOR);
-    mainPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-
-    JPanel contentPanel = new JPanel(new FlowLayout());
-    contentPanel.add(imageLabel);
-    contentPanel.add(gameSummary);
-
-    mainPanel.add(contentPanel);
-    mainPanel.add(exitButton);
-
-    // Create the dialog and set layout
-    JDialog dialog = new JDialog();
-    dialog.setBackground(PANEL_COLOR);
-    dialog.setLayout(new BorderLayout());
-    dialog.add(mainPanel);
-
-    dialog.setSize(450, 200);
-    dialog.setLocationRelativeTo(this.board);
-    dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-    dialog.setResizable(false);
-    dialog.setVisible(true);
-
+    JOptionPane.showMessageDialog(null, text, "Exit Game",
+            JOptionPane.INFORMATION_MESSAGE, new ImageIcon(scaledImage));
+    System.exit(0);
   }
+
+//  private void showExitDialog(String text, String imgPath) throws IOException {
+//    JTextArea gameSummary = new JTextArea(text, 1, 30);
+//    gameSummary.setFont(getPopUpFont().deriveFont(Font.PLAIN, 12));
+//    gameSummary.setWrapStyleWord(true);
+//    gameSummary.setLineWrap(true);
+//    gameSummary.setOpaque(false);
+//    gameSummary.setBorder(null);
+//    gameSummary.setFocusable(false);
+//    gameSummary.setEditable(false);
+//
+//    // Load and scale the image
+//    BufferedImage image = ImageIO.read(getClass().getResource(imgPath));
+//    Image scaledImage = getScaledImage(image);
+//    JLabel imageLabel = new JLabel();
+//    imageLabel.setIcon(new ImageIcon(scaledImage));
+//    imageLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+//
+//    JButton exitButton = createButton("OKAY");
+//    exitButton.setPreferredSize(new Dimension(200, 40));
+//    exitButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+//    exitButton.addActionListener(event -> System.exit(0));
+//
+//    JPanel mainPanel = new JPanel();
+//    mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+//    mainPanel.setBackground(PANEL_COLOR);
+//    mainPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+//
+//    JPanel contentPanel = new JPanel(new FlowLayout());
+//    contentPanel.add(imageLabel);
+//    contentPanel.add(gameSummary);
+//
+//    mainPanel.add(contentPanel);
+//    mainPanel.add(exitButton);
+//
+//    // Create the dialog and set layout
+//    JDialog dialog = new JDialog();
+//    dialog.setBackground(PANEL_COLOR);
+//    dialog.setTitle("Exit Game");
+//    dialog.setLayout(new BorderLayout());
+//    dialog.add(mainPanel);
+//
+//    dialog.setSize(450, 200);
+//    dialog.setLocationRelativeTo(this.board);
+//    dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+//    dialog.setResizable(false);
+//    dialog.setVisible(true);
+//  }
 
   private JButton createButton(String title) {
     JButton newBtn = new JButton();
@@ -407,8 +424,8 @@ public class GameView implements IGameView {
 
   @Override
   public void showPopUp(String s, String title) throws IOException {
-    JTextArea text = new JTextArea(s, 1, 30);
-    text.setFont(getPanelFont().deriveFont(Font.BOLD, 10));
+    JTextArea text = new JTextArea(s, 1, 20);
+    text.setFont(getPanelFont().deriveFont(Font.BOLD, 12));
     text.setWrapStyleWord(true);
     text.setLineWrap(true);
     text.setOpaque(false);
@@ -481,7 +498,7 @@ public class GameView implements IGameView {
     String description = "You've fainted!\n" + this.controller.getGameSummary();
     String imgPath = "/data/Resources/nighty_night.png";
     JTextArea text = new JTextArea(description, 1, 20);
-    text.setFont(getPanelFont().deriveFont(Font.BOLD, 15));
+    text.setFont(getPanelFont().deriveFont(Font.BOLD, 14));
     text.setWrapStyleWord(true);
     text.setLineWrap(true);
     text.setOpaque(false);
@@ -494,5 +511,23 @@ public class GameView implements IGameView {
             JOptionPane.INFORMATION_MESSAGE, new ImageIcon(scaledImage));
     System.exit(0);
   }
+
+//  public void showExitPopUp() throws IOException {
+//    String description = this.controller.getGameSummary();
+//    String imgPath = "/data/Resources/nighty_night.png";
+//    JTextArea text = new JTextArea(description, 1, 20);
+//    text.setFont(getPanelFont().deriveFont(Font.BOLD, 14));
+//    text.setWrapStyleWord(true);
+//    text.setLineWrap(true);
+//    text.setOpaque(false);
+//    text.setBorder(null);
+//    text.setFocusable(false);
+//    text.setEditable(false);
+//    BufferedImage image = ImageIO.read(getClass().getResource(imgPath));
+//    Image scaledImage = getScaledImage(image);
+//    JOptionPane.showMessageDialog(null, text, "Exit Game",
+//            JOptionPane.INFORMATION_MESSAGE, new ImageIcon(scaledImage));
+//    System.exit(0);
+//  }
 }
 

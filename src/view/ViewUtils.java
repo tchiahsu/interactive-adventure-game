@@ -47,7 +47,21 @@ public final class ViewUtils {
     } catch (Exception e) {
       font = new Font("arial", Font.PLAIN, 14);
     }
+    return font;
+  }
 
+  /**
+   * Gets the Aharoni font for the panel.
+   * @return Aharoni font if the path to the file exists, Arial font otherwise.
+   */
+  public static Font getPopUpFont() {
+    File fontFile = new File("/data/Resources/ahronbd.ttf");
+    Font font;
+    try {
+      font = Font.createFont(Font.TRUETYPE_FONT, fontFile);
+    } catch (Exception e) {
+      font = new Font("arial", Font.PLAIN, 12);
+    }
     return font;
   }
 
