@@ -110,16 +110,12 @@ public class GameView implements IGameView {
     this.inventoryPanel.getInspectBtn().addActionListener(event -> {
       String selectedItem = inventoryPanel.getInventoryList().getSelectedValue();
       if (selectedItem != null) {
+        String itemToInspect = inventoryPanel.getInventoryList().getSelectedValue();
         try {
-          String[] inventoryItems = this.getInventoryItems();
-          this.showSelectionDialog("Items you can take:", inventoryItems);
-          if (this.itemIndex != -1) {
-            this.imagePath = this.controller.getImagePath(inventoryItems[this.itemIndex]);
-            controller.executeCommand("EXAMINE " + selectedItem);
-            this.itemIndex = -1;
-          }
-        } catch (IOException ex) {
-          ex.printStackTrace();
+          this.imagePath = this.controller.getImagePath(itemToInspect);
+          controller.executeCommand("EXAMINE " + itemToInspect);
+        } catch (IOException e) {
+          e.printStackTrace();
         }
       }
     });

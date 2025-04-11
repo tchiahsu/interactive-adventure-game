@@ -126,7 +126,6 @@ public class InventoryPanel extends JPanel {
     Image scaledImage = getScaledImage(image);
     JOptionPane.showMessageDialog(null, description, title,
             JOptionPane.INFORMATION_MESSAGE, new ImageIcon(scaledImage));
-
   }
 
   /**
