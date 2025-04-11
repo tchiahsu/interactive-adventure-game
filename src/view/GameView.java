@@ -48,6 +48,7 @@ public class GameView implements IGameView {
     this.controller.setPlayerName(name);
     this.viewManager.setCurrentState(this.controller.getCurrentState());
     this.viewManager.displayView();
+    this.setGameName();
   }
 
   public DescriptionPanel getDescriptionPanel() {
@@ -65,7 +66,7 @@ public class GameView implements IGameView {
   private void initializePanels() {
     this.menuBar = new MenuBar();
     this.board = new GameBoard();
-    this.board.setJMenuBar(menuBar.getMenuBar());
+    this.board.setJMenuBar(menuBar.createMenuBar());
 
     this.descriptionPanel = new DescriptionPanel();
     this.inventoryPanel = new InventoryPanel();
@@ -450,6 +451,22 @@ public class GameView implements IGameView {
     } else {
       return image.getScaledInstance(imageWidth, HEIGHT_SCALE, Image.SCALE_SMOOTH);
     }
+  }
+
+  /**
+   * Helper method that sets and center aligns the name
+   * of the game as title of the board.
+   */
+  private void setGameName() {
+    Font f = this.board.getFont();
+    FontMetrics fm = this.board.getFontMetrics(f);
+    int x = fm.stringWidth("Hello Center");
+    int y = fm.stringWidth(" ");
+    int z = this.board.getWidth()/2 - (x/2);
+    int w = z/y;
+    String pad ="";
+    pad = String.format("%"+w+"s", pad);
+    this.board.setTitle(pad+this.controller.getGameName());
   }
 
   public boolean isPlayerDead() {

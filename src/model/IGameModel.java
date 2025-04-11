@@ -82,6 +82,10 @@ public interface IGameModel {
    */
   IPlayer getPlayer();
 
+  /**
+   * Method that returns the name of the game.
+   */
+  String getGameName();
 
   /**
    * Gets the game's ending message.
