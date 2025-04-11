@@ -9,22 +9,14 @@ public interface IGameView {
   InventoryPanel getInventoryPanel();
   void updateView();
   void showPopUp(String s, String title) throws IOException;
-
   void showBlockedPopUp(String s) throws IOException;
   void showItemUsePopUp(String s);
   void showInputDialog(String title);
-// void showItemUsePopUp(String s);
   void showPopUpAnswer(String s) throws IOException;
-
   String[] getRoomItems();
-
   void showSelectionDialog(String s, String[] roomItems);
-
   boolean isPlayerDead();
-//  String[] getRoomItems();
-
   void setMenuActionListener();
-
   void showTextPopUp(String s);
 
 

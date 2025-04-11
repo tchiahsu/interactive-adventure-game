@@ -11,12 +11,12 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
+import static view.ViewUtils.getButtonColor;
+import static view.ViewUtils.getMainColor;
+import static view.ViewUtils.getPanelColor;
 import static view.ViewUtils.getPanelFont;
 
 public class InventoryPanel extends JPanel {
-  private final static Color MAIN_COLOR = new Color(40, 54, 24);
-  private final static Color PANEL_COLOR = new Color(236, 240, 235);
-  private final static Color BUTTON_COLOR = new Color(220, 220, 220);
   private static final int WIDTH_SCALE = 100;
   private static final int HEIGHT_SCALE = 100;
 
@@ -33,11 +33,11 @@ public class InventoryPanel extends JPanel {
     // Set the title
     this.setLayout(new BorderLayout(10, 10));
     this.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
-    this.setBackground(PANEL_COLOR);
+    this.setBackground(getPanelColor());
 
     // Create a title panel for the top
     JLabel title = new JLabel("Inventory");
-    title.setForeground(MAIN_COLOR);
+    title.setForeground(getMainColor());
     Font font = getPanelFont().deriveFont(Font.BOLD, 20);
     title.setFont(font);
     this.add(title, BorderLayout.NORTH);
@@ -48,7 +48,7 @@ public class InventoryPanel extends JPanel {
     this.inventoryList = new JList<>(listModel);
     inventoryList.setBorder(new EmptyBorder(5, 5, 5, 5));
     inventoryList.setFont(getPanelFont().deriveFont(Font.BOLD, 16));
-    inventoryList.setBackground(BUTTON_COLOR);
+    inventoryList.setBackground(getButtonColor());
 
     this.add(inventoryList, BorderLayout.CENTER);
 
@@ -148,7 +148,7 @@ public class InventoryPanel extends JPanel {
     newBtn.setPreferredSize(buttonSize);
     newBtn.setMinimumSize(buttonSize);
     newBtn.setMaximumSize(buttonSize);
-    newBtn.setBackground(BUTTON_COLOR);
+    newBtn.setBackground(getButtonColor());
     return newBtn;
   }
 

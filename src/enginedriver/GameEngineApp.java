@@ -8,7 +8,7 @@ import eventhandler.BatchConsoleHandler;
 import eventhandler.BatchFileHandler;
 import eventhandler.ConsoleHandler;
 import eventhandler.GuiHandler;
-import controller.GameController;
+import controller.TextController;
 import controller.IController;
 import eventhandler.IEventHandler;
 import eventhandler.IGuiEventHandler;
@@ -73,7 +73,7 @@ public class GameEngineApp {
     switch (this.mode) {
       case CONSOLE -> {
         IEventHandler handler = new ConsoleHandler();
-        controller = new GameController(model, handler);
+        controller = new TextController(model, handler);
         controller.go();
       }
       case GRAPHICS -> {
@@ -85,12 +85,12 @@ public class GameEngineApp {
       }
       case BATCH_CONSOLE -> {
         IEventHandler handler = new BatchConsoleHandler(this.sourceFile);
-        controller = new GameController(model, handler);
+        controller = new TextController(model, handler);
         controller.go();
       }
       case BATCH_FILE -> {
         IEventHandler handler = new BatchFileHandler(this.sourceFile, this.targetFile);
-        controller = new GameController(model, handler);
+        controller = new TextController(model, handler);
         controller.go();
       }
     }
