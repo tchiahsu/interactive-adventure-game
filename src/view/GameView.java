@@ -111,7 +111,13 @@ public class GameView implements IGameView {
       String selectedItem = inventoryPanel.getInventoryList().getSelectedValue();
       if (selectedItem != null) {
         try {
-          controller.executeCommand("EXAMINE " + selectedItem);
+          String[] inventoryItems = this.getInventoryItems();
+          this.showSelectionDialog("Items you can take:", inventoryItems);
+          if (this.itemIndex != -1) {
+            this.imagePath = this.controller.getImagePath(inventoryItems[this.itemIndex]);
+            controller.executeCommand("EXAMINE " + selectedItem);
+            this.itemIndex = -1;
+          }
         } catch (IOException ex) {
           ex.printStackTrace();
         }
@@ -125,13 +131,11 @@ public class GameView implements IGameView {
    */
   public void setNavigationPanelActionListener() {
     setMovementActionListener();
-    //TAKE BUTTON
     this.navigationPanel.getTakeBtn().addActionListener(event -> {
       try {
         String[] roomItems = this.getRoomItems();
         this.showSelectionDialog("Items you can take:", roomItems);
         if (this.itemIndex != -1) {
-          //TAKE BUTTON
           this.controller.executeCommand("TAKE " + roomItems[this.itemIndex]);
           this.itemIndex = -1;
         }
@@ -139,7 +143,6 @@ public class GameView implements IGameView {
         e.printStackTrace();
       }
     });
-    //EXAMINE BUTTON
     this.navigationPanel.getExamineBtn().addActionListener(event -> {
       try {
         String[] examinableObjects = getAllExaminableObjects();
@@ -153,8 +156,6 @@ public class GameView implements IGameView {
         e.printStackTrace();
       }
     });
-
-    //ANSWER BUTTON
     this.navigationPanel.getAnswerBtn().addActionListener(event -> {
       this.showInputDialog("ANSWER");
       if (this.answer != null) {
@@ -205,6 +206,7 @@ public class GameView implements IGameView {
   public void setMenuActionListener() {
     this.menuBar.getSaveMenuItem().addActionListener(event -> {
       try {
+        this.imagePath = "/data/Resources/save.png";
         this.controller.executeCommand("SAVE");
       } catch (IOException e) {
         e.printStackTrace();
@@ -213,6 +215,7 @@ public class GameView implements IGameView {
 
     this.menuBar.getRestoreMenuItem().addActionListener(event -> {
       try {
+        this.imagePath = "/data/Resources/restore.png";
         this.controller.executeCommand("RESTORE");
       } catch (IOException e) {
         e.printStackTrace();
@@ -221,7 +224,8 @@ public class GameView implements IGameView {
 
     this.menuBar.getExitMenuItem().addActionListener(event -> {
       try {
-        showExitDialog("Game Summary", "/data/Resources/nighty_night.png");
+        String status = this.controller.getGameSummary();
+        showExitDialog(status, "/data/Resources/nighty_night.png");
       } catch (IOException e) {
         e.printStackTrace();
       }
@@ -234,45 +238,6 @@ public class GameView implements IGameView {
   public void showInputDialog(String title) {
     this.answer = JOptionPane.showInputDialog(null,
             "Enter your answer: ", title, JOptionPane.QUESTION_MESSAGE);
-  }
-
-  /**
-   * Method that displays a dialog box with the list of items.
-   * @param title Title of the dialog box
-   * @param items list of items to display
-   */
-  public void showSelectionDialog(String title, String[] items) {
-    JDialog dialog = new JDialog(this.board, title, true);
-    dialog.setLayout(new BorderLayout());
-
-    JList<String> list = new JList<>(items);
-    list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-    JScrollPane scrollPane = new JScrollPane(list);
-
-    JPanel buttonPanel = new JPanel();
-    JButton okButton = new JButton("OK");
-    JButton cancelButton = new JButton("Cancel");
-
-    buttonPanel.add(okButton);
-    buttonPanel.add(cancelButton);
-
-    dialog.add(new JLabel("Select an item:"), BorderLayout.NORTH);
-    dialog.add(scrollPane, BorderLayout.CENTER);
-    dialog.add(buttonPanel, BorderLayout.SOUTH);
-
-    dialog.setSize(300, 200);
-    dialog.setLocationRelativeTo(this.board);
-
-    okButton.addActionListener(e -> {
-      this.itemIndex = list.getSelectedIndex();
-      dialog.dispose();
-    });
-
-    cancelButton.addActionListener(e -> {
-      dialog.dispose();
-    });
-
-    dialog.setVisible(true);
   }
 
   /**
@@ -325,23 +290,53 @@ public class GameView implements IGameView {
     }
   }
 
-//  exit.addActionListener(new ActionListener() {
-//    @Override
-//    public void actionPerformed(ActionEvent e) {
-//      try {
-//        showExitDialog("Game Summary", "/data/Resources/nighty_night.png");
-//      } catch (IOException ex) {
-//        throw new RuntimeException(ex);
-//      }
-//    }
-//  });
-//
-//
+  /**
+   * Method that displays a dialog box with the list of items.
+   * @param title Title of the dialog box
+   * @param items list of items to display
+   */
+  public void showSelectionDialog(String title, String[] items) {
+    JDialog dialog = new JDialog(this.board, title, true);
+    dialog.setLayout(new BorderLayout());
+
+    JList<String> list = new JList<>(items);
+    list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+    JScrollPane scrollPane = new JScrollPane(list);
+
+    JPanel buttonPanel = new JPanel();
+    JButton okButton = new JButton("OK");
+    JButton cancelButton = new JButton("Cancel");
+
+    buttonPanel.add(okButton);
+    buttonPanel.add(cancelButton);
+
+    dialog.add(new JLabel("Select an item:"), BorderLayout.NORTH);
+    dialog.add(scrollPane, BorderLayout.CENTER);
+    dialog.add(buttonPanel, BorderLayout.SOUTH);
+
+    dialog.setSize(300, 200);
+    dialog.setLocationRelativeTo(this.board);
+
+    okButton.addActionListener(e -> {
+      this.itemIndex = list.getSelectedIndex();
+      dialog.dispose();
+    });
+
+    cancelButton.addActionListener(e -> {
+      dialog.dispose();
+    });
+
+    dialog.setVisible(true);
+  }
+
   private void showExitDialog(String text, String imgPath) throws IOException {
-    JLabel gameSummary = new JLabel(text);
-    gameSummary.setFont(getPanelFont().deriveFont(Font.PLAIN, 14));
-    gameSummary.setAlignmentX(Component.CENTER_ALIGNMENT);
-    gameSummary.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+    JTextArea gameSummary = new JTextArea(text, 1, 30);
+    gameSummary.setWrapStyleWord(true);
+    gameSummary.setLineWrap(true);
+    gameSummary.setOpaque(false);
+    gameSummary.setBorder(null);
+    gameSummary.setFocusable(false);
+    gameSummary.setEditable(false);
 
     // Load and scale the image
     BufferedImage image = ImageIO.read(getClass().getResource(imgPath));
@@ -350,50 +345,46 @@ public class GameView implements IGameView {
     imageLabel.setIcon(new ImageIcon(scaledImage));
     imageLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-    // okay button
     JButton exitButton = createButton("OKAY");
+    exitButton.setPreferredSize(new Dimension(200, 40));
+    exitButton.setAlignmentX(Component.CENTER_ALIGNMENT);
     exitButton.addActionListener(event -> System.exit(0));
-    exitButton.setPreferredSize(new Dimension(50, 20));
 
-    JPanel contentPanel = new JPanel();
-    contentPanel.setLayout(new BorderLayout(20, 20));
-    contentPanel.setBackground(PANEL_COLOR);
-    contentPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+    JPanel mainPanel = new JPanel();
+    mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+    mainPanel.setBackground(PANEL_COLOR);
+    mainPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-    // Create a subpanel
-    JPanel messagePanel = new JPanel();
-    messagePanel.setLayout(new BoxLayout(messagePanel, BoxLayout.Y_AXIS));
-    messagePanel.setBackground(PANEL_COLOR);
-    messagePanel.add(gameSummary);  // Add game summary text
-    messagePanel.add(Box.createRigidArea(new Dimension(0, 10)));
+    JPanel contentPanel = new JPanel(new FlowLayout());
+    contentPanel.add(imageLabel);
+    contentPanel.add(gameSummary);
+
+    mainPanel.add(contentPanel);
+    mainPanel.add(exitButton);
 
     // Create the dialog and set layout
     JDialog dialog = new JDialog();
     dialog.setBackground(PANEL_COLOR);
     dialog.setLayout(new BorderLayout());
+    dialog.add(mainPanel);
 
-    // Add components to the dialog
-    dialog.add(messagePanel, BorderLayout.CENTER);
-    dialog.add(imageLabel, BorderLayout.WEST);
-    dialog.add(exitButton, BorderLayout.SOUTH);
-
-    // Set dialog size and visibility
-    dialog.setSize(450, 250);
-    dialog.setLocationRelativeTo(null);
+    dialog.setSize(450, 200);
+    dialog.setLocationRelativeTo(this.board);
     dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
     dialog.setVisible(true);
+
   }
 
   private JButton createButton(String title) {
     JButton newBtn = new JButton();
-    Dimension buttonSize = new Dimension(40, 20);
+    Dimension buttonSize = new Dimension(80, 20);
 
-    newBtn.setBounds(100, 100, 250, 100);
     newBtn.setText(title);
+    newBtn.setBorder(BorderFactory.createEmptyBorder(1, 1, 1, 1));
     newBtn.setHorizontalTextPosition(JButton.CENTER);
     newBtn.setVerticalTextPosition(JButton.CENTER);
     newBtn.setFocusable(false);
-    newBtn.setFont(getPanelFont().deriveFont(Font.PLAIN, 14));
+    newBtn.setFont(getPanelFont().deriveFont(Font.BOLD, 14));
     newBtn.setPreferredSize(buttonSize);
     newBtn.setMinimumSize(buttonSize);
     newBtn.setMaximumSize(buttonSize);
@@ -409,21 +400,36 @@ public class GameView implements IGameView {
   //Bhoomika popup
   @Override
   public void showItemUsePopUp(String s) {
-    //JFrame popUp = new JFrame();
-    JOptionPane.showMessageDialog(this.board, s, "Using: " + itemName, JOptionPane.INFORMATION_MESSAGE);
+    JOptionPane.showMessageDialog(this.board, s, "Using: "
+            + itemName, JOptionPane.INFORMATION_MESSAGE);
   }
 
   @Override
   public void showPopUp(String s, String title) throws IOException {
+    JTextArea text = new JTextArea(s, 1, 30);
+    text.setFont(getPanelFont().deriveFont(Font.BOLD, 10));
+    text.setWrapStyleWord(true);
+    text.setLineWrap(true);
+    text.setOpaque(false);
+    text.setBorder(null);
+    text.setFocusable(false);
+    text.setEditable(false);
+
     BufferedImage image = ImageIO.read(getClass().getResource(this.imagePath));
     Image scaledImage = getScaledImage(image);
-    JOptionPane.showMessageDialog(this.board, s, title,
+    JOptionPane.showMessageDialog(this.board, text, title,
             JOptionPane.INFORMATION_MESSAGE, new ImageIcon(scaledImage));
   }
 
   @Override
   public void showTextPopUp(String s) {
-    JOptionPane.showMessageDialog(this.board, s);
+    JTextArea text = new JTextArea(s, 1, 20);
+    text.setFont(getPanelFont().deriveFont(Font.BOLD, 10));
+    JOptionPane.showMessageDialog(this.board, text);
+  }
+
+  private String[] getInventoryItems() {
+    return this.controller.getInventoryItems();
   }
 
   public String[] getRoomItems() {
@@ -454,3 +460,4 @@ public class GameView implements IGameView {
     return playerHealth <= 0;
   }
 }
+

@@ -36,6 +36,10 @@ public class ViewController implements IViewController {
     return this.model.getCurrentRoomItem();
   }
 
+  public String[] getInventoryItems() {
+    return this.model.getInventoryItems();
+  }
+
   public String[] getExaminableObjects() {
     return this.model.getExaminableObjects();
   }
@@ -44,13 +48,14 @@ public class ViewController implements IViewController {
     return this.model.getImagePath(object);
   }
 
+  public String getGameSummary() {
+    return this.model.getEndingMessage();
+  }
+
   public void setPlayerName(String name) {
     this.model.getPlayer().setName(name);
   }
 
-  public String getPuzzleSolution() {
-    return this.model.getPuzzleInRoom().getSolution();
-  }
 
   /**
    * Validates if the given input command is a valid command for the adventure game.

@@ -161,7 +161,9 @@ public class GameModel implements IGameModel {
    */
   @Override
   public String getEndingMessage() {
-    return "Thank you for playing!\nYour score is "
+    return "Thank you for playing "
+      + this.player.getName()
+      + "\nYour score is "
       + this.player.getScore()
       + "\nYour rank: "
       + this.player.getRank()
@@ -223,6 +225,15 @@ public class GameModel implements IGameModel {
                     .map(item -> item.getName()).collect(Collectors.joining(",")));
 
     return currentState;
+  }
+
+  public String[] getInventoryItems() {
+    List<Item> itemList = this.player.getInventory().getItems();
+    String[] itemNames = new String[itemList.size()];
+    for (int i = 0; i < itemList.size(); i++) {
+      itemNames[i] = itemList.get(i).getName();
+    }
+    return itemNames;
   }
 
   public String[] getCurrentRoomItem() {
@@ -559,11 +570,11 @@ public class GameModel implements IGameModel {
   }
 
   /**
-   * Method that Gets the puzzle in the current room.
+   * Helper method that Gets the puzzle in the current room.
    *
    * @return the puzzle object in the current room
    */
-  public Puzzle getPuzzleInRoom() {
+  private Puzzle getPuzzleInRoom() {
     String puzzleName = this.currentRoom.getPuzzleName();
     return this.gameData.getPuzzle(puzzleName);
   }

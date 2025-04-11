@@ -92,10 +92,9 @@ public interface IGameModel {
 
   List<String> getCurrentState();
   String[] getCurrentRoomItem();
-
+  String[] getInventoryItems();
   String[] getExaminableObjects();
 
   String getImagePath(String object);
 
-  public Puzzle getPuzzleInRoom();
 }

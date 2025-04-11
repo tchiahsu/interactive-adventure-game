@@ -14,8 +14,8 @@ public class MenuBar {
   private static final Color MAIN_COLOR = new Color(40, 54, 24);
   private final static Color PANEL_COLOR = new Color(236, 240, 235);
   private final static Color BUTTON_COLOR = new Color(220, 220, 220);
-  private static final int WIDTH_SCALE = 300;
-  private static final int HEIGHT_SCALE = 175;
+  private static final int WIDTH_SCALE = 200;
+  private static final int HEIGHT_SCALE = 200;
 
   private JMenuItem saveMenuItem;
   private JMenuItem restoreMenuItem;
@@ -43,7 +43,6 @@ public class MenuBar {
         Font font = fileMenu.getFont();
         fileMenu.setFont(font.deriveFont(Font.BOLD));
       }
-
       @Override
       public void mouseExited(MouseEvent e) {
         // Get the font and make it normal
@@ -51,22 +50,31 @@ public class MenuBar {
         fileMenu.setFont(font.deriveFont(Font.PLAIN));
       }
     });
-
     menuBar.add(fileMenu);
     menuBar.setBackground(MAIN_COLOR);
-    //menuBar.setOpaque(true);
 
     about.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        showAboutDialog("About the game");
+        try {
+          String about = "An immersive, object-oriented adventure game"
+          + "where players solve puzzles, battle monsters, and explore dynamic, interconnected worlds";
+          showDialogBox(about, "ABOUT", "/data/Resources/adventure.png");
+        } catch (IOException ex) {
+          throw new RuntimeException(ex);
+        }
       }
     });
 
     credits.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        showAboutDialog("credits");
+        try {
+          String creditsText = "Developed by Team TBH - Crafting adventures, one code line at a time!";
+          showDialogBox(creditsText, "CREDITS", "/data/Resources/credits.png");
+        } catch (IOException ex) {
+          throw new RuntimeException(ex);
+        }
       }
     });
 
@@ -79,10 +87,30 @@ public class MenuBar {
     return menuBar;
   }
 
-  private void showAboutDialog(String text) {
-    JLabel aboutText = new JLabel(text);
-    aboutText.setFont(getPanelFont().deriveFont(Font.PLAIN, 14));
-    aboutText.setAlignmentX(Component.CENTER_ALIGNMENT);
+  /**
+   * Method to show a JDialog with a given description.
+   * @param description : The text to display in the dialog.
+   */
+  public void showDialogBox(String description, String title, String imgPath) throws IOException {
+    JTextArea text = new JTextArea(description, 1, 20);
+    text.setFont(getPanelFont().deriveFont(Font.BOLD, 15));
+    text.setWrapStyleWord(true);
+    text.setLineWrap(true);
+    text.setOpaque(false);
+    text.setBorder(null);
+    text.setFocusable(false);
+    text.setEditable(false);
+    BufferedImage image = ImageIO.read(getClass().getResource(imgPath));
+    Image scaledImage = getScaledImage(image);
+    JOptionPane.showMessageDialog(null, text, title,
+            JOptionPane.INFORMATION_MESSAGE, new ImageIcon(scaledImage));
+
+  }
+
+  private void showAboutDialog(String title, String text, String imgPath) {
+    JLabel aboutText = new JLabel(text, SwingConstants.CENTER);
+    aboutText.setFont(getPanelFont().deriveFont(Font.BOLD, 14));
+    //aboutText.setAlignmentX(Component.CENTER_ALIGNMENT);
     aboutText.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
     // Create a dialog to display the text box
@@ -97,6 +125,7 @@ public class MenuBar {
     JDialog dialog = new JDialog();
     dialog.setLayout(new BorderLayout(10, 10));
     dialog.setBackground(PANEL_COLOR);
+    dialog.setTitle(title);
     dialog.setResizable(false);
 
     // Add the about text to the dialog's center
@@ -109,8 +138,6 @@ public class MenuBar {
     // Make the dialog visible
     dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
     dialog.setVisible(true);
-
-
   }
 
   private JButton createButton(String title) {

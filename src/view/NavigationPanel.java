@@ -47,8 +47,6 @@ public class NavigationPanel extends JPanel {
     this.examineBtn = createButton("Examine");
     this.answerBtn = createButton("Answer");
 
-
-
     buttonPanel.add(Box.createVerticalGlue());
     buttonPanel.add(takeBtn);
     buttonPanel.add(Box.createRigidArea(new Dimension(0, 5)));
@@ -180,6 +178,7 @@ public class NavigationPanel extends JPanel {
     Dimension buttonSize = new Dimension(100, 30);
 
     newBtn.setBounds(100, 100, 250, 100);
+    newBtn.setBorder(BorderFactory.createEmptyBorder(1, 1, 1, 1));
     newBtn.setText(title);
     newBtn.setHorizontalTextPosition(JButton.CENTER);
     newBtn.setVerticalTextPosition(JButton.CENTER);

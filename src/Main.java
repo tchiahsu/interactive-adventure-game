@@ -26,7 +26,7 @@ public class Main {
     String fileABC = "src/data/align_quest_game_elements.json";
     GameEngineApp engine2 = new GameEngineApp(fileABC, GameMode.GRAPHICS);
     GameEngineApp engine1 = new GameEngineApp(fileABC, GameMode.CONSOLE);
-    engine1.start();
+    engine2.start();
 
     if (args.length < 2 || args.length > 4) {
       displayCommands();
