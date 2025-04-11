@@ -20,6 +20,7 @@ public interface IGameView {
   boolean isPlayerDead();
   void setMenuActionListener();
   void showTextPopUp(String s);
+  void showGameOverPopUp() throws IOException;
 
 
 }

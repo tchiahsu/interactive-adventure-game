@@ -36,7 +36,7 @@ public class GuiHandler implements IGuiEventHandler {
 
     view.updateView();
     if (view.isPlayerDead()) {
-      view.showBlockedPopUp("Game over!");
+      view.showGameOverPopUp();
     }
   }
 

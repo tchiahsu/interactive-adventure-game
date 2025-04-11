@@ -1,0 +1,12 @@
+{
+  "name" : "tgttgr",
+  "health" : 100,
+  "score" : 0,
+  "inventory" : {
+    "maxCapacity" : 13,
+    "currentCapacity" : 0,
+    "items" : [ ]
+  },
+  "healthStatus" : "You are healthy and wide awake.\n",
+  "rank" : "Novice Explorer"
+}

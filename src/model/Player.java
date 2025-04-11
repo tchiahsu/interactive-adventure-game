@@ -88,6 +88,10 @@ public class Player implements IPlayer {
   @Override
   public void decreaseHealth(int amount) {
     health += amount;
+
+    if (health <= 0) {
+      health = 0;
+    }
   }
 
   /**

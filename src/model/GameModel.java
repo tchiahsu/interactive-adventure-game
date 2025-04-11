@@ -756,7 +756,6 @@ public class GameModel implements IGameModel {
   private String monsterAttacks(String output) {
     Monster monster = getMonsterInRoom();
     player.decreaseHealth(monster.getDamage());
-    // check player health
     output = output.concat(monster.getName() + " " + monster.getAttackMessage() + "\n");
     output = output.concat("You took " + monster.getDamage() + " damage!\n");
 

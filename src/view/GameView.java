@@ -456,5 +456,23 @@ public class GameView implements IGameView {
     Integer playerHealth = Integer.parseInt(this.controller.getCurrentState().get(4));
     return playerHealth <= 0;
   }
+
+  public void showGameOverPopUp() throws IOException {
+    String description = "You've fainted!\n" + this.controller.getGameSummary();
+    String imgPath = "/data/Resources/nighty_night.png";
+    JTextArea text = new JTextArea(description, 1, 20);
+    text.setFont(getPanelFont().deriveFont(Font.BOLD, 15));
+    text.setWrapStyleWord(true);
+    text.setLineWrap(true);
+    text.setOpaque(false);
+    text.setBorder(null);
+    text.setFocusable(false);
+    text.setEditable(false);
+    BufferedImage image = ImageIO.read(getClass().getResource(imgPath));
+    Image scaledImage = getScaledImage(image);
+    JOptionPane.showMessageDialog(null, text, "Game Over!",
+            JOptionPane.INFORMATION_MESSAGE, new ImageIcon(scaledImage));
+    System.exit(0);
+  }
 }
 
