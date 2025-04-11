@@ -163,7 +163,7 @@ public class GameModel implements IGameModel {
   public String getEndingMessage() {
     return "Thank you for playing "
       + this.player.getName()
-      + "\nYour score is "
+      + "!\nYour score is "
       + this.player.getScore()
       + "\nYour rank: "
       + this.player.getRank()
@@ -296,17 +296,19 @@ public class GameModel implements IGameModel {
 
     if (nextRoomNumber == 0) {
       // Invalid direction - no path
-      output.append("<<You cannot go in that direction>>\n\n");
+      output.append("<<You cannot go in that direction>>\n");
       return handleMonsterAttack(output.toString());
     } else if (nextRoomNumber < 0) {
       // path blocked by monster or puzzle
       if (roomHasActiveMonster()) {
+        output.append("<<You are being blocked from moving that way!>>\n");
         output.append(getMonsterInRoom().getActiveDescription()).append("\n");
         output.append(monsterAttacks(""));
-        return getItemsInRoom(output.toString());
+        return output.toString();
       } else if (roomHasActivePuzzle()) {
+        output.append("<<You are being blocked from moving that way!>>\n");
         output.append(getPuzzleInRoom().getActiveDescription()).append("\n");
-        return getItemsInRoom(output.toString());
+        return output.toString();
       } else {
         // Convert negative room to positive once obstacle is defeated to allow passage
         this.currentRoom = gameData.getRoom(String.valueOf(Math.abs(nextRoomNumber)));
@@ -350,6 +352,8 @@ public class GameModel implements IGameModel {
     this.player = this.objectMapper.readValue(
       new File("src/data/saveplayerdata_" + gameFile), Player.class);
     this.gameData = new GameData(gameInfo);
+
+    updatePlayerInventory();
 
     return "Game loaded successfully!\n";
   }
@@ -766,5 +770,20 @@ public class GameModel implements IGameModel {
       return puzzle.isActive();
     }
     return false;
+  }
+
+  /**
+   * Helper method. Updates the player inventory when restoring the game.
+   */
+  private void updatePlayerInventory() {
+    Inventory oldInventory = player.getInventory();
+    Inventory newInventory = new Inventory();
+
+    for (Item item : oldInventory.getItems()) {
+      Item updatedItem = gameData.getItem(item.getName());
+      newInventory.addItem(updatedItem);
+    }
+
+    player.setInventory(newInventory);
   }
 }

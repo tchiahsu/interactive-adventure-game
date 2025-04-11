@@ -16,7 +16,7 @@ public class Player implements IPlayer {
   private String name;
   private int health;
   private int score;
-  private final Inventory inventory;
+  private Inventory inventory;
   private HealthStatus healthStatus;
   private Rank rank;
 
@@ -56,6 +56,11 @@ public class Player implements IPlayer {
   @Override
   public Inventory getInventory() {
     return inventory;
+  }
+
+  @Override
+  public void setInventory(Inventory inventory) {
+    this.inventory = inventory;
   }
 
   /**

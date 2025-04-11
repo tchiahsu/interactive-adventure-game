@@ -2,9 +2,8 @@ package view;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
-
+import org.apache.commons.text.WordUtils;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
@@ -30,16 +29,9 @@ public class PicturePanel extends JPanel {
     this.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
     this.roomLabel = new JLabel();
     this.roomLabel.setFont(getPanelFont().deriveFont(Font.BOLD, 20));
+    this.roomLabel.setForeground(TEXT_COLOR);
     this.add(roomLabel, BorderLayout.NORTH);
-//
-//    try {
-//      image = ImageIO.read(getClass().getResource(picturePath));
-//      Image scaledImage = getScaledImage(image);
-//      this.pictureLabel = new JLabel(new ImageIcon(scaledImage));
-//    } catch (IOException e) {
-//      this.pictureLabel = new JLabel("No picture found", SwingConstants.CENTER);
-//      this.pictureLabel.setFont(getPanelFont().deriveFont(Font.BOLD, 20));
-//    }
+
     this.pictureLabel = new JLabel("No picture found", SwingConstants.CENTER);
     this.pictureLabel.setFont(getPanelFont().deriveFont(Font.BOLD, 20));
     this.pictureLabel.setBorder(BorderFactory.createEmptyBorder(75, 0,0,0));
@@ -47,6 +39,7 @@ public class PicturePanel extends JPanel {
   }
 
   public void updatePicturePanel(String roomName, String picturePath) {
+    roomName = WordUtils.capitalizeFully(roomName);
     roomLabel.setText(roomName);
 
     try {

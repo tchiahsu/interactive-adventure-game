@@ -26,6 +26,12 @@ public interface IPlayer {
   Inventory getInventory();
 
   /**
+   * Sets the inventory of the player.
+   * @param inventory The inventory to set for the player.
+   */
+  void setInventory(Inventory inventory);
+
+  /**
    * Increase the players score
    * @param amount : amount it should be increased.
    */

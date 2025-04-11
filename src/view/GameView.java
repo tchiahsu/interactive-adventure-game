@@ -259,11 +259,13 @@ public class GameView implements IGameView {
    */
   @Override
   public void showBlockedPopUp(String s) throws IOException {
-    String imgPath = "/data/Resources/block.png";
-    BufferedImage image = ImageIO.read(getClass().getResource(imgPath));
-    Image scaledImage = getScaledImage(image);
-    JOptionPane.showMessageDialog(this.board, s, "Path Blocked!",
-            JOptionPane.INFORMATION_MESSAGE, new ImageIcon(scaledImage));
+    if (s.contains("You cannot go in") || s.contains("You are being blocked")) {
+      String imgPath = "/data/Resources/block.png";
+      BufferedImage image = ImageIO.read(getClass().getResource(imgPath));
+      Image scaledImage = getScaledImage(image);
+      JOptionPane.showMessageDialog(this.board, s, "Path Blocked!",
+              JOptionPane.INFORMATION_MESSAGE, new ImageIcon(scaledImage));
+      }
   }
 
   /**
@@ -271,7 +273,7 @@ public class GameView implements IGameView {
    * @param s description to return.
    * @throws IOException error if image is not found.
    */
-  public void showPopUpAnswer(String s) throws IOException {
+  public void showAnswerPopUp(String s) throws IOException {
     if (s.contains("SUCCESS")) {
       BufferedImage image = ImageIO.read(getClass().getResource("/data/Resources/correct_answer.png"));
       Image scaledImage = getScaledImage(image);

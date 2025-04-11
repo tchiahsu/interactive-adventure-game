@@ -14,14 +14,13 @@ public interface IGameView {
   void showItemUsePopUp(String s);
   void showInputDialog(String title);
 // void showItemUsePopUp(String s);
-  void showPopUpAnswer(String s) throws IOException;
+  void showAnswerPopUp(String s) throws IOException;
 
   String[] getRoomItems();
 
   void showSelectionDialog(String s, String[] roomItems);
 
   boolean isPlayerDead();
-//  String[] getRoomItems();
 
   void setMenuActionListener();
 

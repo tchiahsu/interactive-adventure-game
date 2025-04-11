@@ -516,7 +516,9 @@ public class GameModelTest {
    */
   @Test
   void testGetEndingMessage() {
-    expectedString = "Thank you for playing!\n"
+    this.model.getPlayer().setName("Peter");
+
+    expectedString = "Thank you for playing Peter!\n"
             + "Your score is 0\n"
             + "Your rank: Novice Explorer\n";
     assertEquals(expectedString, model.getEndingMessage());

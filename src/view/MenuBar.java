@@ -57,7 +57,7 @@ public class MenuBar {
       @Override
       public void actionPerformed(ActionEvent e) {
         try {
-          String about = "An immersive, object-oriented adventure game"
+          String about = "An immersive, object-oriented adventure game "
           + "where players solve puzzles, battle monsters, and explore dynamic, interconnected worlds";
           showDialogBox(about, "ABOUT", "/data/Resources/adventure.png");
         } catch (IOException ex) {
