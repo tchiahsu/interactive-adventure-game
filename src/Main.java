@@ -23,10 +23,10 @@ public class Main {
    * @throws IOException if an I/O error occurs during input/output operations.
    */
   public static void main(String [] args) throws IOException {
-    String fileABC = "src/data/align_quest_game_elements.json";
-    GameEngineApp engine1 = new GameEngineApp(fileABC, GameMode.CONSOLE);
-    GameEngineApp engine2 = new GameEngineApp(fileABC, GameMode.GRAPHICS);
-    engine2.start();
+//    String fileABC = "src/data/align_quest_game_elements.json";
+//    GameEngineApp engine1 = new GameEngineApp(fileABC, GameMode.CONSOLE);
+//    GameEngineApp engine2 = new GameEngineApp(fileABC, GameMode.GRAPHICS);
+//    engine2.start();
 
     if (args.length < 2 || args.length > 4) {
       displayCommands();
@@ -54,6 +54,7 @@ public class Main {
       case BATCH_GAME -> {
         if (args.length < 3) {
           System.out.println("Missing files for batch game.");
+          return;
         }
 
         if (args.length == 3) {
@@ -69,6 +70,7 @@ public class Main {
           String targetFile = args[3];
           if (isInvalidFile(sourceFile) || isInvalidFile(targetFile)) {
             System.out.println("Invalid source or target file.");
+            return;
           }
           engine = new GameEngineApp(filePath, GameMode.BATCH_FILE, sourceFile, targetFile);
           engine.start();
