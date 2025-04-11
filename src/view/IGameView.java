@@ -23,5 +23,9 @@ public interface IGameView {
   boolean isPlayerDead();
 //  String[] getRoomItems();
 
+  void setMenuActionListener();
+
+  void showTextPopUp(String s);
+
 
 }

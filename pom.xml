@@ -85,16 +85,4 @@
 
     </dependencies>
 
-    <build>
-        <resources>
-            <resource>
-                <directory>src/data/Resources</directory>
-                <targetPath>data/resources</targetPath>
-                <includes>
-                    <include>**/*</include>
-                </includes>
-            </resource>
-        </resources>
-    </build>
-
 </project>

@@ -1,0 +1,21 @@
+{
+  "healthStatus" : "You are healthy and wide awake.\n",
+  "rank" : "Novice Explorer",
+  "name" : "HARRISON",
+  "health" : 100,
+  "score" : 5,
+  "inventory" : {
+    "maxCapacity" : 13,
+    "currentCapacity" : 2,
+    "items" : [ {
+      "name" : "HAIR CLIPPERS",
+      "description" : "Cordless Wahl hair clippers for pets or humans. The battery low light is blinking.",
+      "weight" : 2,
+      "picture" : "hair-clippers.png",
+      "max_uses" : 10,
+      "uses_remaining" : 4,
+      "value" : 5,
+      "when_used" : "You activate the clippers. It makes a loud buzzing sound as you use them!"
+    } ]
+  }
+}

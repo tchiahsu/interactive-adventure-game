@@ -1,0 +1,14 @@
+{
+  "room_name" : "COURTYARD",
+  "description" : "A beautiful courtyard with flowers on both sides of the stone walkway. \nThe walkway leads north. A billboard is in the distance.",
+  "room_number" : "1",
+  "N" : "2",
+  "S" : "0",
+  "E" : "0",
+  "W" : "0",
+  "puzzle" : null,
+  "monster" : null,
+  "items" : "",
+  "fixtures" : "BILLBOARD",
+  "picture" : "courtyard.png"
+}

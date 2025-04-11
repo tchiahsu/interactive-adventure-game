@@ -1,5 +1,6 @@
 package model;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
@@ -58,5 +59,11 @@ public class Monster extends AbstractObstacle {
     } else {
       this.picture = "/data/Resources/" + picture;
     }
+  }
+
+  @JsonGetter("picture")
+  public String getPictureFileName() {
+    // Remove the path for serialization
+    return picture == null ? null : picture.replace("/data/Resources/", "");
   }
 }

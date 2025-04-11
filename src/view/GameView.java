@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -8,6 +9,8 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import controller.IViewController;
+
+import static view.ViewUtils.getPanelFont;
 
 public class GameView implements IGameView {
   private GameBoard board;
@@ -23,6 +26,8 @@ public class GameView implements IGameView {
   private int itemIndex = -1;
   private String imagePath;
   private String answer;
+  private final static Color PANEL_COLOR = new Color(236, 240, 235);
+  private final static Color BUTTON_COLOR = new Color(220, 220, 220);
 
   private static final int WIDTH_SCALE = 100;
   private static final int HEIGHT_SCALE = 100;
@@ -74,6 +79,7 @@ public class GameView implements IGameView {
   private void setActionListener() {
     setInventoryPanelActionListener();
     setNavigationPanelActionListener();
+    setMenuActionListener();
   }
 
   public void setInventoryPanelActionListener() {
@@ -195,6 +201,33 @@ public class GameView implements IGameView {
     });
   }
 
+  @Override
+  public void setMenuActionListener() {
+    this.menuBar.getSaveMenuItem().addActionListener(event -> {
+      try {
+        this.controller.executeCommand("SAVE");
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    });
+
+    this.menuBar.getRestoreMenuItem().addActionListener(event -> {
+      try {
+        this.controller.executeCommand("RESTORE");
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    });
+
+    this.menuBar.getExitMenuItem().addActionListener(event -> {
+      try {
+        showExitDialog("Game Summary", "/data/Resources/nighty_night.png");
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    });
+  }
+
   /**
    * Method that displays a dialog box that takes in user input.
    */
@@ -292,6 +325,83 @@ public class GameView implements IGameView {
     }
   }
 
+//  exit.addActionListener(new ActionListener() {
+//    @Override
+//    public void actionPerformed(ActionEvent e) {
+//      try {
+//        showExitDialog("Game Summary", "/data/Resources/nighty_night.png");
+//      } catch (IOException ex) {
+//        throw new RuntimeException(ex);
+//      }
+//    }
+//  });
+//
+//
+  private void showExitDialog(String text, String imgPath) throws IOException {
+    JLabel gameSummary = new JLabel(text);
+    gameSummary.setFont(getPanelFont().deriveFont(Font.PLAIN, 14));
+    gameSummary.setAlignmentX(Component.CENTER_ALIGNMENT);
+    gameSummary.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+    // Load and scale the image
+    BufferedImage image = ImageIO.read(getClass().getResource(imgPath));
+    Image scaledImage = getScaledImage(image);
+    JLabel imageLabel = new JLabel();
+    imageLabel.setIcon(new ImageIcon(scaledImage));
+    imageLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+    // okay button
+    JButton exitButton = createButton("OKAY");
+    exitButton.addActionListener(event -> System.exit(0));
+    exitButton.setPreferredSize(new Dimension(50, 20));
+
+    JPanel contentPanel = new JPanel();
+    contentPanel.setLayout(new BorderLayout(20, 20));
+    contentPanel.setBackground(PANEL_COLOR);
+    contentPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+
+    // Create a subpanel
+    JPanel messagePanel = new JPanel();
+    messagePanel.setLayout(new BoxLayout(messagePanel, BoxLayout.Y_AXIS));
+    messagePanel.setBackground(PANEL_COLOR);
+    messagePanel.add(gameSummary);  // Add game summary text
+    messagePanel.add(Box.createRigidArea(new Dimension(0, 10)));
+
+    // Create the dialog and set layout
+    JDialog dialog = new JDialog();
+    dialog.setBackground(PANEL_COLOR);
+    dialog.setLayout(new BorderLayout());
+
+    // Add components to the dialog
+    dialog.add(messagePanel, BorderLayout.CENTER);
+    dialog.add(imageLabel, BorderLayout.WEST);
+    dialog.add(exitButton, BorderLayout.SOUTH);
+
+    // Set dialog size and visibility
+    dialog.setSize(450, 250);
+    dialog.setLocationRelativeTo(null);
+    dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+    dialog.setVisible(true);
+  }
+
+  private JButton createButton(String title) {
+    JButton newBtn = new JButton();
+    Dimension buttonSize = new Dimension(40, 20);
+
+    newBtn.setBounds(100, 100, 250, 100);
+    newBtn.setText(title);
+    newBtn.setHorizontalTextPosition(JButton.CENTER);
+    newBtn.setVerticalTextPosition(JButton.CENTER);
+    newBtn.setFocusable(false);
+    newBtn.setFont(getPanelFont().deriveFont(Font.PLAIN, 14));
+    newBtn.setPreferredSize(buttonSize);
+    newBtn.setMinimumSize(buttonSize);
+    newBtn.setMaximumSize(buttonSize);
+    newBtn.setBackground(BUTTON_COLOR);
+
+    return newBtn;
+  }
+
   /**
    * Method to show a pop-up with a given description.
    * @param s : The text to display in the dialog.
@@ -309,6 +419,11 @@ public class GameView implements IGameView {
     Image scaledImage = getScaledImage(image);
     JOptionPane.showMessageDialog(this.board, s, title,
             JOptionPane.INFORMATION_MESSAGE, new ImageIcon(scaledImage));
+  }
+
+  @Override
+  public void showTextPopUp(String s) {
+    JOptionPane.showMessageDialog(this.board, s);
   }
 
   public String[] getRoomItems() {

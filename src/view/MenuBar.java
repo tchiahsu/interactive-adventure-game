@@ -17,6 +17,10 @@ public class MenuBar {
   private static final int WIDTH_SCALE = 300;
   private static final int HEIGHT_SCALE = 175;
 
+  private JMenuItem saveMenuItem;
+  private JMenuItem restoreMenuItem;
+  private JMenuItem exitMenuItem;
+
   public JMenuBar getMenuBar() {
     JMenuBar menuBar = new JMenuBar();
     menuBar.setPreferredSize(new Dimension(400, 40));
@@ -24,9 +28,9 @@ public class MenuBar {
     JMenu fileMenu = new JMenu("File");
     JMenuItem about = new JMenuItem("About");
     JMenuItem credits = new JMenuItem("Credits");
-    JMenuItem saveGame = new JMenuItem("Save");
-    JMenuItem restoreGame = new JMenuItem("Restore");
-    JMenuItem exit = new JMenuItem("Exit");
+    this.saveMenuItem = new JMenuItem("Save");
+    this.restoreMenuItem = new JMenuItem("Restore");
+    this.exitMenuItem = new JMenuItem("Exit");
     //exit.addActionListener(event -> System.exit(0));
 
     fileMenu.setFont(getPanelFont().deriveFont(Font.PLAIN, 18));;
@@ -66,23 +70,11 @@ public class MenuBar {
       }
     });
 
-    exit.addActionListener(new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        try {
-          showExitDialog("Game Summary", "/data/Resources/nighty_night.png");
-        } catch (IOException ex) {
-          throw new RuntimeException(ex);
-        }
-      }
-    });
-
-
     fileMenu.add(about);
     fileMenu.add(credits);
-    fileMenu.add(saveGame);
-    fileMenu.add(restoreGame);
-    fileMenu.add(exit);
+    fileMenu.add(this.saveMenuItem);
+    fileMenu.add(this.restoreMenuItem);
+    fileMenu.add(this.exitMenuItem);
 
     return menuBar;
   }
@@ -121,53 +113,6 @@ public class MenuBar {
 
   }
 
-  private void showExitDialog(String text, String imgPath) throws IOException {
-    JLabel gameSummary = new JLabel(text);
-    gameSummary.setFont(getPanelFont().deriveFont(Font.PLAIN, 14));
-    gameSummary.setAlignmentX(Component.CENTER_ALIGNMENT);
-    gameSummary.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-
-    // Load and scale the image
-    BufferedImage image = ImageIO.read(getClass().getResource(imgPath));
-    Image scaledImage = getScaledImage(image);
-    JLabel imageLabel = new JLabel();
-    imageLabel.setIcon(new ImageIcon(scaledImage));
-    imageLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-
-    // okay button
-    JButton exitButton = createButton("OKAY");
-    exitButton.addActionListener(event -> System.exit(0));
-    exitButton.setPreferredSize(new Dimension(50, 20));
-
-    JPanel contentPanel = new JPanel();
-    contentPanel.setLayout(new BorderLayout(20, 20));
-    contentPanel.setBackground(PANEL_COLOR);
-    contentPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-
-    // Create a subpanel
-    JPanel messagePanel = new JPanel();
-    messagePanel.setLayout(new BoxLayout(messagePanel, BoxLayout.Y_AXIS));
-    messagePanel.setBackground(PANEL_COLOR);
-    messagePanel.add(gameSummary);  // Add game summary text
-    messagePanel.add(Box.createRigidArea(new Dimension(0, 10)));
-
-    // Create the dialog and set layout
-    JDialog dialog = new JDialog();
-    dialog.setBackground(PANEL_COLOR);
-    dialog.setLayout(new BorderLayout());
-
-    // Add components to the dialog
-    dialog.add(messagePanel, BorderLayout.CENTER);
-    dialog.add(imageLabel, BorderLayout.WEST);
-    dialog.add(exitButton, BorderLayout.SOUTH);
-
-    // Set dialog size and visibility
-    dialog.setSize(450, 250);
-    dialog.setLocationRelativeTo(null);
-    dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-    dialog.setVisible(true);
-  }
-
   private JButton createButton(String title) {
     JButton newBtn = new JButton();
     Dimension buttonSize = new Dimension(40, 20);
@@ -199,4 +144,15 @@ public class MenuBar {
     }
   }
 
+  public JMenuItem getSaveMenuItem() {
+    return this.saveMenuItem;
+  }
+
+  public JMenuItem getRestoreMenuItem() {
+    return this.restoreMenuItem;
+  }
+
+  public JMenuItem getExitMenuItem() {
+    return this.exitMenuItem;
+  }
 }

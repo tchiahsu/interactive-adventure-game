@@ -3,6 +3,7 @@ package model;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -139,6 +140,12 @@ public class Room implements ILocation {
    */
   public String getPicture() {
     return picture;
+  }
+
+  @JsonGetter("picture")
+  public String getPictureFileName() {
+    // Remove the path for serializing
+    return picture == null ? null : picture.replace("/data/Resources/", "");
   }
 
   /**
