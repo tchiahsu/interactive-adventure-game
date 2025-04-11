@@ -380,7 +380,6 @@ public class GameView implements IGameView {
     Dimension buttonSize = new Dimension(80, 20);
 
     newBtn.setText(title);
-    newBtn.setBorder(BorderFactory.createEmptyBorder(1, 1, 1, 1));
     newBtn.setHorizontalTextPosition(JButton.CENTER);
     newBtn.setVerticalTextPosition(JButton.CENTER);
     newBtn.setFocusable(false);
@@ -388,7 +387,6 @@ public class GameView implements IGameView {
     newBtn.setPreferredSize(buttonSize);
     newBtn.setMinimumSize(buttonSize);
     newBtn.setMaximumSize(buttonSize);
-    newBtn.setBackground(BUTTON_COLOR);
 
     return newBtn;
   }
@@ -397,7 +395,6 @@ public class GameView implements IGameView {
    * Method to show a pop-up with a given description.
    * @param s : The text to display in the dialog.
    */
-  //Bhoomika popup
   @Override
   public void showItemUsePopUp(String s) {
     JOptionPane.showMessageDialog(this.board, s, "Using: "

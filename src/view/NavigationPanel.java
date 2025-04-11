@@ -139,7 +139,6 @@ public class NavigationPanel extends JPanel {
     newBtn.setPreferredSize(buttonSize);
     newBtn.setMinimumSize(buttonSize);
     newBtn.setMaximumSize(buttonSize);
-    newBtn.setBackground(getPanelColor());
 
     return newBtn;
   }
@@ -149,7 +148,6 @@ public class NavigationPanel extends JPanel {
     Dimension buttonSize = new Dimension(100, 30);
 
     newBtn.setBounds(100, 100, 250, 100);
-    newBtn.setBorder(BorderFactory.createEmptyBorder(1, 1, 1, 1));
     newBtn.setText(title);
     newBtn.setHorizontalTextPosition(JButton.CENTER);
     newBtn.setVerticalTextPosition(JButton.CENTER);
@@ -158,7 +156,6 @@ public class NavigationPanel extends JPanel {
     newBtn.setPreferredSize(buttonSize);
     newBtn.setMinimumSize(buttonSize);
     newBtn.setMaximumSize(buttonSize);
-    newBtn.setBackground(getPanelColor());
 
     return newBtn;
   }
