@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
  * Represents the health status of the player in the adventure game.
  */
 public enum HealthStatus {
-  SLEEP("Your health has dropped to the sleep zone. \nNighty-night\nGame Over!\n"),
+  SLEEP("Your health has dropped to the sleep zone. \nNighty-night! \nGame Over!\n"),
   WOOZY("Your health is very low! And you're woozy\n"),
   FATIGUED("Adventuring has made you very tired! Your health is low!\n"),
   AWAKE("You are healthy and wide awake.\n");

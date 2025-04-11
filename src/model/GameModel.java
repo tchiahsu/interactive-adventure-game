@@ -225,7 +225,8 @@ public class GameModel implements IGameModel {
       output.append(currentRoom.getDescription()).append("\n");
     }
     currentState.add(getItemsInRoom(output.toString()));
-    currentState.add(player.getHealthStatus());
+    String playerHealthStatus = player.getHealthStatus().replaceAll("\n", "");
+    currentState.add(playerHealthStatus);
     currentState.add(String.valueOf(player.getHealth()));
     currentState.add(String.valueOf(player.getScore()));
     currentState.add(
