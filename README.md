@@ -8,54 +8,52 @@ Welcome to the Adventure Game Engine, an object-oriented design project that let
 - Bhoomika Gupta
 - Harrison Pham
 
-## Project Overview
-The Adventure Game Engine follows an object-oriented design using the MVC architecture, ensuring modularity and separation of concerns. The game mechanics includes player movement, health tracking, item collection, monster battles, and puzzle-solving. The game world consists of interconnected rooms that players can navigate, with various interactions available based on the environment, items, and obstacles.
+## High Level Evolution of Our Model from Homework 8 to Homework 9
 
-## MVC Design
-- Model (GameModel): Represents the core game logic, including the player, rooms, items, monsters, and puzzles.
-- Controller (GameController): Handles user input (e.g., player movement, item interaction) and updates the Model accordingly.
-- View (Future Implementation): Displays the game world, player status, and room descriptions to the user.
+The biggest change from Homework 8 to Homework 9 was the integration of a GUI. Thanks to our earlier focus on separing conerns in Homework 8, particularly aroound the model and the controller, we were able to implement the GUI with minimal changes to the model. Primarily, adding a few methods to support image handling between the Model, the Controller and the View.
 
-## Key Design Decisions
+For the GUI design, we used a layered approach inspired by the Decorator Pattern. We created a *JFrame*, and stacked panels on on top of the other to create the final view. Each panel that was added had its own purpose and displayed different types of information which goes hand in hand with our focus keeping our game architecture more modular.
 
-- **Command Pattern**: Each valid user action is encapsulated in their own stand-along command class (*ICommand*). This promotes modularity and flexibility, making it easier to modify or remap an action to a command without having to deal with other commands. A tradeoff with this pattern is scalability, as the game increases in complexity, the number of commands will increase which would lead to high maintenance overhead.
-- **Composition over Inheritance**: Our game implementation relies heavily on composition as opposed to inheritance. There is inheritance, particularly through abstract classes to avoid code duplication in our main game elements (*Monster and Puzzle, Item and Fixture*). Furthermore, since we are reading the data from the game file, composition allows us to build the classes based on the data provided rather than having to follow a rigid class structure. Furthermore, expanding the game is easier when the design is predominantly built with composition over inheritance, since it makes it easier to implement new features without significantly modifying existing code. 
-- **Reliance on Interfaces**: Following our design decision in Homework 7, we decided to continue to use interfaces to guarantee loose coupling. As mentioned before, we do rely on composition, but interfaces remained an important abstraction in our design. We are able to reduce interdependencies between classes and have a real separation of concern. Each class needs to abide by a contract, and if we want to add new parts or features to the game, as long as they follow the contract, the functionality of the game can be kept mostly intact. This is one of the advantages that interfaces provide, and it makes our game more flexible and modular.
-- **String-Based Object Reference**: In the brainstorming part of Homework 7, we had initially chosen to pass in objects throughout the game to determine if certain commands could be performed, particularly if an item could deactivate a Monster or a Puzzle. We shifted our idea towards working with their String name rather than the object itself. Homework 8 follows the same idea, where we work and pass around the entity's name as a string, which offer a simpler way of handling and moving data throughout the game. Particularly, it helps avoid type mismatches and because we are working with Strings over class types, it makes it easier to serialize and deserialize data. This approach meant that we had to create a GameData class to map String names with the actual object in case we needed access to the actual object to check its fields (i.e. getting a Puzzle's solution).
-- **Monster/Puzzle Interactions**: Our initial design of the game required Players to deactivate a Monster or a Puzzle before being able to run any movement command. The game file and game specification seem to imply that the Player is able to move to different locations, just not in the direction of the obstacle. This meant that Player could choose to interact with the obstacle, but the obstacle will always interact with the player (i.e.  monster deals damage to player).
-- **Future View Implementation**: As we examined the game files, we noticed that there is a lot of information about pictures or images for the adventure game. This is something that is out of scope for our current assignment, but will be useful in a future assignment. We chose to implement these features in the current assignment, even though their functionality and behavior isn't tested, as they are redundant to our game (for now). They are currently present in our code since we are working towards implementing the View for Homework 9.
+As we were designing our view and its different panels, we realized the benefit of using a Utility Class to manage the methods that we kept on reusing in each panel over and over again. It was important for use to implement this utility class to avoid repeating code throughout the design of our GUI.
 
-## Key Classes and their Importance
+The controller saw the biggest architecrutal change. In Homework 8, we had one controller class *GameController* that implemented the *IController* class. For Homework 9, we intially attempted to continue using just a single controller with logic for both text-based and GUI modes, but it because difficult to manage since the controller runs a text-based game (string input/output) differently than a GUI game (click events). To resolve this difference, we decided to introduce a dedicated GUI controller *ViewController* that implements an *IViewController* interface. The different controllers allowed us to correctly manage command execute depending on the gamemode that was being played. This was particularly important for the GUI controller, since we had to determine if the output should be a popup or just updates to the existing GUI.
 
-These are the main classes that allow our adventure game to function as expected. We don't specify what each game element (Room, Monster, Puzzle, Fixture, etc.) does exactly. We focus more on these classes to manage functionality in our game:
+To handle input/output consistently across all the game modes, whether it was text, file, GUI or any combination, we introduced the *IEventHandler* interface. All concrete classes that implement this interface specify how the event handler takes in information (typed, source file, etc) and where the information gets outputted (terminal, target file, etc). The issue with the GUI was that it required more awareness on the type of command being executre to render the output in the correct place. For example, if the command was utilizing an item, then the output had to be shown through a popup, whereas if the command was moving north, the output had to be shown on the description panel. Adding this functionality to the *IEventHandler* interface would have been a viable approach if it wasn't because it would violate the Integration Segregation Principle. Instead, we decided to introduce a separate *IGuiEventHandler* interface specifically for the GUI and the methods it needs to operate. This allowed us to preserve modularity and adhere to SOLID principles.
 
-- **GameController**: Coordinates the input by the user and the game logic. It processes a command, updates the *GameModel*, and ensures that the state of the game changes appropriately. It works with the *GameInput* and *GameCommandFinder* to transform user input into an executable method.
-- **GameInputReader**: Takes input from the user, validates that the input is a valid command and passes the string as a list composed of the action verb and the argument (if there is any).
-- **GameCommandFinder**: Uses the action verb to identify the method in the model that should be executed to change the game state accordingly.
-- **GameModel**: Manages the state of the game. This includes all the elements present in the game. It responds to the information given by the Controller. 
-- **GameInput**: Parses the Game File and intializes all the game entities (in this case: rooms, items, monsters, puzzles, fixtures, etc.).
-- **GameData**: Stores all the data related to game objects. It acts as a directory where we use the object's String name to retrieve the actual object.
+Our last addition was the use of Enums for the *GameEngineApp* class. The Enums represent the different types of game modes in the game. Each game mode gets initialized differently, and so to account for the difference we created multiple constructors in the *GameEngineApp* class to ensure that the right configuration is used based on the selected game mode.
 
-The first three classes work alongside to perform the responsibilities of coordinating the game, and the bottom three classes work together to manage the game state. Each class has their own focus, but they work together to manage the game flow, which highlights our focus on separating responsibilities and lowering coupling concerns.
+## The View and Its Components
 
-## High Level Evolution of Our Model
+As mentioned previously, we used a layered approach similar to the Decorator Pattern where we create *JPanels* and add them on top of the already existing one. The main classes in our view are detailed below (not all are included):
 
-From Homework 7 to Homework 8, the biggest change in our implementation was the introduction of a controller and its associated components (the input reader, the command finder, and the command classes). Our initial UML diagrams focused heavily on composition through interfaces, but while implementing the controller, we introduced helper functions to help parse data, validate input, and other operations. This forced us to shift away from an aggregation relationship and move towards composition with concrete classes, particularly surrounding *GameInfo*. We also introduced a dependency between the command classes and the game model, given that commands reference methods inside the *GameModel* class.
+- **GameView**: This is the main entry point for initializing the GUI. As mentioned, the view is made up of several panels layered on top of each other. This class initalizes the panels and places them on top of one another creating the GUI. Since this class' purpose is to initialize the GUI, it also sets the click events for all the buttons/elements in the game.
+- **GameBoard**: Creates the canvas where the game will be located in. It specifies the size, background, title and general properties of the game board.
+- **ViewManager**: This class creates the first layer of the GUI. It utilizes the GridBagLayout to create size separate panels where we are going to display the information. We utilized this layout so we could make the size of the panels fixed.
 
-For the *GameData* class, we initially envisioned storing similar objects in shared lists by using their respective Interfaces. For example, Items and Fixtures would be stored in an *IItem* list whereas Monsters and Puzzles would be stored in an *IObstacle* list. However, during the JSON deserialization, we noticed that due to the structure of the data, we needed separate lists for each individual class, and so the relationship between the GameData class and the game entities is no longer through their Interface but through the concrete class.
+There are three panels that display information and two panels that allow the user to execute commands. Below you can find a short description of their content and purpose.
 
-Another important change was the implementation of Enums. As we began our implementation, we noticed areas where there was significant hardcoded text, specially when we were dealing with the game commands, the Player health, and the Player rank. To keep the code more modular, we introduced Enums which allowed us to store those strings in one location and reference them as needed throughout the code. This made our code easier to modify if any of the String messages of the Player health and ranks needed to be changed.
+- **DescriptionPanel**: Displays the current game state's textual description.
+- **StatusPanel**: Shows the player's health status, actual health, and player score.
+- **PicturePanel**: Display's the current room's name and an image representing it.
+- **InventoryPanel**: Lists items in player inventory and provide command to interact with them.
+- **NaviationPanel**: Shows the the movement keys and some useful command to interact with elements in a room.
 
-In regards to the model and the game entities, most of our initial design decisions remained the same (outside the design decisions mentioned previously). Our model was based on a lot of assumptions that were mostly correct, which allowed us to keep a lot of our implementation ideas. However, there were a few assumptions that required us to change how we want to approach our implementation. We had assumed that if a Player entered a room with an Obstacle, they could only interact with that Obstacle. Instead, they are allowed to move in any direction as long as it's not in the direction of the Obstacle. We had also assumed that fixtures were purely decorative, but we learned that they can be examined and can have puzzles associated with them. These two were the biggest changes surrounding our game entity interactions.
-
-
-## Note on Testing
-
-We have an extensive test suite that checks the model works as expected. We want to note that we don't have tests for our command classes. This was done purposely since each command class only has one method, which is the method in the GameModel class that needs to be triggered to change the state of the game. For example, the *LookCommand* will execute the *look()* in the *GameModel* class, but since we are already testing it on the *GameModel* class, we believe that testing the *LookCommand* execute method again would result in repetitive and redundant testing.
-
-## How to Use
+## How to run the game
 
 1. Clone the repository and open it in IntelliJ.
-2. Load your JSON file in the data package or use the current data files available.
-3. Inovke entry point to initialize and run the game - We have provided a main function with a pre-defined JSON file.
-4. The game starts by displaying the player's initial room and prompts the user for their first command.
+2. In the built-in terminal in IntelliJ change the current working directory to be in the Adventure_Game_5004_jar directoy. There should only be one file; Adventure_Game_5004.jar inside the directory.
+3. Depending on the type of game mode you want to player run the respective command:
+    **Text-Based:** java -jar Adventure_Game_5004.jar <insert gamefile path> -text
+    **Graphics:** java -jar Adventure_Game_5004.jar <insert gamefile path> -graphics
+    **Batch (Console Output):** java -jar Adventure_Game_5004.jar <insert gamefile path> -batch <source file>
+    **Batch (File Output):** java -jar Adventure_Game_5004.jar <insert gamefile path> -batch <source file> <target file>
+
+## Where to add your own images
+
+1. 
+
+## Shout Out
+
+Special thanks to Soni for her help clarifying the documentation requirements for Homework 9. We have always been aware that our UML is quite large and extensive, which makes it hard to include in our written documents. We wanted to thank her for giving us some ideas on how to make it work.
+
+We are also very appreciative of her feedback on all our assignments so far, particularly her comments on how to improve our Sequence Diagrams and the important to keep our model flexible and maintainable, specially when working with large projects like this one. 
