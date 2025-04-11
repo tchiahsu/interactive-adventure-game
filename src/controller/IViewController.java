@@ -11,5 +11,7 @@ public interface IViewController {
   String[] getInventoryItems();
   String[] getExaminableObjects();
   String getImagePath(String object);
+  String getGameName();
   String getGameSummary();
+  ;
 }

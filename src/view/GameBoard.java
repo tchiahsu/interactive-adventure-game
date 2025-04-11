@@ -18,7 +18,7 @@ public class GameBoard extends JFrame {
   public GameBoard() {
     ImageIcon logo = new ImageIcon(logoPath);
 
-    this.setTitle("Adventure Game");
+    //this.setTitle("Adventure Game");
     this.setIconImage(logo.getImage());
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.setBackground(BACKGROUND_COLOR);

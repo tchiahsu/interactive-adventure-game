@@ -17,12 +17,13 @@ public class MenuBar {
   private static final int WIDTH_SCALE = 200;
   private static final int HEIGHT_SCALE = 200;
 
+  private JMenuBar menuBar;
   private JMenuItem saveMenuItem;
   private JMenuItem restoreMenuItem;
   private JMenuItem exitMenuItem;
 
-  public JMenuBar getMenuBar() {
-    JMenuBar menuBar = new JMenuBar();
+  public JMenuBar createMenuBar() {
+    this.menuBar = new JMenuBar();
     menuBar.setPreferredSize(new Dimension(400, 40));
 
     JMenu fileMenu = new JMenu("File");
@@ -31,7 +32,6 @@ public class MenuBar {
     this.saveMenuItem = new JMenuItem("Save");
     this.restoreMenuItem = new JMenuItem("Restore");
     this.exitMenuItem = new JMenuItem("Exit");
-    //exit.addActionListener(event -> System.exit(0));
 
     fileMenu.setFont(getPanelFont().deriveFont(Font.PLAIN, 18));;
     fileMenu.setForeground(Color.WHITE);
@@ -50,8 +50,8 @@ public class MenuBar {
         fileMenu.setFont(font.deriveFont(Font.PLAIN));
       }
     });
-    menuBar.add(fileMenu);
-    menuBar.setBackground(getMainColor());
+    this.menuBar.add(fileMenu);
+    this.menuBar.setBackground(getMainColor());
 
     about.addActionListener(new ActionListener() {
       @Override
@@ -84,7 +84,7 @@ public class MenuBar {
     fileMenu.add(this.restoreMenuItem);
     fileMenu.add(this.exitMenuItem);
 
-    return menuBar;
+    return this.menuBar;
   }
 
   /**
@@ -112,15 +112,6 @@ public class MenuBar {
     aboutText.setFont(getPanelFont().deriveFont(Font.BOLD, 14));
     //aboutText.setAlignmentX(Component.CENTER_ALIGNMENT);
     aboutText.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-
-    // Create a dialog to display the text box
-//    JDialog dialog = new JDialog();
-//    dialog.setLayout(new BorderLayout(2,2));
-//    dialog.setBackground(PANEL_COLOR);
-//    dialog.add(aboutText, BorderLayout.CENTER);
-//    dialog.setSize(300, 200);
-//    dialog.setLocationRelativeTo(getMenuBar());
-//    dialog.setVisible(true);
 
     JDialog dialog = new JDialog();
     dialog.setLayout(new BorderLayout(10, 10));

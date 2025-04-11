@@ -54,6 +54,11 @@ public class ViewController implements IViewController {
   }
 
   @Override
+  public String getGameName() {
+    return this.model.getGameName();
+  }
+
+  @Override
   public String getGameSummary() {
     return this.model.getEndingMessage();
   }

@@ -155,6 +155,14 @@ public class GameModel implements IGameModel {
   }
 
   /**
+   * Method to get the name of the game.
+   */
+  @Override
+  public String getGameName() {
+    return this.gameInfo.getName();
+  }
+
+  /**
    * Gets the ending message when the player quits or goes to sleep in the game.
    *
    * @return end game message

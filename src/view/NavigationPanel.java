@@ -34,7 +34,7 @@ public class NavigationPanel extends JPanel {
     // Create a title panel for the top
     JLabel title = new JLabel("Navigation");
     title.setForeground(getMainColor());
-    Font font = getPanelFont().deriveFont(Font.BOLD, 25);
+    Font font = getPanelFont().deriveFont(Font.BOLD, 20);
     title.setFont(font);
     this.add(title, BorderLayout.NORTH);
 

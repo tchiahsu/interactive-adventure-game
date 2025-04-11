@@ -96,7 +96,6 @@ public class InventoryPanel extends JPanel {
     button.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        //System.out.println("Button clicked, showing dialog...");
         try {
           showDescriptionDialog(message, title, imgPath);
         } catch (IOException ex) {
