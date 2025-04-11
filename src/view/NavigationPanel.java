@@ -135,7 +135,7 @@ public class NavigationPanel extends JPanel {
     newBtn.setFocusable(false);
     newBtn.setBorderPainted(false);
     newBtn.setFont(getPanelFont().deriveFont(Font.PLAIN, 14));
-    newBtn.setBackground(getButtonColor());
+    newBtn.setBackground(getPanelColor());
     newBtn.setPreferredSize(buttonSize);
     newBtn.setMinimumSize(buttonSize);
     newBtn.setMaximumSize(buttonSize);

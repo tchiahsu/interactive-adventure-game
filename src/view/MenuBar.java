@@ -14,8 +14,8 @@ import static view.ViewUtils.getPanelColor;
 import static view.ViewUtils.getPanelFont;
 
 public class MenuBar {
-  private static final int WIDTH_SCALE = 200;
-  private static final int HEIGHT_SCALE = 200;
+  private static final int WIDTH_SCALE = 100;
+  private static final int HEIGHT_SCALE = 100;
 
   private JMenuBar menuBar;
   private JMenuItem saveMenuItem;
@@ -93,7 +93,7 @@ public class MenuBar {
    */
   public void showDialogBox(String description, String title, String imgPath) throws IOException {
     JTextArea text = new JTextArea(description, 1, 20);
-    text.setFont(getPanelFont().deriveFont(Font.BOLD, 15));
+    text.setFont(getPanelFont().deriveFont(Font.BOLD, 12));
     text.setWrapStyleWord(true);
     text.setLineWrap(true);
     text.setOpaque(false);
