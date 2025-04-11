@@ -138,11 +138,13 @@ public class InventoryPanel extends JPanel {
     Dimension buttonSize = new Dimension(90, 30);
 
     newBtn.setBounds(100, 100, 250, 100);
+    newBtn.setBorder(BorderFactory.createEmptyBorder(1, 1, 1, 1));
     newBtn.setText(title);
     newBtn.setHorizontalTextPosition(JButton.CENTER);
     newBtn.setVerticalTextPosition(JButton.CENTER);
     newBtn.setFocusable(false);
     newBtn.setFont(getPanelFont().deriveFont(Font.PLAIN, 14));
+    newBtn.setBackground(getButtonColor());
     newBtn.setPreferredSize(buttonSize);
     newBtn.setMinimumSize(buttonSize);
     newBtn.setMaximumSize(buttonSize);

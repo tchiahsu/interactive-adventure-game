@@ -10,6 +10,7 @@ import javax.swing.*;
 
 import controller.IViewController;
 
+import static view.ViewUtils.getButtonColor;
 import static view.ViewUtils.getPanelFont;
 
 public class GameView implements IGameView {
@@ -382,9 +383,11 @@ public class GameView implements IGameView {
 
     newBtn.setText(title);
     newBtn.setHorizontalTextPosition(JButton.CENTER);
+    newBtn.setBorder(BorderFactory.createEmptyBorder(1, 1, 1, 1));
     newBtn.setVerticalTextPosition(JButton.CENTER);
     newBtn.setFocusable(false);
     newBtn.setFont(getPanelFont().deriveFont(Font.BOLD, 14));
+    newBtn.setBackground(getButtonColor());
     newBtn.setPreferredSize(buttonSize);
     newBtn.setMinimumSize(buttonSize);
     newBtn.setMaximumSize(buttonSize);
