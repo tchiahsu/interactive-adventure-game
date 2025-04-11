@@ -34,7 +34,7 @@ public class NavigationPanel extends JPanel {
     // Create a title panel for the top
     JLabel title = new JLabel("Navigation");
     title.setForeground(getMainColor());
-    Font font = getPanelFont().deriveFont(Font.BOLD, 25);
+    Font font = getPanelFont().deriveFont(Font.BOLD, 20);
     title.setFont(font);
     this.add(title, BorderLayout.NORTH);
 
@@ -114,34 +114,6 @@ public class NavigationPanel extends JPanel {
   public JButton getAnswerBtn() {
     return answerBtn;
   }
-
-//  // Method to add action listeners to buttons
-//  public void getOptionsBox(JButton button, String title, String[] options) {
-//    button.addActionListener(new ActionListener() {
-//      @Override
-//      public void actionPerformed(ActionEvent e) {
-//        try {
-//          showSelectionDialog(title, options);
-//        } catch (IOException ex) {
-//          throw new RuntimeException(ex);
-//        }
-//      }
-//    });
-//  }
-//
-//  /**
-//   * Method to show a JDialog with a given description.
-//   * @param title : The text to display in the dialog.
-//   */
-//  public void showSelectionDialog(String title, String[] items) throws IOException {
-//    this.itemIndex = JOptionPane.showOptionDialog(null,
-//            "Select", title, JOptionPane.DEFAULT_OPTION,
-//            JOptionPane.INFORMATION_MESSAGE, null, items, null);
-//  }
-//
-//  public int getItemIndex() {
-//    return this.itemIndex;
-//  }
 
   private JButton createMoveButton(String image) {
     JButton newBtn = new JButton();

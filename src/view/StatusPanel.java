@@ -27,15 +27,15 @@ public class StatusPanel extends JPanel {
     Font plainFont = getPanelFont().deriveFont(Font.PLAIN, 16);
 
     // Headers
-    JLabel statusTitle = new JLabel("STATUS :");
+    JLabel statusTitle = new JLabel("Status:");
     statusTitle.setFont(boldFont);
     statusTitle.setForeground(MAIN_COLOR);
 
-    JLabel healthTitle = new JLabel("HEALTH :");
+    JLabel healthTitle = new JLabel("Health:");
     healthTitle.setFont(boldFont);
     healthTitle.setForeground(MAIN_COLOR);
 
-    JLabel scoreTitle = new JLabel("SCORE :");
+    JLabel scoreTitle = new JLabel("Score:");
     scoreTitle.setFont(boldFont);
     scoreTitle.setForeground(MAIN_COLOR);
 
