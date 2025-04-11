@@ -5,9 +5,7 @@ import java.io.File;
 
 import javax.swing.*;
 
-import static view.ViewUtils.getButtonColor;
 import static view.ViewUtils.getMainColor;
-import static view.ViewUtils.getButtonColor;
 import static view.ViewUtils.getPanelColor;
 import static view.ViewUtils.getPanelFont;
 
