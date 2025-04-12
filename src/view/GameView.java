@@ -353,8 +353,7 @@ public class GameView implements IGameView {
    * @return array of item names in the current room.
    */
   private String[] getRoomItems() {
-    String roomItemNames = this.controller.getRoomItems()[0];
-    return roomItemNames.split(", ");
+    return this.controller.getRoomItems();
   }
 
   /**
