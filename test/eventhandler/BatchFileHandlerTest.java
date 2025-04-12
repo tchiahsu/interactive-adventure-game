@@ -1,16 +1,24 @@
 package eventhandler;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
 
+/**
+ * This class has the unit tests for the BatchFileHandler class.
+ */
 class BatchFileHandlerTest {
 
+  /**
+   * This test verifies that the BatchFileHandler correctly reads input from a source
+   * file.
+   * @throws IOException if there is an error reading the file.
+   */
   @Test
   void testRead() throws IOException {
     File sourceFile = File.createTempFile("input", ".txt");
@@ -18,7 +26,7 @@ class BatchFileHandlerTest {
     File targetFile = File.createTempFile("output",".txt");
 
     BatchFileHandler handler = new BatchFileHandler(sourceFile.getAbsolutePath(),
-      targetFile.getAbsolutePath());
+        targetFile.getAbsolutePath());
 
     assertEquals("test1", handler.read());
     assertEquals("going", handler.read());
@@ -27,13 +35,17 @@ class BatchFileHandlerTest {
     assertEquals("university", handler.read());
   }
 
+  /**
+   * This test verifies that the BatchFileHandler correctly write output to a target file.
+   * @throws IOException if there is an error writing to a file.
+   */
   @Test
   void testWrite() throws IOException {
     File sourceFile = File.createTempFile("input", ".txt");
     File targetFile = File.createTempFile("output",".txt");
 
     BatchFileHandler handler = new BatchFileHandler(sourceFile.getAbsolutePath(),
-      targetFile.getAbsolutePath());
+        targetFile.getAbsolutePath());
     handler.write("align\nnorth\nlook\ninventory\nquit");
 
     List<String> writtenContent = Files.readAllLines(targetFile.toPath());
