@@ -49,7 +49,12 @@ For a lot of the tests involving the Controller and EventHandlers, we relied hea
 
 We opted out of testing the GUI components. Instead, we have perfomed extensive visual inspection to make sure that the GUI works as expected and runs smoothly. Testing the GUI is quite complex, since it requires simulating click events and checking for the correct textual and graphical updates on the visual side. Given the scope of the project, we believe that a visual inspection is sufficient to conclude that the GUI is working correctly.
 
+
 We would like to note that the look and feel of the GUI is slightly different depending on the opearting system you use. We explored standardizing the appearance regardless of operating system by using the UIManager build-in class, however, we ran into some implementation issues and exceptions. As a result, we decided to design a GUI that stylistically would suit both the Mac and Windows operating system despite them looking a little different.
+
+## Important Notes for Batch Game Mode
+
+For all game modes where the input comes from a source file we assume that the file will quit the game at some point. That means that the source file must have a line that quits the game.
 
 ## Running the Adventure Game
 
