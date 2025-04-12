@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
@@ -39,6 +41,19 @@ public final class ViewUtils {
     newBtn.setPreferredSize(buttonSize);
     newBtn.setMinimumSize(buttonSize);
     newBtn.setMaximumSize(buttonSize);
+    newBtn.setOpaque(true);
+    newBtn.setContentAreaFilled(true);
+    newBtn.addMouseListener(new MouseAdapter() {
+      @Override
+      public void mousePressed(MouseEvent e) {
+        newBtn.setBackground(getButtonColor().darker());
+      }
+
+      @Override
+      public void mouseReleased(MouseEvent e) {
+        newBtn.setBackground(getButtonColor());
+      }
+    });
 
     return newBtn;
   }

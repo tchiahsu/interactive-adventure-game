@@ -12,6 +12,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Insets;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -174,7 +176,7 @@ public class NavigationPanel extends JPanel {
    */
   private JButton createButton(String title) {
     JButton newBtn = new JButton();
-    Dimension buttonSize = new Dimension(100, 30);
+    Dimension buttonSize = new Dimension(90, 30);
 
     newBtn.setBounds(100, 100, 250, 100);
     newBtn.setBorder(BorderFactory.createEmptyBorder(1, 1, 1, 1));
@@ -182,11 +184,25 @@ public class NavigationPanel extends JPanel {
     newBtn.setHorizontalTextPosition(JButton.CENTER);
     newBtn.setVerticalTextPosition(JButton.CENTER);
     newBtn.setFocusable(false);
-    newBtn.setFont(getPanelFont().deriveFont(Font.PLAIN, 14));
+    newBtn.setFont(getPanelFont().deriveFont(Font.BOLD, 14));
     newBtn.setBackground(getButtonColor());
     newBtn.setPreferredSize(buttonSize);
     newBtn.setMinimumSize(buttonSize);
     newBtn.setMaximumSize(buttonSize);
+    newBtn.setOpaque(true);
+    newBtn.setContentAreaFilled(true);
+    newBtn.addMouseListener(new MouseAdapter() {
+      @Override
+      public void mousePressed(MouseEvent e) {
+        newBtn.setBackground(getButtonColor().darker());
+      }
+
+      @Override
+      public void mouseReleased(MouseEvent e) {
+        newBtn.setBackground(getButtonColor());
+      }
+    });
+
     return newBtn;
   }
 
