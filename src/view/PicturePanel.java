@@ -6,7 +6,6 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import org.apache.commons.text.WordUtils;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -53,7 +52,7 @@ public class PicturePanel extends JPanel {
    * @param picturePath Image to show
    */
   public void updatePicturePanel(String roomName, String picturePath) {
-    roomName = WordUtils.capitalizeFully(roomName);
+    roomName = toTitleCase(roomName);
     roomLabel.setText(roomName);
     try {
       this.pictureLabel.setText(null);
@@ -83,5 +82,25 @@ public class PicturePanel extends JPanel {
     } else {
       return image.getScaledInstance(imageWidth, HEIGHT_SCALE, Image.SCALE_SMOOTH);
     }
+  }
+
+  /**
+   * Helper method. Returns the string converted to title case.
+   *
+   * @param string The string to be converted to title case.
+   * @return The string converted to title case.
+   */
+  private String toTitleCase(String string) {
+    char[] chars = string.toLowerCase().toCharArray();
+    boolean found = false;
+    for (int i = 0; i < chars.length; i++) {
+      if (!found && Character.isLetter(chars[i])) {
+        chars[i] = Character.toUpperCase(chars[i]);
+        found = true;
+      } else if (Character.isWhitespace(chars[i]) || chars[i]=='.' || chars[i]=='\'') { // You can add other chars here
+        found = false;
+      }
+    }
+    return String.valueOf(chars);
   }
 }
