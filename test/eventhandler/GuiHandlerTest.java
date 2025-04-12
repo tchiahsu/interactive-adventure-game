@@ -47,6 +47,14 @@ class GuiHandlerTest {
   }
 
   @Test
+  void testFullInventoryPopUp() throws IOException {
+    handler.setCommandAction("TAKE");
+    handler.write("Your inventory is too full!");
+
+    assertEquals("Your inventory is too full!", view.popUpText);
+  }
+
+  @Test
   void testPlayerAsleep() throws IOException {
     view.playerAsleep = true;
     handler.setCommandAction("I");

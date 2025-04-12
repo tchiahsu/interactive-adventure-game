@@ -147,7 +147,7 @@ public class PlayerTest {
   void testGetHealthStatusSleepEqual() {
     p1.decreaseHealth(-100);
     assertEquals("Your health has dropped to the sleep zone. "
-           + "\nNighty-night\nGame Over!\n", p1.getHealthStatus());
+           + "\nNighty-night! \nGame Over!\n", p1.getHealthStatus());
   }
 
   /**
@@ -158,7 +158,7 @@ public class PlayerTest {
   void testGetHealthStatusSleep() {
     p1.decreaseHealth(-150);
     assertEquals("Your health has dropped to the sleep zone. "
-            + "\nNighty-night\nGame Over!\n", p1.getHealthStatus());
+            + "\nNighty-night! \nGame Over!\n", p1.getHealthStatus());
   }
 
 

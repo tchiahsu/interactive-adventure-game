@@ -2,6 +2,7 @@ package model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
@@ -155,12 +156,29 @@ public class MonsterTest {
     assertEquals("licks you with a giant tongue!", m1.getAttackMessage());
   }
 
+  /**
+   * Tests setting the picture to a null picture.
+   */
+  @Test
+  void testSetPictureNull() {
+    m1.setPicture(null);
+    assertEquals("/data/Resources/generic-monster.png", m1.getPicture());
+  }
 
+  /**
+   * Tests setting the picture to a valid picture path.
+   */
+  @Test
+  void testSetPictureValid() {
+    m1.setPicture("algorithms.png");
+    assertEquals("/data/Resources/algorithms.png", m1.getPicture());
+  }
 
-
-
-
-
-
-
+  /**
+   * Tests getting the picture file name.
+   */
+  @Test
+  void testGetPictureFileNameValid() {
+    assertEquals("generic-monster.png", m1.getPictureFileName());
+  }
 }

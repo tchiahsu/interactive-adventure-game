@@ -85,7 +85,7 @@ public class DummyModel implements IGameModel {
   }
 
   @Override
-  public String[] getCurrentRoomItem() {
+  public String[] getRoomItems() {
     return new String[0];
   }
 

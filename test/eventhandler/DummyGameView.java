@@ -89,4 +89,9 @@ public class DummyGameView implements IGameView {
   public void showGameOverPopUp() throws IOException {
     gameOverPopUp = true;
   }
+
+  @Override
+  public void showFullInventoryPopUp(String s) {
+    popUpText = s;
+  }
 }

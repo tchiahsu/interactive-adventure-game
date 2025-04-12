@@ -68,7 +68,7 @@ class RoomTest {
    */
   @Test
   void testGetPuzzleName() {
-    assertEquals("Lock Mechanism", r1.getPuzzleName());
+    assertEquals("LOCK MECHANISM", r1.getPuzzleName());
   }
 
   /**
