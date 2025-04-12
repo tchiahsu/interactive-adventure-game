@@ -2,14 +2,14 @@ package enginedriver;
 
 import java.io.IOException;
 
-import controller.ViewController;
+import controller.IController;
 import controller.IViewController;
+import controller.TextController;
+import controller.ViewController;
 import eventhandler.BatchConsoleHandler;
 import eventhandler.BatchFileHandler;
 import eventhandler.ConsoleHandler;
 import eventhandler.GuiHandler;
-import controller.TextController;
-import controller.IController;
 import eventhandler.IEventHandler;
 import eventhandler.IGuiEventHandler;
 import model.GameModel;
@@ -28,8 +28,9 @@ public class GameEngineApp {
   /**
    * The {@code GameEngineApp} class initializes the game with the specified game file name,
    * the input source and the output destination.
-   * @param gameFileName : game file with the configurations
-   * @throws IOException if an error occurs while accessing the game file
+   * @param gameFileName : the file with the game data.
+   * @param mode : the game mode that will be played.
+   * @throws IOException if there is an error with input/output.
    */
   public GameEngineApp(String gameFileName, GameMode mode) throws IOException {
     // Error handling
@@ -42,6 +43,13 @@ public class GameEngineApp {
     this.targetFile = null;
   }
 
+  /**
+   * Loaded Constructor for the Batch-Console game mode.
+   * @param gameFileName : name of the game file.
+   * @param mode : game mode we are playing in.
+   * @param sourceFile : the file where input comes from.
+   * @throws IOException if there is an error with input/output.
+   */
   public GameEngineApp(String gameFileName, GameMode mode, String sourceFile) throws IOException {
     if (gameFileName == null) {
       throw new IOException("Game File could not be found!");
@@ -52,14 +60,23 @@ public class GameEngineApp {
     this.targetFile = null;
   }
 
-  public GameEngineApp(String gameFileName, GameMode mode, String sourceFile, String targetFile) throws IOException {
-      if (gameFileName == null) {
-        throw new IOException("Game File could not be found!");
-      }
-      this.gameFile = gameFileName;
-      this.mode = mode;
-      this.sourceFile = sourceFile;
-      this.targetFile = targetFile;
+  /**
+   * Loaded Constructor for the Batch-File game mode.
+   * @param gameFileName : name of the game file.
+   * @param mode : game mode we are playing in.
+   * @param sourceFile : file where input comes from.
+   * @param targetFile : file where output goes to.
+   * @throws IOException if there is an input/output error.
+   */
+  public GameEngineApp(String gameFileName, GameMode mode, String sourceFile,
+                       String targetFile) throws IOException {
+    if (gameFileName == null) {
+      throw new IOException("Game File could not be found!");
+    }
+    this.gameFile = gameFileName;
+    this.mode = mode;
+    this.sourceFile = sourceFile;
+    this.targetFile = targetFile;
   }
 
   /**
