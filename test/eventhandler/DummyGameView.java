@@ -2,10 +2,7 @@ package eventhandler;
 
 import java.io.IOException;
 
-import view.DescriptionPanel;
 import view.IGameView;
-import view.InventoryPanel;
-import view.NavigationPanel;
 
 public class DummyGameView implements IGameView {
   public String popUpText = "";

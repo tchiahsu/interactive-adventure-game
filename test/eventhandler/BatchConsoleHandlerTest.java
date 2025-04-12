@@ -11,9 +11,16 @@ import java.nio.file.Files;
 
 import org.junit.jupiter.api.Test;
 
-
+/**
+ * This class has the unit tests for the BatchConsoleHandler class.
+ */
 class BatchConsoleHandlerTest {
 
+  /**
+   * This test verifies that the BatchConsoleHandler correctly reads input from a source
+   * file.
+   * @throws IOException if an error occurs reading a file.
+   */
   @Test
   void testRead() throws IOException {
     File sourceFile = File.createTempFile("input", ".txt");
@@ -28,6 +35,10 @@ class BatchConsoleHandlerTest {
     assertEquals("quit", handler.read());
   }
 
+  /**
+   * This rest verifies that the BatchConsoleHandler correctly writes output to the console.
+   * @throws IOException if an error occurs writing to console.
+   */
   @Test
   void testWrite() throws IOException {
     File targetFile = File.createTempFile("output", ".txt");
