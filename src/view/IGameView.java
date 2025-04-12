@@ -67,5 +67,10 @@ public interface IGameView {
    * @throws IOException if image resource fails to load.
    */
   void showGameOverPopUp() throws IOException;
+
+  /**
+   * Shows a popup when the inventory capacity is full.
+   * @param s : the output string for full inventory.
+   */
   void showFullInventoryPopUp(String s);
 }

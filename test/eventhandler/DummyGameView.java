@@ -15,22 +15,8 @@ public class DummyGameView implements IGameView {
   public boolean playerAsleep = false;
 
   @Override
-  public DescriptionPanel getDescriptionPanel() {
-    return null;
-  }
-
-  @Override
   public void startView() {}
 
-  @Override
-  public NavigationPanel getNavigationPanel() {
-    return null;
-  }
-
-  @Override
-  public InventoryPanel getInventoryPanel() {
-    return null;
-  }
 
   @Override
   public void updateView() {
@@ -67,23 +53,14 @@ public class DummyGameView implements IGameView {
   }
 
   @Override
-  public String[] getRoomItems() {
-    return new String[0];
-  }
-
-  @Override
-  public void showSelectionDialog(String s, String[] roomItems) {}
-
-  @Override
-  public boolean isPlayerDead() {
+  public boolean isPlayerAsleep() {
     return playerAsleep;
   }
 
   @Override
-  public void setMenuActionListener() {}
+  public void setMenuActionListener() {
 
-  @Override
-  public void showTextPopUp(String s) {}
+  }
 
   @Override
   public void showGameOverPopUp() throws IOException {

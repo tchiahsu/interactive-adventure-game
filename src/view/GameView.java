@@ -1,5 +1,8 @@
 package view;
 
+import static view.ViewUtils.getPanelFont;
+import static view.ViewUtils.getScaledImage;
+
 import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.FontMetrics;
@@ -19,8 +22,6 @@ import javax.swing.JTextArea;
 import javax.swing.ListSelectionModel;
 
 import controller.IViewController;
-
-import static view.ViewUtils.*;
 
 /**
  * GameView class that represents the main visual of the Adventure Game.
@@ -352,7 +353,7 @@ public class GameView implements IGameView {
    * @return array of item names in the current room.
    */
   private String[] getRoomItems() {
-    String roomItemNames = this.controller.getCurrentRoomItems()[0];
+    String roomItemNames = this.controller.getRoomItems()[0];
     return roomItemNames.split(", ");
   }
 
@@ -392,7 +393,6 @@ public class GameView implements IGameView {
 
     JList<String> list = new JList<>(items);
     list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-    JScrollPane scrollPane = new JScrollPane(list);
 
     JPanel buttonPanel = new JPanel();
     JButton okButton = new JButton("OK");
@@ -401,6 +401,7 @@ public class GameView implements IGameView {
     buttonPanel.add(okButton);
     buttonPanel.add(cancelButton);
 
+    JScrollPane scrollPane = new JScrollPane(list);
     dialog.add(new JLabel("Select an item:"), BorderLayout.NORTH);
     dialog.add(scrollPane, BorderLayout.CENTER);
     dialog.add(buttonPanel, BorderLayout.SOUTH);
@@ -463,6 +464,20 @@ public class GameView implements IGameView {
     JOptionPane.showMessageDialog(null, text, "Game Over!",
             JOptionPane.INFORMATION_MESSAGE, new ImageIcon(scaledImage));
     System.exit(0);
+  }
+
+  /**
+   * Show a popup when the inventory of the player is full and cannot carry any more
+   * items due to capacity.
+   * @param s : the output string for full inventory.
+   */
+  @Override
+  public void showFullInventoryPopUp(String s) {
+    if (s.contains("inventory is too full!")) {
+      JTextArea text = new JTextArea(s, 1, 20);
+      text.setFont(getPanelFont().deriveFont(Font.BOLD, 10));
+      JOptionPane.showMessageDialog(this.board, text);
+    }
   }
 }
 

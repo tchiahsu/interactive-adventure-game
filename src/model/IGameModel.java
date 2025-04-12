@@ -84,6 +84,7 @@ public interface IGameModel {
 
   /**
    * Method that returns the name of the game.
+   * @return name of the game.
    */
   String getGameName();
 
@@ -95,22 +96,25 @@ public interface IGameModel {
 
   /**
    * Method that returns the current state of the Room and Player.
+   * @return state of the game.
    */
   List<String> getCurrentState();
 
   /**
-   * Method that gets the current items in the Room.
-   */
-  String[] getCurrentRoomItem();
-
-  /**
    * Returns the items in the Player's inventory.
+   * @return the item in inventory.
    */
-  String[] getRoomItems();
   String[] getInventoryItems();
 
   /**
+   * Returns the items in the Player's inventory.
+   * @return items in players inventory.
+   */
+  String[] getRoomItems();
+
+  /**
    * Method that returns a list of examinable items in the current room.
+   * @return examinable objects in a room.
    */
   String[] getExaminableObjects();
 
