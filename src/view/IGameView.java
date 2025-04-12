@@ -72,5 +72,5 @@ public interface IGameView {
    * Shows a popup when the inventory capacity is full.
    * @param s : the output string for full inventory.
    */
-  void showFullInventoryPopUp(String s);
+  void showFullInventoryPopUp(String s) throws IOException;
 }

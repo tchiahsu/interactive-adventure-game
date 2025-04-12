@@ -1,6 +1,6 @@
 package view;
 
-import javax.swing.JButton;
+import javax.swing.*;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -29,11 +29,13 @@ public final class ViewUtils {
     Dimension buttonSize = new Dimension(90, 30);
 
     newBtn.setBounds(100, 100, 250, 100);
+    newBtn.setBorder(BorderFactory.createEmptyBorder(1, 1, 1, 1));
     newBtn.setText(title);
     newBtn.setHorizontalTextPosition(JButton.CENTER);
     newBtn.setVerticalTextPosition(JButton.CENTER);
     newBtn.setFocusable(false);
     newBtn.setFont(getPanelFont().deriveFont(Font.BOLD, 14));
+    newBtn.setBackground(getButtonColor());
     newBtn.setPreferredSize(buttonSize);
     newBtn.setMinimumSize(buttonSize);
     newBtn.setMaximumSize(buttonSize);

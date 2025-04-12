@@ -471,11 +471,21 @@ public class GameView implements IGameView {
    * @param s : the output string for full inventory.
    */
   @Override
-  public void showFullInventoryPopUp(String s) {
+  public void showFullInventoryPopUp(String s) throws IOException {
     if (s.contains("inventory is too full!")) {
       JTextArea text = new JTextArea(s, 1, 20);
-      text.setFont(getPanelFont().deriveFont(Font.BOLD, 10));
-      JOptionPane.showMessageDialog(this.board, text);
+      text.setFont(getPanelFont().deriveFont(Font.BOLD, 12));
+      text.setWrapStyleWord(true);
+      text.setLineWrap(true);
+      text.setOpaque(false);
+      text.setBorder(null);
+      text.setFocusable(false);
+      text.setEditable(false);
+
+      BufferedImage image = ImageIO.read(getClass().getResource("/data/Resources/inventory_full.png"));
+      Image scaledImage = getScaledImage(image);
+      JOptionPane.showMessageDialog(this.board, text, "Checking Inventory...",
+              JOptionPane.INFORMATION_MESSAGE, new ImageIcon(scaledImage));
     }
   }
 }
