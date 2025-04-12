@@ -1,0 +1,14 @@
+{
+  "room_name" : "MANSION ENTRANCE",
+  "description" : "Entrance to an old, musty-smelling mansion. Some people have entered, to never return. \nThe door to the north is open. The courtyard is to your south and a foyer to your north. A chandelier hangs from the ceiling.",
+  "room_number" : "2",
+  "N" : "3",
+  "S" : "1",
+  "E" : "0",
+  "W" : "0",
+  "puzzle" : null,
+  "monster" : null,
+  "items" : "",
+  "fixtures" : "CHANDELIER",
+  "picture" : "entrance.png"
+}

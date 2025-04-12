@@ -2,6 +2,8 @@ package model;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -374,12 +376,16 @@ public class GameModel implements IGameModel {
     this.gameData = null;
 
     // Restore the game with the previous save data
-    this.gameInfo = this.objectMapper.readValue(
-      new File("src/data/savegamedata_" + gameFile), GameInfo.class);
-    this.currentRoom = this.objectMapper.readValue(
-      new File("src/data/saveroomdata_" + gameFile), Room.class);
-    this.player = this.objectMapper.readValue(
-      new File("src/data/saveplayerdata_" + gameFile), Player.class);
+    String currentDirectory = Paths.get("").toAbsolutePath().toString();
+    Path saveDirectory = Paths.get(currentDirectory, "saveData");
+
+    File saveGameData = saveDirectory.resolve("savegamedata_" + gameFile).toFile();
+    File saveRoomData = saveDirectory.resolve("saveroomdata_" + gameFile).toFile();
+    File savePlayerData = saveDirectory.resolve("saveplayerdata_" + gameFile).toFile();
+
+    this.gameInfo = this.objectMapper.readValue(saveGameData, GameInfo.class);
+    this.currentRoom = this.objectMapper.readValue(saveRoomData, Room.class);
+    this.player = this.objectMapper.readValue(savePlayerData, Player.class);
     this.gameData = new GameData(gameInfo);
     loadSaveData();
     return "Game loaded successfully!\n";
@@ -392,17 +398,22 @@ public class GameModel implements IGameModel {
    * @throws IOException if there is an error writing to the file.
    */
   @Override
-  public String saveGame() throws IOException {
+  public String saveGame() {
     try {
       String gameFile = Paths.get(this.jsonFile).getFileName().toString();
-      this.objectMapper.writerWithDefaultPrettyPrinter().writeValue(
-        new File("src/data/savegamedata_" + gameFile), this.gameInfo);
-      this.objectMapper.writerWithDefaultPrettyPrinter().writeValue(
-        new File("src/data/saveroomdata_" + gameFile), this.currentRoom);
-      this.objectMapper.writerWithDefaultPrettyPrinter().writeValue(
-        new File("src/data/saveplayerdata_" + gameFile), this.player);
+      String currentDirectory = Paths.get("").toAbsolutePath().toString();
+      Path saveDirectory = Paths.get(currentDirectory, "saveData");
+      Files.createDirectories(saveDirectory);
+
+      File saveGameData = saveDirectory.resolve("savegamedata_" + gameFile).toFile();
+      File saveRoomData = saveDirectory.resolve("saveroomdata_" + gameFile).toFile();
+      File savePlayerData = saveDirectory.resolve("saveplayerdata_" + gameFile).toFile();
+
+      this.objectMapper.writerWithDefaultPrettyPrinter().writeValue(saveGameData, this.gameInfo);
+      this.objectMapper.writerWithDefaultPrettyPrinter().writeValue(saveRoomData, this.currentRoom);
+      this.objectMapper.writerWithDefaultPrettyPrinter().writeValue(savePlayerData, this.player);
       return "Game saved successfully!\n";
-    } catch (IOException e) {
+    } catch (Exception e) {
       return "Game failed to save.\n";
     }
   }
@@ -700,14 +711,14 @@ public class GameModel implements IGameModel {
    * @return true if the game has save data, false otherwise.
    */
   private boolean hasSaveData(String gameFile) {
-    // The saved data files for the .json game file
-    String gameDataFile = "src/data/savegamedata_" + gameFile;
-    String roomDataFile = "src/data/saveroomdata_" + gameFile;
-    String playerDataFile = "src/data/saveplayerdata_" + gameFile;
+    String currentDirectory = Paths.get("").toAbsolutePath().toString();
+    Path saveDirectory = Paths.get(currentDirectory, "saveData");
 
-    return new File(gameDataFile).isFile()
-      && new File(roomDataFile).isFile()
-      && new File(playerDataFile).isFile();
+    File saveGameData = saveDirectory.resolve("savegamedata_" + gameFile).toFile();
+    File saveRoomData = saveDirectory.resolve("saveroomdata_" + gameFile).toFile();
+    File savePlayerData = saveDirectory.resolve("saveplayerdata_" + gameFile).toFile();
+
+    return saveGameData.isFile() && saveRoomData.isFile() && savePlayerData.isFile();
   }
 
   /**

@@ -6,7 +6,6 @@ import static view.ViewUtils.getScaledImage;
 
 import java.awt.BorderLayout;
 import java.awt.Font;
-import java.awt.FontMetrics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -465,7 +464,8 @@ public class GameView implements IGameView {
       text.setFocusable(false);
       text.setEditable(false);
 
-      BufferedImage image = ImageIO.read(getClass().getResource("/data/Resources/inventory_full.png"));
+      BufferedImage image = ImageIO.read(
+              getClass().getResource("/data/Resources/inventory_full.png"));
       Image scaledImage = getScaledImage(image);
       JOptionPane.showMessageDialog(this.board, text, "Checking Inventory...",
               JOptionPane.INFORMATION_MESSAGE, new ImageIcon(scaledImage));
