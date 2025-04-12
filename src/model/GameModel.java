@@ -381,7 +381,7 @@ public class GameModel implements IGameModel {
     this.player = this.objectMapper.readValue(
       new File("src/data/saveplayerdata_" + gameFile), Player.class);
     this.gameData = new GameData(gameInfo);
-    updatePlayerInventory();
+    loadSaveData();
     return "Game loaded successfully!\n";
   }
 
@@ -785,9 +785,14 @@ public class GameModel implements IGameModel {
   }
 
   /**
-   * Helper method. Updates the player inventory when restoring the game.
+   * Helper method. Loads the save data into the current game.
+   * Updates the current room and player inventory when restoring the game.
    */
-  private void updatePlayerInventory() {
+  private void loadSaveData() {
+    // Restore the saved room data
+    this.currentRoom = gameData.getRoom(this.currentRoom.getRoomNumber());
+
+    // Restore the player inventory
     Inventory oldInventory = player.getInventory();
     Inventory newInventory = new Inventory();
 
