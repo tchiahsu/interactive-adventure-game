@@ -1,11 +1,18 @@
 package view;
 
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import org.apache.commons.text.WordUtils;
 import javax.imageio.ImageIO;
-import javax.swing.*;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 import static view.ViewUtils.getPanelColor;
 import static view.ViewUtils.getPanelFont;
@@ -14,7 +21,6 @@ import static view.ViewUtils.getPanelFont;
  * A class representing the description panel in the graphical view of the game.
  */
 public class PicturePanel extends JPanel {
-  // Data fields
   private static final int WIDTH_SCALE = 450;
   private static final int HEIGHT_SCALE = 400;
   private static final Color TEXT_COLOR = new Color(40, 54, 24);
@@ -23,6 +29,9 @@ public class PicturePanel extends JPanel {
   private JLabel pictureLabel;
   BufferedImage image;
 
+  /**
+   * Constructs a PicturePanel that shows the current Room name and image.
+   */
   public PicturePanel() {
     this.setLayout(new BorderLayout());
     this.setBackground(getPanelColor());
@@ -38,10 +47,14 @@ public class PicturePanel extends JPanel {
     this.add(pictureLabel, BorderLayout.CENTER);
   }
 
+  /**
+   * Updates the roomName and picture based on the parameters.
+   * @param roomName Room name to show
+   * @param picturePath Image to show
+   */
   public void updatePicturePanel(String roomName, String picturePath) {
     roomName = WordUtils.capitalizeFully(roomName);
     roomLabel.setText(roomName);
-
     try {
       this.pictureLabel.setText(null);
       image = ImageIO.read(getClass().getResource(picturePath));
@@ -54,6 +67,11 @@ public class PicturePanel extends JPanel {
     }
   }
 
+  /**
+   * Private method that scales the given image to set dimensions.
+   * @param image original BufferedImage to scale.
+   * @return Scaled Image instance.
+   */
   private Image getScaledImage(BufferedImage image) {
     int imageWidth = image.getWidth();
     int imageHeight = image.getHeight();

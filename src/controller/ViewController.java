@@ -116,7 +116,6 @@ public class ViewController implements IViewController {
     this.model.getPlayer().setName(name);
   }
 
-
   /**
    * Validates if the given input command is a valid command for the adventure game.
    *

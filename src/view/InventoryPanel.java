@@ -1,35 +1,40 @@
 package view;
 
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-
+import static view.ViewUtils.createButton;
 import static view.ViewUtils.getButtonColor;
 import static view.ViewUtils.getMainColor;
 import static view.ViewUtils.getPanelColor;
 import static view.ViewUtils.getPanelFont;
 
-public class InventoryPanel extends JPanel {
-  private static final int WIDTH_SCALE = 100;
-  private static final int HEIGHT_SCALE = 100;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Font;
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.DefaultListModel;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
 
+/**
+ * Class that represents an InventoryPanel and extends {@code JPanel}.
+ */
+public class InventoryPanel extends JPanel {
   private final JButton inspectBtn;
   private final JButton useBtn;
   private final JButton dropBtn;
   private final JList<String> inventoryList;
   private DefaultListModel<String> listModel;
 
-
+  /**
+   * Constructs an InventoryPanel with a titled layout, inventory list, and
+   * action buttons (Inspect, Use, Drop).
+   * UI components are styled using helper methods from ViewUtils.
+   */
   public InventoryPanel() {
-    String testDescription = "This is a description for testing"; //to be deleted
-    String testImage = "/data/Resources/lamp.png"; //to be deleted
     // Set the title
     this.setLayout(new BorderLayout(10, 10));
     this.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
@@ -71,38 +76,45 @@ public class InventoryPanel extends JPanel {
     this.add(buttonPanel, BorderLayout.SOUTH);
   }
 
+  /**
+   * Returns the JList that displays inventory items.
+   * @return inventory JList component.
+   */
   public JList<String> getInventoryList() {
     return inventoryList;
   }
 
+  /**
+   * Gets the Drop button to drop an item from inventory.
+   * @return the drop button.
+   */
   public JButton getDropBtn() {
     return this.dropBtn;
   }
 
+  /**
+   * Gets the Inspect button to inspect an item from inventory.
+   * @return the inspect button.
+   */
   public JButton getInspectBtn() {
     return this.inspectBtn;
   }
 
+  /**
+   * Gets the Inspect button to use an item from inventory.
+   * @return the inspect button.
+   */
   public JButton getUseBtn() {
     return this.useBtn;
   }
 
+  /**
+   * Returns the DefaultListModel to populate the inventory list
+   * with item names.
+   * @return inventory list model.
+   */
   public DefaultListModel<String> getListModel() {
     return this.listModel;
-  }
-
-  // Method to add action listeners to buttons
-  public void getDescriptionBox(JButton button, String message, String title, String imgPath) {
-    button.addActionListener(new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        try {
-          showDescriptionDialog(message, title, imgPath);
-        } catch (IOException ex) {
-          throw new RuntimeException(ex);
-        }
-      }
-    });
   }
 
   /**
@@ -112,55 +124,10 @@ public class InventoryPanel extends JPanel {
     this.listModel.addElement(item);
   }
 
+  /**
+   * Clears all items from the inventory list model.
+   */
   public void clearItemsInInventory() {
     this.listModel.clear();
-  }
-
-  /**
-   * Method to show a JDialog with a given description.
-   * @param description : The text to display in the dialog.
-   */
-  public void showDescriptionDialog(String description, String title, String imgPath) throws IOException {
-    BufferedImage image = ImageIO.read(getClass().getResource(imgPath));
-    Image scaledImage = getScaledImage(image);
-    JOptionPane.showMessageDialog(null, description, title,
-            JOptionPane.INFORMATION_MESSAGE, new ImageIcon(scaledImage));
-  }
-
-  /**
-   * Creates a button object with the given title for the button.
-   *
-   * @param title : text displayed in button.
-   * @return the newly created button.
-   */
-  private JButton createButton(String title) {
-    JButton newBtn = new JButton();
-    Dimension buttonSize = new Dimension(90, 30);
-
-    newBtn.setBounds(100, 100, 250, 100);
-    newBtn.setBorder(BorderFactory.createEmptyBorder(1, 1, 1, 1));
-    newBtn.setText(title);
-    newBtn.setHorizontalTextPosition(JButton.CENTER);
-    newBtn.setVerticalTextPosition(JButton.CENTER);
-    newBtn.setFocusable(false);
-    newBtn.setFont(getPanelFont().deriveFont(Font.PLAIN, 14));
-    newBtn.setBackground(getButtonColor());
-    newBtn.setPreferredSize(buttonSize);
-    newBtn.setMinimumSize(buttonSize);
-    newBtn.setMaximumSize(buttonSize);
-    return newBtn;
-  }
-
-  private Image getScaledImage(BufferedImage image) {
-    int imageWidth = image.getWidth();
-    int imageHeight = image.getHeight();
-
-    if (imageWidth > WIDTH_SCALE && imageHeight > HEIGHT_SCALE) {
-      return image.getScaledInstance(WIDTH_SCALE, HEIGHT_SCALE, Image.SCALE_SMOOTH);
-    } else if (imageWidth > WIDTH_SCALE) {
-      return image.getScaledInstance(WIDTH_SCALE, imageHeight, Image.SCALE_SMOOTH);
-    } else {
-      return image.getScaledInstance(imageWidth, HEIGHT_SCALE, Image.SCALE_SMOOTH);
-    }
   }
 }

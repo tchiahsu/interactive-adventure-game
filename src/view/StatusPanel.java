@@ -1,12 +1,23 @@
 package view;
 
-import java.awt.*;
-import java.io.File;
-
-import javax.swing.*;
-
 import static view.ViewUtils.getPanelFont;
 
+import java.awt.Color;
+import java.awt.ComponentOrientation;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+
+import javax.swing.BorderFactory;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+
+/**
+ * Class that represents an StatusPanel and extends {@code JPanel}.
+ */
 public class StatusPanel extends JPanel {
   private JTextArea currentStatus;
   private JLabel currentHealth;
@@ -90,7 +101,6 @@ public class StatusPanel extends JPanel {
 
   /**
    * Creates a JTextArea with the specified font size.
-   *
    * @param fontSize The font size to be used for the JTextArea.
    * @return The configured JTextArea.
    */
@@ -109,7 +119,6 @@ public class StatusPanel extends JPanel {
 
   /**
    * Displays the given status of player to the panel.
-   *
    * @param status The current status to be displayed.
    */
   public void updateStatus(String status) {
@@ -118,7 +127,6 @@ public class StatusPanel extends JPanel {
 
   /**
    * Displays the given health of player to the panel.
-   *
    * @param health The current health to be displayed.
    */
   public void updateHealth(String health) {
@@ -127,7 +135,6 @@ public class StatusPanel extends JPanel {
 
   /**
    * Displays the given score of player to the panel.
-   *
    * @param score The current score to be displayed.
    */
   public void updateScore(String score) {

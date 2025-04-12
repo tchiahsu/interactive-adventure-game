@@ -1,10 +1,17 @@
 package view;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.util.Arrays;
 import java.util.List;
-import javax.swing.*;
+import javax.swing.JPanel;
 
+/**
+ * Class that manages and sets up all the panels for the GameView.
+ */
 public class ViewManager {
   private static final Color BACKGROUND_COLOR = new Color(255, 255, 255);
   private static final Color PANEL_COLOR = new Color(236, 240, 235);
@@ -17,7 +24,7 @@ public class ViewManager {
   private PicturePanel picturePanel;
 
   /**
-   * Constructs a class that manages the layout of the gameboard.
+   * Constructs a class that manages the layout of the {@code GameBoard}.
    *
    * @param board : the gameboard component.
    * @param descriptionPanel : the description panel component.
@@ -34,7 +41,7 @@ public class ViewManager {
   }
 
   /**
-   * Set up the layout and add panels to the gameboard.
+   * Set up the layout and add panels to the {@code  GameBoard}.
    */
   public void displayView() {
     // Main Panel
@@ -78,7 +85,6 @@ public class ViewManager {
 
   /**
    * Set up the left panel with its components.
-   *
    * @param leftPanel : the right panel container.
    */
   private void setupLeftPanel(JPanel leftPanel) {
@@ -111,8 +117,7 @@ public class ViewManager {
 
   /**
    * Set up the right panel and its components.
-   *
-   * @param rightPanel : the right panel container/
+   * @param rightPanel : the right panel container
    */
   private void setupRightPanel(JPanel rightPanel) {
     rightPanel.setLayout(new GridBagLayout());
@@ -155,6 +160,10 @@ public class ViewManager {
     rightPanel.add(rightBottomPanel, rightGC);
   }
 
+  /**
+   * Method that updates and sets the current state of the game.
+   * @param currentState List of strings with the updated state.
+   */
   public void setCurrentState(List<String> currentState) {
     String roomName = currentState.get(0);
     String roomPicture = currentState.get(1);

@@ -55,9 +55,9 @@ public class GuiHandler implements IGuiEventHandler {
       case null -> { }
     }
 
-    this.view.updateView();
-    if (this.view.isPlayerDead()) {
-      this.view.showGameOverPopUp();
+    view.updateView();
+    if (view.isPlayerAsleep()) {
+      view.showGameOverPopUp();
     }
   }
 

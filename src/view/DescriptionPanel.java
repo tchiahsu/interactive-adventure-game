@@ -1,13 +1,16 @@
 package view;
 
-import java.awt.*;
-import java.io.File;
-
-import javax.swing.*;
-
 import static view.ViewUtils.getMainColor;
 import static view.ViewUtils.getPanelColor;
 import static view.ViewUtils.getPanelFont;
+
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Font;
+import javax.swing.BorderFactory;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
 
 /**
  * A class representing the description panel in the graphical view of the game.
@@ -47,7 +50,6 @@ public class DescriptionPanel extends JPanel {
 
   /**
    * Displays the given description to the panel.
-   *
    * @param description The description to be displayed.
    */
   public void updateDescriptionPanel(String description) {

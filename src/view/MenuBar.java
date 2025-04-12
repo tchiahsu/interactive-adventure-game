@@ -1,27 +1,44 @@
 package view;
 
-import java.awt.*;
-import java.awt.event.*;
+import static view.ViewUtils.getMainColor;
+import static view.ViewUtils.getPanelFont;
+import static view.ViewUtils.getScaledImage;
+
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
-import javax.swing.*;
+import javax.swing.ImageIcon;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
 
-import static view.ViewUtils.getButtonColor;
-import static view.ViewUtils.getMainColor;
-import static view.ViewUtils.getPanelColor;
-import static view.ViewUtils.getPanelFont;
-
+/**
+ * The {@code MenuBar} class is responsible for creating and managing
+ * the menu bar. It includes standard options like Save, Restore, Exit
+ * as well as informational dialogs for About and Credits.
+ */
 public class MenuBar {
-  private static final int WIDTH_SCALE = 100;
-  private static final int HEIGHT_SCALE = 100;
-
   private JMenuBar menuBar;
   private JMenuItem saveMenuItem;
   private JMenuItem restoreMenuItem;
   private JMenuItem exitMenuItem;
 
+  /**
+   * Constructs and returns a {@code JMenuBar}.
+   * The menu includes "File" options like Save, Restore, Exit,
+   * as well as "About" and "Credits" informational dialogs.
+   * @return a {@code JMenuBar} instance.
+   */
   public JMenuBar createMenuBar() {
     this.menuBar = new JMenuBar();
     menuBar.setPreferredSize(new Dimension(400, 40));
@@ -39,13 +56,11 @@ public class MenuBar {
     fileMenu.addMouseListener(new MouseAdapter() {
       @Override
       public void mouseEntered(MouseEvent e) {
-        // Get the font and make it bold
         Font font = fileMenu.getFont();
         fileMenu.setFont(font.deriveFont(Font.BOLD));
       }
       @Override
       public void mouseExited(MouseEvent e) {
-        // Get the font and make it normal
         Font font = fileMenu.getFont();
         fileMenu.setFont(font.deriveFont(Font.PLAIN));
       }
@@ -65,7 +80,6 @@ public class MenuBar {
         }
       }
     });
-
     credits.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
@@ -77,13 +91,11 @@ public class MenuBar {
         }
       }
     });
-
     fileMenu.add(about);
     fileMenu.add(credits);
     fileMenu.add(this.saveMenuItem);
     fileMenu.add(this.restoreMenuItem);
     fileMenu.add(this.exitMenuItem);
-
     return this.menuBar;
   }
 
@@ -107,69 +119,23 @@ public class MenuBar {
 
   }
 
-  private void showAboutDialog(String title, String text, String imgPath) {
-    JLabel aboutText = new JLabel(text, SwingConstants.CENTER);
-    aboutText.setFont(getPanelFont().deriveFont(Font.BOLD, 14));
-    //aboutText.setAlignmentX(Component.CENTER_ALIGNMENT);
-    aboutText.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-
-    JDialog dialog = new JDialog();
-    dialog.setLayout(new BorderLayout(10, 10));
-    dialog.setBackground(getPanelColor());
-    dialog.setTitle(title);
-    dialog.setResizable(false);
-
-    // Add the about text to the dialog's center
-    dialog.add(aboutText, BorderLayout.CENTER);
-
-    // Set the dialog size
-    dialog.setSize(350, 250);
-    dialog.setLocationRelativeTo(null);
-
-    // Make the dialog visible
-    dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-    dialog.setVisible(true);
-  }
-
-  private JButton createButton(String title) {
-    JButton newBtn = new JButton();
-    Dimension buttonSize = new Dimension(40, 20);
-
-    newBtn.setBounds(100, 100, 250, 100);
-    newBtn.setText(title);
-    newBtn.setHorizontalTextPosition(JButton.CENTER);
-    newBtn.setVerticalTextPosition(JButton.CENTER);
-    newBtn.setFocusable(false);
-    newBtn.setFont(getPanelFont().deriveFont(Font.PLAIN, 14));
-    newBtn.setPreferredSize(buttonSize);
-    newBtn.setMinimumSize(buttonSize);
-    newBtn.setMaximumSize(buttonSize);
-    newBtn.setBackground(getButtonColor());
-
-    return newBtn;
-  }
-
-  private Image getScaledImage(BufferedImage image) {
-    int imageWidth = image.getWidth();
-    int imageHeight = image.getHeight();
-
-    if (imageWidth > WIDTH_SCALE && imageHeight > HEIGHT_SCALE) {
-      return image.getScaledInstance(WIDTH_SCALE, HEIGHT_SCALE, Image.SCALE_SMOOTH);
-    } else if (imageWidth > WIDTH_SCALE) {
-      return image.getScaledInstance(WIDTH_SCALE, imageHeight, Image.SCALE_SMOOTH);
-    } else {
-      return image.getScaledInstance(imageWidth, HEIGHT_SCALE, Image.SCALE_SMOOTH);
-    }
-  }
-
+  /**
+   * Method that returns the SaveMenuItem.
+   */
   public JMenuItem getSaveMenuItem() {
     return this.saveMenuItem;
   }
 
+  /**
+   * Method that returns the RestoreMenuItem.
+   */
   public JMenuItem getRestoreMenuItem() {
     return this.restoreMenuItem;
   }
 
+  /**
+   * Method that returns the ExitMenuItem.
+   */
   public JMenuItem getExitMenuItem() {
     return this.exitMenuItem;
   }

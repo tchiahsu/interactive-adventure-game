@@ -150,7 +150,6 @@ public class GameModel implements IGameModel {
     } else {
       output = "There is no " + objectName + " to examine.\n";
     }
-
     return handleMonsterAttack(output);
   }
 
@@ -164,7 +163,6 @@ public class GameModel implements IGameModel {
 
   /**
    * Gets the ending message when the player quits or goes to sleep in the game.
-   *
    * @return end game message
    */
   @Override
@@ -178,6 +176,9 @@ public class GameModel implements IGameModel {
       + "\n";
   }
 
+  /**
+   * Method that returns a list of examinable items in the current room.
+   */
   @Override
   public String[] getExaminableObjects() {
     ArrayList<String> examinableObjects = new ArrayList<>();
@@ -205,6 +206,9 @@ public class GameModel implements IGameModel {
             new String[examinableObjects.size()]);
   }
 
+  /**
+   * Method that returns the current state of the Room and Player.
+   */
   @Override
   public List<String> getCurrentState() {
     List<String> currentState = new ArrayList<>();
@@ -237,6 +241,9 @@ public class GameModel implements IGameModel {
     return currentState;
   }
 
+  /**
+   * Returns the items in the Player's inventory.
+   */
   @Override
   public String[] getInventoryItems() {
     List<Item> itemList = this.player.getInventory().getItems();
@@ -247,6 +254,9 @@ public class GameModel implements IGameModel {
     return itemNames;
   }
 
+  /**
+   * Method that gets the current items in the Room.
+   */
   @Override
   public String[] getRoomItems() {
     if (currentRoom.getItemNames().isEmpty()) {
@@ -256,6 +266,10 @@ public class GameModel implements IGameModel {
     return currentRoom.getItemNames().split(", ");
   }
 
+  /**
+   * Method that gets the image path of the object.
+   * @param object object of which image path is to be returned.
+   */
   @Override
   public String getImagePath(String object) {
     if (gameData.getItem(object) != null) {
@@ -277,7 +291,6 @@ public class GameModel implements IGameModel {
 
   /**
    * Gets the player object.
-   *
    * @return the player object
    */
   @Override
@@ -368,9 +381,7 @@ public class GameModel implements IGameModel {
     this.player = this.objectMapper.readValue(
       new File("src/data/saveplayerdata_" + gameFile), Player.class);
     this.gameData = new GameData(gameInfo);
-
     updatePlayerInventory();
-
     return "Game loaded successfully!\n";
   }
 
@@ -477,19 +488,16 @@ public class GameModel implements IGameModel {
         .append(" is either empty or cannot be used again!\n");
       return handleMonsterAttack(output.toString());
     }
-
     if (currentRoom.getMonsterName() != null) {
       return useItemOnObstacle(item, getMonsterInRoom());
     } else if (currentRoom.getPuzzleName() != null) {
       return useItemOnObstacle(item, getPuzzleInRoom());
     }
-
     return "Using " + item.getName() + " did nothing.\n";
   }
 
   /**
    * Helper method. Converts a string of items into a list.
-   *
    * @param itemString : string of items (separated by a comma).
    * @return a list of items/objects
    */
@@ -502,7 +510,6 @@ public class GameModel implements IGameModel {
 
   /**
    * Helper method. Determines if an item can be used on an obstacle.
-   *
    * @param item : item we are attempting to use.
    * @param obstacle : obstacle we are using the item on.
    * @return message indicating success or failure.
@@ -526,13 +533,11 @@ public class GameModel implements IGameModel {
         return handleMonsterAttack(output.toString());
       }
     }
-
     return output.toString();
   }
 
   /**
-   * Helper method. Converts a string separated by commas into a list.
-   *
+   * Helper method that converts a string separated by commas into a list.
    * @return a string describing the room.
    */
   private String buildRoomDescription(boolean looking) {
@@ -549,13 +554,11 @@ public class GameModel implements IGameModel {
     if (this.player.getHealth() > 0) {
       result = getItemsInRoom(result);
     }
-
     return result;
   }
 
   /**
    * Returns an output message with the items in the room added to it.
-   *
    * @param result message to add items onto to return to the player.
    * @return an output message with the items in the room added to it.
    */
@@ -566,7 +569,6 @@ public class GameModel implements IGameModel {
   /**
    * Helper method. Gets the description for the room, the description of the room
    * changes based on whether there is a monster, puzzle or neither.
-   *
    * @return description of the current room.
    */
   private String getCurrentRoomDescription() {
@@ -581,7 +583,6 @@ public class GameModel implements IGameModel {
 
   /**
    * Helper method. Gets the monster in the current room.
-   *
    * @return the monster object in the current room.
    */
   private Monster getMonsterInRoom() {
@@ -591,7 +592,6 @@ public class GameModel implements IGameModel {
 
   /**
    * Helper method that Gets the puzzle in the current room.
-   *
    * @return the puzzle object in the current room
    */
   private Puzzle getPuzzleInRoom() {
@@ -622,12 +622,10 @@ public class GameModel implements IGameModel {
     if (roomHasFixture(objectName)) {
       return true;
     }
-
     String monsterName = this.currentRoom.getMonsterName();
     if (monsterName != null && monsterName.equalsIgnoreCase(objectName)) {
       return true;
     }
-
     String puzzleName = this.currentRoom.getPuzzleName();
     return puzzleName != null && puzzleName.equalsIgnoreCase(objectName);
   }
@@ -770,7 +768,6 @@ public class GameModel implements IGameModel {
     player.decreaseHealth(monster.getDamage());
     output = output.concat(monster.getName() + " " + monster.getAttackMessage() + "\n");
     output = output.concat("You took " + monster.getDamage() + " damage!\n");
-
     return output;
   }
 
@@ -798,7 +795,6 @@ public class GameModel implements IGameModel {
       Item updatedItem = gameData.getItem(item.getName());
       newInventory.addItem(updatedItem);
     }
-
     player.setInventory(newInventory);
   }
 }

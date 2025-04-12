@@ -56,7 +56,7 @@ public interface IGameModel {
   String examine(String object);
 
   /**
-   * SOlves a puzzle with an answer.
+   * Solves a puzzle with an answer.
    * @param answer the player's answer.
    * @return The sequence of events from solving a puzzle.
    */
@@ -93,9 +93,30 @@ public interface IGameModel {
    */
   String getEndingMessage();
 
+  /**
+   * Method that returns the current state of the Room and Player.
+   */
   List<String> getCurrentState();
+
+  /**
+   * Method that gets the current items in the Room.
+   */
+  String[] getCurrentRoomItem();
+
+  /**
+   * Returns the items in the Player's inventory.
+   */
   String[] getRoomItems();
   String[] getInventoryItems();
+
+  /**
+   * Method that returns a list of examinable items in the current room.
+   */
   String[] getExaminableObjects();
+
+  /**
+   * Method that gets the image path of the object.
+   * @param object object of which image path is to be returned.
+   */
   String getImagePath(String object);
 }

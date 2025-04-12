@@ -1,17 +1,30 @@
 package view;
 
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import static view.ViewUtils.getButtonColor;
+import static view.ViewUtils.getMainColor;
+import static view.ViewUtils.getPanelColor;
+import static view.ViewUtils.getPanelFont;
+
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Image;
+import java.awt.Insets;
 
 import javax.imageio.ImageIO;
-import javax.swing.*;
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
-import static view.ViewUtils.*;
-
+/**
+ * Class that represents a NavigationPanel and extends {@code JPanel}.
+ */
 public class NavigationPanel extends JPanel {
   private final JButton examineBtn;
   private final JButton takeBtn;
@@ -20,23 +33,23 @@ public class NavigationPanel extends JPanel {
   private final JButton westBtn;
   private final JButton eastBtn;
   private final JButton southBtn;
-  private int itemIndex;
 
 
+  /**
+   * Constructs a NavigationPanel with movement controls and
+   * action buttons (Take, Examine, Answer).
+   */
   public NavigationPanel() {
-    // Set the title
     this.setLayout(new BorderLayout(5, 5));
     this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
     this.setBackground(getPanelColor());
 
-    // Create a title panel for the top
     JLabel title = new JLabel("Navigation");
     title.setForeground(getMainColor());
     Font font = getPanelFont().deriveFont(Font.BOLD, 20);
     title.setFont(font);
     this.add(title, BorderLayout.NORTH);
 
-    // Create buttons for actions
     JPanel buttonPanel = new JPanel();
     buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
 
@@ -66,29 +79,28 @@ public class NavigationPanel extends JPanel {
 
     GridBagConstraints gbc = new GridBagConstraints();
     gbc.fill = GridBagConstraints.HORIZONTAL;
-    gbc.gridx = 1; // Center column
+    gbc.gridx = 1;
     gbc.gridy = 0;
     gbc.insets = new Insets(5, 5, 5, 5);
     gbc.fill = GridBagConstraints.BOTH;
-    directionPanel.add(new JLabel(), gbc); // Empty space at the top
+    directionPanel.add(new JLabel(), gbc);
 
-    gbc.gridx = 1; // Center column
+    gbc.gridx = 1;
     gbc.gridy = 1;
     directionPanel.add(northBtn, gbc); // North button
 
-    gbc.gridx = 0; // Left column
+    gbc.gridx = 0;
     gbc.gridy = 2;
     directionPanel.add(westBtn, gbc); // West button
 
-    gbc.gridx = 2; // Right column
+    gbc.gridx = 2;
     gbc.gridy = 2;
     directionPanel.add(eastBtn, gbc); // East button
 
-    gbc.gridx = 1; // Center column
+    gbc.gridx = 1;
     gbc.gridy = 3;
     directionPanel.add(southBtn, gbc); // South button
 
-    // Empty space at the bottom
     gbc.gridx = 1;
     gbc.gridy = 4;
     directionPanel.add(new JLabel(), gbc);
@@ -101,24 +113,39 @@ public class NavigationPanel extends JPanel {
 
   }
 
+  /**
+   * Returns the Examine button that examines the elements
+   * in the room.
+   */
   public JButton getExamineBtn() {
     return examineBtn;
   }
 
+  /**
+   * Returns the Take button that takes an item from Room
+   * and adds to the Player's inventory.
+   */
   public JButton getTakeBtn() {
     return takeBtn;
   }
 
+  /**
+   * Returns the Answer button that takes input from user
+   * to answer.
+   */
   public JButton getAnswerBtn() {
     return answerBtn;
   }
 
+  /**
+   * Creates and returns a directional button with an image.
+   * @param image Image of the move button
+   */
   private JButton createMoveButton(String image) {
     JButton newBtn = new JButton();
 
     try {
       Image img = ImageIO.read(getClass().getResource(image));
-      //resize image
       int width = 30;
       int height = 30;
       Image resizedImg = img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
@@ -127,7 +154,6 @@ public class NavigationPanel extends JPanel {
     } catch (Exception ex) {
       System.out.println("Image not found");
     }
-
     Dimension buttonSize = new Dimension(28, 28);
 
     newBtn.setBounds(20, 20, 20, 20);
@@ -139,10 +165,13 @@ public class NavigationPanel extends JPanel {
     newBtn.setPreferredSize(buttonSize);
     newBtn.setMinimumSize(buttonSize);
     newBtn.setMaximumSize(buttonSize);
-
     return newBtn;
   }
 
+  /**
+   * Method that creates a button.
+   * @param title Title of the button
+   */
   private JButton createButton(String title) {
     JButton newBtn = new JButton();
     Dimension buttonSize = new Dimension(100, 30);
@@ -158,38 +187,34 @@ public class NavigationPanel extends JPanel {
     newBtn.setPreferredSize(buttonSize);
     newBtn.setMinimumSize(buttonSize);
     newBtn.setMaximumSize(buttonSize);
-
     return newBtn;
   }
 
+  /**
+   * Returns the button that moves North.
+   */
   public JButton getNorthBtn() {
     return this.northBtn;
   }
 
+  /**
+   * Returns the button that moves South.
+   */
   public JButton getSouthBtn() {
     return this.southBtn;
   }
 
+  /**
+   * Returns the button that moves West.
+   */
   public JButton getWestBtn() {
     return this.westBtn;
   }
 
+  /**
+   * Returns the button that moves East.
+   */
   public JButton getEastBtn() {
     return this.eastBtn;
   }
-
-  //  /**
-//   * Method to show a pop-up box where user can enter answer
-//   * @param  : The text that says display your answer
-//   */
-//  public void answerDialog(String answer) {
-//    String input = JOptionPane.showInputDialog(null, "Enter your answer:");
-//
-//
-//
-//  }
-
-  //showInputDialog	for answer
-  //show list dialog box for take/examine
-
 }

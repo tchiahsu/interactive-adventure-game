@@ -1,7 +1,8 @@
 package view;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Color;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 
 /**
  * Main JFrame container where all the game components will be added.
@@ -18,7 +19,6 @@ public class GameBoard extends JFrame {
   public GameBoard() {
     ImageIcon logo = new ImageIcon(logoPath);
 
-    //this.setTitle("Adventure Game");
     this.setIconImage(logo.getImage());
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.setBackground(BACKGROUND_COLOR);
@@ -27,7 +27,7 @@ public class GameBoard extends JFrame {
   }
 
   /**
-   * Shows the game board window
+   * Shows the game board window.
    */
   public void display() {
     this.setVisible(true);
