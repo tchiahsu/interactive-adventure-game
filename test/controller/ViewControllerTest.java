@@ -118,7 +118,7 @@ public class ViewControllerTest {
   @Test
   void testGetItemsMethods() {
     assertArrayEquals(new String[0], controller.getInventoryItems());
-    assertArrayEquals(new String[0], controller.getCurrentRoomItems());
+    assertArrayEquals(new String[0], controller.getRoomItems());
     assertArrayEquals(new String[0], controller.getExaminableObjects());
   }
 
