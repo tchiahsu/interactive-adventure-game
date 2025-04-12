@@ -20,7 +20,10 @@ The controller saw the biggest architecrutal change. In Homework 8, we had one c
 
 To handle input/output consistently across all the game modes, whether it was text, file, GUI or any combination, we introduced the *IEventHandler* interface. All concrete classes that implement this interface specify how the event handler takes in information (typed, source file, etc) and where the information gets outputted (terminal, target file, etc). The issue with the GUI was that it required more awareness on the type of command being executre to render the output in the correct place. For example, if the command was utilizing an item, then the output had to be shown through a popup, whereas if the command was moving north, the output had to be shown on the description panel. Adding this functionality to the *IEventHandler* interface would have been a viable approach if it wasn't because it would violate the Integration Segregation Principle. Instead, we decided to introduce a separate *IGuiEventHandler* interface specifically for the GUI and the methods it needs to operate. This allowed us to preserve modularity and adhere to SOLID principles.
 
-Our last addition was the use of Enums for the *GameEngineApp* class. The Enums represent the different types of game modes in the game. Each game mode gets initialized differently, and so to account for the difference we created multiple constructors in the *GameEngineApp* class to ensure that the right configuration is used based on the selected game mode.
+Our last addition was the use of Enums for the *GameEngineApp* class. The Enums represent the different types of game modes in the game. Each game mode gets initialized differently, and so to account for the difference we created multiple constructors in the *GameEngineApp* class to ensure that the right configuration is used based on the selected game mode. 
+
+The *GameEngineApp* signature has also been updated. In Homework 8, we were given a specific constructor signature so that the TAs could run smoke tests on our Adventure Game. In Homework 9, we have implemented the ability to run the game in multiple modes (console, file, GUI) through our new *IEventHandler* and *IGuiEventHandler* interfaces. Since we now use event handlers to manage input and output operations, we no longer need to pass input and output objects directly to the *GameEngineApp* as specified in Homework 8 and the *GameEngineApp* constructor signature has changed.
+
 
 ## The View and Its Components
 
@@ -38,22 +41,34 @@ There are three panels that display information and two panels that allow the us
 - **InventoryPanel**: Lists items in player inventory and provide command to interact with them.
 - **NaviationPanel**: Shows the the movement keys and some useful command to interact with elements in a room.
 
-## How to run the game
+## Notes on Testing
+
+We have added additional tests to cover the new classes in our game implementation. Some classes are not tested directly because their behaviour is already checked through other components. We believe that testing some of those classes would result in duplicated and redundant tests that don't add any additonal value.
+
+For a lot of the tests involving the Controller and EventHandlers, we relied heavily on dummy classes. The reason behind using dummy classes rather than the actual class was to verify the correct functionality, making sure that the right methods are getting trigger after an event, rather than focusing on the internal behavior of all classes. This allows us to check that the right interactions happen and the flow of the game remains consitent.
+
+We opted out of testing the GUI components. Instead, we have perfomed extensive visual inspection to make sure that the GUI works as expected and runs smoothly. Testing the GUI is quite complex, since it requires simulating click events and checking for the correct textual and graphical updates on the visual side. Given the scope of the project, we believe that a visual inspection is sufficient to conclude that the GUI is working correctly.
+
+We would like to note that the look and feel of the GUI is slightly different depending on the opearting system you use. We explored standardizing the appearance regardless of operating system by using the UIManager build-in class, however, we ran into some implementation issues and exceptions. As a result, we decided to design a GUI that stylistically would suit both the Mac and Windows operating system despite them looking a little different.
+
+## Running the Adventure Game
 
 1. Clone the repository and open it in IntelliJ.
-2. In the built-in terminal in IntelliJ change the current working directory to be in the Adventure_Game_5004_jar directoy. There should only be one file; Adventure_Game_5004.jar inside the directory.
-3. Depending on the type of game mode you want to player run the respective command:
-    **Text-Based:** java -jar Adventure_Game_5004.jar <insert gamefile path> -text
-    **Graphics:** java -jar Adventure_Game_5004.jar <insert gamefile path> -graphics
-    **Batch (Console Output):** java -jar Adventure_Game_5004.jar <insert gamefile path> -batch <source file>
-    **Batch (File Output):** java -jar Adventure_Game_5004.jar <insert gamefile path> -batch <source file> <target file>
-
-## Where to add your own images
-
-1. 
+2. If you would like to use your own images, add them to the following director:
+    *---ADD DIRECTOR FOR IMAGES---*
+3. Executing the JAR file
+    From the project root (`Adventure_Game`), change the directory to the following path:
+    *out/artifacts/Adventure_Game_5004_jar/*
+    There should only be one file inside this directory (`Adventure_Game_5004.jar`).
+4. Run the Game
+    Depending on the game mode that you want to play, use one of the following commands in terminal. Make sure to provide the necessary input/output files if the game mode requires them.
+    - **Text-Based:** java -jar Adventure_Game_5004.jar <insert gamefile path> -text
+    - **Graphics:** java -jar Adventure_Game_5004.jar <insert gamefile path> -graphics
+    - **Batch (Console Output):** java -jar Adventure_Game_5004.jar <insert gamefile path> -batch <source file>
+    - **Batch (File Output):** java -jar Adventure_Game_5004.jar <insert gamefile path> -batch <source file> <target file>
 
 ## Shout Out
 
 Special thanks to Soni for her help clarifying the documentation requirements for Homework 9. We have always been aware that our UML is quite large and extensive, which makes it hard to include in our written documents. We wanted to thank her for giving us some ideas on how to make it work.
 
-We are also very appreciative of her feedback on all our assignments so far, particularly her comments on how to improve our Sequence Diagrams and the important to keep our model flexible and maintainable, specially when working with large projects like this one. 
+We are also very appreciative of her feedback on all our assignments so far, particularly her comments on how to improve our Sequence Diagrams and the important to keep our model flexible and maintainable, specially when working with large projects like this one.
