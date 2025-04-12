@@ -119,7 +119,7 @@ public class MonsterTest {
    */
   @Test
   void testPicture() {
-    assertEquals(null, m1.getPicture());
+    assertEquals("/data/Resources/generic-monster.png", m1.getPicture());
   }
 
   /**

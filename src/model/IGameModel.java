@@ -94,10 +94,8 @@ public interface IGameModel {
   String getEndingMessage();
 
   List<String> getCurrentState();
-  String[] getCurrentRoomItem();
+  String[] getRoomItems();
   String[] getInventoryItems();
   String[] getExaminableObjects();
-
   String getImagePath(String object);
-
 }

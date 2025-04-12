@@ -109,7 +109,7 @@ class RoomTest {
    */
   @Test
   void testGetPicture() {
-    assertEquals(null, r1.getPicture());
+    assertEquals("/data/Resources/generic_location.png", r1.getPicture());
   }
 
   /**

@@ -7,7 +7,7 @@ public interface IViewController {
   void executeCommand(String command) throws IOException;
   List<String> getCurrentState();
   void setPlayerName(String name);
-  String[] getCurrentRoomItems();
+  String[] getRoomItems();
   String[] getInventoryItems();
   String[] getExaminableObjects();
   String getImagePath(String object);

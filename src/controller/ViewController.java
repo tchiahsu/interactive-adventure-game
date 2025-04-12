@@ -34,8 +34,8 @@ public class ViewController implements IViewController {
   }
 
   @Override
-  public String[] getCurrentRoomItems() {
-    return this.model.getCurrentRoomItem();
+  public String[] getRoomItems() {
+    return this.model.getRoomItems();
   }
 
   @Override

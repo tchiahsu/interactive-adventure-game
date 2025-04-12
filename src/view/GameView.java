@@ -451,8 +451,7 @@ public class GameView implements IGameView {
   }
 
   public String[] getRoomItems() {
-    String roomItemNames = this.controller.getCurrentRoomItems()[0];
-    return roomItemNames.split(", ");
+    return this.controller.getRoomItems();
   }
 
   public String[] getAllExaminableObjects() {

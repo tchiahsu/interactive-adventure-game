@@ -177,7 +177,7 @@ public class ViewManager {
       this.inventoryPanel.clearItemsInInventory();
     } else {
       this.inventoryPanel.clearItemsInInventory();
-      Arrays.asList(inventoryItems.split(","))
+      Arrays.asList(inventoryItems.split(", "))
               .forEach(item -> this.inventoryPanel.addItemToInventory(item));
     }
   }

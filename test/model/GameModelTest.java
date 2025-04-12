@@ -43,7 +43,7 @@ public class GameModelTest {
    */
   @Test
   void testMoveToNoPath() {
-    expectedString = "<<You cannot go in that direction>>\n\n";
+    expectedString = "<<You cannot go in that direction>>\n";
     assertEquals(expectedString, model.move("SOUTH"));
   }
 
@@ -70,11 +70,11 @@ public class GameModelTest {
     // Enter room with monster
     model.move("NORTH");
 
-    expectedString = "A monster Rabbit moves towards you! He's blocking the way north. \n"
+    expectedString = "<<You are being blocked from moving that way!>>\n"
+            + "A monster Rabbit moves towards you! He's blocking the way north. \n"
             + "I think you might be dinner!\n"
             + "RABBIT licks you with a giant tongue!\n"
-            + "You took -15 damage!\n"
-            + "Items you see here: CARROT\n";
+            + "You took -15 damage!\n";
 
     // Attempt to move past the monster
     assertEquals(expectedString, model.move("NORTH"));
@@ -85,8 +85,8 @@ public class GameModelTest {
    */
   @Test
   void testMoveToBlockedPathPuzzle() {
-    expectedString = "You need a key to open the front door. Use the House Key to unlock it.\n"
-            + "Items you see here: HOUSE KEY\n";
+    expectedString = "<<You are being blocked from moving that way!>>\n"
+            + "You need a key to open the front door. Use the House Key to unlock it.\n";
 
     assertEquals(expectedString, model.move("EAST"));
   }
@@ -170,7 +170,7 @@ public class GameModelTest {
   }
 
   /**
-   * Tests an empty inventory is returned.
+   * Tests an empty inventory toString is returned.
    */
   @Test
   void testCheckEmptyInventory() {
@@ -179,7 +179,7 @@ public class GameModelTest {
   }
 
   /**
-   * Tests inventory is returned.
+   * Tests inventory toString is returned.
    */
   @Test
   void testCheckInventory() {
@@ -271,6 +271,16 @@ public class GameModelTest {
             + "There’s an odd symbol carved into the stone.\n";
 
     assertEquals(expectedString, model.examine("FIREPLACE"));
+  }
+
+  /**
+   * Tests examining the player.
+   */
+  @Test
+  void testExaminePlayer() {
+    model.getPlayer().setName("Peter");
+    expectedString = "Peter I know you! You're a fearless adventurer!\n";
+    assertEquals(expectedString, model.examine("me"));
   }
 
   /**
@@ -524,4 +534,215 @@ public class GameModelTest {
     assertEquals(expectedString, model.getEndingMessage());
   }
 
+  /**
+   * Tests getting the name of the game.
+   */
+  @Test
+  void testGetGameName() {
+    expectedString = "House of Hidden Secrets";
+    assertEquals(expectedString, model.getGameName());
+  }
+
+  /**
+   * Tests getting the examinable objects in a room with a monster.
+   */
+  @Test
+  void testGetExaminableObjectsMonster() {
+    model.move("NORTH");
+
+    expectedString = "CARROT";
+    assertEquals(expectedString, model.getExaminableObjects()[0]);
+
+    expectedString = "RABBIT";
+    assertEquals(expectedString, model.getExaminableObjects()[1]);
+
+    expectedString = "FIREPLACE";
+    assertEquals(expectedString, model.getExaminableObjects()[2]);
+
+    expectedString = "ME";
+    assertEquals(expectedString, model.getExaminableObjects()[3]);
+  }
+
+  /**
+   * Tests getting the examinable objects in a room with a puzzle.
+   */
+  @Test
+  void testGetExaminableObjectsPuzzle() {
+    expectedString = "HOUSE KEY";
+    assertEquals(expectedString, model.getExaminableObjects()[0]);
+
+    expectedString = "LOCK MECHANISM";
+    assertEquals(expectedString, model.getExaminableObjects()[1]);
+
+    expectedString = "ME";
+    assertEquals(expectedString, model.getExaminableObjects()[2]);
+  }
+
+  /**
+   * Tests deactivating a puzzle makes the fixtures in the room examinable.
+   */
+  @Test
+  void testGetExaminableObjectsInactivePuzzle() {
+    model.takeItem("HOUSE KEY");
+    model.useItem("HOUSE KEY");
+
+    expectedString = "LOCK MECHANISM";
+    assertEquals(expectedString, model.getExaminableObjects()[0]);
+
+    expectedString = "FIREPLACE";
+    assertEquals(expectedString, model.getExaminableObjects()[1]);
+
+    expectedString = "ME";
+    assertEquals(expectedString, model.getExaminableObjects()[2]);
+  }
+
+  /**
+   * Tests getting the current state of the game with a puzzle in the room.
+   */
+  @Test
+  void testGetCurrentStatePuzzle() {
+    expectedString = "FRONT DOOR";
+    assertEquals(expectedString, model.getCurrentState().get(0));
+
+    expectedString = "/data/Resources/generic_puzzle.png";
+    assertEquals(expectedString, model.getCurrentState().get(1));
+
+    expectedString = "You need a key to open the front door. "
+            + "Use the House Key to unlock it.\n"
+            + "Items you see here: HOUSE KEY\n";
+    assertEquals(expectedString, model.getCurrentState().get(2));
+
+    expectedString = "You are healthy and wide awake.";
+    assertEquals(expectedString, model.getCurrentState().get(3));
+
+    expectedString = "100";
+    assertEquals(expectedString, model.getCurrentState().get(4));
+
+    expectedString = "0";
+    assertEquals(expectedString, model.getCurrentState().get(5));
+
+    expectedString = "";
+    assertEquals(expectedString, model.getCurrentState().get(6));
+  }
+
+  /**
+   * Tests getting the current state of the game with a monster in the room.
+   */
+  @Test
+  void testGetCurrentStateMonster() {
+    model.move("NORTH");
+
+    expectedString = "/data/Resources/generic-monster.png";
+    assertEquals(expectedString, model.getCurrentState().get(1));
+
+    expectedString = "A monster Rabbit moves towards you! He's blocking the way north. \n"
+            + "I think you might be dinner!\n"
+            + "RABBIT licks you with a giant tongue!\n"
+            + "You took -15 damage!\n"
+            + "Items you see here: CARROT\n";
+    assertEquals(expectedString, model.getCurrentState().get(2));
+  }
+
+  /**
+   * Tests getting the current state of the game in a room without obstacles.
+   */
+  @Test
+  void testGetCurrentStateNormalRoom() {
+    // Get to a room without monsters or puzzles
+    model.move("NORTH");
+    model.takeItem("CARROT");
+    model.useItem("CARROT");
+    model.dropItem("CARROT");
+    model.move("SOUTH");
+    model.takeItem("HOUSE KEY");
+    model.move("NORTH");
+    model.move("NORTH");
+
+    expectedString = "/data/Resources/generic_location.png";
+    assertEquals(expectedString, model.getCurrentState().get(1));
+
+    expectedString = "The kitchen is old-fashioned with a large stove "
+            + "and a refrigerator filled with strange items.\n"
+            + "Items you see here: \n";
+    assertEquals(expectedString, model.getCurrentState().get(2));
+  }
+
+  /**
+   * Tests getting the image path of an item.
+   */
+  @Test
+  void testGetImagePathItem() {
+    expectedString = "/data/Resources/generic_item.png";
+    assertEquals(expectedString, model.getImagePath("HOUSE KEY"));
+  }
+
+  /**
+   * Tests getting the image path of a fixture.
+   */
+  @Test
+  void testGetImagePathFixture() {
+    expectedString = "/data/Resources/generic_item.png";
+    assertEquals(expectedString, model.getImagePath("FIREPLACE"));
+  }
+
+  /**
+   * Tests getting the image path of a monster.
+   */
+  @Test
+  void testGetImagePathMonster() {
+    expectedString = "/data/Resources/generic-monster.png";
+    assertEquals(expectedString, model.getImagePath("RABBIT"));
+  }
+
+  /**
+   * Tests getting the image path of a puzzle.
+   */
+  @Test
+  void testGetImagePathPuzzle() {
+    expectedString = "/data/Resources/generic_puzzle.png";
+    assertEquals(expectedString, model.getImagePath("LOCK MECHANISM"));
+  }
+
+  /**
+   * Tests getting the image path of the player.
+   */
+  @Test
+  void testGetImagePathPlayer() {
+    expectedString = "/data/Resources/epic_adventurer.png";
+    assertEquals(expectedString, model.getImagePath("ME"));
+  }
+
+  /**
+   * Tests getting the items the player has in their inventory.
+   */
+  @Test
+  void testGetInventoryItems() {
+    model.takeItem("HOUSE KEY");
+
+    expectedString = "HOUSE KEY";
+    assertEquals(expectedString, model.getInventoryItems()[0]);
+  }
+
+  /**
+   * Tests getting the items in a room with no items.
+   */
+  @Test
+  void testGetRoomItemsNoItems() {
+    // Remove items in current room
+    model.takeItem("HOUSE KEY");
+    model.move("NORTH");
+    model.dropItem("HOUSE KEY");
+    model.move("SOUTH");
+
+    assertEquals(0, model.getRoomItems().length);
+  }
+
+  /**
+   * Tests getting the items in a room with items.
+   */
+  @Test
+  void testGetRoomItemsWithItems() {
+    expectedString = "HOUSE KEY";
+    assertEquals(expectedString, model.getRoomItems()[0]);
+  }
 }

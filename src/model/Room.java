@@ -80,11 +80,25 @@ public class Room implements ILocation {
   }
 
   /**
+   * Sets the name of the puzzle in the room.
+   */
+  public void setPuzzleName(String puzzleName) {
+    this.puzzleName = (puzzleName != null) ? puzzleName.toUpperCase() : null;
+  }
+
+  /**
    * Returns the name of the monster located in the room.
    * @return the name of the monster.
    */
   public String getMonsterName() {
     return monsterName;
+  }
+
+  /**
+   * Sets the name of the monster in the room.
+   */
+  public void setMonsterName(String monsterName) {
+    this.monsterName = (monsterName != null) ? monsterName.toUpperCase() : null;
   }
 
   /**

@@ -154,57 +154,6 @@ public class GameModel implements IGameModel {
     return handleMonsterAttack(output);
   }
 
-  /**
-   * Method to get the name of the game.
-   */
-  @Override
-  public String getGameName() {
-    return this.gameInfo.getName();
-  }
-
-  /**
-   * Gets the ending message when the player quits or goes to sleep in the game.
-   *
-   * @return end game message
-   */
-  @Override
-  public String getEndingMessage() {
-    return "Thank you for playing "
-      + this.player.getName()
-      + "!\nYour score is "
-      + this.player.getScore()
-      + "\nYour rank: "
-      + this.player.getRank()
-      + "\n";
-  }
-
-  @Override
-  public String[] getExaminableObjects() {
-    ArrayList<String> examinableObjects = new ArrayList<>();
-
-    if (!currentRoom.getItemNames().isEmpty()) {
-      List<String> roomsItemNames = getItemList(this.currentRoom.getItemNames());
-      roomsItemNames.stream().forEach(item -> examinableObjects.add(item));
-    }
-
-    if (currentRoom.getMonsterName() != null) {
-      examinableObjects.add(currentRoom.getMonsterName());
-    }
-
-    if (currentRoom.getPuzzleName() != null) {
-      examinableObjects.add(currentRoom.getPuzzleName());
-    }
-
-    if (!roomHasActivePuzzle()) {
-      List<String> fixtureNames = getItemList(this.currentRoom.getFixtureNames());
-      fixtureNames.stream().forEach(fixture -> examinableObjects.add(fixture));
-    }
-
-    examinableObjects.add("ME");
-    return examinableObjects.toArray(
-            new String[examinableObjects.size()]);
-  }
-
   @Override
   public List<String> getCurrentState() {
     List<String> currentState = new ArrayList<>();
@@ -232,25 +181,59 @@ public class GameModel implements IGameModel {
     currentState.add(
             player.getInventory().getItems()
                     .stream()
-                    .map(item -> item.getName()).collect(Collectors.joining(",")));
+                    .map(item -> item.getName()).collect(Collectors.joining(", ")));
 
     return currentState;
   }
 
+  /**
+   * Gets the ending message when the player quits or goes to sleep in the game.
+   *
+   * @return end game message.
+   */
   @Override
-  public String[] getInventoryItems() {
-    List<Item> itemList = this.player.getInventory().getItems();
-    String[] itemNames = new String[itemList.size()];
-    for (int i = 0; i < itemList.size(); i++) {
-      itemNames[i] = itemList.get(i).getName();
-    }
-    return itemNames;
+  public String getEndingMessage() {
+    return "Thank you for playing "
+            + this.player.getName()
+            + "!\nYour score is "
+            + this.player.getScore()
+            + "\nYour rank: "
+            + this.player.getRank()
+            + "\n";
   }
 
   @Override
-  public String[] getCurrentRoomItem() {
-    String[] currentRoomItems = {currentRoom.getItemNames(), currentRoom.getFixtureNames()};
-    return currentRoomItems;
+  public String[] getExaminableObjects() {
+    ArrayList<String> examinableObjects = new ArrayList<>();
+
+    if (!currentRoom.getItemNames().isEmpty()) {
+      List<String> roomsItemNames = getItemList(this.currentRoom.getItemNames());
+      roomsItemNames.stream().forEach(item -> examinableObjects.add(item));
+    }
+
+    if (currentRoom.getMonsterName() != null) {
+      examinableObjects.add(currentRoom.getMonsterName());
+    }
+
+    if (currentRoom.getPuzzleName() != null) {
+      examinableObjects.add(currentRoom.getPuzzleName());
+    }
+
+    if (!roomHasActivePuzzle()) {
+      List<String> fixtureNames = getItemList(this.currentRoom.getFixtureNames());
+      fixtureNames.stream().forEach(fixture -> examinableObjects.add(fixture));
+    }
+
+    examinableObjects.add("ME");
+    return examinableObjects.toArray(new String[examinableObjects.size()]);
+  }
+
+  /**
+   * Method to get the name of the game.
+   */
+  @Override
+  public String getGameName() {
+    return this.gameInfo.getName();
   }
 
   @Override
@@ -272,6 +255,16 @@ public class GameModel implements IGameModel {
     }
   }
 
+  @Override
+  public String[] getInventoryItems() {
+    List<Item> itemList = this.player.getInventory().getItems();
+    String[] itemNames = new String[itemList.size()];
+    for (int i = 0; i < itemList.size(); i++) {
+      itemNames[i] = itemList.get(i).getName();
+    }
+    return itemNames;
+  }
+
   /**
    * Gets the player object.
    *
@@ -280,6 +273,15 @@ public class GameModel implements IGameModel {
   @Override
   public IPlayer getPlayer() {
     return this.player;
+  }
+
+  @Override
+  public String[] getRoomItems() {
+    if (currentRoom.getItemNames().isEmpty()) {
+      return new String[0];
+    }
+
+    return currentRoom.getItemNames().split(", ");
   }
 
   /**

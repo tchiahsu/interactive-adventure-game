@@ -57,7 +57,7 @@ class ItemTest {
    */
   @Test
   void testGetPicture() {
-    assertEquals(null, i1.getPicture());
+    assertEquals("/data/Resources/generic_item.png", i1.getPicture());
   }
 
   /**
