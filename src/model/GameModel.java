@@ -56,6 +56,8 @@ public class GameModel implements IGameModel {
    */
   @Override
   public String answer(String answer) {
+    // Add quotes to match puzzles that are solved by answering
+    answer = "'" + answer + "'";
     StringBuilder output = new StringBuilder();
 
     // Handle answering with no puzzle in the room
