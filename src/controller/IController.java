@@ -15,5 +15,11 @@ public interface IController {
    * @throws IOException if an I/O error occurs during execution.
    */
   void go() throws IOException;
+
+  /**
+   * Sets the name of the player.
+   *
+   * @param name : name of player
+   */
   void setPlayerName(String name);
 }

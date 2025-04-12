@@ -433,9 +433,11 @@ public class GameView implements IGameView {
     text.setFocusable(false);
     text.setEditable(false);
 
+    JScrollPane scroll = new JScrollPane(text);
+
     BufferedImage image = ImageIO.read(getClass().getResource(this.imagePath));
     Image scaledImage = getScaledImage(image);
-    JOptionPane.showMessageDialog(this.board, text, title,
+    JOptionPane.showMessageDialog(this.board, scroll, title,
             JOptionPane.INFORMATION_MESSAGE, new ImageIcon(scaledImage));
   }
 

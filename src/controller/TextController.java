@@ -66,6 +66,10 @@ public class TextController implements IController {
     this.handler.write(this.model.getEndingMessage());
   }
 
+  /**
+   * Sets the current name of the player/avatar.
+   * @param name : name of player
+   */
   @Override
   public void setPlayerName(String name) {
     this.model.getPlayer().setName(name);
