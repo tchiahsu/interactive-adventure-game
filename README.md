@@ -10,7 +10,7 @@ Welcome to the Adventure Game Engine, an object-oriented design project that let
 
 ## High Level Evolution of Our Model from Homework 8 to Homework 9
 
-The biggest change from Homework 8 to Homework 9 was the integration of a GUI. Thanks to our earlier focus on separing conerns in Homework 8, particularly aroound the model and the controller, we were able to implement the GUI with minimal changes to the model. Primarily, adding a few methods to support image handling between the Model, the Controller and the View.
+The biggest change from Homework 8 to Homework 9 was the integration of a GUI. Thanks to our earlier focus on separing conerns in Homework 8, particularly aroound the model and the controller, we were able to implement the GUI with minimal changes to the model. Primarily, adding a few methods to support image handling between the Model, the Controller and the View. This showed that our separation of responsability between the Controller and the Model was efficienct as we continued to build on top of our prior work. Our design descions and modulariy considerations played an important role in making the addtion of the view simpler.
 
 For the GUI design, we used a layered approach inspired by the Decorator Pattern. We created a *JFrame*, and stacked panels on on top of the other to create the final view. Each panel that was added had its own purpose and displayed different types of information which goes hand in hand with our focus keeping our game architecture more modular.
 
@@ -48,7 +48,6 @@ We have added additional tests to cover the new classes in our game implementati
 For a lot of the tests involving the Controller and EventHandlers, we relied heavily on dummy classes. The reason behind using dummy classes rather than the actual class was to verify the correct functionality, making sure that the right methods are getting trigger after an event, rather than focusing on the internal behavior of all classes. This allows us to check that the right interactions happen and the flow of the game remains consitent.
 
 We opted out of testing the GUI components. Instead, we have perfomed extensive visual inspection to make sure that the GUI works as expected and runs smoothly. Testing the GUI is quite complex, since it requires simulating click events and checking for the correct textual and graphical updates on the visual side. Given the scope of the project, we believe that a visual inspection is sufficient to conclude that the GUI is working correctly.
-
 
 We would like to note that the look and feel of the GUI is slightly different depending on the opearting system you use. We explored standardizing the appearance regardless of operating system by using the UIManager build-in class, however, we ran into some implementation issues and exceptions. As a result, we decided to design a GUI that stylistically would suit both the Mac and Windows operating system despite them looking a little different.
 
