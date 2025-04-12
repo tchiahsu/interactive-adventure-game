@@ -1,5 +1,6 @@
 package view;
 
+import static view.ViewUtils.getMainColor;
 import static view.ViewUtils.getPanelFont;
 import static view.ViewUtils.getScaledImage;
 
@@ -10,16 +11,7 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.ListSelectionModel;
+import javax.swing.*;
 
 import controller.IViewController;
 
@@ -370,15 +362,7 @@ public class GameView implements IGameView {
    * of the game as title of the board.
    */
   private void setGameName() {
-    Font f = this.board.getFont();
-    FontMetrics fm = this.board.getFontMetrics(f);
-    int x = fm.stringWidth("Hello Center");
-    int y = fm.stringWidth(" ");
-    int z = this.board.getWidth() / 2 - (x / 2);
-    int w = z / y;
-    String pad = "";
-    pad = String.format("%" + w + "s", pad);
-    this.board.setTitle(pad + this.controller.getGameName());
+    this.board.setTitle(this.controller.getGameName());
   }
 
   /**
