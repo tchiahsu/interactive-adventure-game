@@ -58,7 +58,9 @@ public interface ILocation extends IGameObject {
    */
   void setItemNames(String items);
 
+  /**
+   * Sets the name of the fixtures in a location with the delimiter ",".
+   * @param name : name of the items in the location
+   */
   void setFixtureNames(String name);
-
-  void setPicture(String picture);
 }

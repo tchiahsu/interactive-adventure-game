@@ -32,7 +32,6 @@ public class GameView implements IGameView {
   private int itemIndex = -1;
   private String imagePath;
   private String answer;
-
   private String itemName;
 
   /**

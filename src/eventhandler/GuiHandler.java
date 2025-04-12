@@ -13,7 +13,7 @@ import view.IGameView;
  */
 public class GuiHandler implements IGuiEventHandler {
   private final IGameView view;
-  private String commandAction = "N";
+  private String commandAction;
 
   /**
    * Constructs a GUI handler object.

@@ -31,7 +31,7 @@ public abstract class AbstractItem implements IItem {
    * The name is converted to uppercase when set.
    * @param name the name to assign to the item. If null, the name will be set to null.
    */
-  protected void setName(String name) {
+  public void setName(String name) {
     this.name = (name != null) ? name.toUpperCase() : null;
   }
 
@@ -72,6 +72,10 @@ public abstract class AbstractItem implements IItem {
     }
   }
 
+  /**
+   * Removes the path to the picture for serializing the image file to a JSON.
+   * @return The picture file with the path removed.
+   */
   @JsonGetter("picture")
   public String getPictureFileName() {
     // Remove the path for serialization

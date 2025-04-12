@@ -51,7 +51,7 @@ public class Room implements ILocation {
    * The name is converted to uppercase when set.
    * @param name the name to assign to the room. If null, the name will be set to null.
    */
-  protected void setName(String name) {
+  public void setName(String name) {
     this.name = (name != null) ? name.toUpperCase() : null;
   }
 
@@ -136,6 +136,14 @@ public class Room implements ILocation {
   }
 
   /**
+   * Returns the picture associated with the room.
+   * @return the picture of the room.
+   */
+  public String getPicture() {
+    return picture;
+  }
+
+  /**
    * Sets the picture file for the room with the path to the file.
    *
    * @param picture The picture file.
@@ -149,13 +157,9 @@ public class Room implements ILocation {
   }
 
   /**
-   * Returns the picture associated with the room.
-   * @return the picture of the room.
+   * Removes the path to the picture for serializing the image file to a JSON.
+   * @return The picture file with the path removed.
    */
-  public String getPicture() {
-    return picture;
-  }
-
   @JsonGetter("picture")
   public String getPictureFileName() {
     // Remove the path for serializing

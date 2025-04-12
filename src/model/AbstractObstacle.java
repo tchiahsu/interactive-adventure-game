@@ -1,5 +1,6 @@
 package model;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
@@ -26,6 +27,8 @@ public abstract class AbstractObstacle implements IObstacle {
   protected String activeDescription;
   @JsonProperty("target")
   protected String target;
+  @JsonProperty("picture")
+  protected String picture;
 
   /**
    * Gets the name of the obstacle.
@@ -39,7 +42,7 @@ public abstract class AbstractObstacle implements IObstacle {
    * Sets the name of the obstacle. The name is converted to uppercase when set.
    * @param name the name to assign to the obstacle. If null, the name will be set to null.
    */
-  protected void setName(String name) {
+  public void setName(String name) {
     this.name = (name != null) ? name.toUpperCase() : null;
   }
 
@@ -113,5 +116,23 @@ public abstract class AbstractObstacle implements IObstacle {
    */
   public void deactivate() {
     activeStatus = false;
+  }
+
+  /**
+   * Gets the picture associated with the obstacle.
+   * @return the picture URL or file path for the obstacle.
+   */
+  public String getPicture() {
+    return picture;
+  }
+
+  /**
+   * Removes the path to the picture for serializing the image file to a JSON.
+   * @return The picture file with the path removed.
+   */
+  @JsonGetter("picture")
+  public String getPictureFileName() {
+    // Remove the path for serialization
+    return picture == null ? null : picture.replace("/data/Resources/", "");
   }
 }
