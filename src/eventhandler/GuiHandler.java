@@ -47,16 +47,17 @@ public class GuiHandler implements IGuiEventHandler {
     switch (commandType) {
       case ANSWER -> this.view.showAnswerPopUp(s);
       case EXAMINE -> this.view.showPopUp(s, "Inspecting...");
-      case MOVE -> view.showBlockedPopUp(s);
-      case SAVE, RESTORE -> view.showPopUp(s, "Loading...");
-      case USE -> view.showItemUsePopUp(s);
-      case DROP, INVENTORY, LOOK, TAKE, QUIT -> { }
+      case MOVE -> this.view.showBlockedPopUp(s);
+      case SAVE, RESTORE -> this.view.showPopUp(s, "Loading...");
+      case TAKE -> this.view.showFullInventoryPopUp(s);
+      case USE -> this.view.showItemUsePopUp(s);
+      case DROP, INVENTORY, LOOK, QUIT -> { }
       case null -> { }
     }
 
-    view.updateView();
-    if (view.isPlayerDead()) {
-      view.showGameOverPopUp();
+    this.view.updateView();
+    if (this.view.isPlayerDead()) {
+      this.view.showGameOverPopUp();
     }
   }
 

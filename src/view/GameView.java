@@ -412,6 +412,14 @@ public class GameView implements IGameView {
     return newBtn;
   }
 
+  public void showFullInventoryPopUp(String s) {
+    if (s.contains("inventory is too full!")) {
+      JTextArea text = new JTextArea(s, 1, 20);
+      text.setFont(getPanelFont().deriveFont(Font.BOLD, 10));
+      JOptionPane.showMessageDialog(this.board, text);
+    }
+  }
+
   /**
    * Method to show a pop-up with a given description.
    * @param s : The text to display in the dialog.

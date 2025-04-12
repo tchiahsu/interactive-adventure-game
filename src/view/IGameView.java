@@ -21,6 +21,5 @@ public interface IGameView {
   void setMenuActionListener();
   void showTextPopUp(String s);
   void showGameOverPopUp() throws IOException;
-
-
+  void showFullInventoryPopUp(String s);
 }
