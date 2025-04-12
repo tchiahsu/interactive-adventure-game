@@ -1,6 +1,7 @@
 package eventhandler;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -8,15 +9,14 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.nio.file.Files;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+
 
 class BatchConsoleHandlerTest {
-  private File sourceFile;
-  private File targetFile;
 
   @Test
   void testRead() throws IOException {
-    sourceFile = File.createTempFile("input", ".txt");
+    File sourceFile = File.createTempFile("input", ".txt");
     Files.write(sourceFile.toPath(), "align\nnorth\nlook\ninventory\nquit".getBytes());
 
     BatchConsoleHandler handler = new BatchConsoleHandler(sourceFile.getAbsolutePath());
@@ -30,7 +30,7 @@ class BatchConsoleHandlerTest {
 
   @Test
   void testWrite() throws IOException {
-    targetFile = File.createTempFile("output",".txt");
+    File targetFile = File.createTempFile("output", ".txt");
     ByteArrayOutputStream output = new ByteArrayOutputStream();
     System.setOut(new PrintStream(output));
 
