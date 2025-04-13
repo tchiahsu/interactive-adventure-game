@@ -60,7 +60,7 @@ For all game modes where the input comes from a source file, we assume that the 
 1. Clone the repository to your computer.
 2. From the command line, navigate to the project.
 3. From the project root (`Adventure_Game`), change the directory to the following path:
-    *out/artifacts/Adventure_Game_5004_jar/*
+    *out/artifacts/Adventure_Game_5004_jar/*<br />
     There should only be one file inside this directory (`Adventure_Game_5004.jar`).
 4. Depending on the game mode you want to play with, use one of the following commands to run the game. Make sure to provide the necessary input/output files if the game mode requires them. JSON game files can be found within the data directory located inside the src directory from the project root.
     - **Text-Based:** java -jar Adventure_Game_5004.jar \<insert gamefile path\> -text
