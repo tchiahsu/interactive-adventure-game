@@ -57,18 +57,22 @@ For all game modes where the input comes from a source file, we assume that the 
 
 ## Running the Adventure Game
 
-1. Clone the repository and open it in IntelliJ.
-2. If you would like to use your own images, place your images inside the Resources directory, which is located inside the data directory. The data directory can be found within the src directory. Please note, your image file names must be included in the JSON file you wish to play with.
-4. Executing the JAR file
-    From the project root (`Adventure_Game`), change the directory to the following path:
+1. Clone the repository to your computer.
+2. From the command line, navigate to the project.
+3. From the project root (`Adventure_Game`), change the directory to the following path:
     *out/artifacts/Adventure_Game_5004_jar/*
     There should only be one file inside this directory (`Adventure_Game_5004.jar`).
-5. Run the Game
-    Depending on the game mode that you want to play, use one of the following commands in terminal. Make sure to provide the necessary input/output files if the game mode requires them. Sample JSON game files can be found within the data directory located inside the src directory.
+4. Depending on the game mode you want to play with, use one of the following commands to run the game. Make sure to provide the necessary input/output files if the game mode requires them. JSON game files can be found within the data directory located inside the src directory from the project root.
     - **Text-Based:** java -jar Adventure_Game_5004.jar <insert gamefile path> -text
     - **Graphics:** java -jar Adventure_Game_5004.jar <insert gamefile path> -graphics
     - **Batch (Console Output):** java -jar Adventure_Game_5004.jar <insert gamefile path> -batch <source file>
     - **Batch (File Output):** java -jar Adventure_Game_5004.jar <insert gamefile path> -batch <source file> <target file>
+
+**Using your own images**
+If you would like to use your own images, place your images inside the Resources directory, which is located inside the data directory. The data directory can be found within the src directory from the project root. Please note, your image file names must be included in the JSON game file you wish to play with. Also note, if you include your own images, the JAR file will need to be rebuilt (see the next section for more info)
+
+**Rebuilding the JAR file**
+If you changed anything about the program, the JAR file will need to be rebuilt before you run the game. To rebuild the JAR file, select *Build* from the navigation bar in IntelliJ. Scroll down to *Build Artifacts* and select the *Adventure_Game_5004.jar* file. From the menu that opens, select *Rebuild*.
 
 ## Shout Out
 
