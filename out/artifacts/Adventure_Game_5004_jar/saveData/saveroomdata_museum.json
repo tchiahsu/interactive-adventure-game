@@ -1,0 +1,14 @@
+{
+  "room_name" : "FIRST EXHIBIT",
+  "description" : "This first exhibit shows the battle for earth, with the ape Caesar defeating the humans",
+  "room_number" : "2",
+  "N" : "-3",
+  "S" : "1",
+  "E" : "0",
+  "W" : "0",
+  "puzzle" : "PASSWORD",
+  "monster" : null,
+  "items" : "",
+  "fixtures" : "COMPUTER",
+  "picture" : "exhibit-1.png"
+}
