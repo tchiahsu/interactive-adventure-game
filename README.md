@@ -63,10 +63,10 @@ For all game modes where the input comes from a source file, we assume that the 
     *out/artifacts/Adventure_Game_5004_jar/*<br />
     There should only be one file inside this directory (`Adventure_Game_5004.jar`).
 4. Depending on the game mode you want to play with, use one of the following commands to run the game. Make sure to provide the necessary input/output files if the game mode requires them. JSON game files can be found within the *data* directory located inside the *src* directory from the project root.
-    - **Text-Based:** `java -jar Adventure_Game_5004.jar \<insert gamefile path\> -text`
-    - **Graphics:** `java -jar Adventure_Game_5004.jar \<insert gamefile path\> -graphics`
-    - **Batch (Console Output):** `java -jar Adventure_Game_5004.jar \<insert gamefile path\> -batch \<source file\>`
-    - **Batch (File Output):** `java -jar Adventure_Game_5004.jar \<insert gamefile path\> -batch \<source file\> \<target file\>`
+    - **Text-Based:** `java -jar Adventure_Game_5004.jar <insert gamefile path> -text`
+    - **Graphics:** `java -jar Adventure_Game_5004.jar <insert gamefile path> -graphics`
+    - **Batch (Console Output):** `java -jar Adventure_Game_5004.jar <insert gamefile path> -batch <source file>`
+    - **Batch (File Output):** `java -jar Adventure_Game_5004.jar <insert gamefile path> -batch <source file> <target file>`
 
 **Using your own images**<br />
 If you would like to use your own images, place your images inside the *Resources* directory, which is located inside the *data* directory. The *data* directory can be found within the *src* directory from the project root. Please note, your image file names must be included in the JSON game file you wish to play with. Also note, if you include your own images, the JAR file will need to be rebuilt (see the next section for more info)
