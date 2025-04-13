@@ -84,7 +84,7 @@ public class MenuBar {
       @Override
       public void actionPerformed(ActionEvent e) {
         try {
-          String creditsText = "Developed by Team TBH\n\nChia-Hsiang Hsu Tai\nBhoomika Gupta\n"
+          String creditsText = "Developed by Team TBH\n\nChia-hsiang Hsu Tai\nBhoomika Gupta\n"
                   + "Harrison Pham\n";
           showDialogBox(creditsText, "CREDITS", "/data/Resources/tbhlogo.png");
         } catch (IOException ex) {
