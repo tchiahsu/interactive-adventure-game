@@ -84,8 +84,9 @@ public class MenuBar {
       @Override
       public void actionPerformed(ActionEvent e) {
         try {
-          String creditsText = "Developed by Team TBH - Crafting adventures, one code line at a time!";
-          showDialogBox(creditsText, "CREDITS", "/data/Resources/credits.png");
+          String creditsText = "Developed by Team TBH\n\nChia-Hsiang Hsu Tai\nBhoomika Gupta\n"
+                  + "Harrison Pham\n";
+          showDialogBox(creditsText, "CREDITS", "/data/Resources/tbhlogo.png");
         } catch (IOException ex) {
           throw new RuntimeException(ex);
         }
