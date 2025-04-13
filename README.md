@@ -72,7 +72,7 @@ For all game modes where the input comes from a source file, we assume that the 
 If you would like to use your own images, place your images inside the Resources directory, which is located inside the data directory. The data directory can be found within the src directory from the project root. Please note, your image file names must be included in the JSON game file you wish to play with. Also note, if you include your own images, the JAR file will need to be rebuilt (see the next section for more info)
 
 **Rebuilding the JAR file**<br />
-If you changed anything about the program, the JAR file will need to be rebuilt before you run the game. To rebuild the JAR file, select *Build* from the navigation bar in IntelliJ. Scroll down to *Build Artifacts* and select the *Adventure_Game_5004.jar* file. From the menu that opens, select *Rebuild*.
+If you changed anything about the program, the JAR file will need to be rebuilt before you run the game. To rebuild the JAR file, select *Build* from the navigation bar in IntelliJ. Scroll down to *Build Artifacts* and select the `Adventure_Game_5004.jar` file. From the menu that opens, select *Rebuild*.
 
 ## Shout Out
 
