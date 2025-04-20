@@ -30,27 +30,27 @@ Welcome to the Adventure Game Engine, an object-oriented design project that let
    ```
    
 2. Run the JAR file
-   You should find `Adventure_Game_5004.jar` inside.
+   You should find `adventure_game.jar` inside.
    ```
-   out/artifacts/Adventure_Game_5004.jar/
+   out/artifacts/adventure_game.jar/
    ```
    
 3. In the terminal, choose your game mode:
    - Text-Based Mode:
      ```
-     java -jar Adventure_Game_5004.jar <absolute-path-to-game-file.json> -text
+     java -jar adventure_game.jar <absolute-path-to-game-file.json> -text
      ```
    - Graphical Mode:
      ```
-     java -jar Adventure_Game_5004.jar <absolute-path-to-game-file.json> -graphics
+     java -jar adventure_game.jar <absolute-path-to-game-file.json> -graphics
      ```
    - Batch Mode (Console Output):
      ```
-     java -jar Adventure_Game_5004.jar <absolute-path-to-game-file.json> -batch <source-file.txt>
+     java -jar adventure_game.jar <absolute-path-to-game-file.json> -batch <source-file.txt>
      ```
    - Batch Mode (File Output):
      ```
-     java -jar Adventure_Game_5004.jar <absolute-path-to-game-file.json> -text <source-file.txt> <target-file.txt>
+     java -jar adventure_game.jar <absolute-path-to-game-file.json> -text <source-file.txt> <target-file.txt>
      ```
    > **Note:** JSON game files can be found under:
    > ```
