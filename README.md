@@ -1,28 +1,87 @@
-# Adventure Game
+# Interactive Adventure Game
 
-## Object-Oriented Design Project
+![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white)
+![Apache Maven](https://img.shields.io/badge/Apache%20Maven-C71A36?style=for-the-badge&logo=Apache%20Maven&logoColor=white)
+
+
+## Overview
+Interactive Adventure Game is an object-riented game engine that lets players explore a dynamic world, interactic with items, solve puzzles, and battle monsters. Built using the Model-View-Controller (MVC) architecture, the projects focuses on a clean design, flexibility, and scalability - demonstrating core software engineering principles while being a fun and interactive game.
+
 Welcome to the Adventure Game Engine, an object-oriented design project that lets players explore a virtual world, interact with items, solve puzzles, and battle monsters. This project demonstrates object-oriented principles and provides a platform to build a flexible and interactive adventure game using the MVC (Model-View-Controller) architecture.
 
-## Team: TBH
-- Chia-hsiang Hsu Tai (Tony)
-- Bhoomika Gupta
-- Harrison Pham
+## Features
+- **Modula MVC architecture** for easy extension and future improvements.
+- **Graphical and Text-Based Modes** available to play.
+- **Customizable Worlds** via JSON configuration files.
+- **Support Custom Images** in graphical game mode.
 
 ## Running the Adventure Game
 
-1. Clone the repository to your computer.
-2. From the command line, navigate to the project.
-3. From the project root (`Adventure_Game`), change the directory to the following path:
-    *out/artifacts/Adventure_Game_5004_jar/*<br />
-    There should only be one file inside this directory (`Adventure_Game_5004.jar`).
-4. Depending on the game mode you want to play with, use one of the following commands to run the game. Make sure to provide the necessary input/output files if the game mode requires them. JSON game files can be found within the *data* directory located inside the *src* directory from the project root.
-    - **Text-Based:** `java -jar Adventure_Game_5004.jar <insert gamefile path> -text`
-    - **Graphics:** `java -jar Adventure_Game_5004.jar <insert gamefile path> -graphics`
-    - **Batch (Console Output):** `java -jar Adventure_Game_5004.jar <insert gamefile path> -batch <source file>`
-    - **Batch (File Output):** `java -jar Adventure_Game_5004.jar <insert gamefile path> -batch <source file> <target file>`
+### Prerequisites
+- Java 17+
+- Maven (for building from source)
+- IntelliJ IDEA (recommended, but not required)
 
-**Using your own images**<br />
-If you would like to use your own images, place your images inside the *Resources* directory, which is located inside the *data* directory. The *data* directory can be found within the *src* directory from the project root. Please note, your image file names must be included in the JSON game file you wish to play with. Also note, if you include your own images, the JAR file will need to be rebuilt (see the next section for more info).
+### Installation
+1. Clone the repository
+   ```
+   git clone https://github.com/tchiahsu/Interactive-Adventure-Game.git
+   cd Interactive-Adventure-Game
+   ```
+   
+2. Run the JAR file
+   You should find `Adventure_Game_5004.jar` inside.
+   ```
+   out/artifacts/Adventure_Game_5004.jar/
+   ```
+   
+3. Choose your game mode:
+   - Text-Based Mode:
+     ```
+     java -jar Adventure_Game_5004.jar <absolute-path-to-game-file.json> -text
+     ```
+   - Graphical Mode:
+     ```
+     java -jar Adventure_Game_5004.jar <absolute-path-to-game-file.json> -graphics
+     ```
+   - Batch Mode (Console Output):
+     ```
+     java -jar Adventure_Game_5004.jar <absolute-path-to-game-file.json> -batch <source-file.txt>
+     ```
+   - Batch Mode (File Output):
+     ```
+     java -jar Adventure_Game_5004.jar <absolute-path-to-game-file.json> -text <source-file.txt> <target-file.txt>
+     ```
+   > **Note:** JSON game files can be found under:
+   > ```
+   > src/data
+   > ```
 
-**Rebuilding the JAR file**<br />
-If you changed anything about the program, the JAR file will need to be rebuilt before you run the game. To rebuild the JAR file, select *Build* from the navigation bar in IntelliJ. Scroll down to *Build Artifacts* and select the `Adventure_Game_5004.jar` file. From the menu that opens, select *Rebuild*.
+## Customization
+
+### Using Your Own Images
+To add custom images for graphical mode:
+1. Place your images inside:
+   ```
+   src/data/Resources/
+   ```
+   
+2. Update the corresponding JSON game file with your image file names.
+
+3. **Rebuild the JAR**(see next section).
+
+### Rebuilding the JAR
+If you modify any resources or code, in IntelliJ, go to `Build > Build Artifacts > Adventure_Game_5004.jar > Rebuild`
+
+## Project Structure
+```
+Adventure_Game/
+├── src/
+|   ├── controller/  # Controllers (input handling / batch processing)
+|   ├── model/       # Game Model (game logic)
+|   ├── view/        # Game View (text and graphical components)
+|   ├── data/        # JSON game files and images
+├── out/             # Compiled artifacts and JAR files
+├── pom.xml          # Maven configuration
+└── README.md        # Project documentation
+```
