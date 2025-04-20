@@ -35,7 +35,7 @@ Welcome to the Adventure Game Engine, an object-oriented design project that let
    out/artifacts/Adventure_Game_5004.jar/
    ```
    
-3. Choose your game mode:
+3. In the terminal, choose your game mode:
    - Text-Based Mode:
      ```
      java -jar Adventure_Game_5004.jar <absolute-path-to-game-file.json> -text
