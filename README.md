@@ -71,7 +71,8 @@ To add custom images for graphical mode:
 3. **Rebuild the JAR**(see next section).
 
 ### Rebuilding the JAR
-If you modify any resources or code, in IntelliJ, go to `Build > Build Artifacts > Adventure_Game_5004.jar > Rebuild`
+If you modify any resources or code, in IntelliJ, go to:
+`Build > Build Artifacts > Adventure_Game_5004.jar > Rebuild`
 
 ## Project Structure
 ```
