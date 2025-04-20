@@ -25,7 +25,7 @@ Welcome to the Adventure Game Engine, an object-oriented design project that let
 ### Installation
 1. Clone the repository
    ```
-   git clone https://github.com/tchiahsu/Interactive-Adventure-Game.git
+   git clone https://github.com/tchiahsu/interactive-adventure-game.git
    cd Interactive-Adventure-Game
    ```
    
