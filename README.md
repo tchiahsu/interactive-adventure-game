@@ -5,12 +5,12 @@
 
 
 ## Overview
-Interactive Adventure Game is an object-riented game engine that lets players explore a dynamic world, interactic with items, solve puzzles, and battle monsters. Built using the Model-View-Controller (MVC) architecture, the projects focuses on a clean design, flexibility, and scalability - demonstrating core software engineering principles while being a fun and interactive game.
+Interactive Adventure Game is an object-oriented game engine that lets players explore a dynamic world, interact with items, solve puzzles, and battle monsters. Built using the Model-View-Controller (MVC) architecture, the project focuses on a clean design, flexibility, and scalability - demonstrating core software engineering principles while being a fun and interactive game.
 
 Welcome to the Adventure Game Engine, an object-oriented design project that lets players explore a virtual world, interact with items, solve puzzles, and battle monsters. This project demonstrates object-oriented principles and provides a platform to build a flexible and interactive adventure game using the MVC (Model-View-Controller) architecture.
 
 ## Features
-- **Modula MVC architecture** for easy extension and future improvements.
+- **Modular MVC architecture** for easy extension and future improvements.
 - **Graphical and Text-Based Modes** available to play.
 - **Customizable Worlds** via JSON configuration files.
 - **Support Custom Images** in graphical game mode.
@@ -68,7 +68,7 @@ To add custom images for graphical mode:
    
 2. Update the corresponding JSON game file with your image file names.
 
-3. **Rebuild the JAR**(see next section).
+3. **Rebuild the JAR** (see next section).
 
 ### Rebuilding the JAR
 If you modify any resources or code, in IntelliJ, go to:
