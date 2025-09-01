@@ -30,12 +30,20 @@ Welcome to the Adventure Game Engine, an object-oriented design project that let
    ```
    
 2. Run the JAR file
-   You should find `adventure_game.jar` inside.
+   Go to the directory with the `adventure_game.jar` file and run the command:.
    ```
-   out/artifacts/adventure_game.jar/
+   cd out/artifacts/adventure_game.jar/
+   java -jar adventure_game.jar
    ```
    
-3. In the terminal, choose your game mode:
+3. Pick the Map you will Play
+   Map game file is stored as a JSON. To view the maps available, starting at the root:
+   ```
+   cd src/data/
+   ```
+   
+3. Run the Game:
+   Make sure to have the absolute path to the gamefile you want to play. In terminal, select run the following command based on the game mode you want to play:
    - Text-Based Mode:
      ```
      java -jar adventure_game.jar <absolute-path-to-game-file.json> -text
@@ -57,6 +65,19 @@ Welcome to the Adventure Game Engine, an object-oriented design project that let
    > src/data
    > ```
 
+## Project Structure
+```
+Adventure_Game/
+├── src/
+|   ├── controller/  # Controllers (input handling / batch processing)
+|   ├── model/       # Game Model (game logic)
+|   ├── view/        # Game View (text and graphical components)
+|   ├── data/        # JSON game files and images
+├── out/             # Compiled artifacts and JAR files
+├── pom.xml          # Maven configuration
+└── README.md        # Project documentation
+```
+
 ## Customization
 
 ### Using Your Own Images
@@ -73,16 +94,3 @@ To add custom images for graphical mode:
 ### Rebuilding the JAR
 If you modify any resources or code, in IntelliJ, go to:
 `Build > Build Artifacts > Adventure_Game_5004.jar > Rebuild`
-
-## Project Structure
-```
-Adventure_Game/
-├── src/
-|   ├── controller/  # Controllers (input handling / batch processing)
-|   ├── model/       # Game Model (game logic)
-|   ├── view/        # Game View (text and graphical components)
-|   ├── data/        # JSON game files and images
-├── out/             # Compiled artifacts and JAR files
-├── pom.xml          # Maven configuration
-└── README.md        # Project documentation
-```
