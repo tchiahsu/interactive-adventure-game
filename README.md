@@ -26,7 +26,7 @@ Welcome to the Adventure Game Engine, an object-oriented design project that let
 1. Clone the repository
    ```
    git clone https://github.com/tchiahsu/interactive_adventure_game.git
-   cd Interactive-Adventure-Game
+   cd interactive-adventure-game
    ```
    
 2. Run the JAR file
